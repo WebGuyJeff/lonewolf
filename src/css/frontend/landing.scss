@@ -1,0 +1,185 @@
+/* INDEX
+
+1. HEADER
+2. MAIN GRID LAYOUT
+3. SECTION GRID LAYOUT
+4. MASONFLOP LAYOUT
+
+*/
+
+
+/*============================================================= 1. HEADER ====*/
+
+
+.lw__pag-landing .header {
+    position: fixed;
+    background: var(--lw_white);
+    border-bottom: solid 0.3em var(--lw_grey-darkest);
+}
+
+@media (max-width: 44.999em) {
+    .menu_active .menuToggle {
+        top: 0.5em;
+        right: 0.5em;
+    }
+}
+@media (min-width: 45em) {
+    .lw__pag-landing .menuToggle {
+        display: flex;
+    }
+}
+
+
+/*=================================================== 2. MAIN GRID LAYOUT ====*/
+
+
+.main-landing {
+	display: grid;
+	grid: auto / 100%;
+	grid-auto-flow: row dense;
+}
+
+
+/*================================================ 3. SECTION GRID LAYOUT ====*/
+
+
+.lw__pag-landing section {
+	--narrow: minmax( 0px, 48rem );             /* 48rem */
+	--medium: clamp( 0px, calc( 50% - 24rem), 8rem );   /* 64rem */
+	--wide: clamp( 0px, calc( 50% - 32rem), 13rem );    /* 90rem */
+	gap: 0;
+	display: grid;
+	position: relative;
+	grid-template-columns: [full-l] 1fr [wide-l medium-l narrow-l] var(--narrow) [narrow-r medium-r wide-r] 1fr [full-r];
+	grid-column: 1 / -1;
+	justify-content: center;
+	width: 100%;
+	min-height: 50vh;
+	text-align: center;
+
+	.landing_content {
+		position: relative;
+		grid-row: var(--row);
+		grid-column: var(--col);
+		z-index: 0;
+	}
+
+	.landing_backdrop {
+		display: flex;
+		position: absolute;
+		grid-row: 1 / -1;
+		grid-column: 1 / -1;
+		justify-content: center;
+		z-index: -1;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	&:nth-child(even) .landing_backdrop {
+		background: var( --lw_grey-lightest );
+	}
+}
+
+@media (min-width: 64rem) {
+	.lw__pag-landing section {
+		grid-template-columns: [full-l] 1fr [wide-l medium-l] var(--medium) [narrow-l] var(--narrow) [narrow-r] var(--medium) [medium-r wide-r] 1fr [full-r];
+	}
+}
+@media (min-width: 90rem) {
+	.lw__pag-landing section {
+		grid-template-columns: [full-l] 1fr [wide-l] var(--wide) [medium-l] var(--medium) [narrow-l] var(--narrow) [narrow-r] var(--medium) [medium-r] var(--wide) [wide-r] 1fr [full-r];
+	}
+}
+
+
+/*=================================================== 1. MASONFLOP LAYOUT ====*/
+
+
+.masonFlop {
+	margin: 0.5em 0;
+	padding: 0.5em;
+    width: 100%;
+
+	.masonFlop_card {
+		gap: 1em;
+		display: flex;
+		flex: 1 1 auto;
+		flex-flow: column;
+		margin-bottom: 1em;
+		border-radius: var(--lw_radius-tiny);
+		background: var(--lw_blue-lightest);
+		padding: 1em;
+
+		.masonFlop_content-left,
+		.masonFlop_content-right {
+            flex: 1 1 50%;
+		}
+
+		.masonFlop_content-left {
+			figure {
+				margin: 0;
+
+				img {
+					object-fit: cover;
+					border-radius: var(--lw_radius-tiny);
+					max-width: 100%;
+					height: auto;
+				}
+			}
+		}
+
+		.masonFlop_content-right {
+            h3 {
+				margin-bottom: 0;
+                font-size: var(--lw_font-xl);
+            }
+
+			span.masonFlop_moustache {
+				border-radius: var(--lw_radius-tiny);
+				background: var(--lw_grey-lightest);
+				padding: 0.1em 0.4em;
+				color: var(--lw_grey-dark);
+				font-style: italic;
+			}
+		}
+	}
+}
+
+@media (min-width: 320px) {
+	.masonFlop {
+		margin: 2em 0;
+		padding: 1em;
+
+		.masonFlop_card {
+			margin-bottom: 2em;
+			border-radius: var(--lw_radius-tiny);
+			padding: 1em;
+		}
+	}
+}
+
+/* flip-flop */
+@media (min-width: 608px) and (max-width: 1023px) {
+	.masonFlop_card:nth-child(even) {
+		flex-flow: row;
+	}
+	.masonFlop_card:nth-child(odd) {
+		flex-flow: row-reverse;
+	}
+}
+
+/* masonry */
+@media (min-width: 1024px) {
+	.masonFlop {
+		columns: 28em;
+		column-gap: 1em;
+
+		.masonFlop_card {
+			break-inside: avoid-column;
+			flex-flow: column nowrap;
+			overflow: hidden; /* fix for firefox */
+			page-break-inside: avoid;
+		}
+	}
+}
