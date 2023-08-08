@@ -3,7 +3,7 @@
 ## A WordPress theme for freelancers.
 
 This theme is intended for freelancers/self-employed professionals. Features and templates are
-developed with an individual presenting their services.
+developed for an individual presenting their services.
 
 
 ### Linting
