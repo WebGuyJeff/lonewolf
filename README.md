@@ -1,24 +1,12 @@
 # Lonewolf
 
-## A WordPress theme for my developer site and blog.
+## A WordPress theme for freelancers.
 
-This theme is a stew of started ideas, half completed functionality and mini-projects that should be broken into plugins. It's half-cooked project which I intend to push to completion when time allows.
-
-You are welcome to pick through and make use of what you can, but be warned it's not a well organized project at the moment.
-
-Good Bits:
-
- - PHP classes are well organised and with autoloader.
- - Pretty solid menu walker.
- - 3 column responsive blog layout templates - needs styling to finish.
-
-Bad bits:
-
- - The theme is completely unfinished and not useable without some work - I currently only use a single landing page from this project.
- - The template files are littered with content.
+This theme is intended for freelancers/self-employed professionals. Features and templates are
+developed with an individual presenting their services.
 
 
- ### Linting
+### Linting
 
 This project uses PHP_CodeSniffer (installed via Composer) to lint PHP. It also uses wpcs (WordPress coding standards) 'sniffs' to validate code in adherence with WP coding standards.
 
