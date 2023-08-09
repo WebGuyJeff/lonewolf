@@ -3,53 +3,14 @@
 
 /*
 
-## NAMING CONVENTION
-
-o BEM
-o camelCase
-o Single separators (_/-)
-
-e.g. blockName_elemName-modName
+This CSS will apply everywhere on the front end.
 
 
-## MEDIA BREAK POINTS
-
-o Mobile-first >= 0em	300px
-o Tablet	   >= 48em	768px
-o Laptop	   >= 80em	1280px
-o Desktop	   >= 100em	1600px
-o XL devices   >= 120em	1920px
-
-
-## GOLDEN  RATIO
-
-Unit/font sizes were calculated using the golden ratio as a starting point.
-@link https://grtcalculator.com/
-
-Golden Spacing Units (px | rem)
-
-44  |  2.75
-27  |  1.688
-17  |  1.063
-11  |  0.688
-7   |  0.438
-4   |  0.25
-
-Golden Font Sizes: 16 @ 544 (px | rem)
-
-Font Size		 Line Height
-42  |  2.625  ||  65  |  1.548
-33  |  2.063  ||  52  |  1.576
-26  |  1.625  ||  41  |  1.577
-20  |  1.25   ||  33  |  1.65
-16  |  1	  ||  27  |  1.688
-13  |  0.813  ||  23  |  1.769
+*NOTE:* Landing page CSS in separate files.
+*NOTE:* SASS & CSS variables in separate file.
 
 
 ## INDEX
-
-NOTE: Landing page CSS in separate files.
-NOTE: SASS & CSS variables in separate file.
 
 1. [BASE]
 	1.1 DOCUMENT SETUP
@@ -83,15 +44,14 @@ NOTE: SASS & CSS variables in separate file.
 3. [BLOCKS]
 	3.1 COMMON
 		3.1.1 HEADER
-        3.1.2 HEADER DESKTOP
-		3.1.3 FOOTER
-		3.1.4 SITE TITLE
-		3.1.5 MODAL
-        3.1.6 MAIN MENU
-		3.1.7 DROPDOWN
-		3.1.8 LILCARDS 
-		3.1.9 DOMAINSEARCHFORM
-		3.1.10 TAGCLOUD
+		3.1.2 FOOTER
+		3.1.3 SITE TITLE
+		3.1.4 MODAL
+        3.1.5 MAIN MENU
+		3.1.6 DROPDOWN
+		3.1.7 LILCARDS 
+		3.1.8 DOMAINSEARCHFORM
+		3.1.9 TAGCLOUD
 	3.2 MOBILE
 		3.2.1 THUMBNAV
 
@@ -116,6 +76,7 @@ html, body {
 body {
     display: flex;
     flex-flow: column nowrap;
+	gap: var(--lw_gutters);
 }
 
 .footer {
@@ -188,12 +149,10 @@ textarea:hover:not(:disabled):not(.disabled) {
 	color: var(--lw_grey-light);
   }
 
-
 :-ms-input-placeholder {
 	opacity: 1; /* Chrome, Firefox, Opera, Safari 10.1+ */ /* Firefox */
 	color: var(--lw_grey-light);
   }
-
 
 ::placeholder {
 	opacity: 1; /* Chrome, Firefox, Opera, Safari 10.1+ */ /* Firefox */
@@ -211,17 +170,15 @@ textarea:hover:not(:disabled):not(.disabled) {
 
 
 .textAlignCenter { text-align: center; }
-.textAlignRight  { text-align: end; }
-
+.textAlignEnd    { text-align: end; }
 
 .copy,
 .hentry {
-    width: 96%;
-	max-width: 30em;
 	margin: 0 auto;
+	padding: var(--lw_padding);
+    width: 100%;
+	max-width: calc( 30em + calc( 2 * var(--lw_padding) ) );
 	text-align: start;
-	margin-block-start: 2em;
-	margin-block-end: 2em;
 }
     .copy img,
 	.entry-content img,
@@ -473,9 +430,8 @@ strong {
 	display: flex;
 	flex-flow: column;
 	align-items: center;
-	padding: 2%;
+	padding: var(--lw_padding);
 }
-
 	.widget ul {
 		margin: 0;
 		padding-left: 0;
@@ -492,7 +448,6 @@ strong {
 				background: var(--lw_green-dark);
 				color: var(--lw_white);
 			}
-
 	.widget a {
 		color: inherit;
 		text-decoration: none;
@@ -628,7 +583,7 @@ a img.aligncenter {
 .footer {
 	display: grid;
 	grid-auto-flow: dense;
-	grid-template-columns: [full-l main-l] minmax(0, 1fr) [wide-l dip-l sides-l] minmax(18.8em, 48em) [sides-r dip-r wide-r] minmax(0, 1fr) [main-r full-r];
+	grid-template-columns: [full-l main-l] 0 [wide-l dip-l sides-l] 1fr [sides-r dip-r wide-r] 0 [main-r full-r];
 }
 
 /* ADD SIDEBAR */
@@ -636,7 +591,7 @@ a img.aligncenter {
 	.main,
 	.header,
 	.footer {
-		grid-template-columns: [full-l] 1fr [wide-l dip-l sides-l] 12em [sides-r dip-r main-l] minmax(18.8em, 48em) [main-r wide-r] 1fr [full-r];
+		grid-template-columns: [full-l] 0 [wide-l dip-l sides-l] 24em [sides-r dip-r main-l] 1fr [main-r wide-r] 0 [full-r];
 	}
 }
 
@@ -645,7 +600,7 @@ a img.aligncenter {
 	.main,
 	.header,
 	.footer {
-		grid-template-columns: [full-l] 1fr [wide-l dip-l] 12em [main-l dip-r] minmax(18.8em, 48em) [main-r sides-l] 12em [sides-r wide-r] 1fr [full-r];
+		grid-template-columns: [full-l] 0 [wide-l dip-l] 24em [main-l dip-r] 1fr [main-r sides-l] 24em [sides-r wide-r] 0 [full-r];
 	}
 }
 
@@ -693,25 +648,23 @@ a img.aligncenter {
 .base,
 .dip,
 .sides,
-.sides-narrow {
-	gap: var(--lw_gutters);
-}
-
+.sides-narrow { gap:           var(--lw_gutters); }
+.header       { margin-top:    var(--lw_gutters); }
+.footer       { margin-bottom: var(--lw_gutters); }
 
 /*- - - - - - - - - - - - - - - - - - - - - - -  2.1.2 LAYOUT - BLOG POST - - */
 
 
 .blog-post {
-    max-width: 100%;
-}
-	.blog-post img {
+	
+	img {
 		-o-object-fit: contain;
 		   object-fit: contain;
 		height: auto;
 		max-width: 100%;
 		border-radius: var(--lw_radius-small);
 	}
-
+}
 
 /*-------------------------------------------------------- 2.2 CONTAINERS ----*/
 /*- - - - - - - - - - - - - - 2.2.1 CONTAINERS - GLOBAL CONTENT CONTAINER - - */
@@ -788,15 +741,6 @@ a img.aligncenter {
 .row {
 	display: flex;
 	flex-flow: row wrap;
-}
-
-.column {
-    width: 100%;
-    max-width: 30em;
-    margin: 0 2em;
-    text-align: start;
-    margin-block-start: 2em;
-    margin-block-end: 2em;
 }
 
 .align_me-centre {
@@ -1188,17 +1132,17 @@ a img.aligncenter {
     background: var(--lw_white);
     width: 100%;
     height: fit-content;
-}
+
 	.header_inner {
+        gap: var(--lw_gutters);
 		display: flex;
         flex-flow: column;
-        gap: 1vw;
         align-items: center;
         justify-content: center;
-		margin: 1em 0 1.5em 0;
+		padding: var(--lw_padding);
 		width: auto;
         height: fit-content;
-	}
+
 		.header_content {
 			display: flex;
 			flex-wrap: nowrap;
@@ -1207,88 +1151,96 @@ a img.aligncenter {
 			min-height: 4em;
 			white-space: nowrap;
 		}
+
+		.header_content-left   {
+			flex: 1 1 100%;
+			justify-content: center;
+		}
+
+		.header_content-right  {
+			display: none;
+			justify-content: center;
+		}
+	}
+
+	@media ( min-width: $tabletWidth ) {
+		background: unset;
+		height: fit-content;
+		
+		.header_inner {
+			flex-flow: row nowrap;
+			justify-content: space-between;
+			min-height: 4.6em;
+
 			.header_content-left   {
+				flex: 0 0 fit-content;
+				justify-content: flex-start;
+			}
+			.header_content-right  {
+				display: block;
 				flex: 1 1 100%;
-                justify-content: center;
-			}
-            .header_content-middle {
-                flex: 1 1 100%;
-                justify-content: center;
-            }
-			.header_content-right  {
-				display: none;
-			    justify-content: center;
-			}
-
-
-/*- - - - - - - - - - - - - - - - - - - - - - - -  3.1.2 HEADER - DESKTOP - - */
-
-
-@media ( min-width: $tabletWidth ) {
-    .header {
-        background: unset;
-        height: fit-content;
-    }
-        .header_inner {
-            flex-flow: row nowrap;
-            justify-content: space-between;
-            min-height: 4.6em;
-        }
-			.header_content-left   {
-                flex: 0 0 fit-content;
-                justify-content: flex-start;
-			}
-            .header_content-middle {
-                flex: 1 1 100%;
-                justify-content: flex-end;
-            }
-			.header_content-right  {
-				display: none;
 				justify-content: flex-end;
 			}
+		}
+	}
 }
 
-/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  3.1.3 FOOTER - - */
+
+/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  3.1.2 FOOTER - - */
 
 
 .footer {
 	z-index: 10;
 }
 	.footer_inner {
+		gap: var(--lw_gutters);
 		display: flex;
 		bottom: 0;
 		flex-shrink: 0;
 		flex-wrap: wrap;
 		justify-content: center;
-		margin: 1.5em 0 1em 0;
-		padding-top: 1em;
+		padding: var(--lw_padding);
 		width: auto;
         max-width: 100vw;
 		color: var(--lw_grey-darkest);
 	}
 		.footer_nav {
+			gap: var(--lw_gutters);
 			display: flex;
 			flex-flow: column nowrap;
-			justify-content: center;
 			align-items: center;
-			gap: 0.5em;
-			padding: 0.5em;
+			justify-content: center;
 			width: 100%;
 			max-width: 40em;
 		}
 
-			.footer_legalLinks {
+			.footer_bottom {
+				gap: var(--lw_gutters);
+				margin-top: var(--lw_gutters);
 				display: flex;
 				flex-direction: row;
 				flex-wrap: wrap;
+				align-items: center;
 				justify-content: space-around;
-				margin: 3em 0 0 0;
 				width: 100%;
-				font-size: var(--lw_font-s);
+
+				.column {
+					display: flex;
+					flex: 1 1 100%;
+					justify-content: center;
+				}
+				.column-middle { order: +1; }
+
+				@media ( min-width: $laptopWidth ) {
+					.column {
+						display: flex;
+						flex: 1 1 12em;
+					}
+					.column-start  { justify-content: flex-start; }
+					.column-middle { justify-content: center; order: unset; }
+					.column-end    { justify-content: flex-end; }
+				}
 			}
-			@media ( min-width: $tabletWidth ) { .footer_legalLinks {
-				justify-content: space-between;
-			}}
             
             .footer_nav .button {
                 height: min-content;
@@ -1299,44 +1251,55 @@ a img.aligncenter {
                 }
 
 
-/*- - - - - - - - - - - - - - - - - - - - - - - - - - - 3.1.4 SITE TITLE - - */
+/*- - - - - - - - - - - - - - - - - - - - - - - - - - - 3.1.3 SITE TITLE - - */
 
 
 .siteTitle {
+	gap: var(--lw_gutters);
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: center;
 	justify-content: flex-start;
-	color: var(--lw_grey-darkest);
 	text-decoration: none;
-}
+	color: var(--lw_grey-darkest);
+
 	.siteTitle_logo {
 		object-fit: contain;
-		width: 4em;
+		width: auto;
 		height: 4em;
-		padding: 0.5em;
+
+		@media ( min-width: $laptopWidth ) { height: 6em; }
 	}
+
 	.siteTitle_text {
+		gap: 0.3em;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		justify-content: center;
-	}
+
 		.siteTitle_sitename {
 			margin: 0;
-			font: 600 1em var(--lw_font-primary);
 			letter-spacing: -0.06em;
-		}
-		.siteTitle_tagline {
 			font-family: var(--lw_font-primary);
-			font-weight: 200;
-			letter-spacing: -0.03rem;
-			font-size: var(--lw_font-s);
-			white-space: normal;
+			font-size: var(--lw_font-base);
+			font-weight: 600;
+
+			@media ( min-width: $laptopWidth ) { font-size: var(--lw_font-l); }
 		}
 
+		.siteTitle_tagline {
+			letter-spacing: -0.03rem;
+			white-space: normal;
+			font-family: var(--lw_font-primary);
+			font-size: var(--lw_font-s);
+			font-weight: 200;
 
-/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  3.1.5 MODAL - - */
+			@media ( min-width: $laptopWidth ) { font-size: var(--lw_font-base); }
+		}
+	}
+}
+
+/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  3.1.4 MODAL - - */
 
 
 .modal {
@@ -1364,7 +1327,7 @@ a img.aligncenter {
 			flex-flow: row;
 			grid-row: controls / span 1;
 			justify-content: flex-end;
-			padding: var(--lw_gutters);
+			padding: 0.5em;
 			width: 100%;
 			height: -webkit-fit-content;
 			height: -moz-fit-content;
@@ -1412,7 +1375,7 @@ a img.aligncenter {
 }
 
 
-/*- - - - - - - - - - - - - - - - - - - - - - - - - - -  3.1.6 MAIN MENU - - */
+/*- - - - - - - - - - - - - - - - - - - - - - - - - - -  3.1.5 MAIN MENU - - */
 
 
 .mainMenu {
@@ -1420,7 +1383,7 @@ a img.aligncenter {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     margin: 0.5em;
     padding: 0.5em;
     width: 100%;
@@ -1466,7 +1429,7 @@ a img.aligncenter {
 		font-weight: 700;
 	}
 
-/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - 3.1.7 DROPDOWN - - */
+/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - 3.1.6 DROPDOWN - - */
 
 
 .dropdown {
@@ -1634,7 +1597,7 @@ a img.aligncenter {
 	}
 
 
-/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - 3.1.8 LILCARDS - - */
+/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - 3.1.7 LILCARDS - - */
 
 
 .lilCards {
@@ -1780,7 +1743,7 @@ a img.aligncenter {
 }
 
 
-/*- - - - - - - - - - - - - - - - - - - - - - - - 3.1.9 DOMAINSEARCHFORM - - */
+/*- - - - - - - - - - - - - - - - - - - - - - - - 3.1.8 DOMAINSEARCHFORM - - */
 
 
 .domainSearchForm {
@@ -1790,7 +1753,7 @@ a img.aligncenter {
 }
 
 
-/*- - - - - - - - - - - - - - - - - - - - - - - - - - -  3.1.10 TAGCLOUD - - */
+/*- - - - - - - - - - - - - - - - - - - - - - - - - - -  3.1.9 TAGCLOUD - - */
 
 
 .tagCloud {

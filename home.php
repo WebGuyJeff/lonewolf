@@ -19,17 +19,7 @@ get_header();
 
 	<div class="base"> <?php //MAIN CONTENT COLUMN ?>
 
-		<section class="sauce">
-			<div >
-
-				<h1 id="title" >
-				Home.php
-				</h1>
-
-			</div>
-		</section>
-
-		<section class="sauce">
+		<section class="">
 			<div >
 				<?php
 					if ( have_posts() ) :
@@ -37,11 +27,9 @@ get_header();
 						get_template_part( 'template-parts/content', get_post_format() );
 					endwhile;
 				?>
-				<nav>
-					<ul class="pager">
-						<li><?php next_posts_link( 'Previous' ); ?></li>
-						<li><?php previous_posts_link( 'Next' ); ?></li>
-					</ul>
+				<nav class="pager">
+					<div><?php next_posts_link( 'Previous' ); ?></div>
+					<div><?php previous_posts_link( 'Next' ); ?></div>
 				</nav>
 				<?php
 					endif;
@@ -59,4 +47,4 @@ get_header();
 </main>
 
 <?php get_footer(); ?>
-<!--<script> console.log( 'wp-template: home.php' );</script>-->
+<script> console.log( 'wp-template: home.php' )</script>

@@ -21,7 +21,7 @@ get_header(); ?>
 
 <main class="main">
 
-	<div class="base">
+	<div class="base"> <?php //MAIN CONTENT COLUMN ?>
 
 		<?php
 		if ( have_posts() ) :
@@ -29,7 +29,7 @@ get_header(); ?>
 			if ( is_home() && ! is_front_page() ) :
 				?>
 				<header>
-					<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
+					<h1 class="page-title"><?php single_post_title(); ?></h1>
 				</header>
 				<?php
 			endif;
@@ -61,7 +61,7 @@ get_header(); ?>
 		endif;
 		?>
 
-	</div>
+	</div> <?php //MAIN CONTENT COLUMN END ?>
 
 	<div class="sides-narrow">
 		<?php get_sidebar( 'left' ); ?>
@@ -72,4 +72,4 @@ get_header(); ?>
 
 
 <?php get_footer(); ?>
-<!--<script> console.log( 'wp-template: page.php' );</script>-->
+<script> console.log( 'wp-template: page.php' )</script>

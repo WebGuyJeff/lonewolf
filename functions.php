@@ -50,22 +50,12 @@ function enqueue_scripts_and_styles() {
 	// Front end.
 	if ( ! is_admin() && $GLOBALS['pagenow'] !== 'wp-login.php' ) {
 		wp_enqueue_style( 'style_css', get_template_directory_uri() . '/style.css', array(), filemtime( get_template_directory() . '/style.css' ), 'all' );
-		// De-register wp jquery and use CDN.
-		wp_deregister_script( 'jquery' );
-		wp_enqueue_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js', array(), '3.6.0', true );
 		// Other front end resources.
 		wp_register_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js', array( 'jquery' ), '3.9.1', true );
-		// CSSRule this is part of core but there's a separate CDN?
-		// wp_register_script( 'gsap_cssrule', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/CSSRulePlugin.min.js', array( 'gsap' ), '3.9.1', true );
 		wp_register_script( 'gsap_scrolltrigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js', array( 'gsap' ), '3.9.1', true );
-		wp_register_script( 'svgWheel_js', get_template_directory_uri() . '/animation/svgWheel/svgWheel.js', array( 'gsap_cssrule' ), filemtime( get_template_directory() . '/animation/svgWheel/svgWheel.js' ), true );
 		wp_enqueue_script( 'lw_frontend_js', get_template_directory_uri() . '/js/frontend.js', array( 'gsap', 'gsap_scrolltrigger' ), filemtime( get_template_directory() . '/js/frontend.js' ), true );
 	}
 	global $template;
-	// Landing pages.
-	if ( ! is_admin() && basename( $template ) === 'landing-page.php' ) {
-		lw_remove_gutenburg_css();
-	}
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_scripts_and_styles' );
 

@@ -68,4 +68,4 @@ get_header();
 </main>
 
 <?php get_footer(); ?>
-<!--<script> console.log( 'wp-template: archive.php' );</script>-->
+<script> console.log( 'wp-template: archive.php' )</script>

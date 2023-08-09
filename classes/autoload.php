@@ -36,7 +36,7 @@ spl_autoload_register(
 		if ( file_exists( $class_filepath ) ) {
 			require $class_filepath;
 		} else {
-			echo '<script>console.log("ERROR: lonewolf php autoload | Class not found: ' . $classname . '");</script>';
+			echo '<script>console.log("ERROR: lonewolf php autoload | Class not found: ' . $classname . '")</script>';
 		}
 	}
 );

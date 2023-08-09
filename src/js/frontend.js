@@ -9,11 +9,9 @@ import { hideHeader } from './frontend/hideheader'
 import { mobilePopupMenu } from './frontend/mobile-popup-menu'
 import { modal } from './frontend/modal'
 import { screenClass } from './frontend/screenclass'
-import { animateRollBy } from './frontend/animate-rollby'
 
 dropdownControl.initialise()
 hideHeader()
 mobilePopupMenu()
 modal()
 screenClass()
-animateRollBy()

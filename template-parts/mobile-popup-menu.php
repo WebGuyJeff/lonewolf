@@ -10,20 +10,16 @@ namespace BigupWeb\Lonewolf;
  */
 
 $theme_root = get_template_directory_uri();
-
 /*
-wp_nav_menu(
-	$args = array(
-		'theme_location'  => 'mobile-popup-menu',
-		'items_wrap'      => '%3$s',
-		'menu_class'      => 'nav',
-		'container'       => 'nav',
-		'container_class' => 'mobileNav',
-		'echo'            => true,
-		'walker'          => new Menu_Walker(),
-		'fallback_cb'     => array( new Menu_Walker(), 'fallback' ),
-	)
-);
+	Menu_Walker::output_theme_location_menu(
+		array(
+			'theme_location'    => 'mobile-popup-menu',
+			'nav_or_div'        => 'nav',
+			'nav_aria_label'    => 'Navigation',
+			'html_tab_indents'  => 3,
+			'top_level_classes' => 'button button-noback',
+		)
+	);
 */
 ?>
 

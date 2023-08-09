@@ -1,9 +1,15 @@
-/* INDEX
+/*
+
+This CSS will apply to all landing pages.
+
+
+## INDEX
 
 1. HEADER
-2. MAIN GRID LAYOUT
-3. SECTION GRID LAYOUT
-4. MASONFLOP LAYOUT
+2. FOOTER
+3. MAIN GRID
+4. SECTION GRID
+5. MASONFLOP
 
 */
 
@@ -11,10 +17,11 @@
 /*============================================================= 1. HEADER ====*/
 
 
-.lw__pag-landing .header {
+.header-landing {
     position: fixed;
     background: var(--lw_white);
     border-bottom: solid 0.3em var(--lw_grey-darkest);
+	margin-top: 0;
 }
 
 @media (max-width: 44.999em) {
@@ -30,7 +37,15 @@
 }
 
 
-/*=================================================== 2. MAIN GRID LAYOUT ====*/
+/*============================================================= 2. FOOTER ====*/
+
+
+.footer-landing {
+	margin-bottom: 0;
+}
+
+
+/*=================================================== 3. MAIN GRID LAYOUT ====*/
 
 
 .main-landing {
@@ -40,13 +55,13 @@
 }
 
 
-/*================================================ 3. SECTION GRID LAYOUT ====*/
+/*================================================ 4. SECTION GRID LAYOUT ====*/
 
 
-.lw__pag-landing section {
-	--narrow: minmax( 0px, 48rem );             /* 48rem */
-	--medium: clamp( 0px, calc( 50% - 24rem), 8rem );   /* 64rem */
-	--wide: clamp( 0px, calc( 50% - 32rem), 13rem );    /* 90rem */
+.main-landing > section {
+	--narrow: minmax( 0px, 48rem );                   /* 48rem */
+	--medium: clamp( 0px, calc( 50% - 24rem), 8rem ); /* 64rem */
+	--wide: clamp( 0px, calc( 50% - 32rem), 13rem );  /* 90rem */
 	gap: 0;
 	display: grid;
 	position: relative;
@@ -56,6 +71,13 @@
 	width: 100%;
 	min-height: 50vh;
 	text-align: center;
+
+	@media (min-width: 64rem) {
+		grid-template-columns: [full-l] 1fr [wide-l medium-l] var(--medium) [narrow-l] var(--narrow) [narrow-r] var(--medium) [medium-r wide-r] 1fr [full-r];
+	}
+	@media (min-width: 90rem) {
+		grid-template-columns: [full-l] 1fr [wide-l] var(--wide) [medium-l] var(--medium) [narrow-l] var(--narrow) [narrow-r] var(--medium) [medium-r] var(--wide) [wide-r] 1fr [full-r];
+	}
 
 	.landing_content {
 		position: relative;
@@ -81,19 +103,8 @@
 	}
 }
 
-@media (min-width: 64rem) {
-	.lw__pag-landing section {
-		grid-template-columns: [full-l] 1fr [wide-l medium-l] var(--medium) [narrow-l] var(--narrow) [narrow-r] var(--medium) [medium-r wide-r] 1fr [full-r];
-	}
-}
-@media (min-width: 90rem) {
-	.lw__pag-landing section {
-		grid-template-columns: [full-l] 1fr [wide-l] var(--wide) [medium-l] var(--medium) [narrow-l] var(--narrow) [narrow-r] var(--medium) [medium-r] var(--wide) [wide-r] 1fr [full-r];
-	}
-}
 
-
-/*=================================================== 1. MASONFLOP LAYOUT ====*/
+/*=================================================== 5. MASONFLOP LAYOUT ====*/
 
 
 .masonFlop {
@@ -144,34 +155,30 @@
 			}
 		}
 	}
-}
 
-@media (min-width: 320px) {
-	.masonFlop {
+	@media (min-width: 320px) {
 		margin: 2em 0;
 		padding: 1em;
-
+	
 		.masonFlop_card {
 			margin-bottom: 2em;
 			border-radius: var(--lw_radius-tiny);
 			padding: 1em;
 		}
 	}
-}
 
-/* flip-flop */
-@media (min-width: 608px) and (max-width: 1023px) {
-	.masonFlop_card:nth-child(even) {
-		flex-flow: row;
+	/* flip-flop */
+	@media (min-width: 608px) and (max-width: 1023px) {
+		.masonFlop_card:nth-child(even) {
+			flex-flow: row;
+		}
+		.masonFlop_card:nth-child(odd) {
+			flex-flow: row-reverse;
+		}
 	}
-	.masonFlop_card:nth-child(odd) {
-		flex-flow: row-reverse;
-	}
-}
 
-/* masonry */
-@media (min-width: 1024px) {
-	.masonFlop {
+	/* masonry */
+	@media (min-width: 1024px) {
 		columns: 28em;
 		column-gap: 1em;
 

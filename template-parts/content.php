@@ -9,11 +9,9 @@
 
 namespace BigupWeb\Lonewolf;
 
-use BigupWeb\Lonewolf;
-
 ?>
 
-<section class="sauce">
+<section class="copy">
 	<article  id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<header class="entry-header">
 			<?php

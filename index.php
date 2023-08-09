@@ -67,4 +67,4 @@ get_header();
 </main>
 
 <?php get_footer(); ?>
-<!--<script> console.log( 'wp-template: index.php' );</script>-->
+<script> console.log( 'wp-template: index.php' )</script>

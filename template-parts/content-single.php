@@ -11,12 +11,7 @@ namespace BigupWeb\Lonewolf;
 
 ?>
 
-<article class="sauce">
-	<div class="blog-post ">
-
-		<h1 id="title" >
-		Content-single.php
-		</h1>
+<article class="blog-post copy">
 
 		<!-- If the post has a featured image, display it -->
 		<?php
@@ -25,9 +20,9 @@ namespace BigupWeb\Lonewolf;
 		}
 		?>
 
-		<h2 class="blog-post-title">
+		<h1 class="blog-post-title">
 			<?php the_title(); ?>
-		</h2>
+		</h1>
 
 		<p class="blog-post-meta">
 			<?php the_date(); ?> by <a href="#"><?php the_author(); ?></a>
@@ -35,5 +30,4 @@ namespace BigupWeb\Lonewolf;
 
 		<?php the_content(); ?>
 
-	</div><!-- /.blog-post -->
 </article>

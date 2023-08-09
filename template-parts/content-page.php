@@ -10,7 +10,7 @@
 namespace BigupWeb\Lonewolf;
 
 ?>
-<section class="sauce">
+<section class="copy">
 	<article  id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<header class="entry-header">
 			<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>

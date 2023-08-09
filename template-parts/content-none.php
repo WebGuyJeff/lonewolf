@@ -11,7 +11,7 @@ namespace BigupWeb\Lonewolf;
 
 ?>
 
-<section class="no-results not-found sauce">
+<section class="no-results not-found copy">
 	<div >
 		<header class="page-header">
 			<h1 class="page-title"><?php esc_html_e( 'Nothing Found', 'lonewolf' ); ?></h1>

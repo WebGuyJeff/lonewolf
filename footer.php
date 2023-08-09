@@ -1,6 +1,4 @@
 <?php
-namespace BigupWeb\Lonewolf;
-
 /**
  * Lonewolf Theme Template - Footer.
  *
@@ -8,12 +6,16 @@ namespace BigupWeb\Lonewolf;
  * @author Jefferson Real <me@jeffersonreal.uk>
  * @copyright Copyright 2023 Jefferson Real
  */
+
+namespace BigupWeb\Lonewolf;
+
 ?>
 
-	<footer class="footer">
-		<div class="footer_inner sauce">
+		<footer class="footer">
+			<div class="footer_inner sauce">
 
-			<?php
+				<?php
+
 				Menu_Walker::output_theme_location_menu(
 					array(
 						'theme_location'    => 'global-secondary-menu',
@@ -24,32 +26,16 @@ namespace BigupWeb\Lonewolf;
 						'top_level_classes' => 'button button-noback',
 					)
 				);
+
+				get_template_part( 'template-parts/footer-bottom' );
+
 				?>
 
-
-			<div class="footer_legalLinks">
-				<?php
-					Menu_Walker::output_theme_location_menu(
-						array(
-							'theme_location'    => 'global-legal-links',
-							'nav_or_div'        => 'nav',
-							'nav_aria_label'    => 'Legal links',
-							'html_tab_indents'  => 3,
-							'top_level_classes' => 'button button-noback',
-						)
-					);
-
-					$site_title = get_bloginfo();
-					echo '<p class="footer_label">&copy; ' . gmdate( 'Y' ) . ' ' . esc_html( $site_title ) . '</p > ';
-					?>
 			</div>
+		</footer>
 
-		</div>
-	</footer>
+		<?php get_template_part( 'template-parts/mobile-popup-menu' ); ?>
+		<?php wp_footer(); ?>
 
-	<?php get_template_part( 'template - parts / mobile - popup - menu' ); ?>
-
-	<?php wp_footer(); ?>
-
-</body>
+	</body>
 </html>

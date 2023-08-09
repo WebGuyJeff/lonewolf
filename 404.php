@@ -45,4 +45,4 @@ get_header(); ?>
 
 
 <?php get_footer(); ?>
-<!--<script> console.log( 'wp-template: 404.php' );</script>-->
+<script> console.log( 'wp-template: 404.php' )</script>

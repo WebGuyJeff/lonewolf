@@ -8,31 +8,29 @@
  */
 
 wp_enqueue_script( 'lw_hideheader_js' );
-
 get_header( 'landing' );
 ?>
 
 <main class="main-landing">
 
-	<section class="welcome">
-		<?php get_template_part( 'template-parts/landing-home/welcome' ); ?>
+	<section>
+		<div class="landing_content" style="--row: 1 / -1; --col: narrow-l / narrow-r;">
+
+				<?php
+					if ( have_posts() ) :
+						while ( have_posts() ) : the_post();
+						get_template_part( 'template-parts/content-single', get_post_format() );
+							if ( comments_open() || get_comments_number() ) :
+								comments_template();
+							endif;
+						endwhile;
+					endif;
+				?>
+
+		</div>
 	</section>
 
-	<section class="services" id="section-services">
-		<?php get_template_part( 'template-parts/landing-home/services' ); ?>
-	</section>
-
-	<section class="projects" id="section-projects">
-		<?php get_template_part( 'template-parts/landing-home/projects' ); ?>
-	</section>
-
-	<section class="usp" id="working-with-me">
-		<?php get_template_part( 'template-parts/landing-home/usp' ); ?>
-	</section>
-
-	<section class="contact" id="section-contact">
-		<?php get_template_part( 'template-parts/landing-home/contact' ); ?>
-	</section>
+	<div class="landing_backdrop"></div>
 
 </main>
 

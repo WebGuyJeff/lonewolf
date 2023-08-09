@@ -29,16 +29,9 @@ get_header();
 <main class="main">
 
 	<div class="base"> <?php //MAIN CONTENT COLUMN ?>
-		
-		<section class="sauce">
+
+		<section class="">
 			<div >
-
-
-				<h1 id="title" >
-				Single.php
-				</h1>
-
-
 
 				<?php
 					if ( have_posts() ) :
@@ -50,9 +43,11 @@ get_header();
 						endwhile;
 					endif;
 				?>
+
 			</div>
 		</section>
-	</div> <?php //MAIN CONTENT COLUMN END ?>
+
+	</div> <?php //MAIN CONTENT END ?>
 
 	<div class="sides-narrow">
 		<?php get_sidebar( 'left' ); ?>
@@ -62,4 +57,4 @@ get_header();
 </main>
 
 <?php get_footer(); ?>
-<!--<script> console.log( 'wp-template: single.php' );</script>-->
+<script> console.log( 'wp-template: single.php' )</script>

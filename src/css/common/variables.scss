@@ -82,6 +82,11 @@ $xlWidth:      1920px;
 	--lw_background:   var(--lw_grey-lightest);
 	--lw_border:       solid 0.3em var(--lw_grey-light);
 	--lw_gutters:      0.5em;
+	@media ( min-width: $mobileWidth ) { --lw_gutters: 1em;   }
+	@media ( min-width: $laptopWidth ) { --lw_gutters: 1.5em; }
+	--lw_padding:      0.5em;
+	@media ( min-width: $mobileWidth ) { --lw_padding: 1em;   }
+	@media ( min-width: $laptopWidth ) { --lw_padding: 1.5em; }
 
 	/* font stacks */
 	--lw_font-secondary: 'Open Sans', 'Arial', sans-serif;
