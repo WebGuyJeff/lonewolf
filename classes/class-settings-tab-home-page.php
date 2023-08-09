@@ -2,15 +2,7 @@
 namespace BigupWeb\Lonewolf;
 
 /**
- * Settings Tab Developer Landing Page - Lonewolf Theme.
- *
- * Settings Index
- * ==============/
- *
- * $lw_home_landing_settings['welcome_title'];
- * $lw_home_landing_settings['welcome_intro'];
- * $lw_home_landing_settings['welcome_cta_title'];
- * $lw_home_landing_settings['welcome_cta_text'];
+ * Settings Tab - Home Page.
  *
  * @package lonewolf
  */

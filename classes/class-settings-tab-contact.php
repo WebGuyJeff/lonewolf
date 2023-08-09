@@ -2,7 +2,7 @@
 namespace BigupWeb\Lonewolf;
 
 /**
- * Settings Tab Contact - Lonewolf Theme.
+ * Settings Tab - Contact.
  *
  * Settings Index
  * ==============/

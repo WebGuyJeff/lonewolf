@@ -2,7 +2,7 @@
 /**
  * SEO Metadata Component
  *
- * Note to self: This would be better suited to a function in functions.php or a standalone plugin.
+ * Note to self: This would be better suited to a standalone plugin.
  *
  * @package lonewolf
  * @author Jefferson Real <me@jeffersonreal.uk>
@@ -36,6 +36,8 @@ class Seo_Meta {
 	 * Initialise the class on each new instance.
 	 */
 	public function __construct() {
+		// Remove default title meta function.
+		remove_action( 'wp_head', '_wp_render_title_tag', 1 );
 		$this->meta      = $this->build_meta_vars();
 		$this->head_meta = $this->generate_head_meta( $this->meta );
 	}
