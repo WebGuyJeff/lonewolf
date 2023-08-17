@@ -57,8 +57,8 @@ class Settings_Admin {
 	public function add_settings_menu() {
 
 		add_menu_page(
-			'Lonewolf Theme',                  // Page title.
-			'Lonewolf',                        // Menu title.
+			'Lonewolf Theme',                     // Page title.
+			'Lonewolf',                           // Menu title.
 			'manage_options',                     // Capability.
 			self::PARENTSLUG,                     // Parent Menu Slug.
 			array( $this, 'create_parent_page' ), // Callback.
@@ -68,16 +68,16 @@ class Settings_Admin {
 
 		// This overrides WP from giving the first sub menu item the same text as the parent menu.
 		add_submenu_page(
-			self::PARENTSLUG,                       // Parent Slug.
-			'Lonewolf Theme Dashboard',          // Page Title.
-			'Dashboard',                            // Menu Title.
-			'manage_options',                       // Capability.
-			self::PARENTSLUG                        // Sub Menu Slug.
+			self::PARENTSLUG,           // Parent Slug.
+			'Lonewolf Theme Dashboard', // Page Title.
+			'Dashboard',                // Menu Title.
+			'manage_options',           // Capability.
+			self::PARENTSLUG            // Sub Menu Slug.
 		);
 
 		add_submenu_page(
 			self::PARENTSLUG,                       // Parent Slug.
-			'Lonewolf Theme Settings',           // Page Title.
+			'Lonewolf Theme Settings',              // Page Title.
 			'Theme Settings',                       // Menu Title.
 			'manage_options',                       // Capability.
 			self::SETTINGSLUG,                      // Sub Menu Slug.
@@ -85,13 +85,22 @@ class Settings_Admin {
 			2,                                      // Position.
 		);
 
-		// Sub menu item for custom post type 'Projects'.
+		// Custom post type 'Projects'.
 		add_submenu_page(
-			self::PARENTSLUG,                  // Parent Slug.
-			'Project Posts',                   // Page Title.
-			'Project Posts',                   // Menu Title.
-			'manage_options',                  // Capability.
-			Register_Projects_CPT::PROJECTSLUG // Sub Menu (custom post) Slug.
+			self::PARENTSLUG,              // Parent Slug.
+			'Projects',                    // Page Title.
+			'Projects',                    // Menu Title.
+			'manage_options',              // Capability.
+			Register_CPT_Projects::CPTSLUG // Sub Menu (custom post) Slug.
+		);
+
+		// Custom post type 'Reviews'.
+		add_submenu_page(
+			self::PARENTSLUG,             // Parent Slug.
+			'Reviews',                    // Page Title.
+			'Reviews',                    // Menu Title.
+			'manage_options',             // Capability.
+			Register_CPT_Reviews::CPTSLUG // Sub Menu (custom post) Slug.
 		);
 	}
 

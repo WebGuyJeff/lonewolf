@@ -15,14 +15,14 @@ class Init {
 	 */
 	public function __construct() {
 		// Local.
-		add_action( 'wp_enqueue_scripts',                 array( $this, 'register_front_end_scripts_and_styles' ) );
-		add_action( 'admin_enqueue_scripts',              array( $this, 'register_admin_scripts_and_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_front_end_scripts_and_styles' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts_and_styles' ) );
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'register_customizer_scripts_and_styles' ) );
-		add_action( 'widgets_init',                       array( $this, 'register_widget_areas' ) );
-		add_filter( 'body_class',                         array( $this, 'add_body_classes' ) );
-		add_action( 'wp_head',                            array( $this, 'add_pingback_header' ) );
-		add_action( 'after_setup_theme',                  array( $this, 'theme_configuration_and_features' ) );
-		add_action( 'init',                               array( $this, 'register_taxonomy_for_default_posts' ) );
+		add_action( 'widgets_init', array( $this, 'register_widget_areas' ) );
+		add_filter( 'body_class', array( $this, 'add_body_classes' ) );
+		add_action( 'wp_head', array( $this, 'add_pingback_header' ) );
+		add_action( 'after_setup_theme', array( $this, 'theme_configuration_and_features' ) );
+		add_action( 'init', array( $this, 'register_taxonomy_for_default_posts' ) );
 
 		self::register_custom_post_types();
 		self::register_menu_locations();
@@ -54,7 +54,9 @@ class Init {
 	 */
 	public function register_admin_scripts_and_styles() {
 		if ( is_admin() && $GLOBALS['pagenow'] !== 'wp-login.php' ) {
+			wp_enqueue_media(); // Initialise wp.media to handle and control the admin media upload/select modal.
 			wp_enqueue_style( 'admin_css', get_template_directory_uri() . '/style-admin.css', array(), filemtime( get_template_directory() . '/style-admin.css' ), 'all' );
+			wp_enqueue_script( 'lw_admin_js', get_template_directory_uri() . '/js/admin.js', array(), filemtime( get_template_directory() . '/js/admin.js' ), true );
 		}
 	}
 
@@ -213,7 +215,9 @@ class Init {
 		// Enable WP custom fields even if ACF is installed.
 		add_filter( 'acf/settings/remove_wp_meta_box', '__return_false' );
 		// Projects.
-		add_action( 'init', array( new Register_Projects_CPT(), 'create_cpt' ) );
+		add_action( 'init', array( new Register_CPT_Projects(), 'create_cpt' ) );
+		// Reviews.
+		add_action( 'init', array( new Register_CPT_Reviews(), 'create_cpt' ) );
 	}
 
 

@@ -4,4 +4,6 @@
  * @link https://metabox.io/modernizing-javascript-code-in-wordpress/
  */
 
-import './admin/admin.scss';
+import { inputImageSelect } from './admin/input-image-select.js';
+
+inputImageSelect();

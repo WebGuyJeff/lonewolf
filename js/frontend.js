@@ -6,24 +6,23 @@ var __webpack_exports__ = {};
 /**
  * Lonewolf Dropdown Menu Javascript
  *
- * Hide the header and reveal by button click. Mainly for use on
- * landing pages where the main header isn't required.
- * 
- * @package lonewolf
+ * Enables all dropdown menu functionality.
+ *
+ * @package
  * @author Jefferson Real <me@jeffersonreal.uk>
  * @copyright Copyright 2023 Jefferson Real
  */
 
 // Get the an array of unique menu elements which contain dropdowns.
-const dropdowns = document.querySelectorAll( '.dropdown-hover' )
-const dropdownParents = []
+const dropdowns = document.querySelectorAll( '.dropdown-hover' );
+const dropdownParents = [];
 dropdowns.forEach( ( dropdown ) => {
-	dropdownParents.push( dropdown.parentElement )
-} )
-const menuContainers = [ ...new Set( dropdownParents ) ]
+	dropdownParents.push( dropdown.parentElement );
+} );
+const menuContainers = [ ...new Set( dropdownParents ) ];
 
 // True when mousedown on element, false after mouseup.
-let mouseDown = false
+let mouseDown = false;
 
 const dropdownControl = {
 	/**
@@ -31,26 +30,26 @@ const dropdownControl = {
 	 *
 	 * Fired on doc ready to attach event listeners to all dropdowns in the DOM.
 	 */
-	initDropdowns: function () {
+	initDropdowns() {
 		// Attach 'click' event handler to page.
-		document.addEventListener( 'click', dropdownControl.pageClickHandler )
+		document.addEventListener( 'click', dropdownControl.pageClickHandler );
 
 		// Attach 'mouseenter' and 'mouseleave' event handlers to dropdown(s).
-		let hoverDropdowns = document.querySelectorAll( '.dropdown-hover' );
+		const hoverDropdowns = document.querySelectorAll( '.dropdown-hover' );
 		[ ...hoverDropdowns ].forEach( ( dropdown ) => {
-			dropdownControl.registerHover( dropdown )
-		} )
+			dropdownControl.registerHover( dropdown );
+		} );
 
 		// Attach 'click' event handler to the menu container(s).
 		menuContainers.forEach( ( menu ) => {
-			menu.addEventListener( 'click', dropdownControl.menuClickHandler )
+			menu.addEventListener( 'click', dropdownControl.menuClickHandler );
 			menu.addEventListener( 'mousedown', () => {
-				mouseDown = true
-			} )
+				mouseDown = true;
+			} );
 			menu.addEventListener( 'mouseup', () => {
-				mouseDown = false
-			} )
-		} )
+				mouseDown = false;
+			} );
+		} );
 	},
 
 	/**
@@ -59,12 +58,12 @@ const dropdownControl = {
 	 * Polls for document ready state.
 	 */
 	initialise: () => {
-		let docLoaded = setInterval( function () {
+		const docLoaded = setInterval( function () {
 			if ( document.readyState === 'complete' ) {
-				clearInterval( docLoaded )
-				dropdownControl.initDropdowns()
+				clearInterval( docLoaded );
+				dropdownControl.initDropdowns();
 			}
-		}, 100 )
+		}, 100 );
 	},
 
 	/**
@@ -72,11 +71,11 @@ const dropdownControl = {
 	 *
 	 * @param {HTMLElement} element - Element to check.
 	 */
-	isInLeftHalf: function ( element ) {
-		const dims = element.getBoundingClientRect()
-		const viewportWidth = window.innerWidth
+	isInLeftHalf( element ) {
+		const dims = element.getBoundingClientRect();
+		const viewportWidth = window.innerWidth;
 
-		return dims.left <= viewportWidth / 2
+		return dims.left <= viewportWidth / 2;
 	},
 
 	/**
@@ -84,23 +83,23 @@ const dropdownControl = {
 	 *
 	 * @param {HTMLElement} menu - The dropdown contents (menu) element.
 	 */
-	scrollIntoView: function ( menu ) {
-		const menuStyles = menu.getBoundingClientRect()
-		const bodyStyles = document.body.getBoundingClientRect()
-		const viewportHeight = window.innerHeight
+	scrollIntoView( menu ) {
+		const menuStyles = menu.getBoundingClientRect();
+		const bodyStyles = document.body.getBoundingClientRect();
+		const viewportHeight = window.innerHeight;
 
 		if ( menuStyles.bottom > viewportHeight ) {
-			const scrollDistance = menuStyles.bottom - viewportHeight
-			window.scrollBy( 0, scrollDistance ) // x,y
+			const scrollDistance = menuStyles.bottom - viewportHeight;
+			window.scrollBy( 0, scrollDistance ); // x,y
 
 			if ( menuStyles.bottom > bodyStyles.bottom ) {
 				document.body.style.height =
 					document.documentElement.scrollHeight +
 					scrollDistance +
-					'px'
+					'px';
 			}
 		} else {
-			return false
+			return false;
 		}
 	},
 
@@ -111,37 +110,41 @@ const dropdownControl = {
 	 *
 	 * @param {Event} event - The event object.
 	 */
-	pageClickHandler: function ( event ) {
+	pageClickHandler( event ) {
 		// Bail if the click is on a menu.
-		let isAMenu = false
+		let isAMenu = false;
 		menuContainers.forEach( ( menu ) => {
-			if ( !!menu.contains( event.target ) === true ) {
-				isAMenu = true
-			}
-		} )
-		if ( isAMenu ) return
-
-		// Get all active top-level dropdowns.
-		const activeDropdowns = []
-		document.querySelectorAll( '.dropdown-hover' ).forEach( ( dropdown ) => {
-			if (
-				dropdown.contains(
-					dropdown.querySelector( '.dropdown_toggle-active' )
-				)
-			) {
-				activeDropdowns.push( dropdown )
+			if ( !! menu.contains( event.target ) === true ) {
+				isAMenu = true;
 			}
 		} );
+		if ( isAMenu ) return;
+
+		// Get all active top-level dropdowns.
+		const activeDropdowns = [];
+		document
+			.querySelectorAll( '.dropdown-hover' )
+			.forEach( ( dropdown ) => {
+				if (
+					dropdown.contains(
+						dropdown.querySelector( '.dropdown_toggle-active' )
+					)
+				) {
+					activeDropdowns.push( dropdown );
+				}
+			} );
 
 		// Close all active top-level dropdowns.
 		[ ...activeDropdowns ].forEach( ( dropdown ) => {
-			if ( !!dropdown.closest( '[data-hover-lock="true"]' ) === true ) {
+			if ( !! dropdown.closest( '[data-hover-lock="true"]' ) === true ) {
 				dropdown
 					.closest( '.dropdown-hover' )
-					.setAttribute( 'data-hover-lock', 'false' )
+					.setAttribute( 'data-hover-lock', 'false' );
 			}
-			dropdownControl.close( dropdown.querySelector( '.dropdown_toggle' ) )
-		} )
+			dropdownControl.close(
+				dropdown.querySelector( '.dropdown_toggle' )
+			);
+		} );
 	},
 
 	/**
@@ -151,15 +154,17 @@ const dropdownControl = {
 	 *
 	 * @param {Event} event - The event object.
 	 */
-	hoverHandler: function ( event ) {
-		const button = event.target.closest( '.dropdown-hover' ).getElementsByClassName( 'dropdown_toggle' )[ 0 ]
+	hoverHandler( event ) {
+		const button = event.target
+			.closest( '.dropdown-hover' )
+			.getElementsByClassName( 'dropdown_toggle' )[ 0 ];
 
 		if ( event.type === 'mouseenter' ) {
 			// Open it.
-			dropdownControl.open( button )
+			dropdownControl.open( button );
 		} else if ( event.type === 'mouseleave' ) {
 			// In case a mousedown event is dragged off the element, this resets the var to false.
-			mouseDown = false
+			mouseDown = false;
 
 			// If this menu branch isn't hover-locked.
 			if (
@@ -186,21 +191,21 @@ const dropdownControl = {
 				 * the mouse is still not over the dropdown. If the mouse is still hovering the
 				 * dropdown, the close() is not fired and this bug is avoided.
 				 */
-				let hoverTarget
+				let hoverTarget;
 				const mouseOverElem = ( event ) => {
-					hoverTarget = event.target
-				}
-				document.addEventListener( 'mouseover', mouseOverElem, false )
+					hoverTarget = event.target;
+				};
+				document.addEventListener( 'mouseover', mouseOverElem, false );
 				setTimeout( () => {
-					if ( !button.parentElement.contains( hoverTarget ) ) {
-						dropdownControl.close( button )
+					if ( ! button.parentElement.contains( hoverTarget ) ) {
+						dropdownControl.close( button );
 					}
 					document.removeEventListener(
 						'mouseover',
 						mouseOverElem,
 						false
-					)
-				}, 10 )
+					);
+				}, 10 );
 				// Bug Patch End.
 			}
 		}
@@ -213,39 +218,38 @@ const dropdownControl = {
 	 *
 	 * @param {Event} event - The event object.
 	 */
-	focusHandler: function ( event ) {
+	focusHandler( event ) {
 		// Bail if a click is being triggered to avoid duplicate calls to open().
-		if ( mouseDown ) return
+		if ( mouseDown ) return;
 
 		const button = event.target
 			.closest( '.dropdown' )
-			.getElementsByClassName( 'dropdown_toggle' )[ 0 ]
+			.getElementsByClassName( 'dropdown_toggle' )[ 0 ];
 
 		if ( event.type === 'focusin' ) {
 			// Open it.
-			dropdownControl.open( button )
+			dropdownControl.open( button );
 		} else if ( event.type === 'focusout' ) {
 			// If this menu branch isn't hover-locked.
 			if (
-				!!button.closest( '[data-hover-lock="true"]' ) === false &&
+				!! button.closest( '[data-hover-lock="true"]' ) === false &&
 				button.classList.contains( 'dropdown_toggle-active' )
 			) {
 				// If focus has moved outside the dropdown branch, close the whole thing.
 				if (
-					!!event.target
+					!! event.target
 						.closest( '.dropdown-hover' )
-						.contains( event.relatedTarget ) ===
-					false
+						.contains( event.relatedTarget ) === false
 				) {
 					// Close dropdown branch.
 					dropdownControl.close(
 						event.target
 							.closest( '.dropdown-hover' )
 							.querySelector( '.dropdown_toggle' )
-					)
+					);
 				} else {
 					// Close dropdown.
-					dropdownControl.close( button )
+					dropdownControl.close( button );
 				}
 			}
 		}
@@ -260,22 +264,22 @@ const dropdownControl = {
 	 *
 	 * @param {HTMLElement} dropdown - The dropdown element to attach event listeners to.
 	 */
-	registerHover: function ( dropdown ) {
+	registerHover( dropdown ) {
 		// Only attach hover listeners to non-mobile menu.
 		if ( !! dropdown.closest( '.fullscreenMenu' ) === false ) {
 			dropdown.addEventListener(
 				'mouseenter',
 				dropdownControl.hoverHandler
-			)
+			);
 			dropdown.addEventListener(
 				'mouseleave',
 				dropdownControl.hoverHandler
-			)
-			dropdown.setAttribute( 'data-hover-listener', 'true' )
+			);
+			dropdown.setAttribute( 'data-hover-listener', 'true' );
 		}
 		// Attach focus listeners to all menus.
-		dropdown.addEventListener( 'focusin', dropdownControl.focusHandler )
-		dropdown.addEventListener( 'focusout', dropdownControl.focusHandler )
+		dropdown.addEventListener( 'focusin', dropdownControl.focusHandler );
+		dropdown.addEventListener( 'focusout', dropdownControl.focusHandler );
 	},
 
 	/**
@@ -286,16 +290,16 @@ const dropdownControl = {
 	 *
 	 * @param {HTMLElement} dropdown The dropdown element to deregister hover listeners from.
 	 */
-	deregisterHover: function ( dropdown ) {
+	deregisterHover( dropdown ) {
 		dropdown.removeEventListener(
 			'mouseenter',
 			dropdownControl.hoverHandler
-		)
+		);
 		dropdown.removeEventListener(
 			'mouseleave',
 			dropdownControl.hoverHandler
-		)
-		dropdown.setAttribute( 'data-hover-listener', 'false' )
+		);
+		dropdown.setAttribute( 'data-hover-listener', 'false' );
 	},
 
 	/**
@@ -307,7 +311,7 @@ const dropdownControl = {
 	 *
 	 * @param {Event} event The click event.
 	 */
-	menuClickHandler: function ( event ) {
+	menuClickHandler( event ) {
 		// If click is on a dropdown toggle button or dropdown primary element.
 		if (
 			!! event.target.closest( '.dropdown_toggle' ) === true ||
@@ -316,7 +320,7 @@ const dropdownControl = {
 			// Find the toggle button inside the parent dropdown element.
 			const button = event.target
 				.closest( '.dropdown' )
-				.querySelector( '.dropdown_toggle' )
+				.querySelector( '.dropdown_toggle' );
 
 			// If active and unlocked.
 			if (
@@ -326,7 +330,7 @@ const dropdownControl = {
 				// Lock it.
 				button
 					.closest( '.dropdown-hover' )
-					.setAttribute( 'data-hover-lock', 'true' )
+					.setAttribute( 'data-hover-lock', 'true' );
 
 				// If active and locked.
 			} else if (
@@ -334,34 +338,36 @@ const dropdownControl = {
 				!! button.closest( '[data-hover-lock="true"]' ) === true
 			) {
 				// If it's the top level dropdown, unlock it.
-				if ( button.parentElement.classList.contains( 'dropdown-hover' ) ) {
+				if (
+					button.parentElement.classList.contains( 'dropdown-hover' )
+				) {
 					button
 						.closest( '.dropdown-hover' )
-						.setAttribute( 'data-hover-lock', 'false' )
+						.setAttribute( 'data-hover-lock', 'false' );
 				}
 				// Close it.
-				dropdownControl.close( button )
+				dropdownControl.close( button );
 
 				// Else, is not active.
 			} else {
 				// Lock it.
 				button
 					.closest( '.dropdown-hover' )
-					.setAttribute( 'data-hover-lock', 'true' )
+					.setAttribute( 'data-hover-lock', 'true' );
 
 				// Open it.
-				dropdownControl.open( button )
+				dropdownControl.open( button );
 			}
 
 			// Click is NOT on a dropdown button, but IS in an UNLOCKED dropdown branch.
 		} else if (
-			!!event.target.closest( '[data-hover-lock="true"]' ) === false &&
-			!!event.target.closest( '.dropdown-hover' ) === true
+			!! event.target.closest( '[data-hover-lock="true"]' ) === false &&
+			!! event.target.closest( '.dropdown-hover' ) === true
 		) {
 			// Lock this menu branch.
 			event.target
 				.closest( '.dropdown-hover' )
-				.setAttribute( 'data-hover-lock', 'true' )
+				.setAttribute( 'data-hover-lock', 'true' );
 		}
 	},
 
@@ -378,18 +384,17 @@ const dropdownControl = {
 	 *
 	 * @param {HTMLElement} button The dropdown button toggle element.
 	 */
-	open: function ( button ) {
-
-		const dropdown = button.parentElement
+	open( button ) {
+		const dropdown = button.parentElement;
 
 		// Set dropdown swing direction on smaller screens.
 		if ( dropdown.classList.contains( 'dropdown-hover' ) ) {
 			if ( dropdownControl.isInLeftHalf( dropdown ) ) {
-				dropdown.classList.add( 'dropdown-swingRight' )
-				dropdown.classList.remove( 'dropdown-swingLeft' )
+				dropdown.classList.add( 'dropdown-swingRight' );
+				dropdown.classList.remove( 'dropdown-swingLeft' );
 			} else {
-				dropdown.classList.add( 'dropdown-swingLeft' )
-				dropdown.classList.remove( 'dropdown-swingRight' )
+				dropdown.classList.add( 'dropdown-swingLeft' );
+				dropdown.classList.remove( 'dropdown-swingRight' );
 			}
 		}
 
@@ -399,14 +404,14 @@ const dropdownControl = {
 		);
 		[ ...activeButtons ].forEach( ( activeButton ) => {
 			// Check this isn't an ancestor of the newly opened dropdown.
-			if ( !activeButton.parentElement.contains( button ) ) {
+			if ( ! activeButton.parentElement.contains( button ) ) {
 				// Close.
-				dropdownControl.close( activeButton )
+				dropdownControl.close( activeButton );
 			}
-		} )
+		} );
 
 		// Get and close all top-level dropdowns that do not contain this dropdown.
-		const activeTopLevelDropdowns = []
+		const activeTopLevelDropdowns = [];
 		const allTopLevelDropdowns = document.querySelectorAll(
 			'.dropdown-hover:not( .fullscreenMenu .dropdown )'
 		);
@@ -416,60 +421,60 @@ const dropdownControl = {
 					topLevelDropdown.querySelector( '.dropdown_toggle-active' )
 				)
 			) {
-				activeTopLevelDropdowns.push( topLevelDropdown )
+				activeTopLevelDropdowns.push( topLevelDropdown );
 			}
 		} );
 		[ ...activeTopLevelDropdowns ].forEach( ( activeDropdown ) => {
 			// If dropdown isn't the target, but is active, close it.
-			if ( !activeDropdown.contains( dropdown ) ) {
+			if ( ! activeDropdown.contains( dropdown ) ) {
 				// Remove lock and close.
-				activeDropdown.setAttribute( 'data-hover-lock', 'false' )
+				activeDropdown.setAttribute( 'data-hover-lock', 'false' );
 				dropdownControl.close(
 					activeDropdown.querySelector( '.dropdown_toggle' )
-				)
+				);
 			}
-		} )
+		} );
 
 		// Open the ancestors when reverse-tabbing focuses on a last-child dropdown item first.
 		if (
-			!!button.parentElement.classList.contains( 'dropdown-hover' ) ===
+			!! button.parentElement.classList.contains( 'dropdown-hover' ) ===
 				false &&
-			!!button.classList.contains( 'dropdown_toggle-active' ) === false
+			!! button.classList.contains( 'dropdown_toggle-active' ) === false
 		) {
 			// This is a child dropdown with no active ancestor.
 
-			const inactiveAncestorDropdowns = []
+			const inactiveAncestorDropdowns = [];
 			const allBranchDropowns = [
 				...dropdown
 					.closest( '.dropdown-hover' )
 					.querySelectorAll( '.dropdown' ),
-			]
+			];
 			// Push the top level dropdown to beginning of array.
-			allBranchDropowns.unshift( dropdown.closest( '.dropdown-hover' ) )
+			allBranchDropowns.unshift( dropdown.closest( '.dropdown-hover' ) );
 			// Remove the target dropdown as this will be handled by outer scope.
-			allBranchDropowns.pop()
+			allBranchDropowns.pop();
 
 			allBranchDropowns.forEach( ( branchDropdown ) => {
 				if ( branchDropdown.contains( dropdown ) ) {
-					inactiveAncestorDropdowns.push( branchDropdown )
+					inactiveAncestorDropdowns.push( branchDropdown );
 					// Set attributes.
 					const inactiveButton =
-						branchDropdown.querySelector( '.dropdown_toggle' )
-					inactiveButton.classList.add( 'dropdown_toggle-active' )
-					inactiveButton.setAttribute( 'aria-expanded', true )
-					inactiveButton.setAttribute( 'aria-pressed', true )
+						branchDropdown.querySelector( '.dropdown_toggle' );
+					inactiveButton.classList.add( 'dropdown_toggle-active' );
+					inactiveButton.setAttribute( 'aria-expanded', true );
+					inactiveButton.setAttribute( 'aria-pressed', true );
 				}
-			} )
+			} );
 		}
 
 		// Set attributes.
-		button.classList.add( 'dropdown_toggle-active' )
-		button.setAttribute( 'aria-expanded', true )
-		button.setAttribute( 'aria-pressed', true )
+		button.classList.add( 'dropdown_toggle-active' );
+		button.setAttribute( 'aria-expanded', true );
+		button.setAttribute( 'aria-pressed', true );
 
 		// Now browser has calculcated layout, adjust y-scroll if required,
-		let menu = dropdown.lastElementChild
-		dropdownControl.scrollIntoView( menu )
+		const menu = dropdown.lastElementChild;
+		dropdownControl.scrollIntoView( menu );
 	},
 
 	/**
@@ -480,25 +485,25 @@ const dropdownControl = {
 	 *
 	 * @param {HTMLElement} button The dropdown button toggle element.
 	 */
-	close: function ( button ) {
+	close( button ) {
 		// If the button's dropdown also has active children.
-		let activeBranch = button.parentElement.querySelectorAll(
+		const activeBranch = button.parentElement.querySelectorAll(
 			'.dropdown_toggle-active'
-		)
+		);
 		if ( activeBranch.length > 1 ) {
 			// Iterate through innermost to outer closing all open in branch.
 			for ( let i = activeBranch.length - 1; i >= 0; i-- ) {
-				activeBranch[ i ].classList.remove( 'dropdown_toggle-active' )
-				activeBranch[ i ].setAttribute( 'aria-expanded', false )
-				activeBranch[ i ].setAttribute( 'aria-pressed', false )
+				activeBranch[ i ].classList.remove( 'dropdown_toggle-active' );
+				activeBranch[ i ].setAttribute( 'aria-expanded', false );
+				activeBranch[ i ].setAttribute( 'aria-pressed', false );
 			}
 		} else {
-			button.classList.remove( 'dropdown_toggle-active' )
-			button.setAttribute( 'aria-expanded', false )
-			button.setAttribute( 'aria-pressed', false )
+			button.classList.remove( 'dropdown_toggle-active' );
+			button.setAttribute( 'aria-expanded', false );
+			button.setAttribute( 'aria-pressed', false );
 		}
 	},
-}
+};
 
 
 
@@ -508,99 +513,123 @@ const dropdownControl = {
  *
  * Handle header hide and reveal animation on button click and scroll events.
  *
- * @package lonewolf
+ * @package
  * @author Jefferson Real <me@jeffersonreal.uk>
  * @copyright Copyright 2023 Jefferson Real
  */
 
-
 const hideHeader = () => {
+	const body = document.querySelector( 'body' );
+	const header = document.querySelector( '.header' );
+	const button = document.querySelector( '.menuToggle' );
+	let isAnimating = false;
 
-	let body        = document.querySelector( 'body' )
-	let header      = document.querySelector( '.header' )
-	let button      = document.querySelector( '.menuToggle' )
-	let isAnimating = false
-
-	if ( button === null ) return
+	if ( button === null ) return;
 
 	const docLoaded = setInterval( () => {
 		if ( document.readyState === 'complete' ) {
-			clearInterval( docLoaded )
-			button.addEventListener( 'click', toggleState )
+			clearInterval( docLoaded );
+			button.addEventListener( 'click', toggleState );
 		}
-	}, 100 )
+	}, 100 );
 
 	const toggleState = () => {
-		if ( !isAnimating ) {
+		if ( ! isAnimating ) {
 			isAnimating = true;
-			( body.classList.contains( "menu_active" ) ) ? hide() : show()
+			body.classList.contains( 'menu_active' ) ? hide() : show();
 		}
-	}
+	};
 
 	const show = async () => {
-		header.setAttribute( 'hidden', false )
-		body.classList.add( "menu_active" )
-		await transitionToPromise( header, 'transform', 'translate( 0, 0 )' )
-		window.addEventListener( 'scroll', hide, { once: true } )
-		isAnimating = false
-	}
+		header.setAttribute( 'hidden', false );
+		body.classList.add( 'menu_active' );
+		await transitionToPromise( header, 'transform', 'translate( 0, 0 )' );
+		window.addEventListener( 'scroll', hide, { once: true } );
+		isAnimating = false;
+	};
 
 	const hide = async () => {
-		header.setAttribute( 'hidden', true )
-		body.classList.remove( "menu_active" )
-		await transitionToPromise( header, 'transform', 'translate( 0, -100% )' )
-		isAnimating = false
-    }
+		header.setAttribute( 'hidden', true );
+		body.classList.remove( 'menu_active' );
+		await transitionToPromise(
+			header,
+			'transform',
+			'translate( 0, -100% )'
+		);
+		isAnimating = false;
+	};
 
 	const transitionToPromise = ( element, property, value ) => {
-        new Promise( resolve => {
-            try {
-                element.style[ property ] = value
-                const transitionEnded = ( event ) => {
-                    if ( event.target !== element ) return
-                    header.removeEventListener( 'transitionend', transitionEnded )
-                    resolve( 'Transition complete.' )
-                }
-                header.addEventListener( 'transitionend', transitionEnded )
-            } catch ( error ) {
-                console.error( error.name + ': ' + error.message )
-                reject( error )
-            }
-        } )
-	}
-
-}
+		new Promise( ( resolve ) => {
+			try {
+				element.style[ property ] = value;
+				const transitionEnded = ( event ) => {
+					if ( event.target !== element ) return;
+					header.removeEventListener(
+						'transitionend',
+						transitionEnded
+					);
+					resolve( 'Transition complete.' );
+				};
+				header.addEventListener( 'transitionend', transitionEnded );
+			} catch ( error ) {
+				console.error( error.name + ': ' + error.message );
+				reject( error );
+			}
+		} );
+	};
+};
 
 
 
 ;// CONCATENATED MODULE: ./src/js/frontend/mobile-popup-menu.js
-const mobilePopupMenu = () => {
-	if ( ! document.querySelector( '.thumbNav' ) ) return
+/**
+ * Lonewolf Mobile Popup Menu Functionality
+ *
+ * @package
+ * @author Jefferson Real <me@jeffersonreal.uk>
+ * @copyright Copyright 2023 Jefferson Real
+ */
 
-	let timerElapsed = true
-	let thumbNavDisplayed = true
-	let prevScrollpos = window.pageYOffset
-	let currentScrollPos
-		
-	window.onscroll = function(){
-		currentScrollPos = window.pageYOffset
+const mobilePopupMenu = () => {
+	if ( ! document.querySelector( '.thumbNav' ) ) return;
+
+	let timerElapsed = true;
+	let thumbNavDisplayed = true;
+	let prevScrollpos = window.pageYOffset;
+	let currentScrollPos;
+
+	window.onscroll = function () {
+		currentScrollPos = window.pageYOffset;
 		if ( timerElapsed ) {
-			timerElapsed = false
-			setTimeout( function(){
-				if ( prevScrollpos > currentScrollPos && thumbNavDisplayed === false ) {
-					document.querySelector( '.thumbNav-jshide' ).style.transform = 'translateY(0rem)'
-					thumbNavDisplayed = true
-				} else if ( prevScrollpos < currentScrollPos && thumbNavDisplayed === true ) {
-					document.querySelector( '.thumbNav-jshide' ).style.transform = 'translateY(5rem)'
-					document.querySelector( '.thumbNav_checkbox' ).checked = false
-					thumbNavDisplayed = false
+			timerElapsed = false;
+			setTimeout( function () {
+				if (
+					prevScrollpos > currentScrollPos &&
+					thumbNavDisplayed === false
+				) {
+					document.querySelector(
+						'.thumbNav-jshide'
+					).style.transform = 'translateY(0rem)';
+					thumbNavDisplayed = true;
+				} else if (
+					prevScrollpos < currentScrollPos &&
+					thumbNavDisplayed === true
+				) {
+					document.querySelector(
+						'.thumbNav-jshide'
+					).style.transform = 'translateY(5rem)';
+					document.querySelector(
+						'.thumbNav_checkbox'
+					).checked = false;
+					thumbNavDisplayed = false;
 				}
-				prevScrollpos = currentScrollPos
-				timerElapsed = true
-			}, 500 )
+				prevScrollpos = currentScrollPos;
+				timerElapsed = true;
+			}, 500 );
 		}
-	}
-}
+	};
+};
 
 
 
@@ -610,7 +639,7 @@ const mobilePopupMenu = () => {
  *
  * Animate CSS properties using preset eases.
  *
- * @package lonewolf
+ * @package
  * @author Jefferson Real <me@jeffersonreal.uk>
  * @copyright Copyright 2023 Jefferson Real
  */
@@ -618,51 +647,69 @@ const mobilePopupMenu = () => {
 /**
  * True when modal is displayed.
  */
-let active
-
+let active;
 
 /**
  * Iterate through the IN animation passed by sequence()
+ * @param element
+ * @param property
+ * @param ease
+ * @param startValue
+ * @param endValue
+ * @param duration
  */
-function doAnimation( element, property, ease, startValue, endValue, duration ) {
+function doAnimation(
+	element,
+	property,
+	ease,
+	startValue,
+	endValue,
+	duration
+) {
+	const fps = 60;
+	const iterations = fps * ( duration / 1000 );
+	const range = endValue - startValue;
+	const timeIncrement = duration / iterations;
+	let currentValue = 0;
+	let time = 0;
+	const isIncreasing = endValue >= startValue; // boolen to test for positive increment
 
-	let fps		      = 60
-	let iterations	  = fps * ( duration / 1000 )
-	let range		  = endValue - startValue
-	let timeIncrement = ( duration ) / iterations
-	let currentValue  = 0
-	let time		  = 0
-	let isIncreasing  = endValue >= startValue // boolen to test for positive increment
-
-	return new Promise( resolve => {
-		let timer = setInterval( function() {
-			time += timeIncrement
-			currentValue = nextValue( ease, startValue, time, range, duration ).toFixed( 2 )
-			if ( isIncreasing && currentValue >= endValue || !isIncreasing && currentValue <= endValue ) {
-				clearInterval( timer )
-				set( element, property, endValue )
-				return resolve( property + ' done' )
+	return new Promise( ( resolve ) => {
+		const timer = setInterval( function () {
+			time += timeIncrement;
+			currentValue = nextValue(
+				ease,
+				startValue,
+				time,
+				range,
+				duration
+			).toFixed( 2 );
+			if (
+				( isIncreasing && currentValue >= endValue ) ||
+				( ! isIncreasing && currentValue <= endValue )
+			) {
+				clearInterval( timer );
+				set( element, property, endValue );
+				return resolve( property + ' done' );
 			}
-			set( element, property, currentValue )
-		}, 1000/fps )
-	} )
+			set( element, property, currentValue );
+		}, 1000 / fps );
+	} );
 }
-
 
 /**
  * Future expansion: Call the animations in sequence.
- * 
+ *
  * Handle passed arrays to perform multiple animations.
  */
- async function sequence() {
+async function sequence() {
 	if ( ! active ) {
-		active = true
+		active = true;
 	} else {
-		active = false
-		fadeOut( overlay )
+		active = false;
+		fadeOut( overlay );
 	}
 }
-
 
 /*
  * Animation ease.
@@ -671,164 +718,183 @@ function doAnimation( element, property, ease, startValue, endValue, duration ) 
  *
  */
 function nextValue( ease, startValue, time, range, duration ) {
-
-	let t = time		// Time elapsed
-	let s = startValue // Initial property value before animation
-	let r = range // The difference between start and end values
-	let d = duration	// Total duration of animation
+	let t = time; // Time elapsed
+	let s = startValue; // Initial property value before animation
+	const r = range; // The difference between start and end values
+	const d = duration; // Total duration of animation
 
 	// The following eases are from git repo bameyrick/js-easing-functions
 	switch ( ease ) {
-		case 'linear': return r * ( t / d ) + s
+		case 'linear':
+			return r * ( t / d ) + s;
 
 		case 'easeInQuad':
-			return r * ( t /= d ) * t + s
+			return r * ( t /= d ) * t + s;
 
 		case 'easeOutQuad':
-			return -r * ( t /= d ) * ( t - 2 ) + s
+			return -r * ( t /= d ) * ( t - 2 ) + s;
 
 		case 'easeInOutQuad':
 			if ( ( t /= d / 2 ) < 1 ) {
-				return r / 2 * t * t + s
+				return ( r / 2 ) * t * t + s;
 			}
-			return -r / 2 * ( --t * ( t - 2 ) - 1 ) + s
+			return ( -r / 2 ) * ( --t * ( t - 2 ) - 1 ) + s;
 
 		case 'easeInCubic':
-			return r * ( t /= d ) * t * t + s
+			return r * ( t /= d ) * t * t + s;
 
 		case 'easeOutCubic':
-			return r * ( ( t = t / d - 1 ) * t * t + 1 ) + s
+			return r * ( ( t = t / d - 1 ) * t * t + 1 ) + s;
 
 		case 'easeInOutCubic':
 			if ( ( t /= d / 2 ) < 1 ) {
-				return r / 2 * t * t * t + s
+				return ( r / 2 ) * t * t * t + s;
 			}
-			return r / 2 * ( ( t -= 2 ) * t * t + 2 ) + s
+			return ( r / 2 ) * ( ( t -= 2 ) * t * t + 2 ) + s;
 
 		case 'easeInQuart':
-			return r * ( t /= d ) * t * t * t + s
+			return r * ( t /= d ) * t * t * t + s;
 
 		case 'easeOutQuart':
-			return -r * ( ( t = t / d - 1 ) * t * t * t - 1 ) + s
+			return -r * ( ( t = t / d - 1 ) * t * t * t - 1 ) + s;
 
 		case 'easeInOutQuart':
 			if ( ( t /= d / 2 ) < 1 ) {
-				return r / 2 * t * t * t * t + s
+				return ( r / 2 ) * t * t * t * t + s;
 			}
-			return -r / 2 * ( ( t -= 2 ) * t * t * t - 2 ) + s
+			return ( -r / 2 ) * ( ( t -= 2 ) * t * t * t - 2 ) + s;
 
 		case 'easeInQuint':
-			return r * ( t /= d ) * t * t * t * t + s
+			return r * ( t /= d ) * t * t * t * t + s;
 
 		case 'easeOutQuint':
-			return r * ( ( t = t / d - 1 ) * t * t * t * t + 1 ) + s
+			return r * ( ( t = t / d - 1 ) * t * t * t * t + 1 ) + s;
 
 		case 'easeInOutQuint':
 			if ( ( t /= d / 2 ) < 1 ) {
-				return r / 2 * t * t * t * t * t + s
+				return ( r / 2 ) * t * t * t * t * t + s;
 			}
-			return r / 2 * ( ( t -= 2 ) * t * t * t * t + 2 ) + s
+			return ( r / 2 ) * ( ( t -= 2 ) * t * t * t * t + 2 ) + s;
 
 		case 'easeInSine':
-			return -r * Math.cos( t / d * ( Math.PI / 2 ) ) + r + s
+			return -r * Math.cos( ( t / d ) * ( Math.PI / 2 ) ) + r + s;
 
 		case 'easeOutSine':
-			return r * Math.sin( t / d * ( Math.PI / 2 ) ) + s
+			return r * Math.sin( ( t / d ) * ( Math.PI / 2 ) ) + s;
 
 		case 'easeInOutSine':
-			return -r / 2 * ( Math.cos( Math.PI * t / d ) - 1 ) + s
+			return ( -r / 2 ) * ( Math.cos( ( Math.PI * t ) / d ) - 1 ) + s;
 
 		case 'easeInExpo':
-			return t === 0 ? s : r * Math.pow( 2, 10 * ( t / d - 1 ) ) + s
+			return t === 0 ? s : r * Math.pow( 2, 10 * ( t / d - 1 ) ) + s;
 
 		case 'easeOutExpo':
 			return t === d
 				? s + r
-				: r * ( -Math.pow( 2, -10 * t / d ) + 1 ) + s
+				: r * ( -Math.pow( 2, ( -10 * t ) / d ) + 1 ) + s;
 
 		case 'easeInOutExpo':
 			if ( t === 0 ) {
-				return s
+				return s;
 			}
 			if ( t === d ) {
-				return s + r
+				return s + r;
 			}
 			if ( ( t /= d / 2 ) < 1 ) {
-				return r / 2 * Math.pow( 2, 10 * ( t - 1 ) ) + s
+				return ( r / 2 ) * Math.pow( 2, 10 * ( t - 1 ) ) + s;
 			}
-			return r / 2 * ( -Math.pow( 2, -10 * --t ) + 2 ) + s
+			return ( r / 2 ) * ( -Math.pow( 2, -10 * --t ) + 2 ) + s;
 
 		case 'easeInCirc':
-			return -r * ( Math.sqrt( 1 - ( t /= d ) * t ) - 1 ) + s
+			return -r * ( Math.sqrt( 1 - ( t /= d ) * t ) - 1 ) + s;
 
 		case 'easeOutCirc':
-			return r * Math.sqrt( 1 - ( t = t / d - 1 ) * t ) + s
+			return r * Math.sqrt( 1 - ( t = t / d - 1 ) * t ) + s;
 
 		case 'easeInOutCirc':
 			if ( ( t /= d / 2 ) < 1 ) {
-				return -r / 2 * ( Math.sqrt( 1 - t * t ) - 1 ) + s
+				return ( -r / 2 ) * ( Math.sqrt( 1 - t * t ) - 1 ) + s;
 			}
-			return r / 2 * ( Math.sqrt( 1 - ( t -= 2 ) * t ) + 1 ) + s
+			return ( r / 2 ) * ( Math.sqrt( 1 - ( t -= 2 ) * t ) + 1 ) + s;
 
 		case 'easeInBack':
-			s = 1.70158
-			return r * ( t /= d ) * t * ( ( s + 1 ) * t - s ) + s
+			s = 1.70158;
+			return r * ( t /= d ) * t * ( ( s + 1 ) * t - s ) + s;
 
 		case 'easeOutBack':
-			s = 1.70158
-			return r * ( ( t = t / d - 1 ) * t * ( ( s + 1 ) * t + s ) + 1 ) + s
+			s = 1.70158;
+			return (
+				r * ( ( t = t / d - 1 ) * t * ( ( s + 1 ) * t + s ) + 1 ) + s
+			);
 
 		case 'easeInOutBack':
-			s = 1.70158
+			s = 1.70158;
 			if ( ( t /= d / 2 ) < 1 ) {
-				return r / 2 * ( t * t * ( ( ( s *= 1.525 ) + 1 ) * t - s ) ) + s
+				return (
+					( r / 2 ) * ( t * t * ( ( ( s *= 1.525 ) + 1 ) * t - s ) ) +
+					s
+				);
 			}
-			return r / 2 * ( ( t -= 2 ) * t * ( ( ( s *= 1.525 ) + 1 ) * t + s ) + 2 ) + s
+			return (
+				( r / 2 ) *
+					( ( t -= 2 ) * t * ( ( ( s *= 1.525 ) + 1 ) * t + s ) +
+						2 ) +
+				s
+			);
 
-/* fixable*/ case 'easeInBounce':
-			return r - easeOutBounce( d - t, 0, r, d ) + s
+		/* fixable*/ case 'easeInBounce':
+			return r - easeOutBounce( d - t, 0, r, d ) + s;
 
 		case 'easeOutBounce':
 			if ( ( t /= d ) < 1 / 2.75 ) {
-				return r * ( 7.5625 * t * t ) + s
+				return r * ( 7.5625 * t * t ) + s;
 			} else if ( t < 2 / 2.75 ) {
-				return r * ( 7.5625 * ( t -= 1.5 / 2.75 ) * t + 0.75 ) + s
+				return r * ( 7.5625 * ( t -= 1.5 / 2.75 ) * t + 0.75 ) + s;
 			} else if ( t < 2.5 / 2.75 ) {
-				return r * ( 7.5625 * ( t -= 2.25 / 2.75 ) * t + 0.9375 ) + s
-			} else {
-				return r * ( 7.5625 * ( t -= 2.625 / 2.75 ) * t + 0.984375 ) + s
+				return r * ( 7.5625 * ( t -= 2.25 / 2.75 ) * t + 0.9375 ) + s;
 			}
+			return r * ( 7.5625 * ( t -= 2.625 / 2.75 ) * t + 0.984375 ) + s;
 
-/* fixable*/ case 'easeInOutBounce':
+		/* fixable*/ case 'easeInOutBounce':
 			if ( t < d / 2 ) {
-				return easeInBounce( t * 2, 0, r, d ) * 0.5 + s
+				return easeInBounce( t * 2, 0, r, d ) * 0.5 + s;
 			}
-			return easeOutBounce( t * 2 - d, 0, r, d ) * 0.5 + r * 0.5 + s
+			return easeOutBounce( t * 2 - d, 0, r, d ) * 0.5 + r * 0.5 + s;
 	}
 }
-
 
 /*
  * Update the CSS property passed by animate()
  */
 function set( element, property, value ) {
 	switch ( property ) {
-
 		case 'scale':
-			element.style.transform = 'scale(' + ( value ) + ')'
-			element.style.opacity = ( value )
-			return
+			element.style.transform = 'scale(' + value + ')';
+			element.style.opacity = value;
+			return;
 
 		case 'left':
-			element.style.left = value + 'px'
-			return
+			element.style.left = value + 'px';
 	}
 }
 
-
-const animate = async ( element, property, ease, startValue, endValue, duration ) => {
-	await doAnimation( element, property, ease, startValue, endValue, duration )
-}
+const animate = async (
+	element,
+	property,
+	ease,
+	startValue,
+	endValue,
+	duration
+) => {
+	await doAnimation(
+		element,
+		property,
+		ease,
+		startValue,
+		endValue,
+		duration
+	);
+};
 
 ;// CONCATENATED MODULE: ./src/js/frontend/modal.js
 /**
@@ -836,7 +902,7 @@ const animate = async ( element, property, ease, startValue, endValue, duration 
  *
  * Handle modal animation and mechanics.
  *
- * @package lonewolf
+ * @package
  * @author Jefferson Real <me@jeffersonreal.uk>
  * @copyright Copyright 2023 Jefferson Real
  */
@@ -844,263 +910,255 @@ const animate = async ( element, property, ease, startValue, endValue, duration 
 
 
 const modal = () => {
+	function modal_init() {
+		document
+			.querySelectorAll( '.modal_control-open' )
+			.forEach( ( button_open ) => {
+				button_open.addEventListener( 'click', launch_modal );
+			} );
+	}
 
-    function modal_init() {
-        document.querySelectorAll( '.modal_control-open' ).forEach( button_open => {
-            button_open.addEventListener( 'click', launch_modal )
-        } )
-    }
-
-	let animating = false 	// true when animation is in progress.
-	let active = false		// true when modal is displayed.
-	let mobile = true	 	// true when screen width is less than 768px (48em).
+	let animating = false; // true when animation is in progress.
+	let active = false; // true when modal is displayed.
+	let mobile = true; // true when screen width is less than 768px (48em).
 
 	// Plugin-wide vars.
-	let overlay
-	let dialog
-	let button_close
+	let overlay;
+	let dialog;
+	let button_close;
 
 	/**
 	 * Open the model popup.
-	 * 
+	 *
+	 * @param event
 	 */
 	async function launch_modal( event ) {
-
 		// Get the modal elements
-		const modal_class = event.currentTarget.id
-		overlay = document.querySelector( '.' + modal_class )
+		const modal_class = event.currentTarget.id;
+		overlay = document.querySelector( '.' + modal_class );
 
-		dialog = overlay.querySelector( '.modal_dialog' )
-		button_close = overlay.querySelector( '.modal_control-close' )
+		dialog = overlay.querySelector( '.modal_dialog' );
+		button_close = overlay.querySelector( '.modal_control-close' );
 
 		button_close.onclick = () => {
-			closeModal()
-		}
+			closeModal();
+		};
 
 		// If a click event is not on dialog
-		window.onclick = function( event ) {
-			if ( dialog !== !event.target && !dialog.contains( event.target ) ) {
-				closeModal()
+		window.onclick = function ( event ) {
+			if (
+				dialog !== ! event.target &&
+				! dialog.contains( event.target )
+			) {
+				closeModal();
 			}
-		}
+		};
 
-		await Promise.all( [
-			set_modal_device_size(),
-			get_scrollbar_width()
-		] )
-		openModal()
+		await Promise.all( [ set_modal_device_size(), get_scrollbar_width() ] );
+		openModal();
 	}
-
 
 	async function set_modal_device_size() {
-
-		let pageWidth = parseInt( document.querySelector( "html" ).getBoundingClientRect().width, 10 )
+		const pageWidth = parseInt(
+			document.querySelector( 'html' ).getBoundingClientRect().width,
+			10
+		);
 
 		if ( pageWidth <= 768 ) {
-			mobile = true
+			mobile = true;
 		} else {
-			mobile = false
+			mobile = false;
 		}
 
-		if ( mobile && active && !animating ) {
-			dialog.style.left = '0'
-			dialog.style.transform = 'scale(1)'
-			dialog.style.opacity = '1'
-			overlay.style.display = 'contents'
-			overlay.style.opacity = '1'
-
-		} else if ( mobile && !active && !animating ) {
-			dialog.style.left = '-768px'
-			dialog.style.transform = 'scale(1)'
-			dialog.style.opacity = '1'
-			overlay.style.display = 'contents'
-			overlay.style.opacity = '1'
-
-		} else if ( !mobile && active && !animating ) {
-			dialog.style.left = '0'
-			dialog.style.transform = 'scale(1)'
-			dialog.style.opacity = '1'
-			overlay.style.display = 'flex'
-			overlay.style.opacity = '1'
-
-		} else if ( !mobile && !active && !animating ) {
-			dialog.style.left = '0'
-			dialog.style.transform = 'scale(0)'
-			dialog.style.opacity = '0'
-			overlay.style.display = 'none'
-			overlay.style.opacity = '0'
-
+		if ( mobile && active && ! animating ) {
+			dialog.style.left = '0';
+			dialog.style.transform = 'scale(1)';
+			dialog.style.opacity = '1';
+			overlay.style.display = 'contents';
+			overlay.style.opacity = '1';
+		} else if ( mobile && ! active && ! animating ) {
+			dialog.style.left = '-768px';
+			dialog.style.transform = 'scale(1)';
+			dialog.style.opacity = '1';
+			overlay.style.display = 'contents';
+			overlay.style.opacity = '1';
+		} else if ( ! mobile && active && ! animating ) {
+			dialog.style.left = '0';
+			dialog.style.transform = 'scale(1)';
+			dialog.style.opacity = '1';
+			overlay.style.display = 'flex';
+			overlay.style.opacity = '1';
+		} else if ( ! mobile && ! active && ! animating ) {
+			dialog.style.left = '0';
+			dialog.style.transform = 'scale(0)';
+			dialog.style.opacity = '0';
+			overlay.style.display = 'none';
+			overlay.style.opacity = '0';
 		}
 	}
-
 
 	/**
 	 * Restyle the modal on window resize.
-	 * 
+	 *
 	 * This prepares the modal by switching between different device
 	 * layouts as required. Without this check, there is an inconsistancy in
 	 * transitions if for example, the modal is launched as 'desktop' then
 	 * closed as 'mobile'.
-	 * 
+	 *
 	 */
-    function set_browser_resize_listener() {
-        let resizeTimer
-        let resize_listener = ( event ) => {
-            if ( resizeTimer !== null ) window.clearTimeout( resizeTimer )
-            resizeTimer = window.setTimeout( function() {
-                if ( !active ) {
-                    window.removeEventListener( 'resize', resize_listener )
-                    return
-                }
-                set_modal_device_size()
-            }, 20 )
-        }
-        window.addEventListener( 'resize', resize_listener )
-    }
-
+	function set_browser_resize_listener() {
+		let resizeTimer;
+		const resize_listener = ( event ) => {
+			if ( resizeTimer !== null ) window.clearTimeout( resizeTimer );
+			resizeTimer = window.setTimeout( function () {
+				if ( ! active ) {
+					window.removeEventListener( 'resize', resize_listener );
+					return;
+				}
+				set_modal_device_size();
+			}, 20 );
+		};
+		window.addEventListener( 'resize', resize_listener );
+	}
 
 	// Open the modal
 	async function openModal() {
-		if ( !active && !animating ) {
-			active = true
-			animating = true
-			disableScroll()
-            set_browser_resize_listener()
+		if ( ! active && ! animating ) {
+			active = true;
+			animating = true;
+			disableScroll();
+			set_browser_resize_listener();
 
 			if ( mobile ) {
-				dialog.style.left = '-768px'
-				dialog.style.transform = 'scale(1)'
-				dialog.style.opacity = '1'
-				overlay.style.display = 'contents'
-				overlay.style.opacity = '1'
-				await animate( dialog, 'left', 'easeInOutCirc', -768, 0, 800 )
-				animating = false
-
+				dialog.style.left = '-768px';
+				dialog.style.transform = 'scale(1)';
+				dialog.style.opacity = '1';
+				overlay.style.display = 'contents';
+				overlay.style.opacity = '1';
+				await animate( dialog, 'left', 'easeInOutCirc', -768, 0, 800 );
+				animating = false;
 			} else {
-				dialog.style.left = '0'
-				dialog.style.transform = 'scale(0)'
-				dialog.style.opacity = '0'
-				overlay.style.display = 'flex'
-				overlay.style.opacity = '0'
-				fadeIn( overlay )
-				await animate( dialog, 'scale', 'easeInOutCirc', 0, 1, 800 )
-				animating = false
+				dialog.style.left = '0';
+				dialog.style.transform = 'scale(0)';
+				dialog.style.opacity = '0';
+				overlay.style.display = 'flex';
+				overlay.style.opacity = '0';
+				fadeIn( overlay );
+				await animate( dialog, 'scale', 'easeInOutCirc', 0, 1, 800 );
+				animating = false;
 			}
 		}
 	}
-
 
 	// Close the modal
 	async function closeModal() {
-		if ( active && !animating ) {
-			active = false
-			animating = true
-			enableScroll()
+		if ( active && ! animating ) {
+			active = false;
+			animating = true;
+			enableScroll();
 
 			if ( mobile ) {
-				dialog.style.left = '0'
-				dialog.style.transform = 'scale(1)'
-				dialog.style.opacity = '1'
-				overlay.style.display = 'contents'
-				overlay.style.opacity = '1'
-				await animate( dialog, 'left', 'easeInOutCirc', 0, -768, 800 )
-				animating = false
-
+				dialog.style.left = '0';
+				dialog.style.transform = 'scale(1)';
+				dialog.style.opacity = '1';
+				overlay.style.display = 'contents';
+				overlay.style.opacity = '1';
+				await animate( dialog, 'left', 'easeInOutCirc', 0, -768, 800 );
+				animating = false;
 			} else {
-				dialog.style.left = '0'
-				dialog.style.transform = 'scale(1)'
-				dialog.style.opacity = '1'
-				overlay.style.display = 'flex'
-				overlay.style.opacity = '1'
-				fadeOut( overlay )
-				await animate( dialog, 'scale', 'easeInOutCirc', 1, 0, 800 )
-				overlay.style.display = 'none'
-				animating = false
+				dialog.style.left = '0';
+				dialog.style.transform = 'scale(1)';
+				dialog.style.opacity = '1';
+				overlay.style.display = 'flex';
+				overlay.style.opacity = '1';
+				fadeOut( overlay );
+				await animate( dialog, 'scale', 'easeInOutCirc', 1, 0, 800 );
+				overlay.style.display = 'none';
+				animating = false;
 			}
 		}
 	}
-
 
 	// Moody overlay - fadeout
 	function fadeOut( overlay ) {
-		let p = 100 // 0.5 x 100 to escape floating point problem
-		let animateFilterOut = setInterval( function() {
-			if ( p <= 0 ){
-				clearInterval( animateFilterOut )
+		let p = 100; // 0.5 x 100 to escape floating point problem
+		const animateFilterOut = setInterval( function () {
+			if ( p <= 0 ) {
+				clearInterval( animateFilterOut );
 			}
-			overlay.style.opacity = p / 100
-			p -= 2 // 1 represents 0.01 in css output
-		}, 16 ) // 10ms x 25 for 0.25sec animation
+			overlay.style.opacity = p / 100;
+			p -= 2; // 1 represents 0.01 in css output
+		}, 16 ); // 10ms x 25 for 0.25sec animation
 	}
-
 
 	// Moody overlay - fadein
 	function fadeIn( overlay ) {
-		let p = 4 // 0.01 x 100 to escape floating point problem
-		let animateFilterIn = setInterval( function() {
-			if ( p >= 100 ){ // 100 (/100) represents 0.5 in css output
-				clearInterval( animateFilterIn )
+		let p = 4; // 0.01 x 100 to escape floating point problem
+		const animateFilterIn = setInterval( function () {
+			if ( p >= 100 ) {
+				// 100 (/100) represents 0.5 in css output
+				clearInterval( animateFilterIn );
 			}
-			overlay.style.opacity = p / 100
-			p += 2 // 1 represents 0.01 in css output
-		}, 16 ) // 10ms x 25 for 0.25sec animation
+			overlay.style.opacity = p / 100;
+			p += 2; // 1 represents 0.01 in css output
+		}, 16 ); // 10ms x 25 for 0.25sec animation
 	}
 
-
-	let scrollbarWidth
+	let scrollbarWidth;
 	async function get_scrollbar_width() {
 		// Get window width inc scrollbar
-		const widthWithScrollBar = window.innerWidth
+		const widthWithScrollBar = window.innerWidth;
 		// Get window width exc scrollbar
-		const widthWithoutScrollBar = document.querySelector( "html" ).getBoundingClientRect().width
+		const widthWithoutScrollBar = document
+			.querySelector( 'html' )
+			.getBoundingClientRect().width;
 		// Calc the scrollbar width
-		scrollbarWidth = parseInt( ( widthWithScrollBar - widthWithoutScrollBar ), 10 ) + 'px'
-		return scrollbarWidth
+		scrollbarWidth =
+			parseInt( widthWithScrollBar - widthWithoutScrollBar, 10 ) + 'px';
+		return scrollbarWidth;
 	}
-
 
 	function disableScroll() {
 		// Cover the missing scrollbar gap with a black div
-		let elemExists = document.getElementById( "js_psuedoScrollBar" )
+		const elemExists = document.getElementById( 'js_psuedoScrollBar' );
 
 		if ( elemExists !== null ) {
-			document.getElementById( "js_psuedoScrollBar" ).style.display = 'block'
+			document.getElementById( 'js_psuedoScrollBar' ).style.display =
+				'block';
 		} else {
-			let psuedoScrollBar = document.createElement( "div" )
-			psuedoScrollBar.setAttribute( "id", "js_psuedoScrollBar" )
-			psuedoScrollBar.style.position = 'fixed'
-			psuedoScrollBar.style.right = '0'
-			psuedoScrollBar.style.top = '0'
-			psuedoScrollBar.style.width = scrollbarWidth
-			psuedoScrollBar.style.height = '100vh'
-			psuedoScrollBar.style.background = '#333'
-			psuedoScrollBar.style.zIndex = '9'
-			document.body.appendChild( psuedoScrollBar )
+			const psuedoScrollBar = document.createElement( 'div' );
+			psuedoScrollBar.setAttribute( 'id', 'js_psuedoScrollBar' );
+			psuedoScrollBar.style.position = 'fixed';
+			psuedoScrollBar.style.right = '0';
+			psuedoScrollBar.style.top = '0';
+			psuedoScrollBar.style.width = scrollbarWidth;
+			psuedoScrollBar.style.height = '100vh';
+			psuedoScrollBar.style.background = '#333';
+			psuedoScrollBar.style.zIndex = '9';
+			document.body.appendChild( psuedoScrollBar );
 		}
-		document.querySelector( "body" ).style.overflow = 'hidden'
-		document.querySelector( "html" ).style.paddingRight = scrollbarWidth
+		document.querySelector( 'body' ).style.overflow = 'hidden';
+		document.querySelector( 'html' ).style.paddingRight = scrollbarWidth;
 	}
-
 
 	function enableScroll() {
-		let elemExists = document.getElementById( "js_psuedoScrollBar" )
+		const elemExists = document.getElementById( 'js_psuedoScrollBar' );
 		if ( elemExists !== null ) {
-			document.getElementById( "js_psuedoScrollBar" ).style.display = 'none'
-			document.querySelector( "body" ).style.overflow = 'visible'
-			document.querySelector( "html" ).style.paddingRight = '0'
+			document.getElementById( 'js_psuedoScrollBar' ).style.display =
+				'none';
+			document.querySelector( 'body' ).style.overflow = 'visible';
+			document.querySelector( 'html' ).style.paddingRight = '0';
 		}
 	}
 
-
 	// Poll for doc ready state
-	let docLoaded = setInterval( function() {
-		if( document.readyState === 'complete' ) {
-			clearInterval( docLoaded )
-			modal_init()
+	const docLoaded = setInterval( function () {
+		if ( document.readyState === 'complete' ) {
+			clearInterval( docLoaded );
+			modal_init();
 		}
-	}, 100 )
-
-}
+	}, 100 );
+};
 
 
 
@@ -1111,109 +1169,104 @@ const modal = () => {
  * Applies classes to the body element to indicate screen size and orientation.
  * These can be accessed using CSS as a global alternative to media queries.
  *
- * @package lonewolf
+ * @package
  * @author Jefferson Real <me@jeffersonreal.uk>
  * @copyright Copyright 2023 Jefferson Real
  */
 
+const screenClass = () => {
+	let winPxWidth, winPxHeight;
 
- const screenClass = () => {
+	let oldOrient, newOrient;
 
-	let winPxWidth,
-		winPxHeight
+	let oldDevice, newDevice;
 
-	let oldOrient,
-		newOrient
-
-	let oldDevice,
-		newDevice
-
-	let element = document.querySelector( 'body' )
+	const element = document.querySelector( 'body' );
 
 	function getScreen() {
 		// Get the browser dims
-		winPxWidth = window.innerWidth
-		winPxHeight = window.innerHeight
+		winPxWidth = window.innerWidth;
+		winPxHeight = window.innerHeight;
 
 		// Compare width and height, then update orientation var
 		if ( winPxWidth >= winPxHeight ) {
-			newOrient = 'landscape'
+			newOrient = 'landscape';
 		} else {
-			newOrient = 'portrait'
+			newOrient = 'portrait';
 		}
 
 		// If new orientation is different to old, update the classes
 		if ( newOrient !== oldOrient ) {
-			element.classList.remove( oldOrient )
-			element.classList.add( newOrient )
-			oldOrient = newOrient
+			element.classList.remove( oldOrient );
+			element.classList.add( newOrient );
+			oldOrient = newOrient;
 		}
 
 		// Check screen width and update device var
 		if ( winPxWidth <= '768' ) {
-			newDevice = 'mobile'
+			newDevice = 'mobile';
 		} else if ( winPxWidth <= '1120' ) {
-			newDevice = 'tablet'
+			newDevice = 'tablet';
 		} else if ( winPxWidth <= '1440' ) {
-			newDevice = 'laptop'
+			newDevice = 'laptop';
 		} else if ( winPxWidth <= '1920' ) {
-			newDevice = 'desktop'
+			newDevice = 'desktop';
 		} else {
-			newDevice = 'xl'
+			newDevice = 'xl';
 		}
 
 		// If new device is different to old, update the classes
 		if ( newDevice !== oldDevice ) {
-			element.classList.remove( oldDevice )
-			element.classList.add( newDevice )
-			oldDevice = newDevice
+			element.classList.remove( oldDevice );
+			element.classList.add( newDevice );
+			oldDevice = newDevice;
 		}
 	}
 
 	// Set a CSS custom property with the window scrollbar width.
 	function set_scrollbar_css_custom_property() {
-		const withScrollBar  = window.innerWidth
-		const noScrollBar    = document.querySelector( "html" ).getBoundingClientRect().width
-		const scrollbarWidth = parseInt( ( withScrollBar - noScrollBar ), 10 ) + 'px'
-		let root = document.documentElement
-		root.style.setProperty( '--scrollbar', scrollbarWidth )
+		const withScrollBar = window.innerWidth;
+		const noScrollBar = document
+			.querySelector( 'html' )
+			.getBoundingClientRect().width;
+		const scrollbarWidth =
+			parseInt( withScrollBar - noScrollBar, 10 ) + 'px';
+		const root = document.documentElement;
+		root.style.setProperty( '--scrollbar', scrollbarWidth );
 	}
 
 	// Detect body resize changes and update the scrollbar width property.
-	const resizeObserver = new ResizeObserver( entries => 
+	const resizeObserver = new ResizeObserver( ( entries ) =>
 		set_scrollbar_css_custom_property()
-	)
-	resizeObserver.observe( document.body )
+	);
+	resizeObserver.observe( document.body );
 
-	let docLoaded = setInterval( function() {
-		if( document.readyState === 'complete' ) {
-			clearInterval( docLoaded )
-			getScreen()
+	const docLoaded = setInterval( function () {
+		if ( document.readyState === 'complete' ) {
+			clearInterval( docLoaded );
+			getScreen();
 		}
-	}, 10 )
-
+	}, 10 );
 
 	// Poll for resize settle to throttle updates
-	var resizeTimeout
-	window.onresize = function() {
+	let resizeTimeout;
+	window.onresize = function () {
 		if ( resizeTimeout ) {
-			clearTimeout( resizeTimeout )
+			clearTimeout( resizeTimeout );
 		}
-		resizeTimeout = setTimeout( function() {
-			getScreen()
-			set_scrollbar_css_custom_property()
-		}, 10 )
-	}
-
-
-}
+		resizeTimeout = setTimeout( function () {
+			getScreen();
+			set_scrollbar_css_custom_property();
+		}, 10 );
+	};
+};
 
 
 
 ;// CONCATENATED MODULE: ./src/js/frontend.js
 /**
  * Webpack entry point.
- * 
+ *
  * @link https://metabox.io/modernizing-javascript-code-in-wordpress/
  */
 
@@ -1223,11 +1276,11 @@ const modal = () => {
 
 
 
-dropdownControl.initialise()
-hideHeader()
-mobilePopupMenu()
-modal()
-screenClass()
+dropdownControl.initialise();
+hideHeader();
+mobilePopupMenu();
+modal();
+screenClass();
 
 /******/ })()
 ;

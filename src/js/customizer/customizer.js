@@ -3,15 +3,13 @@
  *
  * Manage WP Customizer interface.
  *
- * @package lonewolf
+ * @package
  * @author Jefferson Real <me@jeffersonreal.uk>
  * @copyright Copyright 2023 Jefferson Real
  */
 
-function customizer() {
+const customizer = () => {
+	console.log( 'This module will contain customizer JS' );
+};
 
-console.log( 'This module will contain customizer JS' )
-
-}
-
-export { customizer }
+export { customizer };

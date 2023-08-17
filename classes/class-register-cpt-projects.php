@@ -9,13 +9,16 @@ namespace BigupWeb\Lonewolf;
  * @package lonewolf
  */
 
-class Register_Projects_CPT {
+class Register_CPT_Projects {
 
 	// Custom post type ID.
 	private const CPTID = 'project';
 
+	// Custom post type label.
+	private const CPTLABEL = 'Projects';
+
 	// Custom post type slug.
-	public const PROJECTSLUG = 'edit.php?post_type=project';
+	public const CPTSLUG = 'edit.php?post_type=project';
 
 	// Prefix for storing custom fields in the postmeta table.
 	private const PREFIX = '_lwpr_';
@@ -77,7 +80,7 @@ class Register_Projects_CPT {
 				'exclude_from_search' => false,
 				'publicly_queryable'  => true,
 				'query_var'           => true,
-				'show_in_menu'        => self::PROJECTSLUG, // String set in add_submenu_page.
+				'show_in_menu'        => self::CPTSLUG, // String set in add_submenu_page.
 				'menu_position'       => 90,
 				'menu_icon'           => 'dashicons-portfolio',
 				'hierarchical'        => false,
@@ -91,7 +94,7 @@ class Register_Projects_CPT {
 		add_action( 'admin_menu', array( &$this, 'create_custom_fields' ) );
 		add_action( 'save_post', array( &$this, 'save_custom_fields' ), 1, 2 );
 		add_action( 'do_meta_boxes', array( &$this, 'remove_default_custom_fields' ), 10, 3 );
-		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_projects_link_callback' ) );
+		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_cpt_link_callback' ) );
 	}
 
 
@@ -109,7 +112,7 @@ class Register_Projects_CPT {
 	 * Create new custom fields meta box.
 	 */
 	public function create_custom_fields() {
-		add_meta_box( self::METABOXID, 'Project Meta', array( &$this, 'display_custom_fields' ), self::CPTID, 'normal', 'high' );
+		add_meta_box( self::METABOXID, 'Post Custom Fields', array( &$this, 'display_custom_fields' ), self::CPTID, 'normal', 'high' );
 	}
 
 
@@ -131,34 +134,28 @@ class Register_Projects_CPT {
 						echo '</th>';
 						echo '<td>';
 						switch ( $field['type'] ) {
-							case 'text': {
+							case 'text':
 								echo '<input type="text" name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" value="' . htmlspecialchars( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) ) . '" class="regular-text" />';
 								break;
-							}
-							case 'textarea': {
+							case 'textarea':
 								echo '<textarea name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" columns="30" rows="3">' . htmlspecialchars( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) ) . '</textarea>';
 								break;
-							}
-							case 'url': {
+							case 'url':
 								echo '<input type="url" name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" value="' . htmlspecialchars( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) ) . '" class="regular-text" />';
 								break;
-							}
-							case 'number': {
+							case 'number':
 								echo '<input type="number" name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" value="' . htmlspecialchars( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) ) . '" />';
 								break;
-							}
-							case 'checkbox': {
+							case 'checkbox':
 								echo '<input type="checkbox" name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" value="1"';
-								if ( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) == true ) {
+								if ( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) === true ) {
 									echo ' checked="checked"';
 								}
 								echo ' />';
 								break;
-							}
-							default: {
+							default:
 								echo '<p>Custom field output error: Field type "' . $field['type'] . '" not found.</p>';
 								break;
-							}
 						}
 						if ( $field['description'] ) {
 							echo '<p>' . $field['description'] . '</p>';
@@ -186,11 +183,11 @@ class Register_Projects_CPT {
 		foreach ( self::CUSTOMFIELDS as $field ) {
 			if ( isset( $_POST[ self::PREFIX . $field['name'] ] ) && trim( $_POST[ self::PREFIX . $field['name'] ] ) ) {
 				$value = $_POST[ self::PREFIX . $field['name'] ];
-				// Auto-paragraphs for message body
+				// Auto-paragraphs for textarea fields.
 				if ( $field['type'] === 'textarea' ) {
 					$value = wpautop( $value );
 				}
-					update_post_meta( $post_id, self::PREFIX . $field['name'], $value );
+				update_post_meta( $post_id, self::PREFIX . $field['name'], $value );
 			} else {
 				delete_post_meta( $post_id, self::PREFIX . $field['name'] );
 			}
@@ -199,12 +196,12 @@ class Register_Projects_CPT {
 
 
 	/**
-	 * Echo projects link on the dashboard page callback.
+	 * Echo link on the dashboard page callback.
 	 */
-	public function echo_projects_link_callback() {
+	public function echo_cpt_link_callback() {
 		Settings_Admin::echo_dashboard_page_link(
-			self::PROJECTSLUG,
-			'Projects'
+			self::CPTSLUG,
+			self::CPTLABEL
 		);
 	}
 }

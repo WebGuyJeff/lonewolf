@@ -8,29 +8,27 @@ var __webpack_exports__ = {};
  *
  * Manage WP Customizer interface.
  *
- * @package lonewolf
+ * @package
  * @author Jefferson Real <me@jeffersonreal.uk>
  * @copyright Copyright 2023 Jefferson Real
  */
 
-function customizer() {
-
-console.log( 'This module will contain customizer JS' )
-
-}
+const customizer = () => {
+	console.log( 'This module will contain customizer JS' );
+};
 
 
 
 ;// CONCATENATED MODULE: ./src/js/customizer.js
 /**
  * Webpack entry point.
- * 
+ *
  * @link https://metabox.io/modernizing-javascript-code-in-wordpress/
  */
 
 
 
-customizer()
+customizer();
 
 /******/ })()
 ;

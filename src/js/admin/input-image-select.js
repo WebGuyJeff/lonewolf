@@ -1,8 +1,3 @@
-/******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
-var __webpack_exports__ = {};
-
-;// CONCATENATED MODULE: ./src/js/admin/input-image-select.js
 /**
  * Image Select Input Functionality.
  *
@@ -66,19 +61,4 @@ console.log( attachment )
 	}, 100 )
 }
 
-
-
-;// CONCATENATED MODULE: ./src/js/admin.js
-/**
- * Webpack entry point.
- *
- * @link https://metabox.io/modernizing-javascript-code-in-wordpress/
- */
-
-
-
-inputImageSelect();
-
-/******/ })()
-;
-//# sourceMappingURL=admin.js.map
+export { inputImageSelect }
