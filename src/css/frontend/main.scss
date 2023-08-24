@@ -55,13 +55,16 @@ This CSS will apply everywhere on the front end.
 	3.2 MOBILE
 		3.2.1 THUMBNAV
 
-4. [ANIMATION]
-	4.1 CSS KEYFRAMES
-		4.1.1 PULSE
-	4.2 CONTAINERS
-		4.2.1 .animation_scrollSpace
-		4.2.2 .animation_wrap
-		4.2.3 .animation_title
+4. [WP-BLOCKS]
+	4.1 COMMON
+
+5. [ANIMATION]
+	5.1 CSS KEYFRAMES
+		5.1.1 PULSE
+	5.2 CONTAINERS
+		5.2.1 .animation_scrollSpace
+		5.2.2 .animation_wrap
+		5.2.3 .animation_title
 
 
 /*=============================================================== 1. BASE ====*/
@@ -797,119 +800,114 @@ a img.aligncenter {
 		color: var(--lw_grey-darkest);
 	}
 
-	form.wp-block-search {
-		max-width: 100%;
-	}
-
-
-	.form {
-		position: relative;
-		width: clamp(10em, 100%, 34em);
-		text-align: inherit;
-		font: inherit;
-		max-width: 96vw;
-		margin: 0 auto;
-	}
-			.form_section {
-				margin: 0;
-				border: none;
-				padding: 0;
+.form {
+	position: relative;
+	width: clamp(10em, 100%, 34em);
+	text-align: inherit;
+	font: inherit;
+	max-width: 96vw;
+	margin: 0 auto;
+}
+		.form_section {
+			margin: 0;
+			border: none;
+			padding: 0;
+			width: 100%;
+		}
+		.form_section:disabled {
+			transition: opacity 150ms ease-in-out;
+			opacity: 0.5;
+		}
+			.form_message {
+				margin: 1em 0 1.688em 0;
+			}
+			.form_inputWrap {
+				position: relative;
+				transition: 0.2s;
+				margin: 0.5em auto 0.5em 0;
+				border: var( --lw_border );
+				min-width: 8em;
+				min-height: fit-content;
+				overflow: hidden;
+				resize: none;
 				width: 100%;
 			}
-			.form_section:disabled {
-				transition: opacity 150ms ease-in-out;
-				opacity: 0.5;
+			.form_inputWrap-short {
+				max-width: 22em;
 			}
-				.form_message {
-					margin: 1em 0 1.688em 0;
-				}
-				.form_inputWrap {
-					position: relative;
-					transition: 0.2s;
-					margin: 0.5em auto 0.5em 0;
-					border: var( --lw_border );
-					min-width: 8em;
-					min-height: fit-content;
-					overflow: hidden;
-					resize: none;
+				.form_input {
+					display: block;
+					outline: none;
+					border: none;
+					background: #0000;
+					padding: 0.5em;
 					width: 100%;
+					height: 100%;
+					resize: vertical;
+					color: inherit;
 				}
-				.form_inputWrap-short {
-					max-width: 22em;
+				.form_input:not(.form_section:disabled > .form_input):hover {
+					cursor: text;
 				}
-					.form_input {
+					.form_flag {
+						display: flex;
+						position: absolute;
+						top: -1.5em;
+						right: 0.2em;
+						align-items: center;
+						justify-content: center;
+						transition: top 0.15s;
+						border-radius: 0 0 0 2em;
+						width: 1.5em;
+						height: 1.5em;
+					}
+					.form_flag-hover {
+						background: var(--lw_yellow);
+					}
+					.form_flag-focus {
+						background: var(--lw_green-light);
+					}
+					.form_inputWrap:not(.form_section:disabled > .form_inputWrap):hover .form_flag-hover,
+					.form_inputWrap:not(.form_section:disabled > .form_inputWrap):focus-within .form_flag-focus {
+						top: 0.2em;
+					}
+					.customFileUpload {
 						display: block;
-						outline: none;
-						border: none;
-						background: #0000;
-						padding: 0.5em;
-						width: 100%;
-						height: 100%;
-						resize: vertical;
-						color: inherit;
+						margin: 0.5em auto 0.5em 0;
 					}
-					.form_input:not(.form_section:disabled > .form_input):hover {
-						cursor: text;
-					}
-						.form_flag {
-							display: flex;
-							position: absolute;
-							top: -1.5em;
-							right: 0.2em;
-							align-items: center;
-							justify-content: center;
-							transition: top 0.15s;
-							border-radius: 0 0 0 2em;
-							width: 1.5em;
-							height: 1.5em;
-						}
-						.form_flag-hover {
-							background: var(--lw_yellow);
-						}
-						.form_flag-focus {
-							background: var(--lw_green-light);
-						}
-						.form_inputWrap:not(.form_section:disabled > .form_inputWrap):hover .form_flag-hover,
-						.form_inputWrap:not(.form_section:disabled > .form_inputWrap):focus-within .form_flag-focus {
-							top: 0.2em;
-						}
-						.customFileUpload {
+						.customFileUpload_label {
 							display: block;
-							margin: 0.5em auto 0.5em 0;
+							border: 1px solid #ccc;
+							cursor: pointer;
+							padding: 6px 12px;
+							width: fit-content;
 						}
-							.customFileUpload_label {
-								display: block;
-								border: 1px solid #ccc;
-								cursor: pointer;
-								padding: 6px 12px;
-								width: fit-content;
-							}
-							.customFileUpload_label:hover {
-								text-decoration: underline;
-							}
-								.customFileUpload_input {
-									display: none;
-								}
-								.customFileUpload_icon {
-									vertical-align: middle;
-								}
-							.customFileUpload_fileList ul {
-								margin-left: 0;
-							}
-						.form_output {
-							position: absolute;
-							top: 0;
-							right: 0;
-							bottom: 0;
-							left: 0;
-							flex-flow: column nowrap;
-							align-items: center;
-							justify-content: center;
-							transition: opacity 150ms ease-in-out;
+						.customFileUpload_label:hover {
+							text-decoration: underline;
 						}
-							.form-popout {
-								box-shadow: 1px 3px 6px 1px #000a;
+							.customFileUpload_input {
+								display: none;
 							}
+							.customFileUpload_icon {
+								vertical-align: middle;
+							}
+						.customFileUpload_fileList ul {
+							margin-left: 0;
+						}
+					.form_output {
+						position: absolute;
+						top: 0;
+						right: 0;
+						bottom: 0;
+						left: 0;
+						flex-flow: column nowrap;
+						align-items: center;
+						justify-content: center;
+						transition: opacity 150ms ease-in-out;
+					}
+						.form-popout {
+							box-shadow: 1px 3px 6px 1px #000a;
+						}
 
 	/* Theme overrides */
 	.form_section:disabled button:hover,
@@ -1897,8 +1895,16 @@ a img.aligncenter {
 		}
 
 
-/*========================================================= 4. ANIMATION =====*/
-/*----------------------------------------------------- 4.1 CSS KEYFRAMES ----*/
+/*========================================================= 4. WP-BLOCKS =====*/
+/*------------------------------------------------------------ 4.1 COMMON ----*/
+
+	.wp-block-search {
+		max-width: 100%;
+	}
+
+
+/*========================================================= 5. ANIMATION =====*/
+/*----------------------------------------------------- 5.1 CSS KEYFRAMES ----*/
 
 
 @-webkit-keyframes pulse {
@@ -1918,7 +1924,7 @@ a img.aligncenter {
 }
 
 
-/*-------------------------------------------------------- 4.2 CONTAINERS ----*/
+/*-------------------------------------------------------- 5.2 CONTAINERS ----*/
 
 
 .animation_scrollSpace {
@@ -1958,7 +1964,7 @@ a img.aligncenter {
 }}
 
 
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 4.2 ROLLBY - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 5.2 ROLLBY - - */
 
 
 .rollByAnim_container {

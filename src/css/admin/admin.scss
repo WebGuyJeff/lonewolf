@@ -5,6 +5,7 @@
 1. ELEMENTS
 2. BLOCKS
 	1.1 DASHTILES
+	2.2 DASHICONS DROPDOWN
 */
 
 
@@ -61,4 +62,73 @@ table {
 			color: var(--lw_grey-darkest);
 		}
 	}
+}
+
+
+/*---------------------------------------------------- 2.2 DASHICONS DROPDOWN */
+
+
+.dashiconsDropdown {
+	padding: 5px;
+	width: 320px;
+		
+	a {
+		display: inline-block;
+		overflow: hidden;
+		text-decoration: none;
+		border: 1px solid;
+		padding: 5px;
+		color: #777;
+		position: relative;
+		
+		&.open {
+			border-bottom-color: #fff;
+			color: #000;
+		}
+		
+		.arrow {
+			float: right;
+		}
+	}
+	
+	a.open + ul {
+		display: block;
+	}
+	
+	ul {
+		list-style-type: none;
+		padding: 5px;
+		margin: -1px 0 0;
+		display: none;
+		border: 1px solid #000;
+		
+		li {
+			display: inline-block;
+			
+			input {
+				display: none;
+			}
+
+			label {
+				display: inline-block;
+				padding: 4px;
+				cursor: pointer;
+				color: #777;
+				border: 1px solid transparent;
+				
+				&:hover {
+					color: #000;
+				}
+			}
+			
+			:checked + label {
+				color: #000;
+				border-color: #000;
+			}
+		}
+	}
+}
+
+.visuallyhidden {
+	display: none;
 }

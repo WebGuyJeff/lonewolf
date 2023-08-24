@@ -88,6 +88,10 @@ $xlWidth:      1920px;
 	@media ( min-width: $mobileWidth ) { --lw_padding: 1em;   }
 	@media ( min-width: $laptopWidth ) { --lw_padding: 1.5em; }
 
+	/* layout vars for theme.json */
+	--responsive--default-width: 100vw;
+	--responsive--alignwide-width: 72.5em; // 1160px
+
 	/* font stacks */
 	--lw_font-secondary: 'Open Sans', 'Arial', sans-serif;
 	--lw_font-primary:   'Inter', 'Helvetica', 'Open Sans', 'Arial', sans-serif;

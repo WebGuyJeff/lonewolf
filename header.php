@@ -22,6 +22,14 @@ namespace BigupWeb\Lonewolf;
 	?>
 </head>
 
+<header class="header-test">
+	<?php block_template_part( 'header' ); /* Testing new block header. */ ?>
+</header>
+
+<?php return; ?>
+
+
+
 <body <?php body_class(); ?>>
 
 	<header class="header">

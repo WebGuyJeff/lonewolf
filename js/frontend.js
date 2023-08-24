@@ -1276,11 +1276,11 @@ const screenClass = () => {
 
 
 
-dropdownControl.initialise();
-hideHeader();
-mobilePopupMenu();
-modal();
-screenClass();
+dropdownControl.initialise()
+hideHeader()
+mobilePopupMenu()
+modal()
+screenClass()
 
 /******/ })()
 ;

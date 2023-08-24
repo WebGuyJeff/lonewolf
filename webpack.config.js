@@ -1,10 +1,10 @@
-const webpack = require( 'webpack' );
-const path = require( 'path' );
-const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
-const CssMinimizerPlugin = require( 'css-minimizer-webpack-plugin' );
-const TerserWebpackPlugin = require( 'terser-webpack-plugin' );
-const BrowserSyncPlugin = require( 'browser-sync-webpack-plugin' );
-const THEME = require( './wp-theme-meta.json' );
+const webpack = require( 'webpack' )
+const path = require( 'path' )
+const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' )
+const CssMinimizerPlugin = require( 'css-minimizer-webpack-plugin' )
+const TerserWebpackPlugin = require( 'terser-webpack-plugin' )
+const BrowserSyncPlugin = require( 'browser-sync-webpack-plugin' )
+const THEME = require( './wp-theme-meta.json' )
 
 const wpThemeBanner =
 	'/**\n' +
@@ -47,7 +47,7 @@ const wpThemeBanner =
 	' * Text Domain: ' +
 	THEME.textDomain +
 	'\n' +
-	' */';
+	' */'
 
 module.exports = {
 	cache: false,
@@ -61,6 +61,7 @@ module.exports = {
 		admin: './src/js/admin.js',
 		style: './src/css/style.js',
 		'style-admin': './src/css/style-admin.js',
+		'style-editor': './src/css/style-editor.js',
 	},
 	output: {
 		filename: '[name].js', // js output filename.
@@ -114,4 +115,4 @@ module.exports = {
 			},
 		],
 	},
-};
+}

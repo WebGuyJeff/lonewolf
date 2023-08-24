@@ -28,7 +28,7 @@ const customizer = () => {
 
 
 
-customizer();
+customizer()
 
 /******/ })()
 ;

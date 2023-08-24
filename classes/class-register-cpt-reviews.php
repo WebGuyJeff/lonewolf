@@ -62,7 +62,7 @@ class Register_CPT_Reviews {
 			'name'        => '_icon',
 			'title'       => 'Icon',
 			'description' => 'Icon to show with the review',
-			'type'        => 'select',
+			'type'        => 'dashicons-select',
 		),
 	);
 
@@ -172,6 +172,36 @@ class Register_CPT_Reviews {
 									<input type="button" class="button image-upload" value="Browse">
 								</label>
 								<div class="image-preview"><img src="<?php echo $meta['image']; ?>" style="max-width: 250px; min-height: 0;"></div>
+								<?php
+								break;
+							case 'dashicons-select':
+								// Get a list of available dashicons from the SVG icon source file.
+								$dashicons_svg = file_get_contents( ABSPATH . '/wp-includes/fonts/dashicons.svg' );
+								$pattern = '/id="(.*?)"/';
+								preg_match_all( $pattern, $dashicons_svg, $dashicon_slugs );
+								?>
+								<div class="dashiconsDropdown">
+									<a href="#select">
+										<span class="default">
+											--select icon--
+										</span>
+										<span class="arrow dashicons dashicons-arrow-down"></span>
+									</a>
+									<ul id="select">
+									<?php
+									foreach ( $dashicon_slugs[1] as $slug ) :
+										$checked = ( $slug === get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) ) ? 'checked' : '';
+										?>
+										<li>
+											<input type="radio" name="dashicon" value="<?php echo esc_attr( $slug ); ?>" id="<?php echo esc_attr( $slug ); ?>" <?php echo esc_attr( $checked ); ?>>
+											<label for="<?php echo esc_attr( $slug ); ?>" title="<?php echo esc_attr( $slug ); ?>">
+												<span class="dashicons dashicons-<?php echo esc_attr( $slug ); ?>"></span>
+												<span class="screen-reader-text"><?php echo esc_attr( str_replace( '-', ' ', $slug ) ); ?></span>
+											</label>
+										</li>
+									<?php endforeach ?>
+									</ul>
+								</div>
 								<?php
 								break;
 							default:

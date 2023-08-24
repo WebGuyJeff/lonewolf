@@ -41,9 +41,6 @@ const inputImageSelect = () => {
 			mediaFrame.on( 'select', () => {
 				// Get attachment selection and create a JSON representation of the model.
 				const attachment = mediaFrame.state().get( 'selection' ).first().toJSON()
-
-console.log( attachment )
-
 				textInput.value = attachment.url
 				imagePreview.querySelector( 'img' ).setAttribute( 'src', attachment.url )
 			} )

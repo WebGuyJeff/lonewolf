@@ -157,6 +157,23 @@ class Init {
 		// Make theme available for translation. File translations in /languages/ directory.
 		load_theme_textdomain( 'lonewolf', get_template_directory() . '/languages' );
 
+		/**
+		 * Add block theme support.
+		 * 
+		 * NOTE: The following supports are enabled automatically when adding block theme support.
+		 * Any of these entries further down will be left intact until this theme is fully migrated
+		 * to a dedicated block theme.
+		 * 
+		 * add_theme_support( 'post-thumbnails' );
+		 * add_theme_support( 'responsive-embeds' );
+		 * add_theme_support( 'editor-styles' );
+		 * add_theme_support( 'html5', array( 'style','script', ) );
+		 * add_theme_support( 'automatic-feed-links' );
+		 */
+		add_theme_support( 'block-template-parts' );
+		add_theme_support( 'wp-block-styles' );
+		add_editor_style( 'style-editor.css' );
+
 		// Enable support for Post Thumbnails on posts and pages.
 		add_theme_support( 'post-thumbnails' );
 
