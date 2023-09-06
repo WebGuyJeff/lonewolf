@@ -12,13 +12,13 @@ namespace BigupWeb\Lonewolf;
 class Register_CPT_Reviews {
 
 	// Custom post type ID.
-	private const CPTID = 'review';
+	private const CPTKEY = 'review';
 
 	// Custom post type label.
 	private const CPTLABEL = 'Reviews';
 
 	// Custom post type slug.
-	public const CPTSLUG = 'edit.php?post_type=review';
+	public const CPTSLUG = 'edit.php?post_type=' . self::CPTKEY;
 
 	// Prefix for storing custom fields in the postmeta table.
 	private const PREFIX = '_lwre_';
@@ -29,40 +29,43 @@ class Register_CPT_Reviews {
 	// Define custom meta fields.
 	private const CUSTOMFIELDS = array(
 		array(
-			'name'        => '_source_url',
-			'title'       => 'Source URL',
-			'description' => 'Link to the review source',
-			'type'        => 'url',
-		),
-		array(
-			'name'        => '_name',
-			'title'       => 'Reviewer Name',
-			'description' => 'Name of the reviewer',
-			'type'        => 'text',
-		),
-		array(
-			'name'        => '_profile_image',
-			'title'       => 'Profile Image',
-			'description' => 'Profile image of the reviewer',
-			'type'        => 'image-upload',
-		),
-		array(
-			'name'        => '_title',
-			'title'       => 'Title',
-			'description' => 'Title of the review',
-			'type'        => 'text',
-		),
-		array(
-			'name'        => '_body',
-			'title'       => 'Body',
+			'suffix'      => '_body',
+			'label'       => 'Review',
 			'description' => 'Main body content of the review',
-			'type'        => 'textarea',
+			'input_type'  => 'textarea',
+			'required'    => 'required',
+			'rows'        => '10',
+			'cols'        => '40',
 		),
 		array(
-			'name'        => '_icon',
-			'title'       => 'Icon',
+			'suffix'       => '_source_url',
+			'label'        => 'Source URL',
+			'description'  => 'Link to the review source',
+			'input_type'   => 'url',
+			'placeholder'  => 'https://my-reviews.com/my-review/',
+			'length_limit' => '300',
+			'required'     => '',
+		),
+		array(
+			'suffix'       => '_name',
+			'label'        => 'Reviewer Name',
+			'description'  => 'Name of the reviewer',
+			'input_type'   => 'text',
+			'placeholder'  => 'Peter Pan',
+			'length_limit' => '50',
+			'required'     => 'required',
+		),
+		array(
+			'suffix'      => '_profile_image',
+			'label'       => 'Profile Image',
+			'description' => 'Profile image of the reviewer',
+			'input_type'  => 'image-upload',
+		),
+		array(
+			'suffix'      => '_icon',
+			'label'       => 'Icon',
 			'description' => 'Icon to show with the review',
-			'type'        => 'dashicons-select',
+			'input_type'  => 'dashicons-select',
 		),
 	);
 
@@ -72,7 +75,7 @@ class Register_CPT_Reviews {
 	 */
 	public function create_cpt() {
 		register_post_type(
-			self::CPTID,
+			self::CPTKEY,
 			array(
 				'labels'              => array(
 					'name'               => 'Reviews',
@@ -86,14 +89,14 @@ class Register_CPT_Reviews {
 					'not_found'          => 'No Reviews Found',
 					'not_found_in_trash' => 'No Reviews found in Trash',
 				),
-				'supports'            => array( 'title', 'editor', 'custom-fields' ),
+				'supports'            => array( 'title', 'custom-fields' ),
 				'description'         => 'Feedback and reviews.',
 				'public'              => true,
 				'exclude_from_search' => false,
 				'publicly_queryable'  => true,
 				'query_var'           => true,
-				'show_in_menu'        => self::CPTSLUG, // String set in add_submenu_page.
-				'menu_position'       => 90,
+				'show_in_menu'        => true,
+				'menu_position'       => 5,
 				'menu_icon'           => 'dashicons-star-filled',
 				'hierarchical'        => false,
 				'taxonomies'          => array( 'category', 'post_tag' ),
@@ -101,12 +104,12 @@ class Register_CPT_Reviews {
 				'delete_with_user'    => false,
 			)
 		);
-		register_taxonomy_for_object_type( 'category', self::CPTID );
-		register_taxonomy_for_object_type( 'post_tag', self::CPTID );
+		register_taxonomy_for_object_type( 'category', self::CPTKEY );
+		register_taxonomy_for_object_type( 'post_tag', self::CPTKEY );
 		add_action( 'admin_menu', array( &$this, 'create_custom_fields' ) );
 		add_action( 'save_post', array( &$this, 'save_custom_fields' ), 1, 2 );
 		add_action( 'do_meta_boxes', array( &$this, 'remove_default_custom_fields' ), 10, 3 );
-		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_cpt_link_callback' ) );
+		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_cpt_link' ) );
 	}
 
 
@@ -115,7 +118,7 @@ class Register_CPT_Reviews {
 	 */
 	public function remove_default_custom_fields( $type, $context, $post ) {
 		foreach ( array( 'normal', 'advanced', 'side' ) as $context ) {
-			remove_meta_box( 'postcustom', self::CPTID, $context );
+			remove_meta_box( 'postcustom', self::CPTKEY, $context );
 		}
 	}
 
@@ -124,7 +127,7 @@ class Register_CPT_Reviews {
 	 * Create new custom fields meta box.
 	 */
 	public function create_custom_fields() {
-		add_meta_box( self::METABOXID, 'Post Custom Fields', array( &$this, 'display_custom_fields' ), self::CPTID, 'normal', 'high' );
+		add_meta_box( self::METABOXID, 'Post Custom Fields', array( &$this, 'display_custom_fields' ), self::CPTKEY, 'normal', 'high' );
 	}
 
 
@@ -140,74 +143,16 @@ class Register_CPT_Reviews {
 				<tbody>
 					<?php
 					foreach ( self::CUSTOMFIELDS as $field ) {
+						$field['id'] = self::PREFIX . $field['suffix'];
 						echo '<tr>';
 						echo '<th scope="row">';
-						echo '<label for="' . self::PREFIX . $field['name'] . '"><b>' . $field['title'] . '</b></label>';
+						echo '<label for="' . $field['id'] . '"><b>' . $field['label'] . '</b></label>';
 						echo '</th>';
 						echo '<td>';
-						switch ( $field['type'] ) {
-							case 'text':
-								echo '<input type="text" name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" value="' . htmlspecialchars( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) ) . '" class="regular-text" />';
-								break;
-							case 'textarea':
-								echo '<textarea name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" columns="30" rows="3">' . htmlspecialchars( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) ) . '</textarea>';
-								break;
-							case 'url':
-								echo '<input type="url" name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" value="' . htmlspecialchars( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) ) . '" class="regular-text" />';
-								break;
-							case 'number':
-								echo '<input type="number" name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" value="' . htmlspecialchars( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) ) . '" />';
-								break;
-							case 'checkbox':
-								echo '<input type="checkbox" name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" value="1"';
-								if ( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) == true ) {
-									echo ' checked="checked"';
-								}
-								echo ' />';
-								break;
-							case 'image-upload':
-								?>
-								<label for="' . self::PREFIX . $field['name'] . '">
-									<input type="text" name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" class="meta-image regular-text" value="<?php echo $meta['image']; ?>">
-									<input type="button" class="button image-upload" value="Browse">
-								</label>
-								<div class="image-preview"><img src="<?php echo $meta['image']; ?>" style="max-width: 250px; min-height: 0;"></div>
-								<?php
-								break;
-							case 'dashicons-select':
-								// Get a list of available dashicons from the SVG icon source file.
-								$dashicons_svg = file_get_contents( ABSPATH . '/wp-includes/fonts/dashicons.svg' );
-								$pattern = '/id="(.*?)"/';
-								preg_match_all( $pattern, $dashicons_svg, $dashicon_slugs );
-								?>
-								<div class="dashiconsDropdown">
-									<a href="#select">
-										<span class="default">
-											--select icon--
-										</span>
-										<span class="arrow dashicons dashicons-arrow-down"></span>
-									</a>
-									<ul id="select">
-									<?php
-									foreach ( $dashicon_slugs[1] as $slug ) :
-										$checked = ( $slug === get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) ) ? 'checked' : '';
-										?>
-										<li>
-											<input type="radio" name="dashicon" value="<?php echo esc_attr( $slug ); ?>" id="<?php echo esc_attr( $slug ); ?>" <?php echo esc_attr( $checked ); ?>>
-											<label for="<?php echo esc_attr( $slug ); ?>" title="<?php echo esc_attr( $slug ); ?>">
-												<span class="dashicons dashicons-<?php echo esc_attr( $slug ); ?>"></span>
-												<span class="screen-reader-text"><?php echo esc_attr( str_replace( '-', ' ', $slug ) ); ?></span>
-											</label>
-										</li>
-									<?php endforeach ?>
-									</ul>
-								</div>
-								<?php
-								break;
-							default:
-								echo '<p>Custom field output error: Field type "' . $field['type'] . '" not found.</p>';
-								break;
-						}
+
+						$value = get_post_meta( $post->ID, $field['id'], true );
+						echo Get_Input::markup( $field, $value );
+
 						if ( $field['description'] ) {
 							echo '<p>' . $field['description'] . '</p>';
 						}
@@ -232,15 +177,12 @@ class Register_CPT_Reviews {
 			return;
 		}
 		foreach ( self::CUSTOMFIELDS as $field ) {
-			if ( isset( $_POST[ self::PREFIX . $field['name'] ] ) && trim( $_POST[ self::PREFIX . $field['name'] ] ) ) {
-				$value = $_POST[ self::PREFIX . $field['name'] ];
-				// Auto-paragraphs for textarea fields.
-				if ( $field['type'] === 'textarea' ) {
-					$value = wpautop( $value );
-				}
-				update_post_meta( $post_id, self::PREFIX . $field['name'], $value );
+			$field['id'] = self::PREFIX . $field['suffix'];
+			if ( isset( $_POST[ $field['id'] ] ) && trim( $_POST[ $field['id'] ] ) ) {
+				$value = $_POST[ $field['id'] ];
+				update_post_meta( $post_id, $field['id'], $value );
 			} else {
-				delete_post_meta( $post_id, self::PREFIX . $field['name'] );
+				delete_post_meta( $post_id, $field['id'] );
 			}
 		}
 	}
@@ -249,7 +191,7 @@ class Register_CPT_Reviews {
 	/**
 	 * Echo link on the dashboard page callback.
 	 */
-	public function echo_cpt_link_callback() {
+	public function echo_cpt_link() {
 		Settings_Admin::echo_dashboard_page_link(
 			self::CPTSLUG,
 			self::CPTLABEL

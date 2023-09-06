@@ -66,7 +66,7 @@ class Settings_Admin {
 			5                                     // Position.
 		);
 
-		// This overrides WP from giving the first sub menu item the same text as the parent menu.
+		// Overrides WP from giving the first sub menu item the same text as the parent menu.
 		add_submenu_page(
 			self::PARENTSLUG,           // Parent Slug.
 			'Lonewolf Theme Dashboard', // Page Title.
@@ -83,24 +83,6 @@ class Settings_Admin {
 			self::SETTINGSLUG,                      // Sub Menu Slug.
 			array( $this, 'create_settings_page' ), // Callback.
 			2,                                      // Position.
-		);
-
-		// Custom post type 'Projects'.
-		add_submenu_page(
-			self::PARENTSLUG,              // Parent Slug.
-			'Projects',                    // Page Title.
-			'Projects',                    // Menu Title.
-			'manage_options',              // Capability.
-			Register_CPT_Projects::CPTSLUG // Sub Menu (custom post) Slug.
-		);
-
-		// Custom post type 'Reviews'.
-		add_submenu_page(
-			self::PARENTSLUG,             // Parent Slug.
-			'Reviews',                    // Page Title.
-			'Reviews',                    // Menu Title.
-			'manage_options',             // Capability.
-			Register_CPT_Reviews::CPTSLUG // Sub Menu (custom post) Slug.
 		);
 	}
 

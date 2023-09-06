@@ -12,13 +12,13 @@ namespace BigupWeb\Lonewolf;
 class Register_CPT_Projects {
 
 	// Custom post type ID.
-	private const CPTID = 'project';
+	private const CPTKEY = 'project';
 
 	// Custom post type label.
 	private const CPTLABEL = 'Projects';
 
 	// Custom post type slug.
-	public const CPTSLUG = 'edit.php?post_type=project';
+	public const CPTSLUG = 'edit.php?post_type=' . self::CPTKEY;
 
 	// Prefix for storing custom fields in the postmeta table.
 	private const PREFIX = '_lwpr_';
@@ -29,28 +29,41 @@ class Register_CPT_Projects {
 	// Define custom meta fields.
 	private const CUSTOMFIELDS = array(
 		array(
-			'name'        => '_project_url',
-			'title'       => 'Project URL',
-			'description' => 'Link to learn more. E.g the live project or a full blog post',
-			'type'        => 'url',
+			'suffix'       => '_project_url',
+			'label'        => 'Project URL',
+			'description'  => 'Link to learn more. E.g the live project or a full blog post',
+			'input_type'   => 'url',
+			'placeholder'  => 'https://my-website.com/my-project/',
+			'length_limit' => '300',
+			'required'     => 'required',
 		),
 		array(
-			'name'        => '_repository_url',
-			'title'       => 'Repository URL',
-			'description' => 'Link to the project repository',
-			'type'        => 'url',
+			'suffix'       => '_repository_url',
+			'label'        => 'Repository URL',
+			'description'  => 'Link to the project repository',
+			'input_type'   => 'url',
+			'placeholder'  => 'https://my-repos.com/my-repo/',
+			'length_limit' => '300',
+			'required'     => '',
 		),
 		array(
-			'name'        => '_display_order',
-			'title'       => 'Display Order',
-			'description' => 'Lower numbers have higher priority',
-			'type'        => 'number',
+			'suffix'        => '_display_order',
+			'label'         => 'Display Order',
+			'description'   => 'Lower numbers have higher priority',
+			'input_type'    => 'number',
+			'number_min'    => 0,
+			'number_max'    => 100,
+			'number_step'   => 1,
+			'required'      => '',
+			'sanitize_type' => 'number',
+			'var_type'      => 'integer',
+
 		),
 		array(
-			'name'        => '_featured',
-			'title'       => 'Featured',
+			'suffix'      => '_featured',
+			'label'       => 'Featured',
 			'description' => 'Whether this post will display in featured template areas',
-			'type'        => 'checkbox',
+			'input_type'  => 'checkbox',
 		),
 	);
 
@@ -60,7 +73,7 @@ class Register_CPT_Projects {
 	 */
 	public function create_cpt() {
 		register_post_type(
-			self::CPTID,
+			self::CPTKEY,
 			array(
 				'labels'              => array(
 					'name'               => 'Projects',
@@ -80,8 +93,8 @@ class Register_CPT_Projects {
 				'exclude_from_search' => false,
 				'publicly_queryable'  => true,
 				'query_var'           => true,
-				'show_in_menu'        => self::CPTSLUG, // String set in add_submenu_page.
-				'menu_position'       => 90,
+				'show_in_menu'        => true,
+				'menu_position'       => 5,
 				'menu_icon'           => 'dashicons-portfolio',
 				'hierarchical'        => false,
 				'taxonomies'          => array( 'category', 'post_tag' ),
@@ -89,8 +102,8 @@ class Register_CPT_Projects {
 				'delete_with_user'    => false,
 			)
 		);
-		register_taxonomy_for_object_type( 'category', self::CPTID );
-		register_taxonomy_for_object_type( 'post_tag', self::CPTID );
+		register_taxonomy_for_object_type( 'category', self::CPTKEY );
+		register_taxonomy_for_object_type( 'post_tag', self::CPTKEY );
 		add_action( 'admin_menu', array( &$this, 'create_custom_fields' ) );
 		add_action( 'save_post', array( &$this, 'save_custom_fields' ), 1, 2 );
 		add_action( 'do_meta_boxes', array( &$this, 'remove_default_custom_fields' ), 10, 3 );
@@ -103,7 +116,7 @@ class Register_CPT_Projects {
 	 */
 	public function remove_default_custom_fields( $type, $context, $post ) {
 		foreach ( array( 'normal', 'advanced', 'side' ) as $context ) {
-			remove_meta_box( 'postcustom', self::CPTID, $context );
+			remove_meta_box( 'postcustom', self::CPTKEY, $context );
 		}
 	}
 
@@ -112,7 +125,7 @@ class Register_CPT_Projects {
 	 * Create new custom fields meta box.
 	 */
 	public function create_custom_fields() {
-		add_meta_box( self::METABOXID, 'Post Custom Fields', array( &$this, 'display_custom_fields' ), self::CPTID, 'normal', 'high' );
+		add_meta_box( self::METABOXID, 'Post Custom Fields', array( &$this, 'display_custom_fields' ), self::CPTKEY, 'normal', 'high' );
 	}
 
 
@@ -128,35 +141,16 @@ class Register_CPT_Projects {
 				<tbody>
 					<?php
 					foreach ( self::CUSTOMFIELDS as $field ) {
+						$field['id'] = self::PREFIX . $field['suffix'];
 						echo '<tr>';
 						echo '<th scope="row">';
-						echo '<label for="' . self::PREFIX . $field['name'] . '"><b>' . $field['title'] . '</b></label>';
+						echo '<label for="' . $field['id'] . '"><b>' . $field['label'] . '</b></label>';
 						echo '</th>';
 						echo '<td>';
-						switch ( $field['type'] ) {
-							case 'text':
-								echo '<input type="text" name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" value="' . htmlspecialchars( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) ) . '" class="regular-text" />';
-								break;
-							case 'textarea':
-								echo '<textarea name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" columns="30" rows="3">' . htmlspecialchars( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) ) . '</textarea>';
-								break;
-							case 'url':
-								echo '<input type="url" name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" value="' . htmlspecialchars( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) ) . '" class="regular-text" />';
-								break;
-							case 'number':
-								echo '<input type="number" name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" value="' . htmlspecialchars( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) ) . '" />';
-								break;
-							case 'checkbox':
-								echo '<input type="checkbox" name="' . self::PREFIX . $field['name'] . '" id="' . self::PREFIX . $field['name'] . '" value="1"';
-								if ( get_post_meta( $post->ID, self::PREFIX . $field['name'], true ) === true ) {
-									echo ' checked="checked"';
-								}
-								echo ' />';
-								break;
-							default:
-								echo '<p>Custom field output error: Field type "' . $field['type'] . '" not found.</p>';
-								break;
-						}
+
+						$value = get_post_meta( $post->ID, $field['id'], true );
+						echo Get_Input::markup( $field, $value );
+
 						if ( $field['description'] ) {
 							echo '<p>' . $field['description'] . '</p>';
 						}
@@ -181,15 +175,12 @@ class Register_CPT_Projects {
 			return;
 		}
 		foreach ( self::CUSTOMFIELDS as $field ) {
-			if ( isset( $_POST[ self::PREFIX . $field['name'] ] ) && trim( $_POST[ self::PREFIX . $field['name'] ] ) ) {
-				$value = $_POST[ self::PREFIX . $field['name'] ];
-				// Auto-paragraphs for textarea fields.
-				if ( $field['type'] === 'textarea' ) {
-					$value = wpautop( $value );
-				}
-				update_post_meta( $post_id, self::PREFIX . $field['name'], $value );
+			$field['id'] = self::PREFIX . $field['suffix'];
+			if ( isset( $_POST[ $field['id'] ] ) && trim( $_POST[ $field['id'] ] ) ) {
+				$value = $_POST[ $field['id'] ];
+				update_post_meta( $post_id, $field['id'], $value );
 			} else {
-				delete_post_meta( $post_id, self::PREFIX . $field['name'] );
+				delete_post_meta( $post_id, $field['id'] );
 			}
 		}
 	}

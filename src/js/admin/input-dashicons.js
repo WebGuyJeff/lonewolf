@@ -9,32 +9,33 @@
 const dashiconsInput = () => {
 
 	const initialiseInput = () => {
-		const selector = '.dashiconsDropdown'
-		const button   = document.querySelector( selector + ' a' )
-		const inputs   = document.querySelectorAll( selector + ' input' )
-		
-		const toggle = ( el ) => {
-			const a = el.querySelector( 'a' ),
-			span = el.querySelector( '.arrow' )
-			span.classList.toggle( 'dashicons-arrow-down' )
-			span.classList.toggle( 'dashicons-arrow-up' )
-			a.classList.toggle( 'open' )
-		}
-		
-		button.addEventListener( 'click', ( e ) => {
-			e.preventDefault()
-			toggle( e.target.closest( selector ) )
-		} )
 
-		inputs.forEach( ( input ) => {
+		const cssClass  = '.dashiconsDropdown',
+		button    = document.querySelector( cssClass + ' a' ),
+		radios    = document.querySelectorAll( cssClass + ' input' ),
+		removeBtn = document.querySelector( cssClass + ' button' ),
+		toggle    = ( el ) => el.querySelector( 'a' ).classList.toggle( 'open' )
+  
+		button.addEventListener( 'click', ( e ) => toggle( e.target.closest( cssClass ) ) )
+
+		radios.forEach( ( radio ) => {
 			addEventListener( 'change', ( e ) => {
-				const buttonLabel = e.target.closest( selector ).querySelector( '.default' ),
-						selection = e.target.value,
-							icon = document.createElement( 'span' )
-				icon.className = 'dashicons dashicons-' + selection
-				toggle( e.target.closest( selector ) )
-				buttonLabel.replaceChildren( icon )
+				const label = e.target.closest( cssClass ).querySelector( 'a span:first-child' )
+				label.innerHTML = ''
+				label.className = 'dashicons dashicons-' + e.target.value
+				e.target.checked = true
+				toggle( e.target.closest( cssClass ) )
+				// Stop event firing for more than one radio control.
+				e.stopImmediatePropagation()
 			} )
+		} )
+		
+		removeBtn.addEventListener( 'click', ( e ) => {
+			radios.forEach( ( radio ) => radio.checked = false )
+			const label = e.target.closest( cssClass ).querySelector( 'a span:first-child' )
+			label.innerHTML = '--select icon--'
+			label.className = ''
+			toggle( e.target.closest( cssClass ) )
 		} )
 	}
 

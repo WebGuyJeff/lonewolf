@@ -40,9 +40,11 @@ const inputImageSelect = () => {
 
 			mediaFrame.on( 'select', () => {
 				// Get attachment selection and create a JSON representation of the model.
-				const attachment = mediaFrame.state().get( 'selection' ).first().toJSON()
-				textInput.value = attachment.url
-				imagePreview.querySelector( 'img' ).setAttribute( 'src', attachment.url )
+				const attachment   = mediaFrame.state().get( 'selection' ).first().toJSON()
+				const domain       = window.location.origin
+				const relativePath = attachment.url.replace( domain, '' )
+				textInput.value = relativePath
+				imagePreview.querySelector( 'img' ).setAttribute( 'src', relativePath )
 			} )
 
 			// Opens the media library frame.
