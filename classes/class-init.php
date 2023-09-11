@@ -343,10 +343,18 @@ class Init {
 	 * Register custom post types.
 	 */
 	private function register_custom_post_types() {
-		$data = file_get_contents( get_template_directory() . '/data/customPostTypes.json' );
-		$cpts = json_decode( $data, true );
+		$option  = get_option( 'lw_features_settings' );
+		$enabled = array(
+			$option['cpt_services'] ? 'service' : false,
+			$option['cpt_reviews'] ? 'review' : false,
+			$option['cpt_projects'] ? 'project' : false,
+		);
+		$data    = file_get_contents( get_template_directory() . '/data/customPostTypes.json' );
+		$cpts    = json_decode( $data, true );
 		foreach ( $cpts as $cpt ) {
-			add_action( 'init', fn() => new Register_Custom_Post_Type( $cpt ) );
+			if ( in_array( $cpt['key'], $enabled, true ) ) {
+				add_action( 'init', fn() => new Register_Custom_Post_Type( $cpt ) );
+			}
 		}
 		// Enable WP custom fields even if ACF is installed.
 		add_filter( 'acf/settings/remove_wp_meta_box', '__return_false' );

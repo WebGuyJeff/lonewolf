@@ -22,7 +22,7 @@ class Get_Input {
 
 			case 'hidden':
 				return sprintf(
-					'<input type="hidden" name="%s" id="%s" value="%s" required>',
+					'<input type="hidden" name="%s" id="%s" value="%s" %s>',
 					$name,
 					$field['id'],
 					$value,
@@ -31,7 +31,7 @@ class Get_Input {
 
 			case 'text':
 				return sprintf(
-					'<input type="text" class="regular-text" name="%s" id="%s" value="%s" placeholder="%s" %s %s required>',
+					'<input type="text" class="regular-text" name="%s" id="%s" value="%s" placeholder="%s" %s %s %s>',
 					$name,
 					$field['id'],
 					$value,
@@ -43,7 +43,7 @@ class Get_Input {
 
 			case 'url':
 				return sprintf(
-					'<input type="url" class="regular-text" name="%s" id="%s" value="%s" placeholder="%s" %s %s required>',
+					'<input type="url" class="regular-text" name="%s" id="%s" value="%s" placeholder="%s" %s %s>',
 					$name,
 					$field['id'],
 					$value,

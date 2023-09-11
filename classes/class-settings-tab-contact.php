@@ -4,34 +4,30 @@ namespace BigupWeb\Lonewolf;
 /**
  * Settings Tab - Contact.
  *
- * Settings Index
- * ==============/
- *
- * $lw_theme_settings['lw_email_address']; // Email Address
- * $lw_theme_settings['lw_phone_number'];  // Phone Number
- * $lw_theme_settings['lw_gmaps_api_key']; // Google Maps API Key
- * $lw_theme_settings['lw_facebook_url'];  // Facebook URL
- * $lw_theme_settings['lw_instagram_url']; // Instagram URL
- * $lw_theme_settings['lw_twitter_url'];   // Twitter URL
- * $lw_theme_settings['lw_github_url'];    // Github URL
- *
  * @package lonewolf
  */
 class Settings_Tab_Contact {
 
-	public const PAGE  = 'lw_page_theme';
-	public const GROUP = 'lw_group_theme';
+	public const PAGE   = 'lw_page_contact';
+	public const GROUP  = 'lw_group_contact';
+	public const OPTION = 'lw_contact_settings';
 
 	public $settings;
 
+
+	/**
+	 * Register the settings.
+	 */
 	public function init() {
 
-		$this->settings = get_option( 'lw_theme_settings' );
+		$this->settings = get_option( self::OPTION );
 
 		register_setting(
 			self::GROUP,
-			'lw_theme_settings',
-			array( $this, 'lw_sanitize' )
+			self::OPTION,
+			$args = array(
+				'sanitize_callback' => array( $this, 'sanitize' ),
+			)
 		);
 
 
@@ -39,34 +35,26 @@ class Settings_Tab_Contact {
 
 
 		add_settings_section(
-			'lw_contact_section',
+			'section_contact',
 			'Contact Information',
-			array( $this, 'lw_contact_section_callback' ),
+			array( $this, 'section_contact_callback' ),
 			self::PAGE
 		);
 
 			add_settings_field(
-				'lw_email_address',
+				'email_address',
 				'Email address',
-				array( $this, 'lw_email_address_callback' ),
+				array( $this, 'email_address_callback' ),
 				self::PAGE,
-				'lw_contact_section'
+				'section_contact'
 			);
 
 			add_settings_field(
-				'lw_phone_number',
+				'phone_number',
 				'Phone number',
-				array( $this, 'lw_phone_number_callback' ),
+				array( $this, 'phone_number_callback' ),
 				self::PAGE,
-				'lw_contact_section'
-			);
-
-			add_settings_field(
-				'lw_gmaps_api_key',
-				'Google Maps API key',
-				array( $this, 'lw_gmaps_api_key_callback' ),
-				self::PAGE,
-				'lw_contact_section'
+				'section_contact'
 			);
 
 
@@ -74,76 +62,72 @@ class Settings_Tab_Contact {
 
 
 		add_settings_section(
-			'lw_social_section',
+			'section_social',
 			'Social Media and External Links',
-			array( $this, 'lw_social_section_section_callback' ),
+			array( $this, 'section_social_callback' ),
 			self::PAGE
 		);
 
 			add_settings_field(
-				'lw_facebook_url',
+				'facebook_url',
 				'Facebook URL',
-				array( $this, 'lw_facebook_url_callback' ),
+				array( $this, 'facebook_url_callback' ),
 				self::PAGE,
-				'lw_social_section'
+				'section_social'
 			);
 
 			add_settings_field(
-				'lw_instagram_url',
+				'instagram_url',
 				'Instagram URL',
-				array( $this, 'lw_instagram_url_callback' ),
+				array( $this, 'instagram_url_callback' ),
 				self::PAGE,
-				'lw_social_section'
+				'section_social'
 			);
 
 			add_settings_field(
-				'lw_twitter_url',
+				'twitter_url',
 				'Twitter URL',
-				array( $this, 'lw_twitter_url_callback' ),
+				array( $this, 'twitter_url_callback' ),
 				self::PAGE,
-				'lw_social_section'
+				'section_social'
 			);
 
 			add_settings_field(
-				'lw_github_url',
+				'github_url',
 				'Github URL',
-				array( $this, 'lw_github_url_callback' ),
+				array( $this, 'github_url_callback' ),
 				self::PAGE,
-				'lw_social_section'
+				'section_social'
 			);
 
 	}
 
 
-	public function lw_sanitize( $input ) {
+	public function sanitize( $input ) {
 		$sanitary_values = array();
 
-		if ( isset( $input['lw_email_address'] ) ) {
-			$sanitary_values['lw_email_address'] = sanitize_email( $input['lw_email_address'] );
+		if ( isset( $input['email_address'] ) ) {
+			$sanitary_values['email_address'] = sanitize_email( $input['email_address'] );
 		}
 
-		if ( isset( $input['lw_phone_number'] ) ) {
-			$sanitary_values['lw_phone_number'] = sanitize_text_field( $input['lw_phone_number'] );
+		if ( isset( $input['phone_number'] ) ) {
+			$sanitary_values['phone_number'] = sanitize_text_field( $input['phone_number'] );
 		}
 
-		if ( isset( $input['lw_gmaps_api_key'] ) ) {
-			$sanitary_values['lw_gmaps_api_key'] = sanitize_text_field( $input['lw_gmaps_api_key'] );
+		if ( isset( $input['facebook_url'] ) ) {
+			$sanitary_values['facebook_url'] = sanitize_text_field( $input['facebook_url'] );
 		}
 
-		if ( isset( $input['lw_facebook_url'] ) ) {
-			$sanitary_values['lw_facebook_url'] = sanitize_text_field( $input['lw_facebook_url'] );
+		if ( isset( $input['instagram_url'] ) ) {
+			$sanitary_values['instagram_url'] = sanitize_text_field( $input['instagram_url'] );
 		}
 
-		if ( isset( $input['lw_instagram_url'] ) ) {
-			$sanitary_values['lw_instagram_url'] = sanitize_text_field( $input['lw_instagram_url'] );
+		if ( isset( $input['twitter_url'] ) ) {
+			$sanitary_values['twitter_url'] = sanitize_text_field( $input['twitter_url'] );
 		}
 
-		if ( isset( $input['lw_twitter_url'] ) ) {
-			$sanitary_values['lw_twitter_url'] = sanitize_text_field( $input['lw_twitter_url'] );
-		}
-
-		if ( isset( $input['lw_github_url'] ) ) {
-			$sanitary_values['lw_github_url'] = sanitize_text_field( $input['lw_github_url'] );
+		if ( isset( $input['github_url'] ) ) {
+			$sanitary_values['github_url'] = sanitize_text_field( $input['github_url'] );
 		}
 
 		return $sanitary_values;
@@ -153,11 +137,11 @@ class Settings_Tab_Contact {
 	// ================================================ Section Description Callbacks
 
 
-	public function lw_contact_section_callback() {
+	public function section_contact_callback() {
 		echo '<p>Contact Information displayed across the website.</p>';
 	}
 
-	public function lw_social_section_section_callback() {
+	public function section_social_callback() {
 		echo '<p>Configure external links for social accounts.</p>';
 	}
 
@@ -165,53 +149,76 @@ class Settings_Tab_Contact {
 	// =============================================== Settings Input Field Callbacks
 
 
-	public function lw_email_address_callback() {
-		printf(
-			'<input class="regular-text" type="email" name="lw_theme_settings[lw_email_address]" id="lw_email_address" value="%s">',
-			isset( $this->settings['lw_email_address'] ) ? esc_attr( $this->settings['lw_email_address'] ) : ''
+	public function email_address_callback() {
+		$field = array(
+			'input_type' => 'email',
+			'id'         => 'email_address',
+			'required'   => '',
 		);
+		$value = isset( $this->settings['email_address'] ) ? esc_attr( $this->settings['email_address'] ) : '';
+		$name  = self::OPTION . '[email_address]';
+		echo Get_Input::markup( $field, $value, $name );
 	}
 
-	public function lw_phone_number_callback() {
-		printf(
-			'<input class="regular-text" type="tel" pattern="[0-9 ]+" name="lw_theme_settings[lw_phone_number]" id="lw_phone_number" value="%s">',
-			isset( $this->settings['lw_phone_number'] ) ? esc_attr( $this->settings['lw_phone_number'] ) : ''
+	public function phone_number_callback() {
+		$field = array(
+			'input_type'   => 'text',
+			'id'           => 'phone_number',
+			'placeholder'  => '',
+			'required'     => '',
+			'regex'        => '[0-9 \-\+]+',
+			'length_limit' => '20',
 		);
+		$value = isset( $this->settings['phone_number'] ) ? esc_attr( $this->settings['phone_number'] ) : '';
+		$name  = self::OPTION . '[phone_number]';
+		echo Get_Input::markup( $field, $value, $name );
 	}
 
-	public function lw_gmaps_api_key_callback() {
-		printf(
-			'<input class="regular-text" type="text" name="lw_theme_settings[lw_gmaps_api_key]" id="lw_gmaps_api_key" value="%s">',
-			isset( $this->settings['lw_gmaps_api_key'] ) ? esc_attr( $this->settings['lw_gmaps_api_key'] ) : ''
+	public function facebook_url_callback() {
+		$field = array(
+			'input_type'  => 'url',
+			'id'          => 'facebook_url',
+			'placeholder' => '',
+			'required'    => '',
 		);
+		$value = isset( $this->settings['facebook_url'] ) ? esc_attr( $this->settings['facebook_url'] ) : '';
+		$name  = self::OPTION . '[facebook_url]';
+		echo Get_Input::markup( $field, $value, $name );
 	}
 
-	public function lw_facebook_url_callback() {
-		printf(
-			'<input class="regular-text" type="url" name="lw_theme_settings[lw_facebook_url]" id="lw_facebook_url" value="%s">',
-			isset( $this->settings['lw_facebook_url'] ) ? esc_url( $this->settings['lw_facebook_url'] ) : ''
+	public function instagram_url_callback() {
+		$field = array(
+			'input_type'  => 'url',
+			'id'          => 'instagram_url',
+			'placeholder' => '',
+			'required'    => '',
 		);
+		$value = isset( $this->settings['instagram_url'] ) ? esc_attr( $this->settings['instagram_url'] ) : '';
+		$name  = self::OPTION . '[instagram_url]';
+		echo Get_Input::markup( $field, $value, $name );
 	}
 
-	public function lw_instagram_url_callback() {
-		printf(
-			'<input class="regular-text" type="url" name="lw_theme_settings[lw_instagram_url]" id="lw_instagram_url" value="%s">',
-			isset( $this->settings['lw_instagram_url'] ) ? esc_url( $this->settings['lw_instagram_url'] ) : ''
+	public function twitter_url_callback() {
+		$field = array(
+			'input_type'  => 'url',
+			'id'          => 'twitter_url',
+			'placeholder' => '',
+			'required'    => '',
 		);
+		$value = isset( $this->settings['twitter_url'] ) ? esc_attr( $this->settings['twitter_url'] ) : '';
+		$name  = self::OPTION . '[twitter_url]';
+		echo Get_Input::markup( $field, $value, $name );
 	}
 
-	public function lw_twitter_url_callback() {
-		printf(
-			'<input class="regular-text" type="url" name="lw_theme_settings[lw_twitter_url]" id="lw_twitter_url" value="%s">',
-			isset( $this->settings['lw_twitter_url'] ) ? esc_url( $this->settings['lw_twitter_url'] ) : ''
+	public function github_url_callback() {
+		$field = array(
+			'input_type'  => 'url',
+			'id'          => 'github_url',
+			'placeholder' => '',
+			'required'    => '',
 		);
+		$value = isset( $this->settings['github_url'] ) ? esc_attr( $this->settings['github_url'] ) : '';
+		$name  = self::OPTION . '[github_url]';
+		echo Get_Input::markup( $field, $value, $name );
 	}
-
-	public function lw_github_url_callback() {
-		printf(
-			'<input class="regular-text" type="url" name="lw_theme_settings[lw_github_url]" id="lw_github_url" value="%s">',
-			isset( $this->settings['lw_github_url'] ) ? esc_url( $this->settings['lw_github_url'] ) : ''
-		);
-	}
-
 }

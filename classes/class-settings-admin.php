@@ -22,7 +22,6 @@ class Settings_Admin {
 	public const PARENTSLUG   = 'lonewolf';
 	private const SETTINGSLUG = 'lonewolf-settings';
 
-
 	/**
 	 * Register the settings admin hooks.
 	 *
@@ -50,7 +49,8 @@ class Settings_Admin {
 		);
 		add_action( 'admin_menu', array( $this, 'add_settings_menu' ), 9 );
 		add_action( 'admin_init', array( new Settings_Tab_Contact(), 'init' ) );
-		add_action( 'admin_init', array( new Settings_Tab_Home_Page(), 'init' ) );
+		add_action( 'admin_init', array( new Settings_Tab_Homepage(), 'init' ) );
+		add_action( 'admin_init', array( new Settings_Tab_Features(), 'init' ) );
 		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_settings_link_callback' ) );
 	}
 
@@ -78,7 +78,7 @@ class Settings_Admin {
 		add_submenu_page(
 			self::PARENTSLUG,                       // Parent Slug.
 			'Lonewolf Theme Settings',              // Page Title.
-			'Theme Settings',                       // Menu Title.
+			'Settings',                             // Menu Title.
 			'manage_options',                       // Capability.
 			self::SETTINGSLUG,                      // Sub Menu Slug.
 			array( $this, 'create_settings_page' ), // Callback.
@@ -199,15 +199,26 @@ class Settings_Admin {
 					Contact
 				</a>
 				<a
-					href="?page=<?php echo self::SETTINGSLUG; ?>&tab=home-page"
+					href="?page=<?php echo self::SETTINGSLUG; ?>&tab=homepage"
 					class="nav-tab 
 					<?php
-					if ( $tab === 'home-page' ) {
+					if ( $tab === 'homepage' ) {
 						echo 'nav-tab-active';}
 					?>
 					"
 				>
-					Home Page
+					Homepage
+				</a>
+				<a
+					href="?page=<?php echo self::SETTINGSLUG; ?>&tab=features"
+					class="nav-tab 
+					<?php
+					if ( $tab === 'features' ) {
+						echo 'nav-tab-active';}
+					?>
+					"
+				>
+					Features
 				</a>
 			</nav>
 
@@ -217,9 +228,13 @@ class Settings_Admin {
 					<?php
 
 					switch ( $tab ) :
-						case 'home-page':
-								settings_fields( Settings_Tab_Home_Page::GROUP );
-								do_settings_sections( Settings_Tab_Home_Page::PAGE );
+						case 'homepage':
+								settings_fields( Settings_Tab_Homepage::GROUP );
+								do_settings_sections( Settings_Tab_Homepage::PAGE );
+							break;
+						case 'features':
+								settings_fields( Settings_Tab_Features::GROUP );
+								do_settings_sections( Settings_Tab_Features::PAGE );
 							break;
 						default:
 								settings_fields( Settings_Tab_Contact::GROUP );
@@ -244,11 +259,9 @@ class Settings_Admin {
 	 */
 	public static function echo_dashboard_page_link( $link, $text ) {
 		?>
-
 		<a href="<?php echo $link; ?>">
 			<?php echo $text; ?>
 		</a>
-
 		<?php
 	}
 
