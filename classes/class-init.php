@@ -14,7 +14,7 @@ class Init {
 	 * Setup all actions, filters and call functions.
 	 */
 	public function __construct() {
-		// Local.
+		// Methods in this class.
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_front_end_scripts_and_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts_and_styles' ) );
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'register_customizer_scripts_and_styles' ) );
@@ -23,15 +23,14 @@ class Init {
 		add_action( 'wp_head', array( $this, 'add_pingback_header' ) );
 		add_action( 'after_setup_theme', array( $this, 'theme_configuration_and_features' ) );
 		add_action( 'init', array( $this, 'register_taxonomy_for_default_posts' ) );
-
-		self::register_custom_post_types();
 		self::register_menu_locations();
 		self::remove_prefix_from_category_titles();
 		self::remove_unwanted_wp_head_content();
 		self::customise_sitemap();
 		self::set_auto_update_state();
+		self::register_custom_post_types();
 
-		// External.
+		// External classes.
 		add_action( 'admin_init', array( new Settings_Admin(), '__construct' ) );
 	}
 
@@ -226,19 +225,6 @@ class Init {
 
 
 	/**
-	 * Register custom post types.
-	 */
-	public static function register_custom_post_types() {
-		// Enable WP custom fields even if ACF is installed.
-		add_filter( 'acf/settings/remove_wp_meta_box', '__return_false' );
-		// Projects.
-		add_action( 'init', array( new Register_CPT_Projects(), 'create_cpt' ) );
-		// Reviews.
-		add_action( 'init', array( new Register_CPT_Reviews(), 'create_cpt' ) );
-	}
-
-
-	/**
 	 * Register menu locations.
 	 */
 	public static function register_menu_locations() {
@@ -352,4 +338,17 @@ class Init {
 		add_filter( 'auto_update_theme', '__return_false' );
 	}
 
+
+	/**
+	 * Register custom post types.
+	 */
+	private function register_custom_post_types() {
+		$data = file_get_contents( get_template_directory() . '/data/customPostTypes.json' );
+		$cpts = json_decode( $data, true );
+		foreach ( $cpts as $cpt ) {
+			add_action( 'init', fn() => new Register_Custom_Post_Type( $cpt ) );
+		}
+		// Enable WP custom fields even if ACF is installed.
+		add_filter( 'acf/settings/remove_wp_meta_box', '__return_false' );
+	}
 }

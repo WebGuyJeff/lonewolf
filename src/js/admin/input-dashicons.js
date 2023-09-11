@@ -15,11 +15,13 @@ const dashiconsInput = () => {
 		radios    = document.querySelectorAll( cssClass + ' input' ),
 		removeBtn = document.querySelector( cssClass + ' button' ),
 		toggle    = ( el ) => el.querySelector( 'a' ).classList.toggle( 'open' )
+
+		if ( ! button ) return
   
 		button.addEventListener( 'click', ( e ) => toggle( e.target.closest( cssClass ) ) )
 
 		radios.forEach( ( radio ) => {
-			addEventListener( 'change', ( e ) => {
+			radio.addEventListener( 'change', ( e ) => {
 				const label = e.target.closest( cssClass ).querySelector( 'a span:first-child' )
 				label.innerHTML = ''
 				label.className = 'dashicons dashicons-' + e.target.value
