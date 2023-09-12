@@ -2,15 +2,15 @@
 namespace BigupWeb\Lonewolf;
 
 /**
- * Settings Tab - Contact.
+ * Settings Tab - Identity.
  *
  * @package lonewolf
  */
-class Settings_Tab_Contact {
+class Settings_Tab_Identity {
 
-	public const PAGE   = 'lw_page_contact';
-	public const GROUP  = 'lw_group_contact';
-	public const OPTION = 'lw_contact_settings';
+	public const PAGE   = 'lw_page_identity';
+	public const GROUP  = 'lw_group_identity';
+	public const OPTION = 'lw_settings_identity';
 
 	public $settings;
 

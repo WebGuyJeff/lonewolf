@@ -10,7 +10,7 @@ class Settings_Tab_Homepage {
 
 	public const PAGE   = 'lw_page_homepage';
 	public const GROUP  = 'lw_group_homepage';
-	public const OPTION = 'lw_homepage_settings';
+	public const OPTION = 'lw_settings_homepage';
 
 	public $settings;
 
@@ -263,154 +263,154 @@ class Settings_Tab_Homepage {
 
 	public function welcome_title_callback() {
 		printf(
-			'<input class="regular-text" type="text" name="lw_homepage_settings[welcome_title]" id="welcome_title" value="%s">',
+			'<input class="regular-text" type="text" name="lw_settings_homepage[welcome_title]" id="welcome_title" value="%s">',
 			isset( $this->settings['welcome_title'] ) ? esc_attr( $this->settings['welcome_title'] ) : ''
 		);
 	}
 
 	public function welcome_intro_callback() {
 		printf(
-			'<textarea class="regular-text" type="text" name="lw_homepage_settings[welcome_intro]" id="welcome_intro" cols="50" rows="6">%s</textarea>',
+			'<textarea class="regular-text" type="text" name="lw_settings_homepage[welcome_intro]" id="welcome_intro" cols="50" rows="6">%s</textarea>',
 			isset( $this->settings['welcome_intro'] ) ? esc_attr( $this->settings['welcome_intro'] ) : ''
 		);
 	}
 
 	public function welcome_cta_title_callback() {
 		printf(
-			'<input class="regular-text" type="text" name="lw_homepage_settings[welcome_cta_title]" id="welcome_cta_title" value="%s">',
+			'<input class="regular-text" type="text" name="lw_settings_homepage[welcome_cta_title]" id="welcome_cta_title" value="%s">',
 			isset( $this->settings['welcome_cta_title'] ) ? esc_attr( $this->settings['welcome_cta_title'] ) : ''
 		);
 	}
 
 	public function welcome_cta_text_callback() {
 		printf(
-			'<textarea class="regular-text" type="text" name="lw_homepage_settings[welcome_cta_text]" id="welcome_cta_text" cols="50" rows="6">%s</textarea>',
+			'<textarea class="regular-text" type="text" name="lw_settings_homepage[welcome_cta_text]" id="welcome_cta_text" cols="50" rows="6">%s</textarea>',
 			isset( $this->settings['welcome_cta_text'] ) ? esc_attr( $this->settings['welcome_cta_text'] ) : ''
 		);
 	}
 
 	public function services_title_callback() {
 		printf(
-			'<input class="regular-text" type="text" name="lw_homepage_settings[services_title]" id="services_title" value="%s">',
+			'<input class="regular-text" type="text" name="lw_settings_homepage[services_title]" id="services_title" value="%s">',
 			isset( $this->settings['services_title'] ) ? esc_attr( $this->settings['services_title'] ) : ''
 		);
 	}
 
 	public function services_intro_callback() {
 		printf(
-			'<textarea class="regular-text" type="text" name="lw_homepage_settings[services_intro]" id="services_intro" cols="50" rows="6">%s</textarea>',
+			'<textarea class="regular-text" type="text" name="lw_settings_homepage[services_intro]" id="services_intro" cols="50" rows="6">%s</textarea>',
 			isset( $this->settings['services_intro'] ) ? esc_attr( $this->settings['services_intro'] ) : ''
 		);
 	}
 
 	public function service1_bullets_callback() {
 		printf(
-			'<textarea class="narrow-text" type="text" name="lw_homepage_settings[service1_bullets]" id="service1_bullets" cols="30" rows="8">%s</textarea>',
+			'<textarea class="narrow-text" type="text" name="lw_settings_homepage[service1_bullets]" id="service1_bullets" cols="30" rows="8">%s</textarea>',
 			isset( $this->settings['service1_bullets'] ) ? esc_attr( $this->settings['service1_bullets'] ) : ''
 		);
 	}
 
 	public function service1_text_callback() {
 		printf(
-			'<textarea class="regular-text" type="text" name="lw_homepage_settings[service1_text]" id="service1_text" cols="50" rows="6">%s</textarea>',
+			'<textarea class="regular-text" type="text" name="lw_settings_homepage[service1_text]" id="service1_text" cols="50" rows="6">%s</textarea>',
 			isset( $this->settings['service1_text'] ) ? esc_attr( $this->settings['service1_text'] ) : ''
 		);
 	}
 
 	public function service2_bullets_callback() {
 		printf(
-			'<textarea class="narrow-text" type="text" name="lw_homepage_settings[service2_bullets]" id="service2_bullets" cols="30" rows="8">%s</textarea>',
+			'<textarea class="narrow-text" type="text" name="lw_settings_homepage[service2_bullets]" id="service2_bullets" cols="30" rows="8">%s</textarea>',
 			isset( $this->settings['service2_bullets'] ) ? esc_attr( $this->settings['service2_bullets'] ) : ''
 		);
 	}
 
 	public function service2_text_callback() {
 		printf(
-			'<textarea class="regular-text" type="text" name="lw_homepage_settings[service2_text]" id="service2_text" cols="50" rows="6">%s</textarea>',
+			'<textarea class="regular-text" type="text" name="lw_settings_homepage[service2_text]" id="service2_text" cols="50" rows="6">%s</textarea>',
 			isset( $this->settings['service2_text'] ) ? esc_attr( $this->settings['service2_text'] ) : ''
 		);
 	}
 
 	public function service3_bullets_callback() {
 		printf(
-			'<textarea class="narrow-text" type="text" name="lw_homepage_settings[service3_bullets]" id="service3_bullets" cols="30" rows="8">%s</textarea>',
+			'<textarea class="narrow-text" type="text" name="lw_settings_homepage[service3_bullets]" id="service3_bullets" cols="30" rows="8">%s</textarea>',
 			isset( $this->settings['service3_bullets'] ) ? esc_attr( $this->settings['service3_bullets'] ) : ''
 		);
 	}
 
 	public function service3_text_callback() {
 		printf(
-			'<textarea class="regular-text" type="text" name="lw_homepage_settings[service3_text]" id="service3_text" cols="50" rows="6">%s</textarea>',
+			'<textarea class="regular-text" type="text" name="lw_settings_homepage[service3_text]" id="service3_text" cols="50" rows="6">%s</textarea>',
 			isset( $this->settings['service3_text'] ) ? esc_attr( $this->settings['service3_text'] ) : ''
 		);
 	}
 
 	public function service4_bullets_callback() {
 		printf(
-			'<textarea class="narrow-text" type="text" name="lw_homepage_settings[service4_bullets]" id="service4_bullets" cols="30" rows="8">%s</textarea>',
+			'<textarea class="narrow-text" type="text" name="lw_settings_homepage[service4_bullets]" id="service4_bullets" cols="30" rows="8">%s</textarea>',
 			isset( $this->settings['service4_bullets'] ) ? esc_attr( $this->settings['service4_bullets'] ) : ''
 		);
 	}
 
 	public function service4_text_callback() {
 		printf(
-			'<textarea class="regular-text" type="text" name="lw_homepage_settings[service4_text]" id="service4_text" cols="50" rows="6">%s</textarea>',
+			'<textarea class="regular-text" type="text" name="lw_settings_homepage[service4_text]" id="service4_text" cols="50" rows="6">%s</textarea>',
 			isset( $this->settings['service4_text'] ) ? esc_attr( $this->settings['service4_text'] ) : ''
 		);
 	}
 
 	public function usp_title_callback() {
 		printf(
-			'<input class="regular-text" type="text" name="lw_homepage_settings[usp_title]" id="usp_title" value="%s">',
+			'<input class="regular-text" type="text" name="lw_settings_homepage[usp_title]" id="usp_title" value="%s">',
 			isset( $this->settings['usp_title'] ) ? esc_attr( $this->settings['usp_title'] ) : ''
 		);
 	}
 
 	public function usp_intro_callback() {
 		printf(
-			'<textarea class="regular-text" type="text" name="lw_homepage_settings[usp_intro]" id="usp_intro" cols="50" rows="6">%s</textarea>',
+			'<textarea class="regular-text" type="text" name="lw_settings_homepage[usp_intro]" id="usp_intro" cols="50" rows="6">%s</textarea>',
 			isset( $this->settings['usp_intro'] ) ? esc_attr( $this->settings['usp_intro'] ) : ''
 		);
 	}
 
 	public function usp1_text_callback() {
 		printf(
-			'<textarea class="regular-text" type="text" name="lw_homepage_settings[usp1_text]" id="usp1_text" cols="50" rows="6">%s</textarea>',
+			'<textarea class="regular-text" type="text" name="lw_settings_homepage[usp1_text]" id="usp1_text" cols="50" rows="6">%s</textarea>',
 			isset( $this->settings['usp1_text'] ) ? esc_attr( $this->settings['usp1_text'] ) : ''
 		);
 	}
 
 	public function usp2_text_callback() {
 		printf(
-			'<textarea class="regular-text" type="text" name="lw_homepage_settings[usp2_text]" id="usp2_text" cols="50" rows="6">%s</textarea>',
+			'<textarea class="regular-text" type="text" name="lw_settings_homepage[usp2_text]" id="usp2_text" cols="50" rows="6">%s</textarea>',
 			isset( $this->settings['usp2_text'] ) ? esc_attr( $this->settings['usp2_text'] ) : ''
 		);
 	}
 
 	public function usp3_text_callback() {
 		printf(
-			'<textarea class="regular-text" type="text" name="lw_homepage_settings[usp3_text]" id="usp3_text" cols="50" rows="6">%s</textarea>',
+			'<textarea class="regular-text" type="text" name="lw_settings_homepage[usp3_text]" id="usp3_text" cols="50" rows="6">%s</textarea>',
 			isset( $this->settings['usp3_text'] ) ? esc_attr( $this->settings['usp3_text'] ) : ''
 		);
 	}
 
 	public function usp4_text_callback() {
 		printf(
-			'<textarea class="regular-text" type="text" name="lw_homepage_settings[usp4_text]" id="usp4_text" cols="50" rows="6">%s</textarea>',
+			'<textarea class="regular-text" type="text" name="lw_settings_homepage[usp4_text]" id="usp4_text" cols="50" rows="6">%s</textarea>',
 			isset( $this->settings['usp4_text'] ) ? esc_attr( $this->settings['usp4_text'] ) : ''
 		);
 	}
 
 	public function usp5_text_callback() {
 		printf(
-			'<textarea class="regular-text" type="text" name="lw_homepage_settings[usp5_text]" id="usp5_text" cols="50" rows="6">%s</textarea>',
+			'<textarea class="regular-text" type="text" name="lw_settings_homepage[usp5_text]" id="usp5_text" cols="50" rows="6">%s</textarea>',
 			isset( $this->settings['usp5_text'] ) ? esc_attr( $this->settings['usp5_text'] ) : ''
 		);
 	}
 
 	public function usp6_text_callback() {
 		printf(
-			'<textarea class="regular-text" type="text" name="lw_homepage_settings[usp6_text]" id="usp6_text" cols="50" rows="6">%s</textarea>',
+			'<textarea class="regular-text" type="text" name="lw_settings_homepage[usp6_text]" id="usp6_text" cols="50" rows="6">%s</textarea>',
 			isset( $this->settings['usp6_text'] ) ? esc_attr( $this->settings['usp6_text'] ) : ''
 		);
 	}

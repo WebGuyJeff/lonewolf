@@ -15,18 +15,14 @@ namespace BigupWeb\Lonewolf;
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" prefix="og: https://ogp.me/ns/website#">
 
 <head>
-	<?php
-	$seo = new Seo_Meta();
-	echo $seo->head_meta;
-	wp_head();
-	?>
+	<?php wp_head(); ?>
 </head>
 
 <header class="header-test">
 	<?php block_template_part( 'header' ); /* Testing new block header. */ ?>
 </header>
 
-<?php return; ?>
+<?php return; // TESTING BLOCK THEME SETUP. ?>
 
 
 

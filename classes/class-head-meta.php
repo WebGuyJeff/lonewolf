@@ -1,60 +1,49 @@
 <?php
-/**
- * SEO Metadata Component
- *
- * Note to self: This would be better suited to a standalone plugin.
- *
- * @package lonewolf
- * @author Jefferson Real <me@jeffersonreal.uk>
- * @copyright Copyright 2023 Jefferson Real
- */
-
 namespace BigupWeb\Lonewolf;
 
 /**
- * PHP Class: Seo_Meta
+ * Head Metadata Hook
  *
- * Builds and inserts SEO metadata into the head.
+ * Builds and inserts metadata into the head.
+ *
+ * @package lonewolf
  */
-class Seo_Meta {
+class Head_Meta {
+
 
 	/**
-	 * Variable meta
-	 *
-	 * @var array array of meta variables.
+	 * Hook into `wp_head`.
 	 */
-	public $meta;
-
-	/**
-	 * Variable head_meta
-	 *
-	 * @var string complete output ready for <head>.
-	 */
-	public $head_meta;
-
-	/**
-	 * Initialise the class on each new instance.
-	 */
-	public function __construct() {
+	public function hook() {
 		// Remove default title meta function.
 		remove_action( 'wp_head', '_wp_render_title_tag', 1 );
-		$this->meta      = $this->build_meta_vars();
-		$this->head_meta = $this->generate_head_meta( $this->meta );
+		add_action( 'wp_head', array( $this, 'print_head_meta' ), 1 );
 	}
 
+
 	/**
-	 * Print the SEO Meta output.
+	 * Generate and print the head meta.
 	 */
 	public function print_head_meta() {
-		echo $this->head_meta;
+		$seo_vars          = $this->get_seo_vars();
+		$seo_meta          = $this->get_seo_meta( $seo_vars );
+		$verification_keys = $this->get_verification_keys();
+		$verification_meta = $this->get_verification_meta( $verification_keys );
+
+		$head_meta  = "<!-- Bigup Web Meta START -->\n";
+		$head_meta .= $seo_meta . $verification_meta;
+		$head_meta .= "<!-- Bigup Web Meta END -->\n";
+
+		echo $head_meta;
 	}
+
 
 	/**
 	 * Append forward slash to strings where not already present.
 	 *
 	 * @param string $url A URL.
 	 */
-	public function enforce_forward_slash( $url ) {
+	private function enforce_forward_slash( $url ) {
 		if ( $url !== '' && substr( $url, -1 ) !== '/' ) {
 			$url = $url . '/';
 		}
@@ -68,7 +57,7 @@ class Seo_Meta {
 	 * @return string The first non-empty value or empty string on failure.
 	 * @param array $array The array to check for non-empty values.
 	 */
-	public function first_not_empty( $array ) {
+	private function first_not_empty( $array ) {
 		$string = '';
 		if ( is_array( $array ) ) {
 			foreach ( $array as &$value ) {
@@ -94,7 +83,7 @@ class Seo_Meta {
 	 * @return string image src string without quotes.
 	 * @param string $content The passed content to search.
 	 */
-	public function extract_image_from_content( $content ) {
+	private function extract_image_from_content( $content ) {
 		$url = '';
 
 		if ( isset( $content ) && $content !== '' ) {
@@ -125,13 +114,12 @@ class Seo_Meta {
 	 *
 	 * @return array Array of meta variables.
 	 */
-	public function build_meta_vars() {
+	private function get_seo_vars() {
 
 		/* Constants (need a source) */
 		$lw_siteauthor = 'Jefferson Real';
 		$lw_localealt  = 'en_US';
 		$lw_objecttype = 'website';
-		$lw_robots     = 'index, follow, nocache, noarchive';
 
 		/* Sitewide */
 		$lw_sitetitle = wp_strip_all_tags( get_bloginfo( 'name', 'display' ) );
@@ -218,7 +206,6 @@ class Seo_Meta {
 			'canon'       => $lw_canon,
 			'ogimage'     => $lw_ogimage,
 			'ogtitle'     => $lw_title,
-			'robots'      => $lw_robots,
 			'ogtype'      => $lw_objecttype,
 			'ogurl'       => $lw_canon,
 			'oglocale'    => $lw_locale,
@@ -232,24 +219,19 @@ class Seo_Meta {
 	}
 
 	/**
-	 * Generate the head meta HTML.
+	 * Generate the SEO meta HTML.
 	 *
 	 * @return string HTML to be inserted into head.
 	 * @param array $meta The array of SEO meta data variables.
 	 */
-	public static function generate_head_meta( $meta ) {
+	private function get_seo_meta( $meta ) {
 
 		$head_meta = <<<EOF
 <meta charset="{$meta["charset"]}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Site verification (to be removed from this template) -->
-<meta name="google-site-verification" content="g9mEcBrJ4uTyVj7KYmGbbuAzqRkeMA2jIJth4hM5Dns" />
-<meta name="msvalidate.01" content="0245B24FF2B31489A65C5541B284D4D8" />
-<!-- SEO Meta -->
 <title>{$meta["title"]}</title>
 <meta name="description" content="{$meta["desc"]}">
 <meta name="author" content="{$meta["author"]}">
-<meta name="robots" content="{$meta["robots"]}">
 <link rel="canonical" href="{$meta["canon"]}">
 <!-- Open Graph Meta - <html> namespace must match og:type -->
 <meta property="og:title" content="{$meta["ogtitle"]}">
@@ -292,10 +274,38 @@ class Seo_Meta {
 <link rel="icon" type="image/png" href="{$meta["themeuri"]}/imagery/favicon/favicon-32x32.png" sizes="32x32">
 <link rel="icon" type="image/png" href="{$meta["themeuri"]}/imagery/favicon/favicon-16x16.png" sizes="16x16">
 <link rel="icon" type="image/png" href="{$meta["themeuri"]}/imagery/favicon/favicon-128.png" sizes="128x128">
-<!-- lw_head end -->
 EOF;
 
 		return $head_meta;
 	}
 
+
+	/**
+	 * Get the verification keys from saved settings.
+	 *
+	 * @return array Array of verification name/content pairs.
+	 */
+	private function get_verification_keys() {
+		$option = get_option( 'lw_settings_verification' );
+		$keys   = array(
+			'google-site-verification' => $option['google_verification_key'],
+			'msvalidate.01'            => $option['microsoft_verification_key'],
+		);
+		return $keys;
+	}
+
+
+	/**
+	 * Generate the verification meta HTML.
+	 *
+	 * @return string HTML to be inserted into head.
+	 * @param array $data The array of verification names and content.
+	 */
+	private function get_verification_meta( $keys ) {
+		$verification_meta = "<!-- Site verification -->\n";
+		foreach ( $keys as $key => $value ) {
+			$verification_meta .= "<meta name=\"${key}\" content=\"${value}\" />\n";
+		}
+		return $verification_meta;
+	}
 }

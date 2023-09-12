@@ -10,7 +10,7 @@ class Settings_Tab_Features {
 
 	public const PAGE   = 'lw_page_features';
 	public const GROUP  = 'lw_group_features';
-	public const OPTION = 'lw_features_settings';
+	public const OPTION = 'lw_settings_features';
 
 	public $settings;
 

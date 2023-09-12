@@ -48,9 +48,10 @@ class Settings_Admin {
 			}
 		);
 		add_action( 'admin_menu', array( $this, 'add_settings_menu' ), 9 );
-		add_action( 'admin_init', array( new Settings_Tab_Contact(), 'init' ) );
+		add_action( 'admin_init', array( new Settings_Tab_Identity(), 'init' ) );
 		add_action( 'admin_init', array( new Settings_Tab_Homepage(), 'init' ) );
 		add_action( 'admin_init', array( new Settings_Tab_Features(), 'init' ) );
+		add_action( 'admin_init', array( new Settings_Tab_Verification(), 'init' ) );
 		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_settings_link_callback' ) );
 	}
 
@@ -106,7 +107,7 @@ class Settings_Admin {
 			<h1>
 				<span>
 					<img
-						style="max-height: 2em;margin-right: 0.5em;vertical-align: middle;"
+						style="max-height: 2em; margin-right: 0.5em; vertical-align: baseline;"
 						src="<?php echo self::ICON; ?>"
 					/>
 				</span>
@@ -196,7 +197,7 @@ class Settings_Admin {
 					?>
 					"
 				>
-					Contact
+					Identity
 				</a>
 				<a
 					href="?page=<?php echo self::SETTINGSLUG; ?>&tab=homepage"
@@ -220,6 +221,17 @@ class Settings_Admin {
 				>
 					Features
 				</a>
+				<a
+					href="?page=<?php echo self::SETTINGSLUG; ?>&tab=verification"
+					class="nav-tab 
+					<?php
+					if ( $tab === 'verification' ) {
+						echo 'nav-tab-active';}
+					?>
+					"
+				>
+					Verification
+				</a>
 			</nav>
 
 			<div class="tab-content">
@@ -236,9 +248,13 @@ class Settings_Admin {
 								settings_fields( Settings_Tab_Features::GROUP );
 								do_settings_sections( Settings_Tab_Features::PAGE );
 							break;
+						case 'verification':
+							settings_fields( Settings_Tab_Verification::GROUP );
+							do_settings_sections( Settings_Tab_Verification::PAGE );
+						break;
 						default:
-								settings_fields( Settings_Tab_Contact::GROUP );
-								do_settings_sections( Settings_Tab_Contact::PAGE );
+								settings_fields( Settings_Tab_Identity::GROUP );
+								do_settings_sections( Settings_Tab_Identity::PAGE );
 							break;
 					endswitch;
 

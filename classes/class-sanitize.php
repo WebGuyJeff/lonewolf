@@ -49,6 +49,9 @@ class Sanitize {
 			case 'key':
 				return array( new Sanitize(), 'key' );
 
+			case 'general_api_key':
+				return array( new Sanitize(), 'general_api_key' );
+
 			default:
 				error_log( 'Bigup Plugin: Invalid sanitize type passed with option' );
 		}
@@ -93,6 +96,9 @@ class Sanitize {
 
 			case 'key':
 				return self::key( $value );
+
+			case 'general_api_key':
+				return self::general_api_key( $value );
 
 			case is_array( $type ):
 				return self::arr( $type, $value );
@@ -244,6 +250,15 @@ class Sanitize {
 	public static function key( $key ) {
 		$clean_key = sanitize_key( $key );
 		return $clean_key;
+	}
+
+
+	/**
+	 * Sanitize a key with uppercase chars allowed.
+	 */
+	public static function general_api_key( $general_api_key ) {
+		$clean_general_api_key = preg_replace( '/[^+-_.\p{L}\p{N}]/', '', $general_api_key );
+		return $clean_general_api_key;
 	}
 
 

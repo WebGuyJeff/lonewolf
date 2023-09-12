@@ -25,10 +25,10 @@ class Init {
 		add_action( 'init', array( $this, 'register_taxonomy_for_default_posts' ) );
 		self::register_menu_locations();
 		self::remove_prefix_from_category_titles();
-		self::remove_unwanted_wp_head_content();
 		self::customise_sitemap();
 		self::set_auto_update_state();
 		self::register_custom_post_types();
+		self::modify_head_content();
 
 		// External classes.
 		add_action( 'admin_init', array( new Settings_Admin(), '__construct' ) );
@@ -296,7 +296,7 @@ class Init {
 	/**
 	 * Remove unwanted content from the wp_head hook.
 	 */
-	public static function remove_unwanted_wp_head_content() {
+	public static function modify_head_content() {
 		remove_action( 'wp_head', 'rsd_link' );
 		remove_action( 'wp_head', 'wlwmanifest_link' );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -311,6 +311,10 @@ class Init {
 		// remove_action( 'wp_head', 'feed_links', 2 );
 		// remove_action( 'wp_head', 'feed_links_extra', 3 );
 		remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );
+
+		// Hook theme SEO and other meta.
+		$head_meta = new Head_Meta();
+		$head_meta->hook();
 	}
 
 
@@ -345,7 +349,10 @@ class Init {
 	private function register_custom_post_types() {
 		$data    = file_get_contents( get_template_directory() . '/data/customPostTypes.json' );
 		$cpts    = json_decode( $data, true );
-		$option  = get_option( 'lw_features_settings' );
+		$option  = get_option( 'lw_settings_features' );
+		if ( ! is_array( $option ) ) {
+			return;
+		}
 		$enabled = array(
 			$option['cpt_services'] ? 'service' : false,
 			$option['cpt_reviews'] ? 'review' : false,
