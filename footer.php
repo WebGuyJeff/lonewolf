@@ -11,6 +11,21 @@ namespace BigupWeb\Lonewolf;
 
 ?>
 
+
+<footer class="footer-test">
+	<?php block_template_part( 'footer' ); /* Testing new block footer. */ ?>
+	<?php get_template_part( 'template-parts/mobile-popup-menu' ); ?>
+	<?php wp_footer(); ?>
+</footer>
+
+
+
+
+
+<?php return; // TESTING BLOCK THEME SETUP. ?>
+
+
+
 		<footer class="footer">
 			<div class="footer_inner sauce">
 

@@ -17,9 +17,7 @@ get_header( 'landing' );
 
 <main class="main-landing">
 
-	<section class="welcome">
-		<?php get_template_part( 'template-parts/landing-home/welcome' ); ?>
-	</section>
+	<?php block_template_part( 'welcome' ) ?>
 
 	<section class="services" id="section-services">
 		<?php get_template_part( 'template-parts/landing-home/services' ); ?>

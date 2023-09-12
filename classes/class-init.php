@@ -41,8 +41,9 @@ class Init {
 	public function register_front_end_scripts_and_styles() {
 		if ( ! is_admin() && $GLOBALS['pagenow'] !== 'wp-login.php' ) {
 			wp_enqueue_style( 'style_css', get_template_directory_uri() . '/style.css', array(), filemtime( get_template_directory() . '/style.css' ), 'all' );
-			wp_register_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js', array( 'jquery' ), '3.9.1', true );
-			wp_register_script( 'gsap_scrolltrigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js', array( 'gsap' ), '3.9.1', true );
+			// GSAP sources pinched from Codepen.
+			wp_register_script( 'gsap', 'https://unpkg.co/gsap@3/dist/gsap.min.js', array(), '3.12.2', true );
+			wp_register_script( 'gsap_scrolltrigger', 'https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js', array( 'gsap' ), '3.12.2', true );
 			wp_enqueue_script( 'lw_frontend_js', get_template_directory_uri() . '/js/frontend.js', array( 'gsap', 'gsap_scrolltrigger' ), filemtime( get_template_directory() . '/js/frontend.js' ), true );
 		}
 	}

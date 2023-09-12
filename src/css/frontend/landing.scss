@@ -58,7 +58,7 @@ This CSS will apply to all landing pages.
 /*================================================ 4. SECTION GRID LAYOUT ====*/
 
 
-.main-landing > section {
+.main-landing > section:not(.welcome) {
 	--narrow: minmax( 0px, 48rem );                   /* 48rem */
 	--medium: clamp( 0px, calc( 50% - 24rem), 8rem ); /* 64rem */
 	--wide: clamp( 0px, calc( 50% - 32rem), 13rem );  /* 90rem */
@@ -79,28 +79,28 @@ This CSS will apply to all landing pages.
 		grid-template-columns: [full-l] 1fr [wide-l] var(--wide) [medium-l] var(--medium) [narrow-l] var(--narrow) [narrow-r] var(--medium) [medium-r] var(--wide) [wide-r] 1fr [full-r];
 	}
 
-	.landing_content {
-		position: relative;
-		grid-row: var(--row);
-		grid-column: var(--col);
-		z-index: 0;
-	}
-
-	.landing_backdrop {
-		display: flex;
-		position: absolute;
-		grid-row: 1 / -1;
-		grid-column: 1 / -1;
-		justify-content: center;
-		z-index: -1;
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-	}
-
 	&:nth-child(even) .landing_backdrop {
 		background: var( --lw_grey-lightest );
 	}
+}
+
+.landing_content {
+	position: relative;
+	grid-row: var(--row);
+	grid-column: var(--col);
+	z-index: 0;
+}
+
+.landing_backdrop {
+	display: flex;
+	position: absolute;
+	grid-row: 1 / -1;
+	grid-column: 1 / -1;
+	justify-content: center;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
 }
 
 
