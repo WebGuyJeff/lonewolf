@@ -177,12 +177,12 @@ class Init {
 		add_theme_support( 'post-thumbnails' );
 
 		/*
-		// Enable custom image sizes and set the sizes required for the theme.
+		// How to enable custom image sizes required for the theme.
 		add_theme_support( 'pop-up-banner' );
-		add_image_size( 'service-tile', 960, 960, TRUE );
-		add_image_size( 'review-avatar', 150, 150, TRUE );
-		add_image_size( 'full-width-banner', 1920, 480, TRUE );
-		add_image_size( 'page-featured', 615, 615, TRUE );
+		add_image_size( 'service-tile', 960, 960, true );
+		add_image_size( 'review-avatar', 150, 150, true );
+		add_image_size( 'full-width-banner', 1920, 480, true );
+		add_image_size( 'page-featured', 615, 615, true );
 		*/
 
 		// Switch core markup for search form, comment form, and comments to valid HTML5.
@@ -343,14 +343,14 @@ class Init {
 	 * Register custom post types.
 	 */
 	private function register_custom_post_types() {
+		$data    = file_get_contents( get_template_directory() . '/data/customPostTypes.json' );
+		$cpts    = json_decode( $data, true );
 		$option  = get_option( 'lw_features_settings' );
 		$enabled = array(
 			$option['cpt_services'] ? 'service' : false,
 			$option['cpt_reviews'] ? 'review' : false,
 			$option['cpt_projects'] ? 'project' : false,
 		);
-		$data    = file_get_contents( get_template_directory() . '/data/customPostTypes.json' );
-		$cpts    = json_decode( $data, true );
 		foreach ( $cpts as $cpt ) {
 			if ( in_array( $cpt['key'], $enabled, true ) ) {
 				add_action( 'init', fn() => new Register_Custom_Post_Type( $cpt ) );
