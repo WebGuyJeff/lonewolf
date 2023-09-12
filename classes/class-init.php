@@ -17,7 +17,7 @@ class Init {
 		// Methods in this class.
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_front_end_scripts_and_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts_and_styles' ) );
-		add_action( 'customize_controls_enqueue_scripts', array( $this, 'register_customizer_scripts_and_styles' ) );
+		add_action( 'enqueue_block_editor_assets', array( $this, 'register_editor_scripts_and_styles' ) );
 		add_action( 'widgets_init', array( $this, 'register_widget_areas' ) );
 		add_filter( 'body_class', array( $this, 'add_body_classes' ) );
 		add_action( 'wp_head', array( $this, 'add_pingback_header' ) );
@@ -39,11 +39,11 @@ class Init {
 	 * Register front end scripts and styles.
 	 */
 	public function register_front_end_scripts_and_styles() {
-		if ( ! is_admin() && $GLOBALS['pagenow'] !== 'wp-login.php' ) {
-			wp_enqueue_style( 'style_css', get_template_directory_uri() . '/style.css', array(), filemtime( get_template_directory() . '/style.css' ), 'all' );
+		if ( $GLOBALS['pagenow'] !== 'wp-login.php' ) {
+			wp_enqueue_style( 'lw_style_css', get_template_directory_uri() . '/style.css', array(), filemtime( get_template_directory() . '/style.css' ), 'all' );
 			// GSAP sources pinched from Codepen.
-			wp_register_script( 'gsap', 'https://unpkg.co/gsap@3/dist/gsap.min.js', array(), '3.12.2', true );
-			wp_register_script( 'gsap_scrolltrigger', 'https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js', array( 'gsap' ), '3.12.2', true );
+			wp_register_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', array(), '3.12.2', true );
+			wp_register_script( 'gsap_scrolltrigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array( 'gsap' ), '3.12.2', true );
 			wp_enqueue_script( 'lw_frontend_js', get_template_directory_uri() . '/js/frontend.js', array( 'gsap', 'gsap_scrolltrigger' ), filemtime( get_template_directory() . '/js/frontend.js' ), true );
 		}
 	}
@@ -55,20 +55,21 @@ class Init {
 	public function register_admin_scripts_and_styles() {
 		if ( is_admin() && $GLOBALS['pagenow'] !== 'wp-login.php' ) {
 			wp_enqueue_media(); // Initialise wp.media to handle and control the admin media upload/select modal.
-			wp_enqueue_style( 'admin_css', get_template_directory_uri() . '/style-admin.css', array(), filemtime( get_template_directory() . '/style-admin.css' ), 'all' );
+			wp_enqueue_style( 'lw_admin_css', get_template_directory_uri() . '/style-admin.css', array(), filemtime( get_template_directory() . '/style-admin.css' ), 'all' );
 			wp_enqueue_script( 'lw_admin_js', get_template_directory_uri() . '/js/admin.js', array(), filemtime( get_template_directory() . '/js/admin.js' ), true );
 		}
 	}
 
 
 	/**
-	 * Register customizer scripts and styles.
+	 * Register editor scripts and styles.
+	 *
+	 * NOTE: WP automatically loads style-editor.css from theme root.
 	 */
-	public function register_customizer_scripts_and_styles() {
-		global $wp_customize;
-		if ( isset( $wp_customize ) ) {
-			wp_enqueue_script( 'lw_customizer_js', get_template_directory_uri() . '/js/customizer.js', array(), filemtime( get_template_directory() . '/js/customizer.js' ), true );
-		}
+	public function register_editor_scripts_and_styles() {
+		// Include frontend assets.
+		$this->register_front_end_scripts_and_styles();
+		wp_enqueue_script( 'lw_editor_js', get_template_directory_uri() . '/js/editor.js', array(), filemtime( get_template_directory() . '/js/editor.js' ), true );
 	}
 
 

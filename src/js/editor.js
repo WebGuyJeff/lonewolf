@@ -4,6 +4,6 @@
  * @link https://metabox.io/modernizing-javascript-code-in-wordpress/
  */
 
-import { customizer } from './customizer/customizer.js'
+import { editor } from './editor/editor.js'
 
-customizer()
+editor()
