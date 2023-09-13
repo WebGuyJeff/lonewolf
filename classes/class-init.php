@@ -23,7 +23,7 @@ class Init {
 		add_action( 'wp_head', array( $this, 'add_pingback_header' ) );
 		add_action( 'after_setup_theme', array( $this, 'theme_configuration_and_features' ) );
 		add_action( 'init', array( $this, 'register_taxonomy_for_default_posts' ) );
-		self::define_global_variables();
+		self::define_constants();
 		self::register_menu_locations();
 		self::remove_prefix_from_category_titles();
 		self::customise_sitemap();
@@ -39,7 +39,7 @@ class Init {
 	/**
 	 * Define global variables.
 	 */
-	public function define_global_variables() {
+	public function define_constants() {
 		define( 'LW_DEBUG', defined( 'WP_DEBUG' ) && WP_DEBUG === true );
 		define( 'LW_DIR', trailingslashit( get_template_directory() ) );
 		define( 'LW_URL', trailingslashit( get_template_directory_uri() ) );
