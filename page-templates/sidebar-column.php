@@ -9,7 +9,7 @@
 
 get_header(); ?>
 
-<main class="main">
+<main class="pageGrid">
 
 	<div class="base">
 

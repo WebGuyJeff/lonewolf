@@ -18,7 +18,7 @@ This CSS will apply to all landing pages.
 /*============================================================= 1. HEADER ====*/
 
 
-.header-landing {
+header.pageGrid-landing {
     position: fixed;
     background: var(--lw_white);
     border-bottom: solid 0.3em var(--lw_grey-darkest);
@@ -26,7 +26,7 @@ This CSS will apply to all landing pages.
 }
 
 @media (max-width: 44.999em) {
-    .menu_active .menuToggle {
+    .lw__pag-landing .menu_active .menuToggle {
         top: 0.5em;
         right: 0.5em;
     }
@@ -41,7 +41,7 @@ This CSS will apply to all landing pages.
 /*============================================================= 2. FOOTER ====*/
 
 
-.footer-landing {
+footer.pageGrid-landing {
 	margin-bottom: 0;
 }
 
@@ -49,7 +49,7 @@ This CSS will apply to all landing pages.
 /*=================================================== 3. MAIN GRID LAYOUT ====*/
 
 
-.main-landing {
+main.pageGrid-landing {
 	display: grid;
 	grid: auto / 100%;
 	grid-auto-flow: row dense;

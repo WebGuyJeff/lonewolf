@@ -28,8 +28,8 @@ namespace BigupWeb\Lonewolf;
 
 <body <?php body_class(); ?>>
 
-	<header class="header">
-		<div class="header_inner sauce">
+	<header class="pageGrid">
+		<div class="pageGrid_inner sauce">
 
 			<div class="header_content header_content-left header_content-third">
 

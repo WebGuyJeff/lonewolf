@@ -12,7 +12,7 @@ namespace BigupWeb\Lonewolf;
 ?>
 
 
-<footer class="footer-test">
+<footer class="pageGrid">
 	<?php block_template_part( 'footer' ); /* Testing new block footer. */ ?>
 	<?php get_template_part( 'template-parts/mobile-popup-menu' ); ?>
 	<?php wp_footer(); ?>
@@ -26,8 +26,8 @@ namespace BigupWeb\Lonewolf;
 
 
 
-		<footer class="footer">
-			<div class="footer_inner sauce">
+		<footer class="pageGrid">
+			<div class="pageGrid_inner sauce">
 
 				<?php
 

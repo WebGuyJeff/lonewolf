@@ -82,7 +82,7 @@ body {
 	gap: var(--lw_gutters);
 }
 
-.footer {
+footer.pageGrid {
 	margin-top: auto;
 }
 
@@ -581,9 +581,7 @@ a img.aligncenter {
 /*- - - - - - - - - - - - - - - - - - - - - -  2.1.1 LAYOUT - GLOBAL GRID - - */
 
 
-.main,
-.header,
-.footer {
+.pageGrid {
 	display: grid;
 	grid-auto-flow: dense;
 	grid-template-columns: [full-l main-l] 0 [wide-l dip-l sides-l] 1fr [sides-r dip-r wide-r] 0 [main-r full-r];
@@ -591,18 +589,14 @@ a img.aligncenter {
 
 /* ADD SIDEBAR */
 @media ( min-width: $tabletWidth ) {
-	.main,
-	.header,
-	.footer {
+	.pageGrid {
 		grid-template-columns: [full-l] 0 [wide-l dip-l sides-l] 24em [sides-r dip-r main-l] 1fr [main-r wide-r] 0 [full-r];
 	}
 }
 
 /* ADD SECOND SIDEBAR */
 @media ( min-width: $laptopWidth ) {
-	.main,
-	.header,
-	.footer {
+	.pageGrid {
 		grid-template-columns: [full-l] 0 [wide-l dip-l] 24em [main-l dip-r] 1fr [main-r sides-l] 24em [sides-r wide-r] 0 [full-r];
 	}
 }
@@ -611,8 +605,7 @@ a img.aligncenter {
 	grid-column: main-l / main-r;
 }
 
-.header_inner,
-.footer_inner {
+.pageGrid_inner {
 	grid-column: wide-l / wide-r;
 }
 
@@ -645,15 +638,13 @@ a img.aligncenter {
 }
 
 /* GUTTERS */
-.main,
-.header,
-.footer,
+.pageGrid,
 .base,
 .dip,
 .sides,
-.sides-narrow { gap:           var(--lw_gutters); }
-.header       { margin-top:    var(--lw_gutters); }
-.footer       { margin-bottom: var(--lw_gutters); }
+.sides-narrow {
+	gap: var(--lw_gutters);
+}
 
 /*- - - - - - - - - - - - - - - - - - - - - - -  2.1.2 LAYOUT - BLOG POST - - */
 
@@ -1122,7 +1113,7 @@ a img.aligncenter {
 /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  3.1.1 HEADER - - */
 
 
-.header {
+header.pageGrid {
     content-visibility: visible;
     position: relative;
     transition: transform 0.3s ease-in-out;
@@ -1131,7 +1122,7 @@ a img.aligncenter {
     width: 100%;
     height: fit-content;
 
-	.header_inner {
+	.pageGrid_inner {
         gap: var(--lw_gutters);
 		display: flex;
         flex-flow: column;
@@ -1165,7 +1156,7 @@ a img.aligncenter {
 		background: unset;
 		height: fit-content;
 		
-		.header_inner {
+		.pageGrid_inner {
 			flex-flow: row nowrap;
 			justify-content: space-between;
 			min-height: 4.6em;
@@ -1187,10 +1178,10 @@ a img.aligncenter {
 /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  3.1.2 FOOTER - - */
 
 
-.footer {
+footer.pageGrid {
 	z-index: 10;
-}
-	.footer_inner {
+
+	.pageGrid_inner {
 		gap: var(--lw_gutters);
 		display: flex;
 		bottom: 0;
@@ -1199,55 +1190,56 @@ a img.aligncenter {
 		justify-content: center;
 		padding: var(--lw_padding);
 		width: auto;
-        max-width: 100vw;
+		max-width: 100vw;
 		color: var(--lw_grey-darkest);
 	}
-		.footer_nav {
-			gap: var(--lw_gutters);
+
+	.footer_nav {
+		gap: var(--lw_gutters);
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		max-width: 40em;
+	}
+
+	.footer_bottom {
+		gap: var(--lw_gutters);
+		margin-top: var(--lw_gutters);
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-around;
+		width: 100%;
+
+		.column {
 			display: flex;
-			flex-flow: column nowrap;
-			align-items: center;
+			flex: 1 1 100%;
 			justify-content: center;
-			width: 100%;
-			max-width: 40em;
 		}
+		.column-middle { order: +1; }
 
-			.footer_bottom {
-				gap: var(--lw_gutters);
-				margin-top: var(--lw_gutters);
+		@media ( min-width: $laptopWidth ) {
+			.column {
 				display: flex;
-				flex-direction: row;
-				flex-wrap: wrap;
-				align-items: center;
-				justify-content: space-around;
-				width: 100%;
-
-				.column {
-					display: flex;
-					flex: 1 1 100%;
-					justify-content: center;
-				}
-				.column-middle { order: +1; }
-
-				@media ( min-width: $laptopWidth ) {
-					.column {
-						display: flex;
-						flex: 1 1 12em;
-					}
-					.column-start  { justify-content: flex-start; }
-					.column-middle { justify-content: center; order: unset; }
-					.column-end    { justify-content: flex-end; }
-				}
+				flex: 1 1 12em;
 			}
-            
-            .footer_nav .button {
-                height: min-content;
-            }
+			.column-start  { justify-content: flex-start; }
+			.column-middle { justify-content: center; order: unset; }
+			.column-end    { justify-content: flex-end; }
+		}
+	}
+	
+	.footer_nav .button {
+		height: min-content;
 
-                .footer_nav .button > *:first-child {
-                    white-space: normal;
-                }
-
+		&>*:first-child {
+			white-space: normal;
+		}
+	}
+}
 
 /*- - - - - - - - - - - - - - - - - - - - - - - - - - - 3.1.3 SITE TITLE - - */
 

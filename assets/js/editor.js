@@ -1,0 +1,1 @@
+(()=>{"use strict";console.log("This module will contain editor JS")})();

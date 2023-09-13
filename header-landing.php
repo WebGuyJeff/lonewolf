@@ -21,12 +21,12 @@ namespace BigupWeb\Lonewolf;
 <body <?php body_class(); ?> >
 
 	<header 
-		class="header header-landing"
+		class="pageGrid pageGrid-landing"
 		style="transform: translate( 0, -100% );
 				position: fixed;"
 		hidden="true"
 	>
-		<div class="header_inner header_inner-landing">
+		<div class="pageGrid_inner pageGrid_inner-landing">
 
 			<div class="header_content header_content-left">
 

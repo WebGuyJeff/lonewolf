@@ -11,7 +11,7 @@ wp_enqueue_script( 'lw_hideheader_js' );
 get_header( 'landing' );
 ?>
 
-<main class="main-landing">
+<main class="pageGrid pageGrid-landing">
 
 	<section>
 		<div class="landing_content" style="--row: 1 / -1; --col: narrow-l / narrow-r;">

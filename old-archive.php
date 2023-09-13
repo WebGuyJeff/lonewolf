@@ -21,7 +21,7 @@
 get_header();
 ?>
 
-<main class="main">
+<main class="pageGrid">
 
 	<div class="base"> <?php //MAIN CONTENT COLUMN ?>
 
@@ -68,4 +68,3 @@ get_header();
 </main>
 
 <?php get_footer(); ?>
-<script> console.log( 'wp-template: archive.php' )</script>

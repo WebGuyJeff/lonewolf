@@ -9,65 +9,65 @@
  */
 
 const hideHeader = () => {
-	const body = document.querySelector( 'body' );
-	const header = document.querySelector( '.header' );
-	const button = document.querySelector( '.menuToggle' );
-	let isAnimating = false;
+	const body = document.querySelector( 'body' )
+	const header = document.querySelector( 'body header' )
+	const button = document.querySelector( '.menuToggle' )
+	let isAnimating = false
 
-	if ( button === null ) return;
+	if ( button === null ) return
 
 	const docLoaded = setInterval( () => {
 		if ( document.readyState === 'complete' ) {
-			clearInterval( docLoaded );
-			button.addEventListener( 'click', toggleState );
+			clearInterval( docLoaded )
+			button.addEventListener( 'click', toggleState )
 		}
-	}, 100 );
+	}, 100 )
 
 	const toggleState = () => {
 		if ( ! isAnimating ) {
-			isAnimating = true;
-			body.classList.contains( 'menu_active' ) ? hide() : show();
+			isAnimating = true
+			body.classList.contains( 'menu_active' ) ? hide() : show()
 		}
-	};
+	}
 
 	const show = async () => {
-		header.setAttribute( 'hidden', false );
-		body.classList.add( 'menu_active' );
-		await transitionToPromise( header, 'transform', 'translate( 0, 0 )' );
-		window.addEventListener( 'scroll', hide, { once: true } );
-		isAnimating = false;
-	};
+		header.setAttribute( 'hidden', false )
+		body.classList.add( 'menu_active' )
+		await transitionToPromise( header, 'transform', 'translate( 0, 0 )' )
+		window.addEventListener( 'scroll', hide, { once: true } )
+		isAnimating = false
+	}
 
 	const hide = async () => {
-		header.setAttribute( 'hidden', true );
-		body.classList.remove( 'menu_active' );
+		header.setAttribute( 'hidden', true )
+		body.classList.remove( 'menu_active' )
 		await transitionToPromise(
 			header,
 			'transform',
 			'translate( 0, -100% )'
-		);
-		isAnimating = false;
-	};
+		)
+		isAnimating = false
+	}
 
 	const transitionToPromise = ( element, property, value ) => {
 		new Promise( ( resolve ) => {
 			try {
-				element.style[ property ] = value;
+				element.style[ property ] = value
 				const transitionEnded = ( event ) => {
-					if ( event.target !== element ) return;
+					if ( event.target !== element ) return
 					header.removeEventListener(
 						'transitionend',
 						transitionEnded
-					);
-					resolve( 'Transition complete.' );
-				};
-				header.addEventListener( 'transitionend', transitionEnded );
+					)
+					resolve( 'Transition complete.' )
+				}
+				header.addEventListener( 'transitionend', transitionEnded )
 			} catch ( error ) {
-				console.error( error.name + ': ' + error.message );
-				reject( error );
+				console.error( error.name + ': ' + error.message )
+				reject( error )
 			}
-		} );
-	};
-};
+		} )
+	}
+}
 
-export { hideHeader };
+export { hideHeader }

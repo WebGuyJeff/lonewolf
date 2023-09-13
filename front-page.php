@@ -15,7 +15,7 @@ wp_enqueue_script( 'lw_hideheader_js' );
 get_header( 'landing' );
 ?>
 
-<main class="main-landing">
+<main class="pageGrid pageGrid-landing">
 
 	<?php block_template_part( 'welcome' ) ?>
 
@@ -41,5 +41,3 @@ get_header( 'landing' );
 	get_footer( 'landing' );
 	get_template_part( 'template-parts/modal', 'contact' );
 ?>
-
-<script> console.log( 'wp-template: front-page.php' )</script>

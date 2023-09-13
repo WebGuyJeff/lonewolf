@@ -23,6 +23,7 @@ class Init {
 		add_action( 'wp_head', array( $this, 'add_pingback_header' ) );
 		add_action( 'after_setup_theme', array( $this, 'theme_configuration_and_features' ) );
 		add_action( 'init', array( $this, 'register_taxonomy_for_default_posts' ) );
+		self::define_global_variables();
 		self::register_menu_locations();
 		self::remove_prefix_from_category_titles();
 		self::customise_sitemap();
@@ -36,15 +37,24 @@ class Init {
 
 
 	/**
+	 * Define global variables.
+	 */
+	public function define_global_variables() {
+		define( 'LW_DEBUG', defined( 'WP_DEBUG' ) && WP_DEBUG === true );
+		define( 'LW_DIR', trailingslashit( get_template_directory() ) );
+		define( 'LW_URL', trailingslashit( get_template_directory_uri() ) );
+	}
+
+
+	/**
 	 * Register front end scripts and styles.
 	 */
 	public function register_front_end_scripts_and_styles() {
 		if ( $GLOBALS['pagenow'] !== 'wp-login.php' ) {
-			wp_enqueue_style( 'lw_style_css', get_template_directory_uri() . '/style.css', array(), filemtime( get_template_directory() . '/style.css' ), 'all' );
-			// GSAP sources pinched from Codepen.
+			wp_enqueue_style( 'lw_style_css', LW_URL . 'assets/css/frontend.css', array(), filemtime( LW_DIR . 'assets/css/frontend.css' ), 'all' );
 			wp_register_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', array(), '3.12.2', true );
 			wp_register_script( 'gsap_scrolltrigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array( 'gsap' ), '3.12.2', true );
-			wp_enqueue_script( 'lw_frontend_js', get_template_directory_uri() . '/js/frontend.js', array( 'gsap', 'gsap_scrolltrigger' ), filemtime( get_template_directory() . '/js/frontend.js' ), true );
+			wp_enqueue_script( 'lw_frontend_js', LW_URL . 'assets/js/frontend.js', array( 'gsap', 'gsap_scrolltrigger' ), filemtime( LW_DIR . 'assets/js/frontend.js' ), true );
 		}
 	}
 
@@ -54,9 +64,9 @@ class Init {
 	 */
 	public function register_admin_scripts_and_styles() {
 		if ( is_admin() && $GLOBALS['pagenow'] !== 'wp-login.php' ) {
-			wp_enqueue_media(); // Initialise wp.media to handle and control the admin media upload/select modal.
-			wp_enqueue_style( 'lw_admin_css', get_template_directory_uri() . '/style-admin.css', array(), filemtime( get_template_directory() . '/style-admin.css' ), 'all' );
-			wp_enqueue_script( 'lw_admin_js', get_template_directory_uri() . '/js/admin.js', array(), filemtime( get_template_directory() . '/js/admin.js' ), true );
+			wp_enqueue_media(); // Initialise wp.media to handle the admin media upload/select modal.
+			wp_enqueue_style( 'lw_admin_css', LW_URL . 'assets/css/admin.css', array(), filemtime( LW_DIR . 'assets/css/admin.css' ), 'all' );
+			wp_enqueue_script( 'lw_admin_js', LW_URL . 'assets/js/admin.js', array(), filemtime( LW_DIR . 'assets/js/admin.js' ), true );
 		}
 	}
 
@@ -69,7 +79,8 @@ class Init {
 	public function register_editor_scripts_and_styles() {
 		// Include frontend assets.
 		$this->register_front_end_scripts_and_styles();
-		wp_enqueue_script( 'lw_editor_js', get_template_directory_uri() . '/js/editor.js', array(), filemtime( get_template_directory() . '/js/editor.js' ), true );
+		wp_enqueue_style( 'lw_editor_css', LW_URL . 'assets/css/editor.css', array(), filemtime( LW_DIR . 'assets/css/editor.css' ), 'all' );
+		wp_enqueue_script( 'lw_editor_js', LW_URL . 'assets/js/editor.js', array(), filemtime( LW_DIR . 'assets/js/editor.js' ), true );
 	}
 
 
@@ -160,11 +171,11 @@ class Init {
 
 		/**
 		 * Add block theme support.
-		 * 
+		 *
 		 * NOTE: The following supports are enabled automatically when adding block theme support.
 		 * Any of these entries further down will be left intact until this theme is fully migrated
 		 * to a dedicated block theme.
-		 * 
+		 *
 		 * add_theme_support( 'post-thumbnails' );
 		 * add_theme_support( 'responsive-embeds' );
 		 * add_theme_support( 'editor-styles' );
@@ -349,9 +360,9 @@ class Init {
 	 * Register custom post types.
 	 */
 	private function register_custom_post_types() {
-		$data    = file_get_contents( get_template_directory() . '/data/customPostTypes.json' );
-		$cpts    = json_decode( $data, true );
-		$option  = get_option( 'lw_settings_features' );
+		$data   = file_get_contents( get_template_directory() . '/data/customPostTypes.json' );
+		$cpts   = json_decode( $data, true );
+		$option = get_option( 'lw_settings_features' );
 		if ( ! is_array( $option ) ) {
 			return;
 		}

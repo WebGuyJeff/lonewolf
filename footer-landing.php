@@ -11,8 +11,8 @@ namespace BigupWeb\Lonewolf;
 
 ?>
 
-	<footer class="footer footer-landing">
-		<div class="footer_inner">
+	<footer class="pageGrid pageGrid-landing">
+		<div class="pageGrid_inner">
 
 			<?php
 

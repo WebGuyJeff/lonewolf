@@ -20,7 +20,7 @@ header("HTTP/1.0 404 Not Found");
 
 get_header(); ?>
 
-<main class="main">
+<main class="pageGrid">
 	<div class="base">
 
 		<section class="sauce">
@@ -45,4 +45,3 @@ get_header(); ?>
 
 
 <?php get_footer(); ?>
-<script> console.log( 'wp-template: 404.php' )</script>
