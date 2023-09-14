@@ -30,9 +30,7 @@ class Settings_Tab_Homepage {
 			)
 		);
 
-
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  Welcome
-
 
 		add_settings_section(
 			'section_welcome',
@@ -73,9 +71,7 @@ class Settings_Tab_Homepage {
 				'section_welcome'
 			);
 
-
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Services
-
 
 		add_settings_section(
 			'section_services',
@@ -164,9 +160,7 @@ class Settings_Tab_Homepage {
 				'section_services'
 			);
 
-
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  USP
-
 
 		add_settings_section(
 			'section_usp',

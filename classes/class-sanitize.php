@@ -149,7 +149,7 @@ class Sanitize {
 	 */
 	public static function alphanumeric( $alphanumeric ) {
 
-		$word_chars         = preg_replace( "/[£]||[^- \p{L}\p{N}]/", '', $alphanumeric );
+		$word_chars         = preg_replace( '/[£]||[^- \p{L}\p{N}]/', '', $alphanumeric );
 		$no_uscore          = preg_replace( '/_/', '-', $word_chars );
 		$single_hyphen      = preg_replace( '/--+/', '-', $no_uscore );
 		$clean_alphanumeric = preg_replace( '/  +/', ' ', $single_hyphen );
@@ -238,8 +238,8 @@ class Sanitize {
 	 */
 	public static function wp_post_key( $wp_post_key ) {
 
-		$sanitized = sanitize_key( $wp_post_key );
-		$clean_wp_post_key    = substr( $sanitized, 0, 20 );
+		$sanitized         = sanitize_key( $wp_post_key );
+		$clean_wp_post_key = substr( $sanitized, 0, 20 );
 		return $clean_wp_post_key;
 	}
 

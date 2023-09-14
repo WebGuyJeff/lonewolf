@@ -1,23 +1,23 @@
 /**
  * Lonewolf Mobile Popup Menu Functionality
  *
- * @package
+ * @package lonewolf
  * @author Jefferson Real <me@jeffersonreal.uk>
  * @copyright Copyright 2023 Jefferson Real
  */
 
 const mobilePopupMenu = () => {
-	if ( ! document.querySelector( '.thumbNav' ) ) return;
+	if ( ! document.querySelector( '.thumbNav' ) ) return
 
-	let timerElapsed = true;
-	let thumbNavDisplayed = true;
-	let prevScrollpos = window.pageYOffset;
-	let currentScrollPos;
+	let timerElapsed = true
+	let thumbNavDisplayed = true
+	let prevScrollpos = window.pageYOffset
+	let currentScrollPos
 
 	window.onscroll = function () {
-		currentScrollPos = window.pageYOffset;
+		currentScrollPos = window.pageYOffset
 		if ( timerElapsed ) {
-			timerElapsed = false;
+			timerElapsed = false
 			setTimeout( function () {
 				if (
 					prevScrollpos > currentScrollPos &&
@@ -25,25 +25,25 @@ const mobilePopupMenu = () => {
 				) {
 					document.querySelector(
 						'.thumbNav-jshide'
-					).style.transform = 'translateY(0rem)';
-					thumbNavDisplayed = true;
+					).style.transform = 'translateY(0rem)'
+					thumbNavDisplayed = true
 				} else if (
 					prevScrollpos < currentScrollPos &&
 					thumbNavDisplayed === true
 				) {
 					document.querySelector(
 						'.thumbNav-jshide'
-					).style.transform = 'translateY(5rem)';
+					).style.transform = 'translateY(5rem)'
 					document.querySelector(
 						'.thumbNav_checkbox'
-					).checked = false;
-					thumbNavDisplayed = false;
+					).checked = false
+					thumbNavDisplayed = false
 				}
-				prevScrollpos = currentScrollPos;
-				timerElapsed = true;
-			}, 500 );
+				prevScrollpos = currentScrollPos
+				timerElapsed = true
+			}, 500 )
 		}
-	};
-};
+	}
+}
 
-export { mobilePopupMenu };
+export { mobilePopupMenu }

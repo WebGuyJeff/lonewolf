@@ -75,8 +75,3 @@ module.exports = {
 		},
 	},
 }
-
-
-
-// TEST - DELETE
-console.log( path.join( __dirname, 'assets/' ) )

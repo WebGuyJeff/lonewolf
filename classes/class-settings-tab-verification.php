@@ -30,9 +30,7 @@ class Settings_Tab_Verification {
 			)
 		);
 
-
 		// ==================================================== Verification Key Section
-
 
 		add_settings_section(
 			'section_verification_key',

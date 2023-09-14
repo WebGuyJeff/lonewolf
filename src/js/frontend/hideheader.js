@@ -3,7 +3,7 @@
  *
  * Handle header hide and reveal animation on button click and scroll events.
  *
- * @package
+ * @package lonewolf
  * @author Jefferson Real <me@jeffersonreal.uk>
  * @copyright Copyright 2023 Jefferson Real
  */

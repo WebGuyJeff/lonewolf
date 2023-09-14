@@ -30,9 +30,7 @@ class Settings_Tab_Identity {
 			)
 		);
 
-
 		// ============================================================= Contact Section
-
 
 		add_settings_section(
 			'section_contact',
@@ -57,9 +55,7 @@ class Settings_Tab_Identity {
 				'section_contact'
 			);
 
-
 		// ============================================== Social Media and External Links
-
 
 		add_settings_section(
 			'section_social',

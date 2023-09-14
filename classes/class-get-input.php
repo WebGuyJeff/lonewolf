@@ -112,7 +112,7 @@ class Get_Input {
 				);
 
 			case 'image-upload':
-$img_upload = <<<IMGUP
+				$img_upload = <<<IMGUP
 	<label for="{$field['id']}">
 		<input type="text" name="{$field['id']}" id="{$field['id']}" class="meta-image regular-text" value="{$value}">
 		<input type="button" class="button image-upload" value="Browse">
@@ -130,7 +130,7 @@ IMGUP;
 				preg_match_all( $pattern, $dashicons_svg, $dashicon_slugs );
 				$class = $value ? 'dashicons dashicons-' . $value : '';
 
-$open = <<<OPEN
+				$open = <<<OPEN
 	<div class="dashiconsDropdown">
 		<a href="#select">
 			<span class="<?php echo htmlspecialchars( $class ); ?>">
@@ -146,10 +146,10 @@ $open = <<<OPEN
 OPEN;
 
 				$options = '';
-				foreach ( $dashicon_slugs[1] as $slug ):
+				foreach ( $dashicon_slugs[1] as $slug ) :
 					$checked            = ( $slug === $value ) ? 'checked' : '';
 					$screen_reader_text = str_replace( '-', ' ', $slug );
-$options .= <<<OPTIONS
+					$options           .= <<<OPTIONS
 			<li>
 				<input type="radio" name="{$field['id']}" value="{$slug}" id="{$slug}" {$checked}>
 				<label for="{$slug}" title="{$slug}">
@@ -160,7 +160,7 @@ $options .= <<<OPTIONS
 OPTIONS;
 				endforeach;
 
-$close = <<<CLOSE
+				$close = <<<CLOSE
 		</ul>
 	</div>
 CLOSE;

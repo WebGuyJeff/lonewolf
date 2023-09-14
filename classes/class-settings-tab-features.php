@@ -30,9 +30,7 @@ class Settings_Tab_Features {
 			)
 		);
 
-
 		// =================================================== Custom Post Types Section
-
 
 		add_settings_section(
 			'section_cpt',
@@ -65,9 +63,7 @@ class Settings_Tab_Features {
 				'section_cpt'
 			);
 
-
 		// ================================================================== Google Maps
-
 
 		add_settings_section(
 			'section_gmaps',

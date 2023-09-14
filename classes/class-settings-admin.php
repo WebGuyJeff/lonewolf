@@ -251,7 +251,7 @@ class Settings_Admin {
 						case 'verification':
 							settings_fields( Settings_Tab_Verification::GROUP );
 							do_settings_sections( Settings_Tab_Verification::PAGE );
-						break;
+							break;
 						default:
 								settings_fields( Settings_Tab_Identity::GROUP );
 								do_settings_sections( Settings_Tab_Identity::PAGE );

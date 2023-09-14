@@ -1,13 +1,12 @@
 /**
  * Image Select Input Functionality.
  *
- * @package
+ * @package lonewolf
  * @author Jefferson Real <me@jeffersonreal.uk>
  * @copyright Copyright 2023 Jefferson Real
  */
 
 const inputImageSelect = () => {
-
 	const initialiseInput = () => {
 		const button = document.querySelector( '.image-upload' )
 		if ( ! button ) return
@@ -21,7 +20,8 @@ const inputImageSelect = () => {
 				button.parentElement.parentElement.querySelector(
 					'.image-preview'
 				)
-			const textInput = button.parentElement.querySelector( '.meta-image' )
+			const textInput =
+				button.parentElement.querySelector( '.meta-image' )
 
 			// If the frame already exists, re-open it.
 			if ( mediaFrame ) {
@@ -40,11 +40,17 @@ const inputImageSelect = () => {
 
 			mediaFrame.on( 'select', () => {
 				// Get attachment selection and create a JSON representation of the model.
-				const attachment   = mediaFrame.state().get( 'selection' ).first().toJSON()
-				const domain       = window.location.origin
+				const attachment = mediaFrame
+					.state()
+					.get( 'selection' )
+					.first()
+					.toJSON()
+				const domain = window.location.origin
 				const relativePath = attachment.url.replace( domain, '' )
 				textInput.value = relativePath
-				imagePreview.querySelector( 'img' ).setAttribute( 'src', relativePath )
+				imagePreview
+					.querySelector( 'img' )
+					.setAttribute( 'src', relativePath )
 			} )
 
 			// Opens the media library frame.

@@ -33,6 +33,7 @@ class Init {
 
 		// External classes.
 		add_action( 'admin_init', array( new Settings_Admin(), '__construct' ) );
+		add_action( 'init', array( new Register_Patterns(), '__construct' ) );
 	}
 
 
