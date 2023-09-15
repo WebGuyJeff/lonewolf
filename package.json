@@ -2,19 +2,17 @@
     "devDependencies": {
         "@wordpress/scripts": "^26.12.0",
         "browser-sync-webpack-plugin": "^2.3.0",
-        "copy-webpack-plugin": "^11.0.0",
         "css-loader": "^6.8.1",
         "html-bundler-webpack-plugin": "^2.11.0",
         "sass": "^1.66.1",
         "sass-loader": "^13.3.2",
         "webpack": "^5.88.2",
-        "webpack-cli": "^5.1.4",
-        "zip-webpack-plugin": "^4.0.1"
+        "webpack-cli": "^5.1.4"
     },
     "scripts": {
         "build": "webpack --mode production",
         "dev": "webpack --watch --mode development",
-        "zip": "./node_modules/.bin/webpack --config ./webpack.zip.config.js --mode production",
+        "zip": "zip -r dist/lonewolf.zip assets/ classes/ data/ languages/ parts/ patterns/ styles/ templates/ functions.php license.md readme.md screenshot.png style.css theme.json",
         "build:plugin": "wp-scripts build",
         "check-engines": "wp-scripts check-engines",
         "check-licenses": "wp-scripts check-licenses",

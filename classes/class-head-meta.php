@@ -10,6 +10,14 @@ namespace BigupWeb\Lonewolf;
  */
 class Head_Meta {
 
+	/**
+	 * Constants (need a source).
+	 */
+	private const SETTINGS = array(
+		'siteauthor' => 'Jefferson Real',
+		'localealt'  => 'en_US',
+		'objecttype' => 'website',
+	);
 
 	/**
 	 * Hook into `wp_head`.
@@ -34,20 +42,23 @@ class Head_Meta {
 		$head_meta .= $seo_meta . $verification_meta;
 		$head_meta .= "<!-- Bigup Web Meta END -->\n";
 
-		echo $head_meta;
-	}
-
-
-	/**
-	 * Append forward slash to strings where not already present.
-	 *
-	 * @param string $url A URL.
-	 */
-	private function enforce_forward_slash( $url ) {
-		if ( $url !== '' && substr( $url, -1 ) !== '/' ) {
-			$url = $url . '/';
-		}
-		return $url;
+		echo wp_kses(
+			$head_meta,
+			array(
+				'title' => array(),
+				'meta'  => array(
+					'charset'  => array(),
+					'name'     => array(),
+					'content'  => array(),
+					'property' => array(),
+				),
+				'link'  => array(
+					'rel'   => array(),
+					'href'  => array(),
+					'sizes' => array(),
+				),
+			)
+		);
 	}
 
 
@@ -96,9 +107,9 @@ class Head_Meta {
 			preg_match_all( $regex, $content, $matches, PREG_PATTERN_ORDER );
 
 			if ( isset( $matches[0][0] ) ) {
-				$match    = $matches[0][0];
-				$urlParts = explode( '"', $match, 3 );
-				$url      = $urlParts[1];
+				$match     = $matches[0][0];
+				$url_parts = explode( '"', $match, 3 );
+				$url       = $url_parts[1];
 
 			} else {
 				$url = '';
@@ -116,20 +127,15 @@ class Head_Meta {
 	 */
 	private function get_seo_vars() {
 
-		/* Constants (need a source) */
-		$lw_siteauthor = 'Jefferson Real';
-		$lw_localealt  = 'en_US';
-		$lw_objecttype = 'website';
-
 		/* Sitewide */
 		$lw_sitetitle = wp_strip_all_tags( get_bloginfo( 'name', 'display' ) );
 		$lw_blogtitle = wp_strip_all_tags( get_the_title( get_option( 'page_for_posts', true ) ) );
 		$lw_sitedesc  = wp_strip_all_tags( get_bloginfo( 'description', 'display' ) );
-		$lw_siteurl   = esc_url( home_url( $path = '/', $scheme = 'https' ) );
+		$lw_url       = esc_url( home_url( '/', 'https' ) );
+		$lw_themeuri  = trailingslashit( get_template_directory_uri() );
 		$lw_sitelogo  = esc_url( wp_get_attachment_url( get_theme_mod( 'custom_logo' ) ) );
 		$lw_locale    = wp_strip_all_tags( get_bloginfo( 'language' ) );
 		$lw_charset   = wp_strip_all_tags( get_bloginfo( 'charset' ) );
-		$lw_themeuri  = get_template_directory_uri();
 
 		/* Page-Specific */
 		$post = get_post();// Set up the post manually
@@ -147,10 +153,10 @@ class Head_Meta {
 		$lw_postauthor   = '';
 
 		/* scrape conditionally by page type */
-		if ( is_category() ) { // User may have set desc
+		if ( is_category() ) { // User may have set desc.
 			$lw_catexcerpt = preg_split( '/[.?!]/', wp_strip_all_tags( category_description(), true ) )[0] . '.';
 		}
-		if ( is_archive() ) { // Also matches categories (don't set vars twice)
+		if ( is_archive() ) { // Also matches categories (don't set vars twice).
 			$lw_archivetitle = wp_strip_all_tags( post_type_archive_title( '', false ) );
 			$lw_thumbnail    = esc_url( get_the_post_thumbnail_url( $lw_postid ) );
 		} else {
@@ -160,62 +166,69 @@ class Head_Meta {
 		}
 
 		/* choose the most suitable scraped value with preference order by page type */
-		if ( is_front_page() ) { // Homepage.
+		if ( is_front_page() ) {
 			$lw_title   = ucwords( $lw_sitetitle );
 			$lw_desc    = ucfirst( $this->first_not_empty( array( $lw_sitedesc, $lw_postexcerpt ) ) );
-			$lw_author  = ucwords( $this->first_not_empty( array( $lw_siteauthor, $lw_postauthor ) ) );
-			$lw_canon   = $this->enforce_forward_slash( $lw_siteurl );
+			$lw_author  = ucwords( $this->first_not_empty( array( self::SETTINGS['siteauthor'], $lw_postauthor ) ) );
+			$lw_canon   = $lw_url;
 			$lw_ogimage = $this->first_not_empty( array( $lw_sitelogo, $lw_thumbnail, $lw_postimage ) );
-		} elseif ( is_home() ) { // Posts Page.
+
+		} elseif ( is_home() ) {
 			$lw_title   = ucwords( $this->first_not_empty( array( $lw_blogtitle, $lw_sitetitle ) ) );
 			$lw_desc    = ucfirst( $this->first_not_empty( array( $lw_postexcerpt, $lw_sitedesc ) ) );
-			$lw_author  = ucwords( $lw_siteauthor );
-			$lw_canon   = $this->enforce_forward_slash( $lw_permalink );
+			$lw_author  = ucwords( self::SETTINGS['siteauthor'] );
+			$lw_canon   = $this->trailingslashit( $lw_permalink );
 			$lw_ogimage = $this->first_not_empty( array( $lw_thumbnail, $lw_sitelogo, $lw_postimage ) );
+
 		} elseif ( is_category() ) {
 			$lw_title   = ucwords( $this->first_not_empty( array( $lw_archivetitle, $lw_posttitle ) ) );
 			$lw_desc    = ucfirst( $this->first_not_empty( array( $lw_catexcerpt, $lw_postexcerpt, $lw_sitedesc ) ) );
-			$lw_author  = ucwords( $this->first_not_empty( array( $lw_postauthor, $lw_siteauthor ) ) );
-			$lw_canon   = $this->enforce_forward_slash( $lw_permalink );
+			$lw_author  = ucwords( $this->first_not_empty( array( $lw_postauthor, self::SETTINGS['siteauthor'] ) ) );
+			$lw_canon   = $this->trailingslashit( $lw_permalink );
 			$lw_ogimage = $this->first_not_empty( array( $lw_thumbnail, $lw_postimage, $lw_sitelogo ) );
-		} elseif ( is_archive() ) { // Auto-gen 'cats'.
+
+		} elseif ( is_archive() ) {
 			$lw_title   = ucwords( $this->first_not_empty( array( $lw_archivetitle, $lw_posttitle ) ) );
 			$lw_desc    = ucfirst( $this->first_not_empty( array( $lw_catexcerpt, $lw_postexcerpt, $lw_sitedesc ) ) );
-			$lw_author  = ucwords( $this->first_not_empty( array( $lw_postauthor, $lw_siteauthor ) ) );
-			$lw_canon   = $this->enforce_forward_slash( $lw_permalink );
+			$lw_author  = ucwords( $this->first_not_empty( array( $lw_postauthor, self::SETTINGS['siteauthor'] ) ) );
+			$lw_canon   = $this->trailingslashit( $lw_permalink );
 			$lw_ogimage = $this->first_not_empty( array( $lw_thumbnail, $lw_postimage, $lw_sitelogo ) );
-		} elseif ( is_singular() ) { // These vars should be reliable.
+
+		} elseif ( is_singular() ) {
 			$lw_title   = ucwords( $lw_posttitle );
 			$lw_desc    = ucfirst( $lw_postexcerpt );
 			$lw_author  = ucwords( $lw_postauthor );
-			$lw_canon   = $this->enforce_forward_slash( $lw_permalink );
+			$lw_canon   = $this->trailingslashit( $lw_permalink );
 			$lw_ogimage = $this->first_not_empty( array( $lw_postimage, $lw_thumbnail, $lw_sitelogo ) );
+
 		} else {
 			echo '<!-- SEO META FALLBACK - WP TEMLPATE NOT MATCHED -->';
 			$lw_title   = ucwords( $this->first_not_empty( array( $lw_posttitle, $lw_archivetitle, $lw_sitetitle ) ) );
 			$lw_desc    = ucfirst( $this->first_not_empty( array( $lw_postexcerpt, $lw_catexcerpt, $lw_sitedesc ) ) );
-			$lw_author  = ucwords( $this->first_not_empty( array( $lw_postauthor, $lw_siteauthor ) ) );
-			$lw_canon   = $this->enforce_forward_slash( $lw_permalink );
+			$lw_author  = ucwords( $this->first_not_empty( array( $lw_postauthor, self::SETTINGS['siteauthor'] ) ) );
+			$lw_canon   = $this->trailingslashit( $lw_permalink );
 			$lw_ogimage = $this->first_not_empty( array( $lw_thumbnail, $lw_postimage, $lw_sitelogo ) );
 		}
 
-		return $meta = array(
+		$meta = array(
 			'title'       => $lw_title,
 			'desc'        => $lw_desc,
-			'author'      => $lw_author,
+			'author'      => self::SETTINGS['siteauthor'],
 			'canon'       => $lw_canon,
 			'ogimage'     => $lw_ogimage,
 			'ogtitle'     => $lw_title,
-			'ogtype'      => $lw_objecttype,
+			'ogtype'      => self::SETTINGS['objecttype'],
 			'ogurl'       => $lw_canon,
 			'oglocale'    => $lw_locale,
-			'oglocalealt' => $lw_localealt,
+			'oglocalealt' => self::SETTINGS['localealt'],
 			'ogdesc'      => $lw_desc,
 			'ogsitename'  => $lw_sitetitle,
 			'charset'     => $lw_charset,
+			'url'         => $lw_url,
 			'themeuri'    => $lw_themeuri,
 		);
 
+		return $meta;
 	}
 
 	/**
@@ -225,57 +238,54 @@ class Head_Meta {
 	 * @param array $meta The array of SEO meta data variables.
 	 */
 	private function get_seo_meta( $meta ) {
-
-		$head_meta = <<<EOF
-<meta charset="{$meta["charset"]}">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{$meta["title"]}</title>
-<meta name="description" content="{$meta["desc"]}">
-<meta name="author" content="{$meta["author"]}">
-<link rel="canonical" href="{$meta["canon"]}">
-<!-- Open Graph Meta - <html> namespace must match og:type -->
-<meta property="og:title" content="{$meta["ogtitle"]}">
-<meta property="og:type" content="{$meta["ogtype"]}">
-<meta property="og:image" content="{$meta["ogimage"]}">
-<meta property="og:url" content="{$meta["ogurl"]}">
-<meta property="og:locale" content="{$meta["oglocale"]}">
-<meta property="og:locale:alternate" content="{$meta["oglocalealt"]}">
-<meta property="og:description" content="{$meta["ogdesc"]}">
-<meta property="og:site_name" content="{$meta["ogsitename"]}">
-<!-- Branding Meta -->
-<!-- Favicon and Web App Definitions -->
-<meta name="application-name" content="Jefferson Real - Web Development">
-<meta name="msapplication-TileColor" content="#fff">
-<meta name="msapplication-TileImage" content="{$meta["themeuri"]}/imagery/favicon/mstile-144x144.png">
-<meta name="msapplication-square70x70logo" content="{$meta["themeuri"]}/imagery/favicon/mstile-70x70.png">
-<meta name="msapplication-square150x150logo" content="{$meta["themeuri"]}/imagery/favicon/mstile-150x150.png">
-<meta name="msapplication-wide310x150logo" content="{$meta["themeuri"]}/imagery/favicon/mstile-310x150.png">
-<meta name="msapplication-square310x310logo" content="{$meta["themeuri"]}/imagery/favicon/mstile-310x310.png">
-<!-- Mobile Browser Colours -->
-<!-- Chrome, Firefox OS and Opera -->
-<meta name="theme-color" content="#262422">
-<!-- Windows Phone -->
-<meta name="msapplication-navbutton-color" content="#262422">
-<!-- iOS Safari -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#262422">
-<!-- Favicons and vendor-specific icons -->
-<link rel="shortcut icon" href="{$meta["themeuri"]}/imagery/favicon/favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" sizes="57x57" href="{$meta["themeuri"]}/imagery/favicon/apple-touch-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="114x114" href="{$meta["themeuri"]}/imagery/favicon/apple-touch-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="72x72" href="{$meta["themeuri"]}/imagery/favicon/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="144x144" href="{$meta["themeuri"]}/imagery/favicon/apple-touch-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="60x60" href="{$meta["themeuri"]}/imagery/favicon/apple-touch-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="120x120" href="{$meta["themeuri"]}/imagery/favicon/apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="76x76" href="{$meta["themeuri"]}/imagery/favicon/apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="152x152" href="{$meta["themeuri"]}/imagery/favicon/apple-touch-icon-152x152.png">
-<link rel="icon" type="image/png" href="{$meta["themeuri"]}/imagery/favicon/favicon-196x196.png" sizes="196x196">
-<link rel="icon" type="image/png" href="{$meta["themeuri"]}/imagery/favicon/favicon-96x96.png" sizes="96x96">
-<link rel="icon" type="image/png" href="{$meta["themeuri"]}/imagery/favicon/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="{$meta["themeuri"]}/imagery/favicon/favicon-16x16.png" sizes="16x16">
-<link rel="icon" type="image/png" href="{$meta["themeuri"]}/imagery/favicon/favicon-128.png" sizes="128x128">
-EOF;
-
+		$head_meta =
+			'<meta charset="' . $meta['charset'] . '">' .
+			'<meta name="viewport" content="width=device-width, initial-scale=1">' .
+			'<title>' . $meta['title'] . '</title>' .
+			'<meta name="description" content="' . $meta['desc'] . '">' .
+			'<meta name="author" content="' . $meta['author'] . '">' .
+			'<link rel="canonical" href="' . $meta['canon'] . '">' .
+			'<!-- Open Graph Meta - html tag namespace must match og:type -->' .
+			'<meta property="og:title" content="' . $meta['ogtitle'] . '">' .
+			'<meta property="og:type" content="' . $meta['ogtype'] . '">' .
+			'<meta property="og:image" content="' . $meta['ogimage'] . '">' .
+			'<meta property="og:url" content="' . $meta['ogurl'] . '">' .
+			'<meta property="og:locale" content="' . $meta['oglocale'] . '">' .
+			'<meta property="og:locale:alternate" content="' . $meta['oglocalealt'] . '">' .
+			'<meta property="og:description" content="' . $meta['ogdesc'] . '">' .
+			'<meta property="og:site_name" content="' . $meta['ogsitename'] . '">' .
+			'<!-- Branding Meta -->' .
+			'<!-- Favicon and Web App Definitions -->' .
+			'<meta name="application-name" content="Jefferson Real - Web Development">' .
+			'<meta name="msapplication-TileColor" content="#fff">' .
+			'<meta name="msapplication-TileImage" content="' . $meta['themeuri'] . 'assets/img/favicon/mstile-144x144.png">' .
+			'<meta name="msapplication-square70x70logo" content="' . $meta['themeuri'] . 'assets/img/favicon/mstile-70x70.png">' .
+			'<meta name="msapplication-square150x150logo" content="' . $meta['themeuri'] . 'assets/img/favicon/mstile-150x150.png">' .
+			'<meta name="msapplication-wide310x150logo" content="' . $meta['themeuri'] . 'assets/img/favicon/mstile-310x150.png">' .
+			'<meta name="msapplication-square310x310logo" content="' . $meta['themeuri'] . 'assets/img/favicon/mstile-310x310.png">' .
+			'<!-- Mobile Browser Colours -->' .
+			'<!-- Chrome, Firefox OS and Opera -->' .
+			'<meta name="theme-color" content="#262422">' .
+			'<!-- Windows Phone -->' .
+			'<meta name="msapplication-navbutton-color" content="#262422">' .
+			'<!-- iOS Safari -->' .
+			'<meta name="apple-mobile-web-app-capable" content="yes">' .
+			'<meta name="apple-mobile-web-app-status-bar-style" content="#262422">' .
+			'<!-- Favicons and vendor-specific icons -->' .
+			'<link rel="shortcut icon" href="' . $meta['themeuri'] . 'assets/img/favicon/favicon.ico" type="image/x-icon">' .
+			'<link rel="apple-touch-icon" sizes="57x57" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-57x57.png">' .
+			'<link rel="apple-touch-icon" sizes="114x114" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-114x114.png">' .
+			'<link rel="apple-touch-icon" sizes="72x72" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-72x72.png">' .
+			'<link rel="apple-touch-icon" sizes="144x144" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-144x144.png">' .
+			'<link rel="apple-touch-icon" sizes="60x60" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-60x60.png">' .
+			'<link rel="apple-touch-icon" sizes="120x120" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-120x120.png">' .
+			'<link rel="apple-touch-icon" sizes="76x76" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-76x76.png">' .
+			'<link rel="apple-touch-icon" sizes="152x152" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-152x152.png">' .
+			'<link rel="icon" type="image/png" href="' . $meta['themeuri'] . 'assets/img/favicon/favicon-196x196.png" sizes="196x196">' .
+			'<link rel="icon" type="image/png" href="' . $meta['themeuri'] . 'assets/img/favicon/favicon-96x96.png" sizes="96x96">' .
+			'<link rel="icon" type="image/png" href="' . $meta['themeuri'] . 'assets/img/favicon/favicon-32x32.png" sizes="32x32">' .
+			'<link rel="icon" type="image/png" href="' . $meta['themeuri'] . 'assets/img/favicon/favicon-16x16.png" sizes="16x16">' .
+			'<link rel="icon" type="image/png" href="' . $meta['themeuri'] . 'assets/img/favicon/favicon-128.png" sizes="128x128">';
 		return $head_meta;
 	}
 
