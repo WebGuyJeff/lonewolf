@@ -7,15 +7,13 @@
  * @copyright Copyright 2023 Jefferson Real
  */
 
-
 /**
- * Load the PHP autoloader from it's own file.
+ * Setup Lonewolf PHP namespace with class autoloader.
  */
 require_once get_template_directory() . '/classes/autoload.php';
 
-
 /**
- * Initialise the theme.
+ * Setup the theme.
  */
-use BigupWeb\Lonewolf\Init;
-new Init();
+use BigupWeb\Lonewolf\Theme_Setup;
+new Theme_Setup();

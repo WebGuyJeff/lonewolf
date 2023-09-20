@@ -18,7 +18,7 @@ $image_markup = '';
 for ( $n = 1; $n <= 5; $n++ ) {
 	$image_markup .= '<!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->';
 	$image_markup .= '<figure class="wp-block-image size-full">';
-	$image_markup .= '<img src="' . esc_url( LW_URL . 'assets/img/shape-0' . $n . '.svg' ) . '" alt="Illustration"/>';
+	$image_markup .= '<img src="' . esc_url( LW_URL . 'assets/img/patterns/raft/shape-0' . $n . '.svg' ) . '" alt="Illustration"/>';
 	$image_markup .= '</figure>';
 	$image_markup .= '<!-- /wp:image -->';
 }

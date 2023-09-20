@@ -8,7 +8,7 @@
  * @package lonewolf
  */
 
-$image = LW_URL . 'assets/img/lonewolf-image.svg';
+$image = LW_URL . 'assets/img/patterns/raft/lonewolf-image.svg';
 
 $strings = array(
 	'title'    => __( 'Block-based websites made simple.', 'lonewolf' ),

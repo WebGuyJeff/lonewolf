@@ -12,7 +12,7 @@ $strings = array(
 	'title' => __( 'Team Section', 'lonewolf' ),
 );
 
-$image = LW_URL . 'assets/img/shape-02.svg';
+$image = LW_URL . 'assets/img/patterns/raft/shape-02.svg';
 
 ?>
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"64px","bottom":"64px"},"margin":{"top":"0px","bottom":"0px"}}},"backgroundColor":"lonewolf-bg-alt","layout":{"inherit":true,"type":"constrained"}} -->

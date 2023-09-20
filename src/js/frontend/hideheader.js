@@ -9,19 +9,20 @@
  */
 
 const hideHeader = () => {
-	const body = document.querySelector( 'body' )
-	const header = document.querySelector( 'body header' )
-	const button = document.querySelector( '.menuToggle' )
-	let isAnimating = false
 
-	if ( button === null ) return
+	let body,
+		header,
+		button,
+		isAnimating = false
 
-	const docLoaded = setInterval( () => {
-		if ( document.readyState === 'complete' ) {
-			clearInterval( docLoaded )
-			button.addEventListener( 'click', toggleState )
-		}
-	}, 100 )
+	const init = () => {
+		body = document.querySelector( 'body' )
+		header = document.querySelector( '.jsHideHeader' )
+		button = document.querySelector( '.menuToggle' )
+		isAnimating = false
+		if ( button === null ) return
+		button.addEventListener( 'click', toggleState )
+	}
 
 	const toggleState = () => {
 		if ( ! isAnimating ) {
@@ -68,6 +69,13 @@ const hideHeader = () => {
 			}
 		} )
 	}
+
+	const docLoaded = setInterval( () => {
+		if ( document.readyState === 'complete' ) {
+			clearInterval( docLoaded )
+			init()
+		}
+	}, 100 )
 }
 
 export { hideHeader }

@@ -13,8 +13,8 @@ $strings = array(
 );
 
 $images = array(
-	LW_URL . 'assets/img/shape-05.svg',
-	LW_URL . 'assets/img/shape-09.svg',
+	LW_URL . 'assets/img/patterns/raft/shape-05.svg',
+	LW_URL . 'assets/img/patterns/raft/shape-09.svg',
 );
 
 ?>

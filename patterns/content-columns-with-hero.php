@@ -46,7 +46,7 @@
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->
-<figure class="wp-block-image size-full"><img src="' . esc_url( LW_URL . 'assets/img/shape-05.svg' ) . '" alt=""/></figure>
+<figure class="wp-block-image size-full"><img src="' . esc_url( LW_URL . 'assets/img/patterns/raft/shape-05.svg' ) . '" alt=""/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>

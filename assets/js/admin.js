@@ -1,1 +1,147 @@
-(()=>{"use strict";(()=>{const e=setInterval((()=>{"complete"===document.readyState&&(clearInterval(e),(()=>{const e=document.querySelector(".image-upload");if(!e)return;let t;e.addEventListener("click",(async c=>{c.preventDefault();const r=e.parentElement.parentElement.querySelector(".image-preview"),a=e.parentElement.querySelector(".meta-image");t||(t=wp.media({title:"Select media to use as the profile image",button:{text:"Use this image"},multiple:!1}),t.on("select",(()=>{const e=t.state().get("selection").first().toJSON(),c=window.location.origin,n=e.url.replace(c,"");a.value=n,r.querySelector("img").setAttribute("src",n)}))),t.open()}))})())}),100)})(),(()=>{const e=setInterval((()=>{"complete"===document.readyState&&(clearInterval(e),(()=>{const e=".dashiconsDropdown",t=document.querySelector(e+" a"),c=document.querySelectorAll(e+" input"),r=document.querySelector(e+" button"),a=e=>e.querySelector("a").classList.toggle("open");t&&(t.addEventListener("click",(t=>a(t.target.closest(e)))),c.forEach((t=>{t.addEventListener("change",(t=>{const c=t.target.closest(e).querySelector("a span:first-child");c.innerHTML="",c.className="dashicons dashicons-"+t.target.value,t.target.checked=!0,a(t.target.closest(e)),t.stopImmediatePropagation()}))})),r.addEventListener("click",(t=>{c.forEach((e=>e.checked=!1));const r=t.target.closest(e).querySelector("a span:first-child");r.innerHTML="--select icon--",r.className="",a(t.target.closest(e))})))})())}),100)})()})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+var __webpack_exports__ = {};
+
+;// CONCATENATED MODULE: ./src/js/admin/input-image-select.js
+/**
+ * Image Select Input Functionality.
+ *
+ * @package lonewolf
+ * @author Jefferson Real <me@jeffersonreal.uk>
+ * @copyright Copyright 2023 Jefferson Real
+ */
+
+const inputImageSelect = () => {
+	const initialiseInput = () => {
+		const button = document.querySelector( '.image-upload' )
+		if ( ! button ) return
+
+		let mediaFrame
+
+		button.addEventListener( 'click', async ( e ) => {
+			e.preventDefault()
+
+			const imagePreview =
+				button.parentElement.parentElement.querySelector(
+					'.image-preview'
+				)
+			const textInput =
+				button.parentElement.querySelector( '.meta-image' )
+
+			// If the frame already exists, re-open it.
+			if ( mediaFrame ) {
+				mediaFrame.open()
+				return
+			}
+
+			// Create a new media frame.
+			mediaFrame = wp.media( {
+				title: 'Select media to use as the profile image',
+				button: {
+					text: 'Use this image',
+				},
+				multiple: false,
+			} )
+
+			mediaFrame.on( 'select', () => {
+				// Get attachment selection and create a JSON representation of the model.
+				const attachment = mediaFrame
+					.state()
+					.get( 'selection' )
+					.first()
+					.toJSON()
+				const domain = window.location.origin
+				const relativePath = attachment.url.replace( domain, '' )
+				textInput.value = relativePath
+				imagePreview
+					.querySelector( 'img' )
+					.setAttribute( 'src', relativePath )
+			} )
+
+			// Opens the media library frame.
+			mediaFrame.open()
+		} )
+	}
+
+	const docLoaded = setInterval( () => {
+		if ( document.readyState === 'complete' ) {
+			clearInterval( docLoaded )
+			initialiseInput()
+		}
+	}, 100 )
+}
+
+
+
+;// CONCATENATED MODULE: ./src/js/admin/input-dashicons.js
+/**
+ * Dashicons Input Functionality.
+ *
+ * @package lonewolf
+ * @author Jefferson Real <me@jeffersonreal.uk>
+ * @copyright Copyright 2023 Jefferson Real
+ */
+
+const dashiconsInput = () => {
+	const initialiseInput = () => {
+		const cssClass = '.dashiconsDropdown',
+			button = document.querySelector( cssClass + ' a' ),
+			radios = document.querySelectorAll( cssClass + ' input' ),
+			removeBtn = document.querySelector( cssClass + ' button' ),
+			toggle = ( el ) =>
+				el.querySelector( 'a' ).classList.toggle( 'open' )
+
+		if ( ! button ) return
+
+		button.addEventListener( 'click', ( e ) =>
+			toggle( e.target.closest( cssClass ) )
+		)
+
+		radios.forEach( ( radio ) => {
+			radio.addEventListener( 'change', ( e ) => {
+				const label = e.target
+					.closest( cssClass )
+					.querySelector( 'a span:first-child' )
+				label.innerHTML = ''
+				label.className = 'dashicons dashicons-' + e.target.value
+				e.target.checked = true
+				toggle( e.target.closest( cssClass ) )
+				// Stop event firing for more than one radio control.
+				e.stopImmediatePropagation()
+			} )
+		} )
+
+		removeBtn.addEventListener( 'click', ( e ) => {
+			radios.forEach( ( radio ) => ( radio.checked = false ) )
+			const label = e.target
+				.closest( cssClass )
+				.querySelector( 'a span:first-child' )
+			label.innerHTML = '--select icon--'
+			label.className = ''
+			toggle( e.target.closest( cssClass ) )
+		} )
+	}
+
+	const docLoaded = setInterval( () => {
+		if ( document.readyState === 'complete' ) {
+			clearInterval( docLoaded )
+			initialiseInput()
+		}
+	}, 100 )
+}
+
+
+
+;// CONCATENATED MODULE: ./src/js/admin.js
+/**
+ * Webpack entry point.
+ */
+
+
+
+
+inputImageSelect()
+dashiconsInput()
+
+/******/ })()
+;

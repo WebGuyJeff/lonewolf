@@ -3,5 +3,4 @@
  */
 
 @import './frontend/main.scss';
-@import './frontend/landing.scss';
-@import './frontend/landing-home.scss';
+@import './frontend/parts.scss';

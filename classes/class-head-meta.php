@@ -42,23 +42,7 @@ class Head_Meta {
 		$head_meta .= $seo_meta . $verification_meta;
 		$head_meta .= "<!-- Bigup Web Meta END -->\n";
 
-		echo wp_kses(
-			$head_meta,
-			array(
-				'title' => array(),
-				'meta'  => array(
-					'charset'  => array(),
-					'name'     => array(),
-					'content'  => array(),
-					'property' => array(),
-				),
-				'link'  => array(
-					'rel'   => array(),
-					'href'  => array(),
-					'sizes' => array(),
-				),
-			)
-		);
+		Escape::head( $head_meta );
 	}
 
 
@@ -167,38 +151,38 @@ class Head_Meta {
 
 		/* choose the most suitable scraped value with preference order by page type */
 		if ( is_front_page() ) {
-			$lw_title   = ucwords( $lw_sitetitle );
+			$lw_title   = ucwords( $lw_sitetitle . ' - ' . $lw_sitedesc );
 			$lw_desc    = ucfirst( $this->first_not_empty( array( $lw_sitedesc, $lw_postexcerpt ) ) );
 			$lw_author  = ucwords( $this->first_not_empty( array( self::SETTINGS['siteauthor'], $lw_postauthor ) ) );
 			$lw_canon   = $lw_url;
 			$lw_ogimage = $this->first_not_empty( array( $lw_sitelogo, $lw_thumbnail, $lw_postimage ) );
 
 		} elseif ( is_home() ) {
-			$lw_title   = ucwords( $this->first_not_empty( array( $lw_blogtitle, $lw_sitetitle ) ) );
+			$lw_title   = ucwords( $this->first_not_empty( array( $lw_blogtitle, $lw_sitetitle ) ) . ' - ' . $lw_sitedesc );
 			$lw_desc    = ucfirst( $this->first_not_empty( array( $lw_postexcerpt, $lw_sitedesc ) ) );
 			$lw_author  = ucwords( self::SETTINGS['siteauthor'] );
-			$lw_canon   = $this->trailingslashit( $lw_permalink );
+			$lw_canon   = trailingslashit( $lw_permalink );
 			$lw_ogimage = $this->first_not_empty( array( $lw_thumbnail, $lw_sitelogo, $lw_postimage ) );
 
 		} elseif ( is_category() ) {
 			$lw_title   = ucwords( $this->first_not_empty( array( $lw_archivetitle, $lw_posttitle ) ) );
 			$lw_desc    = ucfirst( $this->first_not_empty( array( $lw_catexcerpt, $lw_postexcerpt, $lw_sitedesc ) ) );
 			$lw_author  = ucwords( $this->first_not_empty( array( $lw_postauthor, self::SETTINGS['siteauthor'] ) ) );
-			$lw_canon   = $this->trailingslashit( $lw_permalink );
+			$lw_canon   = trailingslashit( $lw_permalink );
 			$lw_ogimage = $this->first_not_empty( array( $lw_thumbnail, $lw_postimage, $lw_sitelogo ) );
 
 		} elseif ( is_archive() ) {
 			$lw_title   = ucwords( $this->first_not_empty( array( $lw_archivetitle, $lw_posttitle ) ) );
 			$lw_desc    = ucfirst( $this->first_not_empty( array( $lw_catexcerpt, $lw_postexcerpt, $lw_sitedesc ) ) );
 			$lw_author  = ucwords( $this->first_not_empty( array( $lw_postauthor, self::SETTINGS['siteauthor'] ) ) );
-			$lw_canon   = $this->trailingslashit( $lw_permalink );
+			$lw_canon   = trailingslashit( $lw_permalink );
 			$lw_ogimage = $this->first_not_empty( array( $lw_thumbnail, $lw_postimage, $lw_sitelogo ) );
 
 		} elseif ( is_singular() ) {
 			$lw_title   = ucwords( $lw_posttitle );
 			$lw_desc    = ucfirst( $lw_postexcerpt );
 			$lw_author  = ucwords( $lw_postauthor );
-			$lw_canon   = $this->trailingslashit( $lw_permalink );
+			$lw_canon   = trailingslashit( $lw_permalink );
 			$lw_ogimage = $this->first_not_empty( array( $lw_postimage, $lw_thumbnail, $lw_sitelogo ) );
 
 		} else {
@@ -206,7 +190,7 @@ class Head_Meta {
 			$lw_title   = ucwords( $this->first_not_empty( array( $lw_posttitle, $lw_archivetitle, $lw_sitetitle ) ) );
 			$lw_desc    = ucfirst( $this->first_not_empty( array( $lw_postexcerpt, $lw_catexcerpt, $lw_sitedesc ) ) );
 			$lw_author  = ucwords( $this->first_not_empty( array( $lw_postauthor, self::SETTINGS['siteauthor'] ) ) );
-			$lw_canon   = $this->trailingslashit( $lw_permalink );
+			$lw_canon   = trailingslashit( $lw_permalink );
 			$lw_ogimage = $this->first_not_empty( array( $lw_thumbnail, $lw_postimage, $lw_sitelogo ) );
 		}
 
