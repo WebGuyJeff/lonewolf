@@ -4,10 +4,12 @@
 /languages
 /parts
 /patterns
+/plugins
 /styles
 /templates
 functions.php
 license.md
+plugins.json
 readme.md
 screenshot.png
 style.css

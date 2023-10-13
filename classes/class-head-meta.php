@@ -104,6 +104,22 @@ class Head_Meta {
 			return $url;
 	}
 
+
+	/**
+	 * Get a favicon URL by specified size.
+	 *
+	 * @return string The URL.
+	 */
+	private function get_favicon_url( $size ) {
+		if ( has_site_icon() ) {
+			$url = get_site_icon_url( $size );
+		} else {
+			$url = trailingslashit( get_template_directory_uri() ) . 'assets/img/favicon/favicon-' . $size . '.png';
+		}
+		return $url;
+	}
+
+
 	/**
 	 * Populate the SEO meta variables.
 	 *
@@ -120,6 +136,14 @@ class Head_Meta {
 		$lw_sitelogo  = esc_url( wp_get_attachment_url( get_theme_mod( 'custom_logo' ) ) );
 		$lw_locale    = wp_strip_all_tags( get_bloginfo( 'language' ) );
 		$lw_charset   = wp_strip_all_tags( get_bloginfo( 'charset' ) );
+		$lw_colour    = get_background_color() ? '#' . get_background_color() : '#ebe8e6';
+		$lw_icon512   = $this->get_favicon_url( 512 );
+		$lw_icon270   = $this->get_favicon_url( 270 );
+		$lw_icon192   = $this->get_favicon_url( 192 );
+		$lw_icon180   = $this->get_favicon_url( 180 );
+		$lw_icon150   = $this->get_favicon_url( 150 );
+		$lw_icon96    = $this->get_favicon_url( 96 );
+		$lw_icon32    = $this->get_favicon_url( 32 );
 
 		/* Page-Specific */
 		$post = get_post();// Set up the post manually
@@ -210,8 +234,15 @@ class Head_Meta {
 			'charset'     => $lw_charset,
 			'url'         => $lw_url,
 			'themeuri'    => $lw_themeuri,
+			'colour'      => $lw_colour,
+			'icon512'     => $lw_icon512,
+			'icon270'     => $lw_icon270,
+			'icon192'     => $lw_icon192,
+			'icon180'     => $lw_icon180,
+			'icon150'     => $lw_icon150,
+			'icon96'      => $lw_icon96,
+			'icon32'      => $lw_icon32,
 		);
-
 		return $meta;
 	}
 
@@ -229,47 +260,29 @@ class Head_Meta {
 			'<meta name="description" content="' . $meta['desc'] . '">' .
 			'<meta name="author" content="' . $meta['author'] . '">' .
 			'<link rel="canonical" href="' . $meta['canon'] . '">' .
-			'<!-- Open Graph Meta - html tag namespace must match og:type -->' .
+			'<!-- Open Graph Meta -->' .
 			'<meta property="og:title" content="' . $meta['ogtitle'] . '">' .
-			'<meta property="og:type" content="' . $meta['ogtype'] . '">' .
+			'<meta property="og:type" content="' . $meta['ogtype'] . '">' . // HTML tag namespace must match og:type.
 			'<meta property="og:image" content="' . $meta['ogimage'] . '">' .
 			'<meta property="og:url" content="' . $meta['ogurl'] . '">' .
 			'<meta property="og:locale" content="' . $meta['oglocale'] . '">' .
 			'<meta property="og:locale:alternate" content="' . $meta['oglocalealt'] . '">' .
 			'<meta property="og:description" content="' . $meta['ogdesc'] . '">' .
 			'<meta property="og:site_name" content="' . $meta['ogsitename'] . '">' .
-			'<!-- Branding Meta -->' .
-			'<!-- Favicon and Web App Definitions -->' .
-			'<meta name="application-name" content="Jefferson Real - Web Development">' .
-			'<meta name="msapplication-TileColor" content="#fff">' .
-			'<meta name="msapplication-TileImage" content="' . $meta['themeuri'] . 'assets/img/favicon/mstile-144x144.png">' .
-			'<meta name="msapplication-square70x70logo" content="' . $meta['themeuri'] . 'assets/img/favicon/mstile-70x70.png">' .
-			'<meta name="msapplication-square150x150logo" content="' . $meta['themeuri'] . 'assets/img/favicon/mstile-150x150.png">' .
-			'<meta name="msapplication-wide310x150logo" content="' . $meta['themeuri'] . 'assets/img/favicon/mstile-310x150.png">' .
-			'<meta name="msapplication-square310x310logo" content="' . $meta['themeuri'] . 'assets/img/favicon/mstile-310x310.png">' .
-			'<!-- Mobile Browser Colours -->' .
-			'<!-- Chrome, Firefox OS and Opera -->' .
-			'<meta name="theme-color" content="#262422">' .
-			'<!-- Windows Phone -->' .
-			'<meta name="msapplication-navbutton-color" content="#262422">' .
-			'<!-- iOS Safari -->' .
+			'<!-- Browser Colours -->' .
+			'<meta name="theme-color" content="' . $meta['colour'] . '">' .
 			'<meta name="apple-mobile-web-app-capable" content="yes">' .
-			'<meta name="apple-mobile-web-app-status-bar-style" content="#262422">' .
-			'<!-- Favicons and vendor-specific icons -->' .
-			'<link rel="shortcut icon" href="' . $meta['themeuri'] . 'assets/img/favicon/favicon.ico" type="image/x-icon">' .
-			'<link rel="apple-touch-icon" sizes="57x57" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-57x57.png">' .
-			'<link rel="apple-touch-icon" sizes="114x114" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-114x114.png">' .
-			'<link rel="apple-touch-icon" sizes="72x72" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-72x72.png">' .
-			'<link rel="apple-touch-icon" sizes="144x144" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-144x144.png">' .
-			'<link rel="apple-touch-icon" sizes="60x60" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-60x60.png">' .
-			'<link rel="apple-touch-icon" sizes="120x120" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-120x120.png">' .
-			'<link rel="apple-touch-icon" sizes="76x76" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-76x76.png">' .
-			'<link rel="apple-touch-icon" sizes="152x152" href="' . $meta['themeuri'] . 'assets/img/favicon/apple-touch-icon-152x152.png">' .
-			'<link rel="icon" type="image/png" href="' . $meta['themeuri'] . 'assets/img/favicon/favicon-196x196.png" sizes="196x196">' .
-			'<link rel="icon" type="image/png" href="' . $meta['themeuri'] . 'assets/img/favicon/favicon-96x96.png" sizes="96x96">' .
-			'<link rel="icon" type="image/png" href="' . $meta['themeuri'] . 'assets/img/favicon/favicon-32x32.png" sizes="32x32">' .
-			'<link rel="icon" type="image/png" href="' . $meta['themeuri'] . 'assets/img/favicon/favicon-16x16.png" sizes="16x16">' .
-			'<link rel="icon" type="image/png" href="' . $meta['themeuri'] . 'assets/img/favicon/favicon-128.png" sizes="128x128">';
+			'<meta name="apple-mobile-web-app-status-bar-style" content="' . $meta['colour'] . '">' .
+			'<!-- Favicons -->' .
+			'<link rel="icon" type="image/png" href="' . $meta['icon512'] . '" sizes="512x512">' .
+			'<link rel="icon" type="image/png" href="' . $meta['icon270'] . '" sizes="270x270">' .
+			'<link rel="icon" type="image/png" href="' . $meta['icon192'] . '" sizes="192x192">' .
+			'<link rel="icon" type="image/png" href="' . $meta['icon180'] . '" sizes="180x180">' .
+			'<link rel="icon" type="image/png" href="' . $meta['icon150'] . '" sizes="150x150">' .
+			'<link rel="icon" type="image/png" href="' . $meta['icon96'] . '" sizes="96x96">' .
+			'<link rel="icon" type="image/png" href="' . $meta['icon32'] . '" sizes="32x32">' .
+			'<link rel="apple-touch-icon" href="' . $meta['icon180'] . '">' .
+			'<meta name="msapplication-TileImage" content="' . $meta['icon270'] . '">';
 		return $head_meta;
 	}
 
@@ -298,7 +311,7 @@ class Head_Meta {
 	private function get_verification_meta( $keys ) {
 		$verification_meta = "<!-- Site verification -->\n";
 		foreach ( $keys as $key => $value ) {
-			$verification_meta .= "<meta name=\"${key}\" content=\"${value}\" />\n";
+			$verification_meta .= "<meta name=\"{$key}\" content=\"{$value}\" />\n";
 		}
 		return $verification_meta;
 	}

@@ -11,11 +11,11 @@
 import { animate } from './css-animator'
 
 const modal = () => {
-	function modal_init() {
+	function init() {
 		document
 			.querySelectorAll( '.modal_control-open' )
-			.forEach( ( button_open ) => {
-				button_open.addEventListener( 'click', launch_modal )
+			.forEach( ( buttonOpen ) => {
+				buttonOpen.addEventListener( 'click', modalLaunch )
 			} )
 	}
 
@@ -26,22 +26,22 @@ const modal = () => {
 	// Plugin-wide vars.
 	let overlay
 	let dialog
-	let button_close
+	let buttonClose
 
 	/**
 	 * Open the model popup.
 	 *
 	 * @param event
 	 */
-	async function launch_modal( event ) {
+	async function modalLaunch( event ) {
 		// Get the modal elements
-		const modal_class = event.currentTarget.id
-		overlay = document.querySelector( '.' + modal_class )
+		const modalClass = event.currentTarget.id
+		overlay = document.querySelector( '.' + modalClass )
 
 		dialog = overlay.querySelector( '.modal_dialog' )
-		button_close = overlay.querySelector( '.modal_control-close' )
+		buttonClose = overlay.querySelector( '.modal_control-close' )
 
-		button_close.onclick = () => {
+		buttonClose.onclick = () => {
 			closeModal()
 		}
 
@@ -55,11 +55,11 @@ const modal = () => {
 			}
 		}
 
-		await Promise.all( [ set_modal_device_size(), get_scrollbar_width() ] )
+		await Promise.all( [ setDeviceSize(), getScrollbarWidth() ] )
 		openModal()
 	}
 
-	async function set_modal_device_size() {
+	async function setDeviceSize() {
 		const pageWidth = parseInt(
 			document.querySelector( 'html' ).getBoundingClientRect().width,
 			10
@@ -107,19 +107,19 @@ const modal = () => {
 	 * closed as 'mobile'.
 	 *
 	 */
-	function set_browser_resize_listener() {
+	function setResizeListener() {
 		let resizeTimer
-		const resize_listener = ( event ) => {
+		const resizeListener = ( event ) => {
 			if ( resizeTimer !== null ) window.clearTimeout( resizeTimer )
 			resizeTimer = window.setTimeout( function () {
 				if ( ! active ) {
-					window.removeEventListener( 'resize', resize_listener )
+					window.removeEventListener( 'resize', resizeListener )
 					return
 				}
-				set_modal_device_size()
+				setDeviceSize()
 			}, 20 )
 		}
-		window.addEventListener( 'resize', resize_listener )
+		window.addEventListener( 'resize', resizeListener )
 	}
 
 	// Open the modal
@@ -128,7 +128,7 @@ const modal = () => {
 			active = true
 			animating = true
 			disableScroll()
-			set_browser_resize_listener()
+			setResizeListener()
 
 			if ( mobile ) {
 				dialog.style.left = '-768px'
@@ -206,7 +206,7 @@ const modal = () => {
 	}
 
 	let scrollbarWidth
-	async function get_scrollbar_width() {
+	async function getScrollbarWidth() {
 		// Get window width inc scrollbar
 		const widthWithScrollBar = window.innerWidth
 		// Get window width exc scrollbar
@@ -256,7 +256,7 @@ const modal = () => {
 	const docLoaded = setInterval( function () {
 		if ( document.readyState === 'complete' ) {
 			clearInterval( docLoaded )
-			modal_init()
+			init()
 		}
 	}, 100 )
 }

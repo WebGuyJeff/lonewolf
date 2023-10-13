@@ -23,6 +23,7 @@ class Theme_Setup {
 		add_action( 'wp_head', array( $this, 'add_pingback_header' ) );
 		add_action( 'after_setup_theme', array( $this, 'theme_configuration_and_features' ) );
 		add_action( 'init', array( $this, 'register_taxonomy_for_default_posts' ) );
+		add_filter( 'site_icon_image_sizes', array( $this, 'add_custom_site_icon_sizes' ) );
 		self::define_constants();
 		self::register_menu_locations();
 		self::remove_prefix_from_category_titles();
@@ -31,6 +32,7 @@ class Theme_Setup {
 		self::disable_wpautop();
 		self::register_custom_post_types();
 		self::modify_head_content();
+		self::register_plugins();
 
 		// External classes.
 		add_action( 'admin_init', array( new Settings_Admin(), '__construct' ) );
@@ -80,8 +82,6 @@ class Theme_Setup {
 	 * NOTE: WP automatically loads style-editor.css from theme root.
 	 */
 	public function register_editor_scripts_and_styles() {
-		// Include frontend assets.
-		$this->register_front_end_scripts_and_styles();
 		wp_enqueue_style( 'lw_editor_css', LW_URL . 'assets/css/editor.css', array(), filemtime( LW_DIR . 'assets/css/editor.css' ), 'all' );
 		wp_enqueue_script( 'lw_editor_js', LW_URL . 'assets/js/editor.js', array(), filemtime( LW_DIR . 'assets/js/editor.js' ), true );
 	}
@@ -168,40 +168,10 @@ class Theme_Setup {
 	 * Setup theme defaults and register support for WordPress features.
 	 */
 	public function theme_configuration_and_features() {
-
-		// Make theme available for translation. File translations in /languages/ directory.
 		load_theme_textdomain( 'lonewolf', get_template_directory() . '/languages' );
-
-		/**
-		 * Add block theme support.
-		 *
-		 * NOTE: The following supports are enabled automatically when adding block theme support.
-		 * Any of these entries further down will be left intact until this theme is fully migrated
-		 * to a dedicated block theme.
-		 *
-		 * add_theme_support( 'post-thumbnails' );
-		 * add_theme_support( 'responsive-embeds' );
-		 * add_theme_support( 'editor-styles' );
-		 * add_theme_support( 'html5', array( 'style','script', ) );
-		 * add_theme_support( 'automatic-feed-links' );
-		 */
 		add_theme_support( 'block-template-parts' );
 		add_theme_support( 'wp-block-styles' );
-		add_editor_style( 'style-editor.css' );
-
-		// Enable support for Post Thumbnails on posts and pages.
 		add_theme_support( 'post-thumbnails' );
-
-		/*
-		// How to enable custom image sizes required for the theme.
-		add_theme_support( 'pop-up-banner' );
-		add_image_size( 'service-tile', 960, 960, true );
-		add_image_size( 'review-avatar', 150, 150, true );
-		add_image_size( 'full-width-banner', 1920, 480, true );
-		add_image_size( 'page-featured', 615, 615, true );
-		*/
-
-		// Switch core markup for search form, comment form, and comments to valid HTML5.
 		add_theme_support(
 			'html5',
 			array(
@@ -214,11 +184,6 @@ class Theme_Setup {
 				'script',
 			)
 		);
-
-		// Add theme support for selective refresh for widgets.
-		add_theme_support( 'customize-selective-refresh-widgets' );
-
-		// Add support for core custom logo.
 		add_theme_support(
 			'custom-logo',
 			array(
@@ -317,15 +282,13 @@ class Theme_Setup {
 		remove_action( 'wp_head', 'wlwmanifest_link' );
 		remove_action( 'wp_head', 'wp_generator' );
 		remove_action( 'wp_head', 'index_rel_link' );
+		remove_action( 'wp_head', 'wp_site_icon', 99, 0 );
 		remove_action( 'wp_head', 'start_post_rel_link', 10, 0 );
 		remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 );
 		remove_action( 'wp_head', 'adjacent_posts_rel_link', 10, 0 );
 		remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
-		// RSS feeds.
-		// remove_action( 'wp_head', 'feed_links', 2 );
-		// remove_action( 'wp_head', 'feed_links_extra', 3 );
 		remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );
 
 		// Hook theme SEO and other meta.
@@ -393,4 +356,22 @@ class Theme_Setup {
 		// Enable WP custom fields even if ACF is installed.
 		add_filter( 'acf/settings/remove_wp_meta_box', '__return_false' );
 	}
+
+
+	/**
+	 * Register plugins.
+	 */
+	private function register_plugins() {
+		$register = new Register_Plugins();
+	}
+
+
+	/**
+	 * Add site icon (favicon) sizes.
+	 */
+	public function add_custom_site_icon_sizes( $sizes ) {
+		$sizes[] = 96;
+		return $sizes;
+	}
+
 }

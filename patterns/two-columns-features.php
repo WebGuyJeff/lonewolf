@@ -49,18 +49,20 @@ foreach ( $images as $image ) {
 <div class="wp-block-group alignfull has-lonewolf-bg-alt-background-color has-background" style="margin-top:0px;margin-bottom:0px;padding-top:64px;padding-bottom:64px">
 
 <!-- wp:heading -->
-<h2><img src="<?php echo esc_html( $strings['title'] ); ?></h2>
+<h2><?php echo esc_html( $strings['title'] ); ?></h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"medium"} -->
-<p class="has-medium-font-size"><img src="<?php echo esc_html( $strings['byline'] ); ?></p>
+<p class="has-medium-font-size"><?php echo esc_html( $strings['byline'] ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group -->
 <div class="wp-block-group">
 
 <!-- wp:columns -->
-<div class="wp-block-columns"><img src="<?php echo wp_kses_post( $columns_markup ); ?></div>
+<div class="wp-block-columns">
+	<?php echo wp_kses_post( $columns_markup ); ?>
+</div>
 <!-- /wp:columns -->
 
 </div>

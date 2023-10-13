@@ -7,7 +7,7 @@
  */
 
 const editor = () => {
-	console.log( 'This module will contain editor JS' )
+	// This module will contain editor JS.
 }
 
 export { editor }

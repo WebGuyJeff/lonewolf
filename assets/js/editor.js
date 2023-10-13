@@ -11,11 +11,9 @@ var __webpack_exports__ = {};
  * @package lonewolf
  */
 
-const editor = () => {
-	console.log( 'This module will contain editor JS' )
-}
-
-
+var editor = function editor() {
+  // This module will contain editor JS.
+};
 
 ;// CONCATENATED MODULE: ./src/js/editor.js
 /**
@@ -23,8 +21,6 @@ const editor = () => {
  */
 
 
-
-editor()
-
+editor();
 /******/ })()
 ;

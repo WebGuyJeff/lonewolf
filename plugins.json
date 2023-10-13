@@ -1,0 +1,10 @@
+{
+	"blocks": {
+		"hero-punch": {
+			"path": "plugins/blocks/hero-punch/build/"
+		},
+		"01-basic-esnext": {
+			"path": "plugins/blocks/01-basic-esnext/"
+		}
+	}
+}

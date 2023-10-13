@@ -23,7 +23,7 @@ class Register_Patterns {
 	public function __construct() {
 		$this->categories = array(
 			'lonewolf'  => array( 'label' => __( 'Lonewolf Patterns', 'lonewolf' ) ),
-			'bigupjeff' => array( 'label' => __( 'BigupJeff Patterns', 'bigupjeff' ) ),
+			'bigupweb' => array( 'label' => __( 'Bigup Web Patterns', 'lonewolf' ) ),
 		);
 		$this->register_categories();
 	}

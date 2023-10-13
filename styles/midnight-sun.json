@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"title": "Midnight sun",
+	"version": 2,
+	"settings": {
+		"color": {
+			"gradients": [
+                {
+                    "slug": "sunrise",
+                    "gradient": "linear-gradient(170deg,#fbad40 0%,#ef4236 100%)",
+                    "name": "Sunrise"
+                }
+			],
+			"palette": [
+				{
+					"slug": "lw-bg",
+					"color": "#072c50",
+					"name": "Background"
+				},
+				{
+					"slug": "lw-fg",
+					"color": "#ffffff",
+					"name": "Foreground"
+				},
+				{
+					"slug": "lw-bg-alt",
+					"color": "rgba(255, 255, 255, 0.3)",
+					"name": "Background Alt"
+				},
+				{
+					"slug": "lw-fg-alt",
+					"color": "#fcfcfc",
+					"name": "Foreground Alt"
+				},
+				{
+					"slug": "lw-accent",
+					"color": "#f89549",
+					"name": "Accent"
+				}
+			]
+		}
+	}
+}

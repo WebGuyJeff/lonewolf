@@ -57,7 +57,7 @@ const screenClass = () => {
 	}
 
 	// Set a CSS custom property with the window scrollbar width.
-	function set_scrollbar_css_custom_property() {
+	function setCssCustomProperty() {
 		const withScrollBar = window.innerWidth
 		const noScrollBar = document
 			.querySelector( 'html' )
@@ -70,7 +70,7 @@ const screenClass = () => {
 
 	// Detect body resize changes and update the scrollbar width property.
 	const resizeObserver = new ResizeObserver( ( entries ) =>
-		set_scrollbar_css_custom_property()
+		setCssCustomProperty()
 	)
 	resizeObserver.observe( document.body )
 
@@ -89,7 +89,7 @@ const screenClass = () => {
 		}
 		resizeTimeout = setTimeout( function () {
 			getScreen()
-			set_scrollbar_css_custom_property()
+			setCssCustomProperty()
 		}, 10 )
 	}
 }

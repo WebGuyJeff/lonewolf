@@ -56,7 +56,9 @@ foreach ( $columns as $column ) {
 <div class="wp-block-group alignfull" style="margin-top:0px;margin-bottom:0px;padding-top:64px;padding-bottom:64px">
 
 <!-- wp:columns {"align":"wide"} -->
-<div class="wp-block-columns alignwide"><img src="<?php echo wp_kses_post( $columns_markup ); ?></div>
+<div class="wp-block-columns alignwide">
+	<?php echo wp_kses_post( $columns_markup ); ?>
+</div>
 <!-- /wp:columns -->
 
 </div>

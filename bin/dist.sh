@@ -25,7 +25,7 @@ else
 fi
 
 # Take all the files, filter the dev ones (e.g. node_modules, src), and save the result to './dist'
-rsync -rc --files-from ".distinclude" "./" "dist/$BUILD_NAME"
+rsync -rc --files-from ".distinclude" --exclude-from ".distexclude" "./" "dist/$BUILD_NAME"
 
 cd dist
 
