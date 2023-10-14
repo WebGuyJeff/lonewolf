@@ -1,5 +1,3 @@
-/* Import SASS & CSS variables */
-@import "../common/fonts";
 @import "../common/variables";
 
 /*
@@ -7,15 +5,16 @@
 ## INDEX
 
 1. [BASE]
-	1.1 DOCUMENT SETUP
-	1.2 BROWSER SCROLLBAR
-	1.3 ELEMENT BASE
-		1.3.1 ELEMENT RESETS
-		1.3.2 INPUT PLACEHOLDER
-	1.4 TYPOGRAPHY
-	1.5 WIDGETS
-	1.6 WORDPRESS CORE CLASSES
-	1.7 ACCESSIBILITY
+	1.1 ROOT SETUP
+	1.2 DOCUMENT SETUP
+	1.3 BROWSER SCROLLBAR
+	1.4 ELEMENT BASE
+		1.4.1 ELEMENT RESETS
+		1.4.2 INPUT PLACEHOLDER
+	1.5 TYPOGRAPHY
+	1.6 WIDGETS
+	1.7 WORDPRESS CORE CLASSES
+	1.8 ACCESSIBILITY
 
 2. [ELEMENTS]
 	2.1 LAYOUT
@@ -64,7 +63,18 @@
 
 
 /*=============================================================== 1. BASE ====*/
-/*--------------------------------------------------- 1.1 DOCUMENT SETUP  ----*/
+/*-------------------------------------------------------- 1.1 ROOT SETUP ----*/
+
+
+:root {
+	/* browser scroll behaviour */
+	-ms-scroll-snap-type: y proximity;
+	scroll-snap-type: y proximity;
+	scroll-behavior: smooth;
+}
+
+
+/*--------------------------------------------------- 1.2 DOCUMENT SETUP  ----*/
 
 
 html, body {
@@ -83,7 +93,7 @@ footer.pageGrid {
 }
 
 
-/*------------------------------------------------- 1.2 BROWSER SCROLLBAR ----*/
+/*------------------------------------------------- 1.3 BROWSER SCROLLBAR ----*/
 
 
 /* browser scrollbar */
@@ -99,8 +109,8 @@ body::-webkit-scrollbar {
 	}
 
 
-/*------------------------------------------------------ 1.3 ELEMENT BASE ----*/
-/*- - - - - - - - - - - - - - - - - - - - - - - - -  1.3.1 ELEMENT RESETS - - */
+/*------------------------------------------------------ 1.4 ELEMENT BASE ----*/
+/*- - - - - - - - - - - - - - - - - - - - - - - - -  1.4.1 ELEMENT RESETS - - */
 
 
 * { 
@@ -140,7 +150,7 @@ textarea:hover:not(:disabled):not(.disabled) {
 }
 
 
-/*- - - - - - - - - - - - - - - - - - - - - - - - 1.3.2 INPUT PLACEHOLDER - - */
+/*- - - - - - - - - - - - - - - - - - - - - - - - 1.4.2 INPUT PLACEHOLDER - - */
 
 
 ::-moz-placeholder {
@@ -165,7 +175,7 @@ textarea:hover:not(:disabled):not(.disabled) {
 	  }
 
 
-/*-------------------------------------------------------- 1.4 TYPOGRAPHY ----*/
+/*-------------------------------------------------------- 1.5 TYPOGRAPHY ----*/
 
 
 .textAlignCenter { text-align: center; }
@@ -204,7 +214,7 @@ textarea:hover:not(:disabled):not(.disabled) {
 	margin-block-end: 1.688em;
     margin-block-start: 2.75em;
     letter-spacing: -0.03em;
-    font-size: clamp( var(--lw_font-xxl), 1vw, var(--lw_font-xxxl) );
+    font-size: clamp( var(--wp--preset--font-size--x-large), 1vw, var(--wp--preset--font-size--huge) );
 }
 
 .display {
@@ -219,50 +229,6 @@ textarea:hover:not(:disabled):not(.disabled) {
 		font-size: clamp( 3.5vw, 4.5vw , 5vw );
 		font-weight: 100;
 	}
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-family: var(--lw_font-primary);
-	font-weight: 900;
-}
-
-h1 {
-	margin-block-end: 1.688em;
-	margin-block-start: 2.75em;
-	line-height: 2.463em;
-	letter-spacing: -0.03em;
-	font-size: var(--lw_font-xxl);
-}
-
-h2 {
-	margin-block-end: 1.063em;
-	margin-block-start: 2.2em;
-    line-height: 1.5;
-	letter-spacing: -0.03em;
-	font-size: var(--lw_font-xl);
-}
-
-h3 {
-	margin-block-end: 0.688em;
-	margin-block-start: 1.688em;
-	line-height: 1.863em;
-	letter-spacing: -0.02em;
-	font-size: var(--lw_font-l);
-}
-
-h4,
-h5,
-h6 {
-	margin-block-end: 0.438em;
-	margin-block-start: 0.178em;
-	line-height: 1.688em;
-	letter-spacing: -0.02em;
-	font-size: var(--lw_font-base);
 }
 
 p,
@@ -292,7 +258,7 @@ sub, sup {
 }
 
 code, pre, kbd {
-  font-size: var(--lw_font-s);
+  font-size: var(--wp--preset--font-size--small);
 }
 
 code {
@@ -312,7 +278,7 @@ kbd {
 .footnotes {
   padding-top: 1.063em;
   line-height: 1.438em;
-  font-size: var(--lw_font-s);
+  font-size: var(--wp--preset--font-size--small);
 }
     .footnotes > a {
         text-decoration: none;
@@ -350,7 +316,7 @@ blockquote {
 		vertical-align: -0.4em;
 		line-height: 0.1em;
 		color: var(--lw_grey-light);
-		font-size: var(--lw_font-xxxl);
+		font-size: var(--wp--preset--font-size--huge);
 		content: open-quote;
 	}
 	blockquote-left {
@@ -365,7 +331,6 @@ blockquote {
 	padding: 0.8em;
 	text-align: center;
 	line-height: 1.688em;
-	letter-spacing: var(--lw_letterSpacingInterBold);
 	color: var(--lw_grey-darkest);
 	font-weight: bold;
 }
@@ -418,11 +383,11 @@ strong {
 	padding: 0 0.5em 0 0.5em;
 	line-height: 2;
 	color: var(--lw_grey-darkest);
-	font-size: var(--lw_font-xs);
+	font-size: var(--wp--preset--font-size--small);
 }
 
 
-/*----------------------------------------------------------- 1.5 WIDGETS ----*/
+/*----------------------------------------------------------- 1.6 WIDGETS ----*/
 
 
 .widget {
@@ -453,7 +418,7 @@ strong {
 	}
 
 
-/*-------------------------------------------- 1.6 WORDPRESS CORE CLASSES ----*/
+/*-------------------------------------------- 1.7 WORDPRESS CORE CLASSES ----*/
 
 
 /* These should be maintained to ensure support for WP core and 3rd party plugins */
@@ -567,7 +532,7 @@ a img.aligncenter {
 }
 
 
-/*----------------------------------------------------- 1.7 ACCESSIBILITY ----*/
+/*----------------------------------------------------- 1.8 ACCESSIBILITY ----*/
 
 /* see .screen-reader-text in WP core classes */
 
@@ -726,7 +691,7 @@ a img.aligncenter {
 		.masonFlop_content-right {
             h3 {
 				margin-bottom: 0;
-                font-size: var(--lw_font-xl);
+                font-size: var(--wp--preset--font-size--large);
             }
 
 			span.masonFlop_moustache {
@@ -1048,7 +1013,7 @@ a img.aligncenter {
 		.form-dark .form_inputWrap {
 			border: var( --lw_border );
 			border-radius: var( --lw_radius-small );
-			box-shadow: var( --lw_shadow-inset );
+			box-shadow: var( --wp--preset--shadow--theme-inset );
 			background: var( --lw_grey-darkest );
 		}
 		.form-dark .form_inputWrap-wide {
@@ -1106,7 +1071,6 @@ a img.aligncenter {
         letter-spacing: -0.04em;
         white-space: normal;
         color: var(--lw_white);
-        font-family: var(--lw_font-primary);
         font-weight: 800;
     }
 		.button:hover {
@@ -1158,7 +1122,7 @@ a img.aligncenter {
 
 
 .widget .button {
-	font-size: var(--lw_font-base);
+	font-size: var(--wp--preset--font-size--normal);
 }
 
 
@@ -1175,7 +1139,7 @@ a img.aligncenter {
 	padding: 0.2em;
 	width: 4em;
 	height: 4em;
-	font-size: var(--lw_font-base);
+	font-size: var(--wp--preset--font-size--normal);
     z-index: 10;
     transition: top 0.2s ease, right 0.2s ease;
 
@@ -1411,21 +1375,19 @@ footer.pageGrid {
 		.siteTitle_sitename {
 			margin: 0;
 			letter-spacing: -0.06em;
-			font-family: var(--lw_font-primary);
-			font-size: var(--lw_font-base);
+			font-size: var(--wp--preset--font-size--normal);
 			font-weight: 600;
 
-			@media ( min-width: $laptopWidth ) { font-size: var(--lw_font-l); }
+			@media ( min-width: $laptopWidth ) { font-size: var(--wp--preset--font-size--medium); }
 		}
 
 		.siteTitle_tagline {
 			letter-spacing: -0.03rem;
 			white-space: normal;
-			font-family: var(--lw_font-primary);
-			font-size: var(--lw_font-s);
+			font-size: var(--wp--preset--font-size--small);
 			font-weight: 200;
 
-			@media ( min-width: $laptopWidth ) { font-size: var(--lw_font-base); }
+			@media ( min-width: $laptopWidth ) { font-size: var(--wp--preset--font-size--normal); }
 		}
 	}
 }
@@ -2085,7 +2047,7 @@ footer.pageGrid {
 	position: relative;
 	align-items: center;
 	justify-content: center;
-	box-shadow: var(--lw_shadow);
+	box-shadow: var(--wp--preset--shadow--theme);
 	border-radius: var(--lw_radius);
 	width: auto;
 	height: 80vmin;

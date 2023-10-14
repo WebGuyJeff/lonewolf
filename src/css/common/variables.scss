@@ -66,12 +66,6 @@ $xlWidth:      1920px;
 	--lw_grey-darkest:    hsl(0, 0%, 20%);
 	--lw_black:           hsl(0, 0%, 0%);
 
-	--lw_background-gradient: radial-gradient(at 50% 100%, #63CFA7 40%, #3AB09E);
-	/* Gradient must be in same background-image rule AFTER the svg pattern */
-	--lw_hover:        0 0 0 0.25em #63CFA7;
-	--lw_shadow:       0 0.25em 0.5em 0.25em #0006,0 0.125em 0.25em 0.125em #0006;
-	--lw_shadow-inset: inset -0.1em 0.2em 0.5em 0.2em #000c;
-
 	--lw_slideTime: 0.25s;
 	--lw_hoverTime: 0.15s;
 
@@ -87,39 +81,6 @@ $xlWidth:      1920px;
 	--lw_padding:      0.5em;
 	@media ( min-width: $mobileWidth ) { --lw_padding: 1em;   }
 	@media ( min-width: $laptopWidth ) { --lw_padding: 1.5em; }
-
-	/* layout vars for theme.json */
-	--responsive--default-width: 100vw;
-	--responsive--alignwide-width: 72.5em; // 1160px
-
-	/* font stacks */
-	--lw_font-secondary: 'Open Sans', 'Arial', sans-serif;
-	--lw_font-primary:   'Inter', 'Helvetica', 'Open Sans', 'Arial', sans-serif;
-	--lw_font-display:   'Wellfleet', 'Rockwell Extra Bold', 'Palatino', serif;
-
-	/* font sizes */
-	--lw_font-xxxl: 2.625rem;
-	--lw_font-xxl:  2.063rem;
-	--lw_font-xl:   1.625rem;
-	--lw_font-l:    1.25rem;
-	--lw_font-base: 1rem;
-	--lw_font-s:    0.813rem;
-	--lw_font-xs:   0.7rem;
-
-	/* other font custom props */
-	--lw_letterSpacingInterBold: -0.04em;
-
-	/* browser scroll behaviour */
-	-ms-scroll-snap-type: y proximity;
-	    scroll-snap-type: y proximity;
-	scroll-behavior:      smooth;
-
-	/* font defaults */
-	color:       var(--lw_grey-darkest);
-	font-weight: 400;
-	font-family: var(--lw_font-primary);
-	/* fluid root units (14px @ 768 - 18px @ 1920) */
-	font-size:   clamp(0.875rem, calc(0.875rem + ((1vw - 0.48rem) * 0.3534)), 1.125rem);
 
 	/* Scrollbar width updated by screenclass.js */
 	--scrollbar: 0px;

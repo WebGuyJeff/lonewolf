@@ -185,8 +185,8 @@ CSS specific to blocks, patterns and other parts.
 				margin-block-end: 1em;
 				margin-block-start: 1.75em;
 				line-height: 2em;
-				font-family: var(--lw_font-display);
-				font-size: var(--lw_font-xxl);
+				font-family: Wellfleet;
+				font-size: var(--wp--preset--font-size--x-large);
 			}
 			@media (max-width: 500px) {
 				.sign_title {
@@ -197,7 +197,7 @@ CSS specific to blocks, patterns and other parts.
 
 			button {
 				margin: 1em;
-				font-size: var(--lw_font-xl);
+				font-size: var(--wp--preset--font-size--large);
 			}
 		}
 		
