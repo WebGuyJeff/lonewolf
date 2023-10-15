@@ -40,8 +40,6 @@
 			]
 		},
 		"typography": {
-			"lineHeight": true,
-			"customFontSize": true,
 			"fontFamilies": [
 				{
 					"fontFace": [
