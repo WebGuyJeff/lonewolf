@@ -241,8 +241,7 @@
 					"name": "Black"
 				}
 			],
-			"link": true,
-			"gradients": []
+			"link": true
 		},
 		"typography": {
 			"lineHeight": true,

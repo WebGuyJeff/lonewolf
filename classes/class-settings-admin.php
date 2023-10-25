@@ -49,7 +49,6 @@ class Settings_Admin {
 		);
 		add_action( 'admin_menu', array( $this, 'add_settings_menu' ), 9 );
 		add_action( 'admin_init', array( new Settings_Tab_Identity(), 'init' ) );
-		add_action( 'admin_init', array( new Settings_Tab_Homepage(), 'init' ) );
 		add_action( 'admin_init', array( new Settings_Tab_Features(), 'init' ) );
 		add_action( 'admin_init', array( new Settings_Tab_Verification(), 'init' ) );
 		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_settings_link_callback' ) );
@@ -200,17 +199,6 @@ class Settings_Admin {
 					Identity
 				</a>
 				<a
-					href="?page=<?php echo self::SETTINGSLUG; ?>&tab=homepage"
-					class="nav-tab 
-					<?php
-					if ( $tab === 'homepage' ) {
-						echo 'nav-tab-active';}
-					?>
-					"
-				>
-					Homepage
-				</a>
-				<a
 					href="?page=<?php echo self::SETTINGSLUG; ?>&tab=features"
 					class="nav-tab 
 					<?php
@@ -240,10 +228,6 @@ class Settings_Admin {
 					<?php
 
 					switch ( $tab ) :
-						case 'homepage':
-								settings_fields( Settings_Tab_Homepage::GROUP );
-								do_settings_sections( Settings_Tab_Homepage::PAGE );
-							break;
 						case 'features':
 								settings_fields( Settings_Tab_Features::GROUP );
 								do_settings_sections( Settings_Tab_Features::PAGE );

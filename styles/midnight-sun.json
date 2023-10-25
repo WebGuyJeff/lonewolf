@@ -4,6 +4,7 @@
 	"version": 2,
 	"settings": {
 		"color": {
+			"defaultPalette": false,
 			"gradients": [
                 {
                     "slug": "sunrise",
