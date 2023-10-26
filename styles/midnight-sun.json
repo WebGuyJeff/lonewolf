@@ -4,7 +4,6 @@
 	"version": 2,
 	"settings": {
 		"color": {
-			"defaultPalette": false,
 			"gradients": [
                 {
                     "slug": "sunrise",
@@ -25,7 +24,7 @@
 				},
 				{
 					"slug": "lw-bg-alt",
-					"color": "rgba(255, 255, 255, 0.3)",
+					"color": "#fff3",
 					"name": "Background Alt"
 				},
 				{

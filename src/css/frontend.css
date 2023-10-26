@@ -2,6 +2,7 @@
  * Webpack entry point.
  */
 
-@import './frontend/main.scss';
-@import './frontend/parts.scss';
-@import './frontend/wp.scss';
+@import './frontend/main';
+@import './frontend/parts';
+@import './frontend/wp';
+@import './frontend/themes/main';

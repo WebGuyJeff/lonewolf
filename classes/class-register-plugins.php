@@ -39,7 +39,7 @@ class Register_Plugins {
 					$this->register_blocks( $plugins['blocks'] );
 					break;
 				default:
-					error_log( "ERROR: Plugin type '${type}' not recognised." );
+					error_log( "ERROR: Plugin type '{$type}' not recognised." );
 			}
 		}
 	}
@@ -58,7 +58,7 @@ class Register_Plugins {
 				function() use ( $path ) {
 					$result = register_block_type_from_metadata( $path );
 					if ( false === $result ) {
-						error_log( "ERROR: Block registration failed for path '${path}'" );
+						error_log( "ERROR: Block registration failed for path '{$path}'" );
 					}
 				}
 			);

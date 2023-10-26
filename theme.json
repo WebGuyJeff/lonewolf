@@ -4,6 +4,7 @@
 	"settings": {
 		"appearanceTools": true,
 		"color": {
+			"defaultPalette": false,
 			"palette": [
 				{
 					"slug": "lw-bg",

@@ -1,0 +1,27 @@
+// This handles styles that can't be defined in styles/midnight-sun.json.
+
+/* INDEX
+
+1. [TYPOGRAPHY]
+	1.1 Text Gradients
+
+*/
+/*========================================================= 1. TYPOGRAPHY ====*/
+/*---------------------------------------------------- 1.1 Text Gradients ----*/
+
+
+@mixin textGradient {
+    background-size: 100%;
+	background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+	color: transparent;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+}
+
+.textGradient-sunrise {
+	@include textGradient;
+    background-color: #fbad40;
+    background-image: linear-gradient(170deg, #fbad40 0%, #ef4236 100%);
+}
