@@ -1,0 +1,17 @@
+{
+	"apiVersion": 2,
+	"name": "lonewolf/social-links-gradient-fill",
+	"version": "0.0.1",
+	"title": "Social Links Gradient Fill",
+	"category": "text",
+	"icon": "thumbs-up",
+	"description": "Display social links with a gradient fill!",
+	"keywords": [ "social links", "social", "gradient" ],
+	"textdomain": "lonewolf",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.scss",
+	"style": "file:./style-index.scss",
+	"allowedBlocks": [
+		"core/social-links"
+	]
+}

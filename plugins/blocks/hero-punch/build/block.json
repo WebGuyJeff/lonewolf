@@ -1,0 +1,24 @@
+{
+  "apiVersion": 2,
+  "name": "lonewolf/hero-punch",
+  "version": "0.0.1",
+  "title": "Hero Punch",
+  "category": "lonewolf",
+  "icon": "thumbs-up",
+  "description": "A full width hero section with animated punch.",
+  "keywords": [
+    "landing page",
+    "hero",
+    "full width"
+  ],
+  "textdomain": "lonewolf",
+  "editorScript": "file:./index.js",
+  "viewScript": "file:./view.js",
+  "editorStyle": "file:./index.scss",
+  "style": "file:./style-index.scss",
+  "attributes": {
+    "animate": {
+      "type": "boolean"
+    }
+  }
+}
