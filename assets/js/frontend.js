@@ -1420,12 +1420,84 @@ var welcomeAnimation = function welcomeAnimation() {
   }, 100);
 };
 
+;// CONCATENATED MODULE: ./src/js/frontend/reveal-animation.js
+/**
+ * Reveal Animation
+ * Handles slide-in 'reveal' animations powered by GSAP.
+ */
+
+var revealAnimation = function revealAnimation() {
+  gsap.registerPlugin(ScrollTrigger, CSSPlugin);
+  var animateFrom = function animateFrom(el, direction) {
+    direction = direction || 1;
+    var x = 0,
+      y = direction * 100;
+    if (el.classList.contains('gs_reveal_fromLeft')) {
+      x = -200;
+      y = 0;
+    } else if (el.classList.contains('gs_reveal_fromRight')) {
+      x = 200;
+      y = 0;
+    }
+    el.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+    el.style.opacity = '0';
+    gsap.fromTo(el, {
+      x: x,
+      y: y,
+      autoAlpha: 0
+    }, {
+      duration: 1.25,
+      x: 0,
+      y: 0,
+      autoAlpha: 1,
+      ease: 'expo',
+      overwrite: 'auto'
+    });
+  };
+  var hide = function hide(el) {
+    gsap.set(el, {
+      autoAlpha: 0
+    });
+  };
+  document.addEventListener('DOMContentLoaded', function () {
+    // Add alternating left/right classes to sibling elements of class gs_reveal.
+    var odds = Array.from(document.querySelectorAll('.gs_reveal:nth-child(2n+1)'));
+    var evens = Array.from(document.querySelectorAll('.gs_reveal:nth-child(2n+2)'));
+    var all = [].concat(odds, evens);
+    if (all === 0) return;
+    if (odds.length > 0) odds.forEach(function (el) {
+      return el.classList.add('gs_reveal_fromLeft');
+    });
+    if (evens.length > 0) evens.forEach(function (el) {
+      return el.classList.add('gs_reveal_fromRight');
+    });
+    all.forEach(function (el) {
+      hide(el); // Element is hidden when scrolled into view.
+
+      ScrollTrigger.create({
+        trigger: el,
+        onEnter: function onEnter() {
+          animateFrom(el);
+        },
+        onEnterBack: function onEnterBack() {
+          animateFrom(el, -1);
+        },
+        onLeave: function onLeave() {
+          hide(el);
+        } // Hide element again.
+      });
+    });
+  });
+};
+
+
 ;// CONCATENATED MODULE: ./src/js/frontend.js
 /**
  * Webpack entry point.
  */
 
 // import { cssAnimator } from './frontend/css-animator'
+
 
 
 
@@ -1440,5 +1512,6 @@ mobilePopupMenu();
 modal();
 screenClass();
 welcomeAnimation();
+revealAnimation();
 /******/ })()
 ;
