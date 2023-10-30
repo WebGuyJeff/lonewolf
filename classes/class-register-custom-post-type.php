@@ -93,11 +93,29 @@ class Register_Custom_Post_Type {
 		if ( in_array( 'post_tag', $this->taxonomies, true ) ) {
 			register_taxonomy_for_object_type( 'post_tag', $this->key );
 		}
-		add_action( 'do_meta_boxes', array( &$this, 'remove_default_custom_fields' ), 10, 3 );
-		add_action( 'admin_menu', array( &$this, 'create_custom_fields' ) );
-		add_action( 'save_post', array( &$this, 'save_custom_fields' ), 1, 2 );
+
+		/* Replacing meta boxes with block plugins as per best practice */
+
+		//add_action( 'do_meta_boxes', array( &$this, 'remove_default_custom_fields' ), 10, 3 );
+		//add_action( 'admin_menu', array( &$this, 'create_custom_fields' ) );
+		//add_action( 'save_post', array( &$this, 'save_custom_fields' ), 1, 2 );
 		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_cpt_link' ) );
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// ==================================================================== OLD.
 
 
 	/**
@@ -114,7 +132,14 @@ class Register_Custom_Post_Type {
 	 * Create new custom fields meta box.
 	 */
 	public function create_custom_fields() {
-		add_meta_box( $this->metabox_id, 'Post Custom Fields', array( &$this, 'display_custom_fields' ), $this->key, 'normal', 'high' );
+		add_meta_box(
+			$this->metabox_id,                          // Unique ID.
+			'Post Custom Fields',                       // Box title.
+			array( &$this, 'display_custom_fields' ),   // Content callback.
+			$this->key,                                 // Post type.
+			'normal',                                   // Edit screen position (normal || side || advanced).
+			'high'                                      // Priority within the position set above.
+		);
 	}
 
 
@@ -173,6 +198,9 @@ class Register_Custom_Post_Type {
 			}
 		}
 	}
+
+	// ==================================================================== OLD END.
+
 
 
 	/**

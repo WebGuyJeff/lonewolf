@@ -38,6 +38,13 @@ class Register_Plugins {
 				case 'blocks':
 					$this->register_blocks( $plugins['blocks'] );
 					break;
+
+
+				case 'post-meta-blocks':
+					$this->register_post_meta_blocks( $plugins['post-meta-blocks'] );
+					break;
+
+
 				default:
 					error_log( "ERROR: Plugin type '{$type}' not recognised." );
 			}
@@ -64,4 +71,30 @@ class Register_Plugins {
 			);
 		}
 	}
+
+	/**
+	 * Register post meta blocks.
+	 *
+	 * @param array $blocks Blocks to register.
+	 */
+	private function register_post_meta_blocks( $blocks ) {
+		foreach ( $blocks as $data ) {
+			$path = LW_DIR . $data['path'];
+
+			// Include index.php to register post meta fields.
+			include $path . 'meta-block-reviews.php';
+
+			// Register the meta block with block.json.
+			add_action(
+				'init',
+				function() use ( $path ) {
+					$result = register_block_type_from_metadata( $path );
+					if ( false === $result ) {
+						error_log( "ERROR: Block registration failed for path '{$path}'" );
+					}
+				}
+			);
+		}
+	}
+
 }

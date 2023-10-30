@@ -6,5 +6,10 @@
 		"social-links-gradient-fill": {
 			"path": "plugins/blocks/social-links-gradient-fill/"
 		}
+	},
+	"post-meta-blocks": {
+		"meta-block-reviews": {
+			"path": "plugins/post-meta-blocks/meta-block-reviews/"
+		}
 	}
 }

@@ -82,6 +82,9 @@
 			},
 			"supports": [
 				"title",
+				"editor",
+				"thumbnail",
+				"excerpt",
 				"custom-fields"
 			],
 			"description": "Feedback and reviews.",

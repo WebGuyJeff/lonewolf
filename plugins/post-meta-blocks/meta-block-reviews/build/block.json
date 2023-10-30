@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/block.json",
+  "apiVersion": 2,
+  "name": "lonewolf/meta-block-reviews",
+  "version": "0.1.0",
+  "title": "meta-block-reviews",
+  "category": "lonewolf",
+  "icon": "smiley",
+  "description": "A custom meta block (custom fields) for the 'Reviews' custom post type",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "meta-block-reviews",
+  "editorScript": "file:./index.js"
+}
