@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       meta-block-reviews
- * Description:       A custom 'Reviews' post type.
+ * Description:       A custom 'Reviews' post type with custom fields.
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Version:           0.1.0
@@ -11,6 +11,7 @@
  * Text Domain:       meta-block-reviews
  *
  * @package           meta-block-reviews
+ * @link              https://kinsta.com/blog/wordpress-add-meta-box-to-post/
  */
 
 // Define constants.
