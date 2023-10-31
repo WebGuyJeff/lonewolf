@@ -6,12 +6,12 @@
  * Version: 0.0.1
  *
  * @package lonewolf
- * NOTE: I don't think this PHP file is required as block.json defines the plugin.
  */
-
-/*
-function register_block() {
-	$result = register_block_type_from_metadata( __DIR__ );
+function register_hero_punch() {
+	$location = __DIR__ . '/build';
+	$result   = register_block_type( $location );
+	if ( false === $result ) {
+		error_log( "ERROR: Block registration failed for path '{$location}'" );
+	}
 }
-add_action( 'init', 'register_block' );
-*/
+add_action( 'init', 'register_hero_punch' );

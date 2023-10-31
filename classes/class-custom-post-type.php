@@ -8,7 +8,7 @@ namespace BigupWeb\Lonewolf;
  *
  * @package lonewolf
  */
-class Register_Custom_Post_Type {
+class Custom_Post_Type {
 
 	/**
 	 * Custom post type key.
@@ -75,14 +75,28 @@ class Register_Custom_Post_Type {
 	 */
 	public function __construct( $cpt ) {
 		$this->key        = $cpt['key'];
-		$this->label      = $cpt['label'];
+		$this->definition = $cpt['definition'];
+		$this->taxonomies = $cpt['definition']['taxonomies'];
 		$this->slug       = $cpt['slug'];
+		$this->label      = $cpt['label'];
+
+		add_action( 'init', array( &$this, 'register' ), 0, 1 );
+		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_cpt_link' ) );
+
+		/* Classic editor metabox support - soon to be removed in favour of FSE meta blocks */
 		$this->prefix     = $cpt['prefix'];
 		$this->metabox_id = $cpt['metaboxID'];
-		$this->taxonomies = $cpt['definition']['taxonomies'];
-		$this->definition = $cpt['definition'];
 		$this->fields     = $cpt['customFields'];
+		add_action( 'do_meta_boxes', array( &$this, 'remove_default_meta_box' ), 10, 3 );
+		add_action( 'add_meta_boxes', array( &$this, 'add_custom_meta_box' ) );
+		add_action( 'save_post', array( &$this, 'save_custom_meta_box_data' ), 1, 2 );
+	}
 
+
+	/**
+	 * Register the custom post type.
+	 */
+	public function register() {
 		register_post_type(
 			$this->key,
 			$this->definition
@@ -93,35 +107,28 @@ class Register_Custom_Post_Type {
 		if ( in_array( 'post_tag', $this->taxonomies, true ) ) {
 			register_taxonomy_for_object_type( 'post_tag', $this->key );
 		}
+	}
 
-		/* Replacing meta boxes with block plugins as per best practice */
 
-		//add_action( 'do_meta_boxes', array( &$this, 'remove_default_custom_fields' ), 10, 3 );
-		//add_action( 'admin_menu', array( &$this, 'create_custom_fields' ) );
-		//add_action( 'save_post', array( &$this, 'save_custom_fields' ), 1, 2 );
-		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_cpt_link' ) );
+	/**
+	 * Echo link on the theme dashboard admin page using the theme's inbuilt static method.
+	 */
+	public function echo_cpt_link() {
+		Settings_Admin::echo_dashboard_page_link(
+			$this->slug,
+			$this->label
+		);
 	}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-	// ==================================================================== OLD.
+	// ========================================================== CLASSIC EDITOR SUPPORT.
 
 
 	/**
 	 * Remove default custom fields meta box.
 	 */
-	public function remove_default_custom_fields( $type, $context, $post ) {
+	public function remove_default_meta_box( $type, $context, $post ) {
 		foreach ( array( 'normal', 'advanced', 'side' ) as $context ) {
 			remove_meta_box( 'postcustom', $this->key, $context );
 		}
@@ -131,14 +138,15 @@ class Register_Custom_Post_Type {
 	/**
 	 * Create new custom fields meta box.
 	 */
-	public function create_custom_fields() {
+	public function add_custom_meta_box() {
 		add_meta_box(
 			$this->metabox_id,                          // Unique ID.
-			'Post Custom Fields',                       // Box title.
-			array( &$this, 'display_custom_fields' ),   // Content callback.
+			__( 'Custom Fields' ),                      // Box title.
+			array( &$this, 'output_custom_meta_box' ),  // Markup callback.
 			$this->key,                                 // Post type.
 			'normal',                                   // Edit screen position (normal || side || advanced).
-			'high'                                      // Priority within the position set above.
+			'high',                                     // Priority within the position set above.
+			array( '__back_compat_meta_box' => true ),  // hide the meta box in Gutenberg.
 		);
 	}
 
@@ -146,7 +154,7 @@ class Register_Custom_Post_Type {
 	/**
 	 * Display the new custom fields meta box.
 	 */
-	public function display_custom_fields() {
+	public function output_custom_meta_box() {
 		global $post;
 		?>
 		<div class="form-wrap">
@@ -182,7 +190,7 @@ class Register_Custom_Post_Type {
 	/**
 	 * Save the new custom field values.
 	 */
-	public function save_custom_fields( $post_id, $post ) {
+	public function save_custom_meta_box_data( $post_id, $post ) {
 		if ( ! isset( $_POST[ $this->metabox_id . '_wpnonce' ] )
 			|| ! wp_verify_nonce( $_POST[ $this->metabox_id . '_wpnonce' ], $this->metabox_id )
 			|| ! current_user_can( 'edit_post', $post_id ) ) {
@@ -199,17 +207,6 @@ class Register_Custom_Post_Type {
 		}
 	}
 
-	// ==================================================================== OLD END.
+	// ========================================================== CLASSIC EDITOR SUPPORT END.
 
-
-
-	/**
-	 * Echo link on the theme dashboard admin page using the theme's inbuilt static method.
-	 */
-	public function echo_cpt_link() {
-		Settings_Admin::echo_dashboard_page_link(
-			$this->slug,
-			$this->label
-		);
-	}
 }

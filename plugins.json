@@ -1,15 +1,9 @@
 {
-	"blocks": {
-		"hero-punch": {
-			"path": "plugins/blocks/hero-punch/build/"
-		},
-		"social-links-gradient-fill": {
-			"path": "plugins/blocks/social-links-gradient-fill/"
-		}
-	},
-	"post-meta-blocks": {
-		"meta-block-reviews": {
-			"path": "plugins/post-meta-blocks/meta-block-reviews/"
-		}
-	}
+	"blocks": [
+		"plugins/blocks/hero-punch/hero-punch.php",
+		"plugins/blocks/social-links-gradient-fill/social-links-gradient-fill.php"
+	],
+	"post-meta-blocks": [
+		"plugins/post-meta-blocks/meta-block-reviews/meta-block-reviews.php"
+	]
 }

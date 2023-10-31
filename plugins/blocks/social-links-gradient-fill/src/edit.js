@@ -5,7 +5,11 @@ import {
 } from '../svg'
 import './editor.scss'
 
-const template = [ [ 'core/social-links', {} ] ]
+const template = [
+	[
+		'core/social-links'
+	]
+]
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -17,7 +21,7 @@ const template = [ [ 'core/social-links', {} ] ]
  */
 export default function Edit() {
 	return (
-		<div className='svgfillwrapper' { ...useBlockProps() }>
+		<div { ...useBlockProps() }>
 			<Defs />
 			<InnerBlocks
                 template={ template }

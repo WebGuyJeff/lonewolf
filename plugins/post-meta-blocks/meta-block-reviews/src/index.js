@@ -1,133 +1,42 @@
-import { registerBlockType } from '@wordpress/blocks'
-import { TextControl, MediaPlaceholder, PanelBody, PanelRow } from '@wordpress/components'
-import { useEntityProp } from '@wordpress/core-data'
-import { useBlockProps, InspectorControls } from '@wordpress/block-editor'
+import { __ } from '@wordpress/i18n'
+import { registerBlockCollection, registerBlockType } from '@wordpress/blocks'
+import {
+	Logo,
+	LogoBase64
+} from './svg'
+import Edit from './edit'
+import metadata from './block.json'
+import './style.scss'
 
-const Edit = () => {
-	const blockProps = useBlockProps()
-	const postType = 'reviews'
+console.log( 'lonewolf/meta-block-reviews BLOCK LOADED' )
+// RUN IN CONSOLE TO SEE REGISTERED BLOCKS: wp.blocks.getBlockTypes() 
 
-	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' )
-
-	const reviewName      = meta.meta_block_reviews_name
-	const reviewSourceURL = meta.meta_block_reviews_source_url
-	const reviewIcon      = meta.meta_block_reviews_icon
-
-	const updateReviewName      = ( newValue ) => setMeta( { ...meta, meta_block_reviews_name: newValue } )
-	const updateReviewSourceURL = ( newValue ) => setMeta( { ...meta, meta_block_reviews_source_url: newValue } )
-	// const updateReviewIcon      = ( newValue ) => setMeta( { ...meta, meta_block_reviews_icon: newValue } )
-
-
-	const updateReviewIcon = ( media ) => {
-		if ( !media || !media.url ) {
-			setAttributes( {
-				imageUrl: null,
-				imageId: null,
-				imageAlt: null,
-			} )
-			return
-		}
-		setAttributes( {
-			imageUrl: media.url,
-			imageId: media.id,
-			imageAlt: media?.alt,
-		} )
+/**
+ * Register the collection.
+ * 
+ * COLLECTIONS ARE NOT CATEGORIES!
+ * @link https://make.wordpress.org/core/2020/02/27/block-collections/
+ */
+registerBlockCollection(
+	'bigupweb',
+	{
+		title: __( 'Bigup Web' ),
+		icon: LogoBase64
 	}
+)
 
+registerBlockType( metadata.name, {
+	...metadata,
+	icon: Logo,
 
-	return (
-		<>
-			<InspectorControls>
-				<PanelBody 
-					title={ __( 'Review Details' )}
-					initialOpen={true}
-				>
-					<PanelRow>
-						<fieldset>
-							<TextControl
-								label={__( 'Reviewer name' )}
-								value={ reviewName }
-								onChange={ updateReviewName }
-								maxLength={50}
-								required="required"
-							/>
-						</fieldset>
-					</PanelRow>
-					<PanelRow>
-						<fieldset>
-							<input
-								label={__( 'Review source URL' )}
-								value={ reviewSourceURL }
-								onChange={ updateReviewSourceURL }
-								maxLength={300}
-								type="url"
-							/>
-						</fieldset>
-					</PanelRow>
-					<PanelRow>
-						<fieldset>
-							<MediaPlaceholder
-								accept="image/*"
-								allowedTypes={ [ 'image' ] }
-								onSelect={ updateReviewIcon }
-								multiple={false}
-								handleUpload={true}
-							/>
-						</fieldset>
-					</PanelRow>
-					<PanelRow>
-						<fieldset>
-							<TextControl
-								label={__( 'Review Icon' )}
-								value={ reviewIcon }
-								onChange={ updateReviewIcon }
-							/>
-						</fieldset>
-					</PanelRow>
-				</PanelBody>
-			</InspectorControls>
-
-			<div { ...blockProps }>
-				<TextControl
-					label={__( 'Reviewer name' )}
-					value={ reviewName }
-					onChange={ updateReviewName }
-					maxLength={50}
-					required="required"
-				/>
-				<input
-					label={__( 'Review source URL' )}
-					value={ reviewSourceURL }
-					onChange={ updateReviewSourceURL }
-					maxLength={300}
-					type="url"
-				/>
-				<TextControl
-					label={__( 'Review Icon' )}
-					value={ reviewIcon }
-					onChange={ updateReviewIcon }
-				/>
-				<MediaPlaceholder
-					accept="image/*"
-					allowedTypes={ [ 'image' ] }
-					onSelect={ updateReviewIcon }
-					multiple={false}
-					handleUpload={true}
-				/>
-				{imageUrl && <img src={imageUrl} alt={imageAlt} />}
-			</div>
-		</>
-	)
-}
-
-registerBlockType( 'lonewolf/meta-block-reviews', {
+	/**
+	 * @see ./edit.js
+	 */
 	edit: Edit,
 
 	/*
-	 * No information saved to the block.
-	 * Data is saved to post meta via the hook.
+	 * With static blocks we would also have seen a save function. In this case, the save
+	 * function is missing because we are creating a dynamic block. The content shown on the
+	 * frontend will be generated dynamically via PHP.
 	 */
-	save: () => {
-		return null
-	},
 } )

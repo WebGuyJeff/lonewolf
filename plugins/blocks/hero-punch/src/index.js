@@ -12,7 +12,12 @@ import {
 console.log( 'lonewolf/hero-punch BLOCK LOADED' )
 // RUN IN CONSOLE TO SEE REGISTERED BLOCKS: wp.blocks.getBlockTypes() 
 
-// Register the collection.
+/**
+ * Register the collection.
+ * 
+ * COLLECTIONS ARE NOT CATEGORIES!
+ * @link https://make.wordpress.org/core/2020/02/27/block-collections/
+ */
 registerBlockCollection(
 	'lonewolf',
 	{

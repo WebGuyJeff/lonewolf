@@ -30,7 +30,7 @@ class Theme_Setup {
 		self::customise_sitemap();
 		self::set_auto_update_state();
 		self::disable_wpautop();
-		self::register_custom_post_types();
+		self::setup_custom_post_types();
 		self::modify_head_content();
 		self::register_plugins();
 
@@ -336,7 +336,7 @@ class Theme_Setup {
 	/**
 	 * Register custom post types.
 	 */
-	private function register_custom_post_types() {
+	private function setup_custom_post_types() {
 		$data   = Util::get_contents( LW_DIR . 'data/customPostTypes.json' );
 		$cpts   = json_decode( $data, true );
 		$option = get_option( 'lw_settings_features' );
@@ -350,7 +350,7 @@ class Theme_Setup {
 		);
 		foreach ( $cpts as $cpt ) {
 			if ( in_array( $cpt['key'], $enabled, true ) ) {
-				add_action( 'init', fn() => new Register_Custom_Post_Type( $cpt ) );
+				new Custom_Post_Type( $cpt );
 			}
 		}
 		// Enable WP custom fields even if ACF is installed.
