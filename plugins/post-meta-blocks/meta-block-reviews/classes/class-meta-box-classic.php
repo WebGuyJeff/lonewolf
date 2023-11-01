@@ -85,7 +85,7 @@ class Meta_Box_Classic {
 
 
 	/**
-	 * Display the new custom fields meta box.
+	 * Display the custom fields meta box.
 	 */
 	public function output_custom_meta_box() {
 		global $post;
