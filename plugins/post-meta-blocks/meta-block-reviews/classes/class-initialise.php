@@ -8,44 +8,53 @@ namespace BigupWeb\CPT_Review;
  */
 class Initialise {
 
+	/**
+	 * Relative path to the definition JSON file.
+	 *
+	 * @var string
+	 */
+	private $definition_path = 'data/review-definition.json';
+
 
 	/**
 	 * Setup this plugin.
+	 *
+	 * Get and check definition, then call functions to register CPT and custom fields.
+	 * All action hooks for this plugin should be registered here for clarity.
 	 */
 	public function __construct() {
-		add_action( 'init', array( &$this, 'register_gutenberg_block' ) );
-		$this->setup_plugin();
-	}
+		$def = $this->get_definition();
+		if ( is_array( $def ) && array_key_exists( 'key', $def ) ) {
 
+			$cpt = new Custom_Post_Type( $def );
+			add_action( 'init', array( $cpt, 'register' ), 0, 1 );
 
-	/**
-	 * Register Gutenberg block.
-	 */
-	public function register_gutenberg_block() {
-		$location = CPTREV_DIR . '/build';
-		$result   = register_block_type( $location );
-		if ( false === $result ) {
-			error_log( "ERROR: Block registration failed for path '{$location}'" );
-		}
-	}
+			if ( array_key_exists( 'customFields', $def ) ) {
 
+				$classic = new Meta_Box_Classic( $def );
+				add_action( 'do_meta_boxes', array( &$classic, 'remove_default_meta_box' ), 10, 3 );
+				add_action( 'add_meta_boxes', array( &$classic, 'add_custom_meta_box' ), 10, 0 );
+				add_action( 'save_post', array( &$classic, 'save_custom_meta_box_data' ), 1, 2 );
 
-	/**
-	 * Decode JSON definition and register the CPT.
-	 */
-	private function setup_plugin() {
+				$gutenberg = new Meta_Box_Gutenberg( $def );
+				add_action( 'init', array( &$gutenberg, 'register_gutenberg_block' ), 10, 0 );
+				add_action( 'init', array( &$gutenberg, 'register_metafields' ), 10, 0 );
 
-		$json       = Util::get_contents( CPTREV_DIR . 'data/review-definition.json' );
-		$definition = json_decode( $json, true );
-
-		if ( is_array( $definition ) && array_key_exists( 'key', $definition ) ) {
-			new Custom_Post_Type( $definition );
-			if ( array_key_exists( 'customFields', $definition ) ) {
-				new Meta_Box_Classic( $definition );
-				new Meta_Box_Gutenberg( $definition );
+				// Enable WP custom fields even if ACF is installed.
+				add_filter( 'acf/settings/remove_wp_meta_box', '__return_false' );
 			}
 		} else {
 			return;
 		}
+	}
+
+
+	/**
+	 * Get JSON definition, decode and return.
+	 */
+	private function get_definition() {
+		$json       = Util::get_contents( CPTREV_DIR . $this->definition_path );
+		$definition = json_decode( $json, true );
+		return $definition;
 	}
 }

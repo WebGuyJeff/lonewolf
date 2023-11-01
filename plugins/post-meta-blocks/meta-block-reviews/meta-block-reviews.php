@@ -24,3 +24,16 @@ require_once CPTREV_DIR . '/classes/autoload.php';
 // Setup this plugin.
 use BigupWeb\CPT_Review\Initialise;
 new Initialise();
+
+
+return;
+// DEBUG action priority.
+function dump_post_types_list() {
+	$cpts = get_post_types( '', 'names' );
+	echo '<pre>';
+	foreach ( $cpts as $cpt ) {
+		echo $cpt . "\n";
+	}
+	echo '</pre>';
+}
+add_action( 'init', 'dump_post_types_list', 99, 1 );

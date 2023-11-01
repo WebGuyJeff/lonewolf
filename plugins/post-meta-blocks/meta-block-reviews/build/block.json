@@ -3,7 +3,7 @@
   "apiVersion": 2,
   "name": "bigupweb/meta-block-reviews",
   "version": "0.1.0",
-  "title": "meta-block-reviews",
+  "title": "Review Metadata",
   "category": "theme",
   "icon": "smiley",
   "description": "A custom meta block (custom fields) for the 'Reviews' custom post type",

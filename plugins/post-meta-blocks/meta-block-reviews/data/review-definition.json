@@ -2,7 +2,7 @@
 	"key": "review",
 	"label": "Reviews",
 	"slug": "edit.php?post_type=review",
-	"prefix": "_lwre_",
+	"prefix": "_bigup_",
 	"metaboxID": "review-meta",
 	"definition": {
 		"labels": {
@@ -72,7 +72,8 @@
 			"label": "Profile Image",
 			"description": "Profile image of the reviewer",
 			"type": "string",
-			"input_type": "image-upload",
+			"input_type": "text",
+			"required": "",
 			"show_in_rest": "true",
 			"single": "true",
 			"user_capabilities": "edit_posts"

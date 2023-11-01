@@ -41,7 +41,7 @@ class Custom_Post_Type {
 		$this->definition = $definition['definition'];
 		$this->taxonomies = $definition['definition']['taxonomies'];
 
-		add_action( 'init', array( &$this, 'register' ), 0, 1 );
+		//add_action( 'init', array( &$this, 'register' ), 0, 1 );
 	}
 
 

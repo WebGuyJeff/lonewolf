@@ -48,27 +48,39 @@ class Meta_Box_Gutenberg {
 		$this->prefix     = $definition['prefix'];
 		$this->metabox_id = $definition['metaboxID'];
 		$this->fields     = $definition['customFields'];
-
-		add_action( 'init', array( &$this, 'register_metafields' ) );
 	}
 
 
 	/**
-	 * Register custom post meta fields on the post type.
+	 * Register Gutenberg block.
+	 */
+	public function register_gutenberg_block() {
+		$location = CPTREV_DIR . '/build';
+		$result   = register_block_type( $location );
+		if ( false === $result ) {
+			error_log( "ERROR: Block registration failed for path '{$location}'" );
+		}
+	}
+
+
+	/**
+	 * Register metafields on the post type.
 	 */
 	public function register_metafields() {
 		foreach ( $this->fields as $metafield ) {
+			$user_capabilities = $metafield['user_capabilities'];
+			$sanitize_callback = Sanitize::get_callback( $metafield['input_type'] );
 			register_post_meta(
-				$this->key,                                                                    // Post type.
-				$this->prefix . $this->key . $metafield['suffix'],                             // Metafield key.
+				$this->key,                                                 // Post type.
+				$this->prefix . $this->key . $metafield['suffix'],          // Metafield key.
 				array(
-					'type'              => $metafield['type'],                                 // The type of data.
-					'description'       => $metafield['description'],                          // A description of the data.
-					'sanitize_callback' => Sanitize::get_callback( $metafield['input_type'] ), // The sanitize callback.
-					'show_in_rest'      => $metafield['show_in_rest'],                         // Show in REST API. Must be true for Gut.
-					'single'            => $metafield['single'],                               // Single value or array of values?
-					'auth_callback'     => function() {
-						return current_user_can( $metafield['user_capabilities'] );
+					'type'              => $metafield['type'],              // The type of data.
+					'description'       => $metafield['description'],       // A description of the data.
+					'sanitize_callback' => $sanitize_callback,              // The sanitize callback.
+					'show_in_rest'      => $metafield['show_in_rest'],      // Show in REST API. Must be true for Gut.
+					'single'            => $metafield['single'],            // Single value or array of values?
+					'auth_callback'     => function() use ( $user_capabilities ) {
+						return current_user_can( $user_capabilities );
 					},
 				)
 			);

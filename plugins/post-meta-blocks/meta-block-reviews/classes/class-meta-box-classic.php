@@ -48,13 +48,6 @@ class Meta_Box_Classic {
 		$this->prefix     = $definition['prefix'];
 		$this->metabox_id = $definition['metaboxID'];
 		$this->fields     = $definition['customFields'];
-
-		add_action( 'do_meta_boxes', array( &$this, 'remove_default_meta_box' ), 10, 3 );
-		add_action( 'add_meta_boxes', array( &$this, 'add_custom_meta_box' ) );
-		add_action( 'save_post', array( &$this, 'save_custom_meta_box_data' ), 1, 2 );
-
-		// Enable WP custom fields even if ACF is installed.
-		add_filter( 'acf/settings/remove_wp_meta_box', '__return_false' );
 	}
 
 
