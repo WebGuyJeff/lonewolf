@@ -56,7 +56,12 @@ class Meta_Box_Gutenberg {
 	 */
 	public function register_gutenberg_block() {
 		$location = CPTREV_DIR . '/build';
-		$result   = register_block_type( $location );
+		$result   = register_block_type(
+			$location,
+			array(
+				'render_callback' => 'dynamic_frontend_render_callback',
+			)
+		);
 		if ( false === $result ) {
 			error_log( "ERROR: Block registration failed for path '{$location}'" );
 		}
@@ -84,6 +89,47 @@ class Meta_Box_Gutenberg {
 					},
 				)
 			);
+		}
+	}
+
+
+	/**
+	 * Dynamic front-end render callback.
+	 *
+	 * Defines the dynamic content in the frontend when called by the render_callback property of
+	 * register_block_type.
+	 *
+	 * This server-side rendering is a function taking the block and the block inner content as
+	 * arguments, and returning the markup (quite similar to shortcodes).
+	 * 
+	 * get_post_meta() is used to retrive the values of the custom fields.
+	 *
+	 * @link https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/
+	 */
+	public function dynamic_frontend_render_callback( $block_attributes, $content ) {
+
+		echo "<script>console.log('Hello from the render callback');</script>";
+		return 'Hello World! (from dynamic_frontend_render_callback)';
+
+		$review_name          = get_post_meta( get_the_ID(), '_bigup_review_name', true );
+		$review_source_url    = get_post_meta( get_the_ID(), '_bigup_review_source_url', true );
+		$review_profile_image = get_post_meta( get_the_ID(), '_bigup_review_profile_image', true );
+
+		$output = '';
+
+		if ( ! empty( $review_name ) ) {
+			$output .= '<h3>' . esc_html( $review_name ) . '</h3>';
+		}
+		if ( ! empty( $review_source_url ) ) {
+			$output .= '<a href="' . esc_url( $review_source_url ) . '">' . __( 'Read full review' ) . '</a>';
+		}
+		if ( ! empty( $review_profile_image ) ) {
+			$output .= '<p>' . esc_html( $review_profile_image ) . '</p>';
+		}
+		if ( strlen( $output ) > 0 ) {
+			return '<div ' . get_block_wrapper_attributes() . '>' . $output . '</div>';
+		} else {
+			return '<div ' . get_block_wrapper_attributes() . '><strong>' . __( 'No fields available!' ) . '</strong></div>';
 		}
 	}
 }

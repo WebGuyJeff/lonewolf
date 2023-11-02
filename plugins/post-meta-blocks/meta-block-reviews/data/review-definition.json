@@ -49,7 +49,7 @@
 			"input_type": "text",
 			"placeholder": "",
 			"length_limit": "50",
-			"required": "required",
+			"required": "",
 			"show_in_rest": "true",
 			"single": "true",
 			"user_capabilities": "edit_posts"

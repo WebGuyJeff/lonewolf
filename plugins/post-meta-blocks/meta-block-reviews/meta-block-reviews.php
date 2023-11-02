@@ -11,7 +11,9 @@
  * Text Domain:       meta-block-reviews
  *
  * @package           meta-block-reviews
+ * @link              https://kinsta.com/blog/dynamic-blocks/
  * @link              https://kinsta.com/blog/wordpress-add-meta-box-to-post/
+ * @link              https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/
  */
 
 // Define constants.

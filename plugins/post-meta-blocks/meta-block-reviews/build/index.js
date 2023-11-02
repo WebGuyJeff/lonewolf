@@ -45,14 +45,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/core-data */ "@wordpress/core-data");
-/* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
-/* harmony import */ var _data_review_definition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../data/review-definition */ "./data/review-definition.json");
+/* harmony import */ var _wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/server-side-render */ "@wordpress/server-side-render");
+/* harmony import */ var _wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/core-data */ "@wordpress/core-data");
+/* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./block.json */ "./src/block.json");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _data_review_definition__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../data/review-definition */ "./data/review-definition.json");
+
+
+
 
 
 
@@ -65,29 +73,59 @@ const {
   key,
   slug,
   customFields
-} = _data_review_definition__WEBPACK_IMPORTED_MODULE_5__;
-const EditReviewsButton = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+} = _data_review_definition__WEBPACK_IMPORTED_MODULE_8__;
+const EditReviewsButton = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
   variant: "link",
   href: slug
 }, "Edit Your Reviews");
+const ReviewsServerSideRender = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_1___default()), {
+  block: _block_json__WEBPACK_IMPORTED_MODULE_6__.name,
+  attributes: {
+    showPostCounts: true,
+    displayAsDropdown: false
+  }
+});
 function Edit() {
-  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)();
-  const postType = 'review';
-  const [meta, setMeta] = (0,_wordpress_core_data__WEBPACK_IMPORTED_MODULE_2__.useEntityProp)('postType', postType, 'meta');
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__.useBlockProps)();
+  const postType = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select('core/editor').getCurrentPostType(), []);
+  // useEntityProp returns an array of post meta fields and a setter function.
+  const [meta, setMeta] = (0,_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__.useEntityProp)('postType', postType, 'meta');
 
-  /*
-   *const reviewName            = meta._meta_block_reviews_name
-   *const reviewSourceURL       = meta._meta_block_reviews_source_url
-   *const updateReviewName      = ( newValue ) => setMeta( { ...meta, _meta_block_reviews_name: newValue } )
-   *const updateReviewSourceURL = ( newValue ) => setMeta( { ...meta, _meta_block_reviews_source_url: newValue } )
+  // Debug.
+  const metaDebug = (0,_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__.useEntityProp)('postType', postType, 'meta');
+  console.log(metaDebug);
+
+  // Awesome debug snippet!
+  const reviews = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select('core').getEntityRecords('postType', postType));
+  console.log(reviews);
+  const name = meta._bigup_review_name;
+  const sourceURL = meta._bigup_review_source_url;
+  const profileImage = meta._bigup_review_profile_image;
+  const updateName = newValue => setMeta({
+    ...meta,
+    _bigup_review_name: newValue
+  });
+  const updateSourceURL = newValue => setMeta({
+    ...meta,
+    _bigup_review_source_url: newValue
+  });
+  const updateProfileImage = newValue => setMeta({
+    ...meta,
+    _bigup_review_profile_image: newValue
+  });
+
+  /**
+   * Meta fields and setters are generated dynamically so that custom fields can be defined in
+   * an external JSON file. The long-term plan is the user can select which fields they want to
+   * include with the post type.
    */
 
   customFields.forEach(field => {
-    const metaKey = prefix + key + field.suffix;
-    field.value = meta[metaKey];
+    field.metaKey = prefix + key + field.suffix;
+    field.value = meta[field.metaKey];
     field.updateValue = newValue => setMeta({
       ...meta,
-      metaKey: newValue
+      [field.metaKey]: newValue
     });
   });
 
@@ -103,17 +141,13 @@ function Edit() {
    *
    */
 
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: label,
     initialOpen: true
   }, customFields.map((field, index) => {
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelRow, {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelRow, {
       key: index
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("pre", {
-      style: {
-        whiteSpace: 'normal'
-      }
-    }, JSON.stringify(index)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("fieldset", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("fieldset", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
       label: field.label,
       value: field.value,
       onChange: field.updateValue,
@@ -122,25 +156,7 @@ function Edit() {
     })));
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(EditReviewsButton, null))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...blockProps
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("pre", {
-    style: {
-      whiteSpace: 'normal'
-    }
-  }, JSON.stringify(blockProps)), customFields.map((field, index) => {
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("pre", {
-      key: index,
-      style: {
-        whiteSpace: 'normal'
-      }
-    }, JSON.stringify(field)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
-      key: index,
-      label: field.label,
-      value: field.value,
-      onChange: field.updateValue,
-      maxLength: 50,
-      required: "required"
-    }));
-  })));
+  },  false && 0,  false && 0, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ReviewsServerSideRender, null)));
 }
 
 /***/ }),
@@ -166,7 +182,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-console.log('lonewolf/meta-block-reviews BLOCK LOADED');
+console.log(_block_json__WEBPACK_IMPORTED_MODULE_4__.name + ' BLOCK LOADED');
 // RUN IN CONSOLE TO SEE REGISTERED BLOCKS: wp.blocks.getBlockTypes() 
 
 /**
@@ -185,13 +201,14 @@ console.log('lonewolf/meta-block-reviews BLOCK LOADED');
   /**
    * @see ./edit.js
    */
-  edit: _edit__WEBPACK_IMPORTED_MODULE_3__["default"]
-
+  edit: _edit__WEBPACK_IMPORTED_MODULE_3__["default"],
   /*
-   * With static blocks we would also have seen a save function. In this case, the save
-   * function is missing because we are creating a dynamic block. The content shown on the
-   * frontend will be generated dynamically via PHP.
+   * This is a dynamic content block meaning the data is rendered server-side at runtime. This
+   * block forms a 'template' for the dynamic post data retrieved by a query-loop. The output of the
+   * block in the editor is defined by the Edit function above. The output of the block on the
+   * frontend is defined by the render_callback function. See PHP function register_block_type().
    */
+  save: () => null
 });
 
 /***/ }),
@@ -291,6 +308,16 @@ module.exports = window["wp"]["coreData"];
 
 /***/ }),
 
+/***/ "@wordpress/data":
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["data"];
+
+/***/ }),
+
 /***/ "@wordpress/i18n":
 /*!******************************!*\
   !*** external ["wp","i18n"] ***!
@@ -301,13 +328,23 @@ module.exports = window["wp"]["i18n"];
 
 /***/ }),
 
+/***/ "@wordpress/server-side-render":
+/*!******************************************!*\
+  !*** external ["wp","serverSideRender"] ***!
+  \******************************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["serverSideRender"];
+
+/***/ }),
+
 /***/ "./data/review-definition.json":
 /*!*************************************!*\
   !*** ./data/review-definition.json ***!
   \*************************************/
 /***/ (function(module) {
 
-module.exports = JSON.parse('{"key":"review","label":"Reviews","slug":"edit.php?post_type=review","prefix":"_bigup_","metaboxID":"review-meta","definition":{"labels":{"name":"Reviews","singular_name":"Review","add_new":"New Review","add_new_item":"Add New Review","edit_item":"Edit Review","new_item":"New Review","view_item":"View Review","search_items":"Search Reviews","not_found":"No Reviews Found","not_found_in_trash":"No Reviews found in Trash"},"supports":["title","editor","thumbnail","excerpt","custom-fields"],"description":"Feedback and reviews.","public":true,"exclude_from_search":false,"publicly_queryable":true,"query_var":true,"show_in_menu":true,"menu_position":5,"menu_icon":"dashicons-thumbs-up","hierarchical":false,"taxonomies":["category","post_tag"],"show_in_rest":true,"delete_with_user":false},"customFields":[{"suffix":"_name","label":"Reviewer Name","description":"Name of the reviewer","type":"string","input_type":"text","placeholder":"","length_limit":"50","required":"required","show_in_rest":"true","single":"true","user_capabilities":"edit_posts"},{"suffix":"_source_url","label":"Source URL","description":"Link to the review source","type":"string","input_type":"url","placeholder":"","length_limit":"300","required":"","show_in_rest":"true","single":"true","user_capabilities":"edit_posts"},{"suffix":"_profile_image","label":"Profile Image","description":"Profile image of the reviewer","type":"string","input_type":"text","required":"","show_in_rest":"true","single":"true","user_capabilities":"edit_posts"}]}');
+module.exports = JSON.parse('{"key":"review","label":"Reviews","slug":"edit.php?post_type=review","prefix":"_bigup_","metaboxID":"review-meta","definition":{"labels":{"name":"Reviews","singular_name":"Review","add_new":"New Review","add_new_item":"Add New Review","edit_item":"Edit Review","new_item":"New Review","view_item":"View Review","search_items":"Search Reviews","not_found":"No Reviews Found","not_found_in_trash":"No Reviews found in Trash"},"supports":["title","editor","thumbnail","excerpt","custom-fields"],"description":"Feedback and reviews.","public":true,"exclude_from_search":false,"publicly_queryable":true,"query_var":true,"show_in_menu":true,"menu_position":5,"menu_icon":"dashicons-thumbs-up","hierarchical":false,"taxonomies":["category","post_tag"],"show_in_rest":true,"delete_with_user":false},"customFields":[{"suffix":"_name","label":"Reviewer Name","description":"Name of the reviewer","type":"string","input_type":"text","placeholder":"","length_limit":"50","required":"","show_in_rest":"true","single":"true","user_capabilities":"edit_posts"},{"suffix":"_source_url","label":"Source URL","description":"Link to the review source","type":"string","input_type":"url","placeholder":"","length_limit":"300","required":"","show_in_rest":"true","single":"true","user_capabilities":"edit_posts"},{"suffix":"_profile_image","label":"Profile Image","description":"Profile image of the reviewer","type":"string","input_type":"text","required":"","show_in_rest":"true","single":"true","user_capabilities":"edit_posts"}]}');
 
 /***/ }),
 

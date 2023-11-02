@@ -8,7 +8,7 @@ import Edit from './edit'
 import metadata from './block.json'
 import './style.scss'
 
-console.log( 'lonewolf/meta-block-reviews BLOCK LOADED' )
+console.log( metadata.name + ' BLOCK LOADED' )
 // RUN IN CONSOLE TO SEE REGISTERED BLOCKS: wp.blocks.getBlockTypes() 
 
 /**
@@ -35,8 +35,10 @@ registerBlockType( metadata.name, {
 	edit: Edit,
 
 	/*
-	 * With static blocks we would also have seen a save function. In this case, the save
-	 * function is missing because we are creating a dynamic block. The content shown on the
-	 * frontend will be generated dynamically via PHP.
+	 * This is a dynamic content block meaning the data is rendered server-side at runtime. This
+	 * block forms a 'template' for the dynamic post data retrieved by a query-loop. The output of the
+	 * block in the editor is defined by the Edit function above. The output of the block on the
+	 * frontend is defined by the render_callback function. See PHP function register_block_type().
 	 */
+	save: () => null,
 } )
