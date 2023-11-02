@@ -2,6 +2,7 @@ import ServerSideRender from '@wordpress/server-side-render'
 import { TextControl, PanelBody, PanelRow, Button } from '@wordpress/components'
 import { useSelect } from '@wordpress/data'
 import { useEntityProp } from '@wordpress/core-data'
+import { useState } from '@wordpress/element'
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor'
 import metadata from './block.json'
 import './editor.scss'
@@ -20,22 +21,42 @@ const EditReviewsButton = () => (
 const ReviewsServerSideRender = () => (
     <ServerSideRender
         block={ metadata.name }
-        attributes={ {
-            showPostCounts: true,
-            displayAsDropdown: false,
-        } }
     />
 )
 
 export default function Edit() {
-	const blockProps        = useBlockProps()
-	const postType = useSelect(
-		( select ) => select( 'core/editor' ).getCurrentPostType(),
-		[]
-	)
+
+
+
+/*
+ * Seems to return 'page' as the post type in some cases???
+ * const postType = useSelect(
+ * ( select ) => select( 'core/editor' ).getCurrentPostType())
+ */
+
+
+	/*
+	 * postType will reflect the post context of the block. If you're in the editor of a 'page'
+	 * containing this block, getCurrentPostType will return 'page' and the 'review' meta won't
+	 * become available using `useSelect( select => select( 'core/editor' ).getCurrentPostType()`.
+	 * I believe I'm 'selecting' the wrong data source possibly?
+	 * 
+	 * @link https://developer.wordpress.org/block-editor/reference-guides/data/data-core-editor/
+	 * 
+	 * getCurrentPostType - Returns the post type of the post currently being edited. NOT WHAT I WANT
+	 */
+	const postType = useSelect( select => select( 'core/editor' ).getCurrentPostType() )
+	console.log( 'POST TYPE: ', postType )
+	// debug the selct output:
+	const selectTest = useSelect( select => select( 'core/editor' ).getCurrentPostType() )
+	console.log( 'SELECT TEST!: ' )
+	console.log( selectTest )
+	// So we bail if the correct post type isn't specified.
+	if ( postType !== key ) return ( <h3>Review meta not loaded :O</h3> )
+	console.log( 'PASSED!: ', postType )
+
 	// useEntityProp returns an array of post meta fields and a setter function.
 	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' )
-
 
 	// Debug.
 	const metaDebug = useEntityProp( 'postType', postType, 'meta' )
@@ -58,7 +79,6 @@ export default function Edit() {
 	 * an external JSON file. The long-term plan is the user can select which fields they want to
 	 * include with the post type.
 	 */
-	
 	customFields.forEach( field => {
 		field.metaKey = prefix + key + field.suffix
 		field.value = meta[ field.metaKey ]
@@ -108,9 +128,9 @@ export default function Edit() {
 				</PanelBody>
 			</InspectorControls>
 
-			<div { ...blockProps }>
+			<div { ...useBlockProps() }>
 
-				{ false &&	customFields.map( ( field, index ) => {
+				{ customFields.map( ( field, index ) => {
 					return (
 						<>
 							<TextControl
@@ -125,35 +145,7 @@ export default function Edit() {
 					)
 				} ) }
 
-				{ false &&
-				<>
-					<TextControl
-						label={ 'name' }
-						value={ name }
-						onChange={ updateName }
-						maxLength={500}
-					/>
-					<TextControl
-						label={ 'url' }
-						value={ sourceURL }
-						onChange={ updateSourceURL }
-						maxLength={500}
-					/>
-					<TextControl
-						label={ 'profile image' }
-						value={ profileImage }
-						onChange={ updateProfileImage }
-						maxLength={500}
-					/>
-
-					<pre style={{ whiteSpace:'normal' }}>
-						{ JSON.stringify( meta ) }
-					</pre>
-				</>
-				}
-
-
-				<ReviewsServerSideRender />
+				{ false && <ReviewsServerSideRender /> }
 
 			</div>
 		</>

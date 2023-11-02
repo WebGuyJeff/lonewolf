@@ -20,7 +20,7 @@ class Initialise {
 	 * Setup this plugin.
 	 *
 	 * Get and check definition, then call functions to register CPT and custom fields.
-	 * All action hooks for this plugin should be registered here for clarity.
+	 * All action hooks for this plugin should be registered here to manage sequence.
 	 */
 	public function __construct() {
 		$def = $this->get_definition();
@@ -43,7 +43,7 @@ class Initialise {
 
 		$gutenberg = new Meta_Box_Gutenberg( $def );
 		add_action( 'init', array( &$gutenberg, 'register_gutenberg_block' ), 10, 0 );
-		add_action( 'init', array( &$gutenberg, 'register_metafields' ), 10, 0 );
+		add_action( 'init', array( &$gutenberg, 'register_metafields' ), 11, 0 );
 
 		// Enable WP custom fields even if ACF is installed.
 		add_filter( 'acf/settings/remove_wp_meta_box', '__return_false' );

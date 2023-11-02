@@ -1,15 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/block.json",
   "apiVersion": 2,
-  "name": "bigupweb/meta-block-reviews",
+  "name": "bigupweb/custom-fields-reviews",
   "version": "0.1.0",
-  "title": "Review Metadata",
+  "title": "Custom Fields for Reviews",
   "category": "theme",
   "icon": "smiley",
-  "description": "A custom meta block (custom fields) for the 'Reviews' custom post type",
+  "description": "Custom fields for the 'Review' custom post type",
   "supports": {
     "html": false
   },
-  "textdomain": "meta-block-reviews",
+  "textdomain": "bigupweb-custom-fields-reviews",
   "editorScript": "file:./index.js"
 }

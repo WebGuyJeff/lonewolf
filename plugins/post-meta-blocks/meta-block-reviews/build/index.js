@@ -53,11 +53,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/core-data */ "@wordpress/core-data");
 /* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./block.json */ "./src/block.json");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
-/* harmony import */ var _data_review_definition__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../data/review-definition */ "./data/review-definition.json");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./block.json */ "./src/block.json");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _data_review_definition__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../data/review-definition */ "./data/review-definition.json");
+
 
 
 
@@ -73,21 +76,41 @@ const {
   key,
   slug,
   customFields
-} = _data_review_definition__WEBPACK_IMPORTED_MODULE_8__;
+} = _data_review_definition__WEBPACK_IMPORTED_MODULE_9__;
 const EditReviewsButton = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
   variant: "link",
   href: slug
 }, "Edit Your Reviews");
 const ReviewsServerSideRender = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_1___default()), {
-  block: _block_json__WEBPACK_IMPORTED_MODULE_6__.name,
-  attributes: {
-    showPostCounts: true,
-    displayAsDropdown: false
-  }
+  block: _block_json__WEBPACK_IMPORTED_MODULE_7__.name
 });
 function Edit() {
-  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__.useBlockProps)();
-  const postType = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select('core/editor').getCurrentPostType(), []);
+  /*
+   * Seems to return 'page' as the post type in some cases???
+   * const postType = useSelect(
+   * ( select ) => select( 'core/editor' ).getCurrentPostType())
+   */
+
+  /*
+   * postType will reflect the post context of the block. If you're in the editor of a 'page'
+   * containing this block, getCurrentPostType will return 'page' and the 'review' meta won't
+   * become available using `useSelect( select => select( 'core/editor' ).getCurrentPostType()`.
+   * I believe I'm 'selecting' the wrong data source possibly?
+   * 
+   * @link https://developer.wordpress.org/block-editor/reference-guides/data/data-core-editor/
+   * 
+   * getCurrentPostType - Returns the post type of the post currently being edited. NOT WHAT I WANT
+   */
+  const postType = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select('core/editor').getCurrentPostType());
+  console.log('POST TYPE: ', postType);
+  // debug the selct output:
+  const selectTest = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select('core/editor').getCurrentPostType());
+  console.log('SELECT TEST!: ');
+  console.log(selectTest);
+  // So we bail if the correct post type isn't specified.
+  if (postType !== key) return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, "Review meta not loaded :O");
+  console.log('PASSED!: ', postType);
+
   // useEntityProp returns an array of post meta fields and a setter function.
   const [meta, setMeta] = (0,_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__.useEntityProp)('postType', postType, 'meta');
 
@@ -119,7 +142,6 @@ function Edit() {
    * an external JSON file. The long-term plan is the user can select which fields they want to
    * include with the post type.
    */
-
   customFields.forEach(field => {
     field.metaKey = prefix + key + field.suffix;
     field.value = meta[field.metaKey];
@@ -141,7 +163,7 @@ function Edit() {
    *
    */
 
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: label,
     initialOpen: true
   }, customFields.map((field, index) => {
@@ -155,8 +177,17 @@ function Edit() {
       required: "required"
     })));
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(EditReviewsButton, null))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ...blockProps
-  },  false && 0,  false && 0, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ReviewsServerSideRender, null)));
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__.useBlockProps)()
+  }, customFields.map((field, index) => {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+      key: index,
+      label: field.label,
+      value: field.value,
+      onChange: field.updateValue,
+      maxLength: 50,
+      required: "required"
+    }));
+  }),  false && 0));
 }
 
 /***/ }),
@@ -318,6 +349,16 @@ module.exports = window["wp"]["data"];
 
 /***/ }),
 
+/***/ "@wordpress/element":
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["element"];
+
+/***/ }),
+
 /***/ "@wordpress/i18n":
 /*!******************************!*\
   !*** external ["wp","i18n"] ***!
@@ -354,7 +395,7 @@ module.exports = JSON.parse('{"key":"review","label":"Reviews","slug":"edit.php?
   \************************/
 /***/ (function(module) {
 
-module.exports = JSON.parse('{"$schema":"https://json.schemastore.org/block.json","apiVersion":2,"name":"bigupweb/meta-block-reviews","version":"0.1.0","title":"Review Metadata","category":"theme","icon":"smiley","description":"A custom meta block (custom fields) for the \'Reviews\' custom post type","supports":{"html":false},"textdomain":"meta-block-reviews","editorScript":"file:./index.js"}');
+module.exports = JSON.parse('{"$schema":"https://json.schemastore.org/block.json","apiVersion":2,"name":"bigupweb/custom-fields-reviews","version":"0.1.0","title":"Custom Fields for Reviews","category":"theme","icon":"smiley","description":"Custom fields for the \'Review\' custom post type","supports":{"html":false},"textdomain":"bigupweb-custom-fields-reviews","editorScript":"file:./index.js"}');
 
 /***/ })
 

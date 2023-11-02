@@ -59,7 +59,7 @@ class Meta_Box_Gutenberg {
 		$result   = register_block_type(
 			$location,
 			array(
-				'render_callback' => 'dynamic_frontend_render_callback',
+				'render_callback' => array( $this, 'dynamic_render_callback' ),
 			)
 		);
 		if ( false === $result ) {
@@ -84,9 +84,15 @@ class Meta_Box_Gutenberg {
 					'sanitize_callback' => $sanitize_callback,              // The sanitize callback.
 					'show_in_rest'      => $metafield['show_in_rest'],      // Show in REST API. Must be true for Gut.
 					'single'            => $metafield['single'],            // Single value or array of values?
-					'auth_callback'     => function() use ( $user_capabilities ) {
-						return current_user_can( $user_capabilities );
+
+					// DEBUG.
+					'auth_callback'     => function () {
+						return true;
 					},
+
+					// 'auth_callback'     => function() use ( $user_capabilities ) {
+					// return current_user_can( $user_capabilities );
+					// },
 				)
 			);
 		}
@@ -101,15 +107,17 @@ class Meta_Box_Gutenberg {
 	 *
 	 * This server-side rendering is a function taking the block and the block inner content as
 	 * arguments, and returning the markup (quite similar to shortcodes).
-	 * 
+	 *
 	 * get_post_meta() is used to retrive the values of the custom fields.
 	 *
 	 * @link https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/
 	 */
-	public function dynamic_frontend_render_callback( $block_attributes, $content ) {
+	public function dynamic_render_callback( $block_attributes, $content ) {
 
-		echo "<script>console.log('Hello from the render callback');</script>";
-		return 'Hello World! (from dynamic_frontend_render_callback)';
+		echo '<p>dynamic_render_callback debug</p><pre>';
+		var_dump( $block_attributes );
+		var_dump( $content );
+		echo '</pre>';
 
 		$review_name          = get_post_meta( get_the_ID(), '_bigup_review_name', true );
 		$review_source_url    = get_post_meta( get_the_ID(), '_bigup_review_source_url', true );

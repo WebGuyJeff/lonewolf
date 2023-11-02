@@ -28,14 +28,16 @@ use BigupWeb\CPT_Review\Initialise;
 new Initialise();
 
 
-return;
-// DEBUG action priority.
-function dump_post_types_list() {
-	$cpts = get_post_types( '', 'names' );
-	echo '<pre>';
-	foreach ( $cpts as $cpt ) {
-		echo $cpt . "\n";
+
+// debug the review query.
+function filter_query( $query ) {
+	// ignore if the query block is not using this post type.
+	if ( 'review' !== $query['post_type'] ) {
+		return $query;
 	}
-	echo '</pre>';
+
+	var_dump( $query );
+
+	return $query;
 }
-add_action( 'init', 'dump_post_types_list', 99, 1 );
+add_filter( 'query_loop_block_query_vars', 'filter_query' );
