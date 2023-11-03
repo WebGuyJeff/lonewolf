@@ -26,15 +26,6 @@ const ReviewsServerSideRender = () => (
 
 export default function Edit() {
 
-
-
-/*
- * Seems to return 'page' as the post type in some cases???
- * const postType = useSelect(
- * ( select ) => select( 'core/editor' ).getCurrentPostType())
- */
-
-
 	/*
 	 * postType will reflect the post context of the block. If you're in the editor of a 'page'
 	 * containing this block, getCurrentPostType will return 'page' and the 'review' meta won't
@@ -46,14 +37,8 @@ export default function Edit() {
 	 * getCurrentPostType - Returns the post type of the post currently being edited. NOT WHAT I WANT
 	 */
 	const postType = useSelect( select => select( 'core/editor' ).getCurrentPostType() )
-	console.log( 'POST TYPE: ', postType )
-	// debug the selct output:
-	const selectTest = useSelect( select => select( 'core/editor' ).getCurrentPostType() )
-	console.log( 'SELECT TEST!: ' )
-	console.log( selectTest )
-	// So we bail if the correct post type isn't specified.
-	if ( postType !== key ) return ( <h3>Review meta not loaded :O</h3> )
-	console.log( 'PASSED!: ', postType )
+	const isEditable = ( postType === key )
+
 
 	// useEntityProp returns an array of post meta fields and a setter function.
 	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' )
@@ -65,14 +50,6 @@ export default function Edit() {
 	// Awesome debug snippet!
 	const reviews = useSelect( select => select( 'core' ).getEntityRecords( 'postType', postType ) )
 	console.log( reviews )
-	
-	const name               = meta._bigup_review_name
-	const sourceURL          = meta._bigup_review_source_url
-	const profileImage       = meta._bigup_review_profile_image
-	const updateName         = ( newValue ) => setMeta( { ...meta, _bigup_review_name: newValue } )
-	const updateSourceURL    = ( newValue ) => setMeta( { ...meta, _bigup_review_source_url: newValue } )
-	const updateProfileImage = ( newValue ) => setMeta( { ...meta, _bigup_review_profile_image: newValue } )
-
 
 	/**
 	 * Meta fields and setters are generated dynamically so that custom fields can be defined in
