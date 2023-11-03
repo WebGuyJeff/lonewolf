@@ -84,72 +84,58 @@ const EditReviewsButton = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElem
 const ReviewsServerSideRender = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_1___default()), {
   block: _block_json__WEBPACK_IMPORTED_MODULE_7__.name
 });
-function Edit() {
-  /*
-   * Seems to return 'page' as the post type in some cases???
-   * const postType = useSelect(
-   * ( select ) => select( 'core/editor' ).getCurrentPostType())
-   */
 
+/**
+ * This should behave differently on different scrrens:
+ * 
+ * Review post type edit screen:
+ * Here the inputs should appear either at the bottom in th custom fields pane, or in the sidebar
+ * with the other post options such as featured image etc - NOT on a separate tab. I want the 
+ * custom fields to feel like they are in-built for the post type. This screen needs to have the
+ * editor restricted to only using suitable block for the review content. Probably just P blocks.
+ * 
+ * Page and template editor screens:
+ * Here the fields should be output when the meta block(s?) are inserted into the query template. As
+ * per the in-built fields, the custom fields should not be editable on this screen. They should
+ * be output the same as the front end, I think by using ServerSideRender.
+ * 
+ * Front end:
+ * Obviously the fields - should be output as the template has been laid out looking the same as in
+ * the editor.
+ */
+function Edit() {
   /*
    * postType will reflect the post context of the block. If you're in the editor of a 'page'
    * containing this block, getCurrentPostType will return 'page' and the 'review' meta won't
    * become available using `useSelect( select => select( 'core/editor' ).getCurrentPostType()`.
    * I believe I'm 'selecting' the wrong data source possibly?
    * 
-   * @link https://developer.wordpress.org/block-editor/reference-guides/data/data-core-editor/
+   * The query block does pull in the built-in fields, so there is obviously a source for the
+   * data somewhere. It seems like useEntityProp isn't the right tool for the job, or I've
+   * registered the fields incorrectly...
    * 
-   * getCurrentPostType - Returns the post type of the post currently being edited. NOT WHAT I WANT
+   * @link https://developer.wordpress.org/block-editor/reference-guides/data/data-core-editor/
    */
   const postType = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select('core/editor').getCurrentPostType());
-  console.log('POST TYPE: ', postType);
-  // debug the selct output:
-  const selectTest = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select('core/editor').getCurrentPostType());
-  console.log('SELECT TEST!: ');
-  console.log(selectTest);
-  // So we bail if the correct post type isn't specified.
-  if (postType !== key) return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, "Review meta not loaded :O");
-  console.log('PASSED!: ', postType);
+  const isEditable = postType === key;
+  if (isEditable) {
+    // useEntityProp returns an array of post meta fields and a setter function.
+    const [meta, setMeta] = (0,_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__.useEntityProp)('postType', postType, 'meta');
 
-  // useEntityProp returns an array of post meta fields and a setter function.
-  const [meta, setMeta] = (0,_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__.useEntityProp)('postType', postType, 'meta');
-
-  // Debug.
-  const metaDebug = (0,_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__.useEntityProp)('postType', postType, 'meta');
-  console.log(metaDebug);
-
-  // Awesome debug snippet!
-  const reviews = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select('core').getEntityRecords('postType', postType));
-  console.log(reviews);
-  const name = meta._bigup_review_name;
-  const sourceURL = meta._bigup_review_source_url;
-  const profileImage = meta._bigup_review_profile_image;
-  const updateName = newValue => setMeta({
-    ...meta,
-    _bigup_review_name: newValue
-  });
-  const updateSourceURL = newValue => setMeta({
-    ...meta,
-    _bigup_review_source_url: newValue
-  });
-  const updateProfileImage = newValue => setMeta({
-    ...meta,
-    _bigup_review_profile_image: newValue
-  });
-
-  /**
-   * Meta fields and setters are generated dynamically so that custom fields can be defined in
-   * an external JSON file. The long-term plan is the user can select which fields they want to
-   * include with the post type.
-   */
-  customFields.forEach(field => {
-    field.metaKey = prefix + key + field.suffix;
-    field.value = meta[field.metaKey];
-    field.updateValue = newValue => setMeta({
-      ...meta,
-      [field.metaKey]: newValue
+    /**
+     * Meta fields and setters are generated dynamically so that custom fields can be defined in
+     * an external JSON file. The long-term plan is the user can select which fields they want to
+     * include with the post type.
+     */
+    customFields.forEach(field => {
+      field.metaKey = prefix + key + field.suffix;
+      field.value = meta[field.metaKey];
+      field.updateValue = newValue => setMeta({
+        ...meta,
+        [field.metaKey]: newValue
+      });
     });
-  });
+  }
 
   /*
    *
@@ -166,7 +152,7 @@ function Edit() {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: label,
     initialOpen: true
-  }, customFields.map((field, index) => {
+  }, isEditable && customFields.map((field, index) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelRow, {
       key: index
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("fieldset", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
@@ -178,7 +164,7 @@ function Edit() {
     })));
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(EditReviewsButton, null))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__.useBlockProps)()
-  }, customFields.map((field, index) => {
+  }, isEditable && customFields.map((field, index) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
       key: index,
       label: field.label,
@@ -187,7 +173,7 @@ function Edit() {
       maxLength: 50,
       required: "required"
     }));
-  }),  false && 0));
+  }), !isEditable && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ReviewsServerSideRender, null)));
 }
 
 /***/ }),

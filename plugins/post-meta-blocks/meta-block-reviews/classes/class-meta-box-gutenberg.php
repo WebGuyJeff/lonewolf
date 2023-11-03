@@ -84,15 +84,9 @@ class Meta_Box_Gutenberg {
 					'sanitize_callback' => $sanitize_callback,              // The sanitize callback.
 					'show_in_rest'      => $metafield['show_in_rest'],      // Show in REST API. Must be true for Gut.
 					'single'            => $metafield['single'],            // Single value or array of values?
-
-					// DEBUG.
-					'auth_callback'     => function () {
-						return true;
+					'auth_callback'     => function() use ( $user_capabilities ) {
+						return current_user_can( $user_capabilities );
 					},
-
-					// 'auth_callback'     => function() use ( $user_capabilities ) {
-					// return current_user_can( $user_capabilities );
-					// },
 				)
 			);
 		}
@@ -113,11 +107,6 @@ class Meta_Box_Gutenberg {
 	 * @link https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/
 	 */
 	public function dynamic_render_callback( $block_attributes, $content ) {
-
-		echo '<p>dynamic_render_callback debug</p><pre>';
-		var_dump( $block_attributes );
-		var_dump( $content );
-		echo '</pre>';
 
 		$review_name          = get_post_meta( get_the_ID(), '_bigup_review_name', true );
 		$review_source_url    = get_post_meta( get_the_ID(), '_bigup_review_source_url', true );

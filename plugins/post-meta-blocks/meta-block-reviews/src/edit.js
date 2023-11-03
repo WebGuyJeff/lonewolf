@@ -24,6 +24,25 @@ const ReviewsServerSideRender = () => (
     />
 )
 
+
+/**
+ * This should behave differently on different scrrens:
+ * 
+ * Review post type edit screen:
+ * Here the inputs should appear either at the bottom in th custom fields pane, or in the sidebar
+ * with the other post options such as featured image etc - NOT on a separate tab. I want the 
+ * custom fields to feel like they are in-built for the post type. This screen needs to have the
+ * editor restricted to only using suitable block for the review content. Probably just P blocks.
+ * 
+ * Page and template editor screens:
+ * Here the fields should be output when the meta block(s?) are inserted into the query template. As
+ * per the in-built fields, the custom fields should not be editable on this screen. They should
+ * be output the same as the front end, I think by using ServerSideRender.
+ * 
+ * Front end:
+ * Obviously the fields - should be output as the template has been laid out looking the same as in
+ * the editor.
+ */
 export default function Edit() {
 
 	/*
@@ -32,36 +51,31 @@ export default function Edit() {
 	 * become available using `useSelect( select => select( 'core/editor' ).getCurrentPostType()`.
 	 * I believe I'm 'selecting' the wrong data source possibly?
 	 * 
-	 * @link https://developer.wordpress.org/block-editor/reference-guides/data/data-core-editor/
+	 * The query block does pull in the built-in fields, so there is obviously a source for the
+	 * data somewhere. It seems like useEntityProp isn't the right tool for the job, or I've
+	 * registered the fields incorrectly...
 	 * 
-	 * getCurrentPostType - Returns the post type of the post currently being edited. NOT WHAT I WANT
+	 * @link https://developer.wordpress.org/block-editor/reference-guides/data/data-core-editor/
 	 */
 	const postType = useSelect( select => select( 'core/editor' ).getCurrentPostType() )
 	const isEditable = ( postType === key )
 
 
-	// useEntityProp returns an array of post meta fields and a setter function.
-	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' )
+	if ( isEditable ) {
+		// useEntityProp returns an array of post meta fields and a setter function.
+		const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' )
 
-	// Debug.
-	const metaDebug = useEntityProp( 'postType', postType, 'meta' )
-	console.log( metaDebug )
-
-	// Awesome debug snippet!
-	const reviews = useSelect( select => select( 'core' ).getEntityRecords( 'postType', postType ) )
-	console.log( reviews )
-
-	/**
-	 * Meta fields and setters are generated dynamically so that custom fields can be defined in
-	 * an external JSON file. The long-term plan is the user can select which fields they want to
-	 * include with the post type.
-	 */
-	customFields.forEach( field => {
-		field.metaKey = prefix + key + field.suffix
-		field.value = meta[ field.metaKey ]
-		field.updateValue = ( newValue ) => setMeta( { ...meta, [ field.metaKey ]: newValue } )
-	} )
-	
+		/**
+		 * Meta fields and setters are generated dynamically so that custom fields can be defined in
+		 * an external JSON file. The long-term plan is the user can select which fields they want to
+		 * include with the post type.
+		 */
+		customFields.forEach( field => {
+			field.metaKey = prefix + key + field.suffix
+			field.value = meta[ field.metaKey ]
+			field.updateValue = ( newValue ) => setMeta( { ...meta, [ field.metaKey ]: newValue } )
+		} )
+	}
 
 /*
  *
@@ -84,7 +98,7 @@ export default function Edit() {
 					initialOpen={true}
 				>
 
-					{ customFields.map( ( field, index ) => {
+					{ isEditable && customFields.map( ( field, index ) => {
 						return (
 							<PanelRow key={ index }>
 								<fieldset>
@@ -107,7 +121,7 @@ export default function Edit() {
 
 			<div { ...useBlockProps() }>
 
-				{ customFields.map( ( field, index ) => {
+				{ isEditable && customFields.map( ( field, index ) => {
 					return (
 						<>
 							<TextControl
@@ -122,7 +136,7 @@ export default function Edit() {
 					)
 				} ) }
 
-				{ false && <ReviewsServerSideRender /> }
+				{ ! isEditable && <ReviewsServerSideRender /> }
 
 			</div>
 		</>
