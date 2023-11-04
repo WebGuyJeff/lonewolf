@@ -108,12 +108,25 @@ class Meta_Box_Gutenberg {
 	 */
 	public function dynamic_render_callback( $attributes, $content, $block ) {
 
-		// DEBUG.
-		$output = 'The current record ID is: ' . $block->context['bigupweb/recordId'];
+		$current_post_id = get_the_ID();
 
-		$review_name          = get_post_meta( get_the_ID(), '_bigup_review_name', true );
-		$review_source_url    = get_post_meta( get_the_ID(), '_bigup_review_source_url', true );
-		$review_profile_image = get_post_meta( get_the_ID(), '_bigup_review_profile_image', true );
+		$debug  = serialize( $attributes );
+		$debug .= serialize( $content );
+		$debug .= serialize( $block );
+
+		var_dump( $content );
+
+		// DEBUG.
+		$output  = 'The passed params are: ' . $debug;
+		$output .= 'The current record ID is: ' . $current_post_id;
+
+		/*
+		 ERROR - THIS IS RETURNING PAGE CONTEXT!!!! */
+		// get_post_meta( $current_post_id, '_bigup_review_name', true );
+
+		$review_name          = get_post_meta( $current_post_id, '_bigup_review_name', true );
+		$review_source_url    = get_post_meta( $current_post_id, '_bigup_review_source_url', true );
+		$review_profile_image = get_post_meta( $current_post_id, '_bigup_review_profile_image', true );
 
 		// $output = '';
 

@@ -53,14 +53,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/core-data */ "@wordpress/core-data");
 /* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./block.json */ "./src/block.json");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
-/* harmony import */ var _data_review_definition__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../data/review-definition */ "./data/review-definition.json");
-
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./block.json */ "./src/block.json");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _data_review_definition__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../data/review-definition */ "./data/review-definition.json");
 
 
 
@@ -76,17 +73,18 @@ const {
   key,
   slug,
   customFields
-} = _data_review_definition__WEBPACK_IMPORTED_MODULE_9__;
+} = _data_review_definition__WEBPACK_IMPORTED_MODULE_8__;
 const EditReviewsButton = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
   variant: "link",
   href: slug
 }, "Edit Your Reviews");
 const ReviewsServerSideRender = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_1___default()), {
-  block: _block_json__WEBPACK_IMPORTED_MODULE_7__.name
+  block: _block_json__WEBPACK_IMPORTED_MODULE_6__.name
 });
 
 /**
- * This should behave differently on different scrrens:
+ * User can only edit content in the review post type editor context. In all other cases the
+ * content will be rendered the same as the front end.
  * 
  * Review post type edit screen:
  * Here the inputs should appear either at the bottom in th custom fields pane, or in the sidebar
@@ -94,14 +92,10 @@ const ReviewsServerSideRender = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.crea
  * custom fields to feel like they are in-built for the post type. This screen needs to have the
  * editor restricted to only using suitable block for the review content. Probably just P blocks.
  * 
- * Page and template editor screens:
- * Here the fields should be output when the meta block(s?) are inserted into the query template. As
- * per the in-built fields, the custom fields should not be editable on this screen. They should
- * be output the same as the front end, I think by using ServerSideRender.
+ * Look at the post-excerpt for an example of consuming context, ie. content from the query loop
+ * ancestor:
  * 
- * Front end:
- * Obviously the fields - should be output as the template has been laid out looking the same as in
- * the editor.
+ * @link: https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/post-excerpt/block.json
  */
 function Edit({
   context: {
@@ -110,32 +104,23 @@ function Edit({
     queryId
   }
 }) {
-  /**
-   * Look at the post-excerpt for an example of consuming context, ie. content from the query loop
-   * ancestor:
-   * 
-   * @link: https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/post-excerpt/block.json
-   */
-
-  const currentPostType = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select('core/editor').getCurrentPostType());
-  const isEditable = currentPostType === key;
+  const isEditorContextPostTypeReview = key === (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select('core/editor').getCurrentPostType());
+  const isBlockContextPostTypeReview = key === postType;
   const isDescendentOfQueryLoop = Number.isFinite(queryId);
-  console.log('isDescendentOfQueryLoop', isDescendentOfQueryLoop);
 
-  /*
-   * const test = useEntityProp( 'postType', postType, 'title' )
-   * console.log( test )
+  /**
+   * User can only edit content in the review post type editor context. In all other cases the
+   * content will be rendered the same as the front end.
+   * 
+   * Inputs, values and setters are generated dynamically so that custom fields can be defined in
+   * an external JSON file. The long-term plan is the user can select which fields they want to
+   * include with the post type.
+   * 
+   * useEntityProp returns an array of post meta fields and a setter function.
    */
-
+  const isEditable = isBlockContextPostTypeReview && isEditorContextPostTypeReview && !isDescendentOfQueryLoop;
   if (isEditable) {
-    // useEntityProp returns an array of post meta fields and a setter function.
     const [meta, setMeta] = (0,_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__.useEntityProp)('postType', postType, 'meta', postId);
-
-    /**
-     * Meta fields and setters are generated dynamically so that custom fields can be defined in
-     * an external JSON file. The long-term plan is the user can select which fields they want to
-     * include with the post type.
-     */
     customFields.forEach(field => {
       field.metaKey = prefix + key + field.suffix;
       field.value = meta[field.metaKey];
@@ -145,6 +130,14 @@ function Edit({
       });
     });
   }
+
+  // DEBUG.
+  console.log('CONTEXT');
+  console.log('postId', postId);
+  console.log('postType', postType);
+  console.log('queryId', queryId);
+  const test = (0,_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__.useEntityProp)('postType', postType, 'title', postId);
+  console.log(test);
 
   /*
    *
@@ -158,7 +151,7 @@ function Edit({
    *
    */
 
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: label,
     initialOpen: true
   }, isEditable && customFields.map((field, index) => {
@@ -172,7 +165,7 @@ function Edit({
       required: "required"
     })));
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(EditReviewsButton, null))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__.useBlockProps)()
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__.useBlockProps)()
   }, isEditable && customFields.map((field, index) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
       key: index,
@@ -341,16 +334,6 @@ module.exports = window["wp"]["coreData"];
 /***/ (function(module) {
 
 module.exports = window["wp"]["data"];
-
-/***/ }),
-
-/***/ "@wordpress/element":
-/*!*********************************!*\
-  !*** external ["wp","element"] ***!
-  \*********************************/
-/***/ (function(module) {
-
-module.exports = window["wp"]["element"];
 
 /***/ }),
 
