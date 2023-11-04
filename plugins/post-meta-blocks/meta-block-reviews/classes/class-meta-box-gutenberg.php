@@ -106,13 +106,16 @@ class Meta_Box_Gutenberg {
 	 *
 	 * @link https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/
 	 */
-	public function dynamic_render_callback( $block_attributes, $content ) {
+	public function dynamic_render_callback( $attributes, $content, $block ) {
+
+		// DEBUG.
+		$output = 'The current record ID is: ' . $block->context['bigupweb/recordId'];
 
 		$review_name          = get_post_meta( get_the_ID(), '_bigup_review_name', true );
 		$review_source_url    = get_post_meta( get_the_ID(), '_bigup_review_source_url', true );
 		$review_profile_image = get_post_meta( get_the_ID(), '_bigup_review_profile_image', true );
 
-		$output = '';
+		// $output = '';
 
 		if ( ! empty( $review_name ) ) {
 			$output .= '<h3>' . esc_html( $review_name ) . '</h3>';

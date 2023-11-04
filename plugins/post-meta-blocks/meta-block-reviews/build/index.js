@@ -103,24 +103,33 @@ const ReviewsServerSideRender = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.crea
  * Obviously the fields - should be output as the template has been laid out looking the same as in
  * the editor.
  */
-function Edit() {
-  /*
-   * postType will reflect the post context of the block. If you're in the editor of a 'page'
-   * containing this block, getCurrentPostType will return 'page' and the 'review' meta won't
-   * become available using `useSelect( select => select( 'core/editor' ).getCurrentPostType()`.
-   * I believe I'm 'selecting' the wrong data source possibly?
+function Edit({
+  context: {
+    postId,
+    postType,
+    queryId
+  }
+}) {
+  /**
+   * Look at the post-excerpt for an example of consuming context, ie. content from the query loop
+   * ancestor:
    * 
-   * The query block does pull in the built-in fields, so there is obviously a source for the
-   * data somewhere. It seems like useEntityProp isn't the right tool for the job, or I've
-   * registered the fields incorrectly...
-   * 
-   * @link https://developer.wordpress.org/block-editor/reference-guides/data/data-core-editor/
+   * @link: https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/post-excerpt/block.json
    */
-  const postType = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select('core/editor').getCurrentPostType());
-  const isEditable = postType === key;
+
+  const currentPostType = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select('core/editor').getCurrentPostType());
+  const isEditable = currentPostType === key;
+  const isDescendentOfQueryLoop = Number.isFinite(queryId);
+  console.log('isDescendentOfQueryLoop', isDescendentOfQueryLoop);
+
+  /*
+   * const test = useEntityProp( 'postType', postType, 'title' )
+   * console.log( test )
+   */
+
   if (isEditable) {
     // useEntityProp returns an array of post meta fields and a setter function.
-    const [meta, setMeta] = (0,_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__.useEntityProp)('postType', postType, 'meta');
+    const [meta, setMeta] = (0,_wordpress_core_data__WEBPACK_IMPORTED_MODULE_4__.useEntityProp)('postType', postType, 'meta', postId);
 
     /**
      * Meta fields and setters are generated dynamically so that custom fields can be defined in
@@ -381,7 +390,7 @@ module.exports = JSON.parse('{"key":"review","label":"Reviews","slug":"edit.php?
   \************************/
 /***/ (function(module) {
 
-module.exports = JSON.parse('{"$schema":"https://json.schemastore.org/block.json","apiVersion":2,"name":"bigupweb/custom-fields-reviews","version":"0.1.0","title":"Custom Fields for Reviews","category":"theme","icon":"smiley","description":"Custom fields for the \'Review\' custom post type","supports":{"html":false},"textdomain":"bigupweb-custom-fields-reviews","editorScript":"file:./index.js"}');
+module.exports = JSON.parse('{"$schema":"https://json.schemastore.org/block.json","apiVersion":2,"name":"bigupweb/custom-fields-reviews","version":"0.1.0","title":"Custom Fields for Reviews","category":"theme","icon":"smiley","description":"Custom fields for the \'Review\' custom post type","usesContext":["postId","postType","queryId"],"supports":{"html":false},"textdomain":"bigupweb-custom-fields-reviews","editorScript":"file:./index.js"}');
 
 /***/ })
 

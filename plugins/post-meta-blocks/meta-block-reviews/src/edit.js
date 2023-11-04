@@ -43,27 +43,34 @@ const ReviewsServerSideRender = () => (
  * Obviously the fields - should be output as the template has been laid out looking the same as in
  * the editor.
  */
-export default function Edit() {
+export default function Edit( { context: { postId, postType, queryId } } ) {
 
+/**
+ * Look at the post-excerpt for an example of consuming context, ie. content from the query loop
+ * ancestor:
+ * 
+ * @link: https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/post-excerpt/block.json
+ */
+
+
+	
+	const currentPostType = useSelect( select => select( 'core/editor' ).getCurrentPostType() )
+	const isEditable = ( currentPostType === key )
+	
+
+	const isDescendentOfQueryLoop = Number.isFinite( queryId )
+	console.log( 'isDescendentOfQueryLoop', isDescendentOfQueryLoop )
+	
 	/*
-	 * postType will reflect the post context of the block. If you're in the editor of a 'page'
-	 * containing this block, getCurrentPostType will return 'page' and the 'review' meta won't
-	 * become available using `useSelect( select => select( 'core/editor' ).getCurrentPostType()`.
-	 * I believe I'm 'selecting' the wrong data source possibly?
-	 * 
-	 * The query block does pull in the built-in fields, so there is obviously a source for the
-	 * data somewhere. It seems like useEntityProp isn't the right tool for the job, or I've
-	 * registered the fields incorrectly...
-	 * 
-	 * @link https://developer.wordpress.org/block-editor/reference-guides/data/data-core-editor/
+	 * const test = useEntityProp( 'postType', postType, 'title' )
+	 * console.log( test )
 	 */
-	const postType = useSelect( select => select( 'core/editor' ).getCurrentPostType() )
-	const isEditable = ( postType === key )
+
 
 
 	if ( isEditable ) {
 		// useEntityProp returns an array of post meta fields and a setter function.
-		const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' )
+		const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta', postId )
 
 		/**
 		 * Meta fields and setters are generated dynamically so that custom fields can be defined in
