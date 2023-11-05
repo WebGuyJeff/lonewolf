@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n'
 import { registerBlockCollection, registerBlockType } from '@wordpress/blocks'
 import {
 	Logo,
-	LogoBase64
+	Icon
 } from './svg'
 import Edit from './edit'
 import metadata from './block.json'
@@ -21,13 +21,13 @@ registerBlockCollection(
 	'bigupweb',
 	{
 		title: __( 'Bigup Web' ),
-		icon: LogoBase64
+		icon: Logo
 	}
 )
 
 registerBlockType( metadata.name, {
 	...metadata,
-	icon: Logo,
+	icon: Icon,
 
 	/**
 	 * @see ./edit.js

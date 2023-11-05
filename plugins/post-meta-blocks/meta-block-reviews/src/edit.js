@@ -17,54 +17,39 @@ const EditReviewsButton = () => (
 	</Button>
 )
 
-const ReviewsServerSideRender = () => (
+/**
+ * ServerSideRender passes the output task back to the `render_callback` defined in PHP function
+ * register_block_type. That will render the content as we want it to appear on the front end.
+ */ 
+const ReviewServerSideRender = () => (
     <ServerSideRender
         block={ metadata.name }
     />
 )
 
-
 /**
- * User can only edit content in the review post type editor context. In all other cases the
- * content will be rendered the same as the front end.
+ * Editor Handler.
  * 
- * Review post type edit screen:
- * Here the inputs should appear either at the bottom in th custom fields pane, or in the sidebar
- * with the other post options such as featured image etc - NOT on a separate tab. I want the 
- * custom fields to feel like they are in-built for the post type. This screen needs to have the
- * editor restricted to only using suitable block for the review content. Probably just P blocks.
+ * User can only edit content in the review post type editor context. In all other cases the content
+ * will be rendered the same as the front end.
  * 
- * Look at the post-excerpt for an example of consuming context, ie. content from the query loop
- * ancestor:
+ * Post type edit screen: Inputs should appear either at the bottom in th custom fields pane, or in
+ * the sidebar with the other post fields - NOT on a separate tab. Custom fields should feel
+ * built-in to the user, not have them looking in a different place to edit the content.
  * 
+ * Inputs, values and setters are generated dynamically so that custom fields can be defined in
+ * an external JSON file. The long-term plan is to enable users to define which fields they want to
+ * include with the post type.
+ *
+ * This block consumes context from the query loop. See "usesContext" in block.json.
  * @link: https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/post-excerpt/block.json
  */
-export default function Edit( { context: { postId, postType, queryId } } ) {
-
-	const isEditorContextPostTypeReview = ( key === useSelect( select => select( 'core/editor' ).getCurrentPostType() ) )
-	const isBlockContextPostTypeReview = ( key === postType )
-	const isDescendentOfQueryLoop = Number.isFinite( queryId )
-
-	/**
-	 * User can only edit content in the review post type editor context. In all other cases the
-	 * content will be rendered the same as the front end.
-	 * 
-	 * Inputs, values and setters are generated dynamically so that custom fields can be defined in
-	 * an external JSON file. The long-term plan is the user can select which fields they want to
-	 * include with the post type.
-	 * 
-	 * useEntityProp returns an array of post meta fields and a setter function.
-	 */
-	const isEditable = ( isBlockContextPostTypeReview && isEditorContextPostTypeReview && ! isDescendentOfQueryLoop )
-	if ( isEditable ) {
-		const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta', postId )
-		customFields.forEach( field => {
-			field.metaKey = prefix + key + field.suffix
-			field.value = meta[ field.metaKey ]
-			field.updateValue = ( newValue ) => setMeta( { ...meta, [ field.metaKey ]: newValue } )
-		} )
-	}
-
+export default function Edit( {
+	context: {
+		postId,
+		postType,
+		queryId }
+	} ) {
 
 	// DEBUG.
 	console.log( 'CONTEXT' )
@@ -72,9 +57,28 @@ export default function Edit( { context: { postId, postType, queryId } } ) {
 	console.log( 'postType', postType )
 	console.log( 'queryId', queryId )
 
-	
-	const test = useEntityProp( 'postType', postType, 'title' , postId )
-	console.log( test )
+	console.log( 'SELECT-CORE' )
+	const core = useSelect( select => select( 'core' ).getEntityRecords( 'postType', key ) )
+	console.log( core )
+
+	console.log( 'SELECT-EDITOR' )
+	const [ editor ] = useEntityProp( 'postType', postType, 'meta', postId )
+	console.log( editor )
+
+	const isPostEditorContext = ( key === useSelect( select => select( 'core/editor' ).getCurrentPostType() ) )
+	const isBlockContext = ( key === postType )
+	const isDescendentOfQueryLoop = Number.isFinite( queryId )
+
+	const isEditable = ( isBlockContext && isPostEditorContext && ! isDescendentOfQueryLoop )
+	if ( isEditable ) {
+		const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta', postId )
+		// Apply values and setters dynamically to the custom field objects.
+		customFields.forEach( field => {
+			field.metaKey = prefix + key + field.suffix
+			field.value = meta[ field.metaKey ]
+			field.updateValue = ( newValue ) => setMeta( { ...meta, [ field.metaKey ]: newValue } )
+		} )
+	}
 
 
 /*
@@ -136,7 +140,7 @@ export default function Edit( { context: { postId, postType, queryId } } ) {
 					)
 				} ) }
 
-				{ ! isEditable && <ReviewsServerSideRender /> }
+				{ ! isEditable && <ReviewServerSideRender /> }
 
 			</div>
 		</>

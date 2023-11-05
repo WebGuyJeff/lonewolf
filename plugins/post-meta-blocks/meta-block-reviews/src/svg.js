@@ -2,9 +2,10 @@
  * Webpack entry point.
  */
 
-import LogoBase64, { ReactComponent as Logo } from './svg/logo.svg'
+import { ReactComponent as Logo } from './svg/bigup-logo.svg'
+import { ReactComponent as Icon } from './svg/block-icon.svg'
 
 export {
 	Logo,
-	LogoBase64
+	Icon
 }

@@ -108,27 +108,22 @@ class Meta_Box_Gutenberg {
 	 */
 	public function dynamic_render_callback( $attributes, $content, $block ) {
 
+		// ERROR - THIS IS RETURNING PAGE CONTEXT!!!!
 		$current_post_id = get_the_ID();
 
-		$debug  = serialize( $attributes );
-		$debug .= serialize( $content );
-		$debug .= serialize( $block );
-
-		var_dump( $content );
-
 		// DEBUG.
-		$output  = 'The passed params are: ' . $debug;
-		$output .= 'The current record ID is: ' . $current_post_id;
-
 		/*
-		 ERROR - THIS IS RETURNING PAGE CONTEXT!!!! */
-		// get_post_meta( $current_post_id, '_bigup_review_name', true );
-
+		$output  = '<p>The current record ID is: ' . $current_post_id . '</p>';
+		$output .= '<p>The attributes: </p><pre>' . print_r( $attributes, true ) . '</pre>';
+		$output .= '<p>The content: </p><pre>' . print_r( $content, true ) . '</pre>';
+		$output .= '<p>The block: </p><pre>' . print_r( $block, true ) . '</pre>';
+		*/
+	
 		$review_name          = get_post_meta( $current_post_id, '_bigup_review_name', true );
 		$review_source_url    = get_post_meta( $current_post_id, '_bigup_review_source_url', true );
 		$review_profile_image = get_post_meta( $current_post_id, '_bigup_review_profile_image', true );
 
-		// $output = '';
+		$output = '';
 
 		if ( ! empty( $review_name ) ) {
 			$output .= '<h3>' . esc_html( $review_name ) . '</h3>';
