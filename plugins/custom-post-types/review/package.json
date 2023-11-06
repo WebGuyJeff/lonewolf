@@ -12,6 +12,8 @@
 		"@wordpress/scripts": "^26.13.0"
 	},
 	"dependencies": {
+		"@wordpress/compose": "^6.22.0",
+		"@wordpress/plugins": "^6.13.0",
 		"@wordpress/server-side-render": "^4.21.0"
 	}
 }

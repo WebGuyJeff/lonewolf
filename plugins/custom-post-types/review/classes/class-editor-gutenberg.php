@@ -6,7 +6,7 @@ namespace BigupWeb\CPT_Review;
  *
  * @package cpt-review
  */
-class Meta_Box_Gutenberg {
+class Editor_Gutenberg {
 
 	/**
 	 * Custom post type key.
@@ -34,7 +34,7 @@ class Meta_Box_Gutenberg {
 	 *
 	 * @var array
 	 */
-	private $fields = '';
+	private $custom_fields = '';
 
 
 	/**
@@ -44,45 +44,24 @@ class Meta_Box_Gutenberg {
 	 * to setup the post meta with WP hooks.
 	 */
 	public function __construct( $definition ) {
-		$this->key        = $definition['key'];
-		$this->prefix     = $definition['prefix'];
-		$this->metabox_id = $definition['metaboxID'];
-		$this->fields     = $definition['customFields'];
+		$this->key           = $definition['key'];
+		$this->prefix        = $definition['prefix'];
+		$this->metabox_id    = $definition['metaboxID'];
+		$this->custom_fields = $definition['customFields'];
 	}
-
-
-	/**
-	 * Register Gutenberg block.
-	 */
-	 /*
-	public function register_gutenberg_block() {
-		$location = CPTREV_DIR . '/build';
-		$result   = register_block_type(
-			$location,
-			array(
-				'render_callback' => array( $this, 'dynamic_render_callback' ),
-				// 'uses_context'    => array( 'postId', 'postType', 'queryId' ),
-			)
-		);
-		if ( false === $result ) {
-			error_log( "ERROR: Block registration failed for path '{$location}'" );
-		}
-	}
-	*/
 
 
 	/**
 	 * Register block and metafield on the post type.
 	 */
-	public function register_metafields() {
-		foreach ( $this->fields as $metafield ) {
+	public function setup_custom_fields() {
+		foreach ( $this->custom_fields as $metafield ) {
 
-			$block_dir = '/blocks/' . str_replace( '_', '-', $this->key . $metafield['suffix'] );
+			$block_dir = CPTREV_DIR . 'build/blocks/' . str_replace( '_', '-', $this->key . $metafield['suffix'] );
 			$result    = register_block_type(
 				$block_dir,
 				array(
 					'render_callback' => array( $this, 'dynamic_render_callback' ),
-					// 'uses_context'    => array( 'postId', 'postType', 'queryId' ),
 				)
 			);
 			if ( false === $result ) {
@@ -127,23 +106,61 @@ class Meta_Box_Gutenberg {
 	 */
 	public function dynamic_render_callback( $attributes, $content, $block ) {
 
-		$context_post_id = $block->context['postId'];
-
-		$review_name       = get_post_meta( $context_post_id, '_bigup_review_name', true );
-		$review_source_url = get_post_meta( $context_post_id, '_bigup_review_source_url', true );
-
-		$output = '';
-
-		if ( ! empty( $review_name ) ) {
-			$output .= '<p><em>' . esc_html( $review_name ) . '</em></p>';
+		// Get the custom field definition for the calling block.
+		$field = array();
+		foreach( $this->custom_fields as $custom_field ) {
+			if ( $block->name === $custom_field['block_name'] ) {
+				$field = $custom_field;
+			}
 		}
-		if ( ! empty( $review_source_url ) ) {
-			$output .= '<a style="borderStyle:none; borderWidth:0px;" href="' . esc_url( $review_source_url ) . '">' . __( 'Review Source URL' ) . '</a>';
+
+		// Get the custom field value.
+		$context_post_id = $block->context['postId'];
+		$meta_key        = $this->prefix . $this->key . $field['suffix'];
+		$value           = get_post_meta( $context_post_id, $meta_key, true );
+
+		// Display the output as configured by the custom field definition.
+		$output = '';
+		if ( ! empty( $value ) > 0 ) {
+			switch ( $field['suffix'] ) {
+				case '_name':
+					$output .= '<p><em>' . esc_html( $value ) . '</em></p>';
+					break;
+				case '_source_url':
+					$output .= '<a ' .
+					'style="borderStyle:none; borderWidth:0px;" ' .
+					'href="' . esc_url( $value ) . '"' .
+					'rel="noreferrer"' .
+					'target="_blank"' .
+					'>' .
+					$attributes['linkText'] .
+					'</a>';
+					break;
+			}
 		}
 		if ( strlen( $output ) > 0 ) {
 			return '<div ' . get_block_wrapper_attributes() . '>' . $output . '</div>';
 		} else {
-			return '<div ' . get_block_wrapper_attributes() . '><strong>' . __( 'No fields available!' ) . '</strong></div>';
+			return '';
+		}
+	}
+
+
+	/**
+	 * Filter the allowed blocks for this post type.
+	 *
+	 * @param array $allowed_blocks The allowed blocks
+	 * @param array $editor_context The editor context
+	 */
+	public function allowed_block_types( $allowed_blocks, $editor_context ) {
+		if ( $this->key === $editor_context->post->post_type ) {
+			$allowed_blocks = array(
+				'core/paragraph',
+				'core/list',
+			);
+			return $allowed_blocks;
+		} else {
+			return;
 		}
 	}
 }

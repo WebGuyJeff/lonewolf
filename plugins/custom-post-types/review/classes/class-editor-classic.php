@@ -6,7 +6,7 @@ namespace BigupWeb\CPT_Review;
  *
  * @package cpt-review
  */
-class Meta_Box_Classic {
+class Editor_Classic {
 
 	/**
 	 * Custom post type key.

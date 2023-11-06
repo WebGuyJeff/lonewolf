@@ -1,18 +1,20 @@
-/**
- * Import WordPress Webpack config provided by @wordpress/scripts. This way we still get full
- * benefit of the WP defaults while being able to add/override functionality.
- */
-const WordPressWebpackConfig = require( '@wordpress/scripts/config/webpack.config' )
+const path = require( 'path' )
+
+// Import the @wordpress/scripts config.
+const wordpressConfig = require( '@wordpress/scripts/config/webpack.config' )
+
+// Import the utility to auto-generate the entry points in the src directory.
+const { getWebpackEntryPoints } = require( '@wordpress/scripts/utils/config' )
 
 module.exports = {
-	// Include the WP config.
-	...WordPressWebpackConfig,
+	// Spread the existing WordPress config.
+	...wordpressConfig,
 
-	module: {
-		...WordPressWebpackConfig.module,
+	entry: {
+		// Spread the auto-generated entrypoints.
+		...getWebpackEntryPoints(),
 
-		rules: [
-			...WordPressWebpackConfig.module.rules,
-		]
-	}
+		// Extend with new entrypoints.
+		'metaboxPlugin': path.resolve( process.cwd(), 'src', 'metaboxPlugin.js' ),
+	},
 }

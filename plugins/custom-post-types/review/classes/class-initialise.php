@@ -36,17 +36,19 @@ class Initialise {
 			return;
 		}
 
-		$classic = new Meta_Box_Classic( $def );
+		$classic = new Editor_Classic( $def );
 		add_action( 'do_meta_boxes', array( &$classic, 'remove_default_meta_box' ), 10, 3 );
 		add_action( 'add_meta_boxes', array( &$classic, 'add_custom_meta_box' ), 10, 0 );
 		add_action( 'save_post', array( &$classic, 'save_custom_meta_box_data' ), 1, 2 );
 
-		$gutenberg = new Meta_Box_Gutenberg( $def );
-		add_action( 'init', array( &$gutenberg, 'register_gutenberg_block' ), 10, 0 );
-		add_action( 'init', array( &$gutenberg, 'register_metafields' ), 11, 0 );
+		$gutenberg = new Editor_Gutenberg( $def );
+		add_action( 'init', array( &$gutenberg, 'setup_custom_fields' ), 11, 0 );
+		add_filter( 'allowed_block_types_all', array( &$gutenberg, 'allowed_block_types' ), 25, 2 );
 
 		// Enable WP custom fields even if ACF is installed.
 		add_filter( 'acf/settings/remove_wp_meta_box', '__return_false' );
+
+		add_action( 'enqueue_block_editor_assets', array( &$this, 'bigup_cpt_review_enqueue_scripts' ) );
 	}
 
 
@@ -57,5 +59,14 @@ class Initialise {
 		$json       = Util::get_contents( CPTREV_DIR . $this->definition_path );
 		$definition = json_decode( $json, true );
 		return $definition;
+	}
+
+
+	/**
+	 * Enqueue scripts for this plugin.
+	 */
+	public function bigup_cpt_review_enqueue_scripts() {
+		wp_register_script( 'bigup_cpt_review_js', CPTREV_URL . 'build/metaboxPlugin.js', array(), filemtime( CPTREV_DIR . 'build/metaboxPlugin.js' ), true );
+		wp_enqueue_script( 'bigup_cpt_review_js' );
 	}
 }

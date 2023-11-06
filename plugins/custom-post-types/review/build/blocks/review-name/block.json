@@ -1,9 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/block.json",
   "apiVersion": 2,
-  "name": "bigupweb/bigup-review-name",
+  "name": "bigupweb/review-name",
   "version": "0.1.0",
-  "title": "Review Source URL",
+  "title": "Review Name",
   "category": "theme",
   "icon": "smiley",
   "description": "Name custom field for the 'Review' custom post type",
@@ -15,6 +15,6 @@
   "supports": {
     "html": false
   },
-  "textdomain": "bigup-review-name",
+  "textdomain": "bigupweb-review-name",
   "editorScript": "file:./index.js"
 }

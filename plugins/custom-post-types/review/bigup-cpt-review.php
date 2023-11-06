@@ -19,6 +19,7 @@
 // Define constants.
 define( 'CPTREV_DEBUG', defined( 'WP_DEBUG' ) && WP_DEBUG === true );
 define( 'CPTREV_DIR', trailingslashit( __DIR__ ) );
+define( 'CPTREV_URL', trailingslashit( get_site_url( null, strstr( __DIR__, '/wp-content/' ) ) ) );
 
 // Setup PHP namespace.
 require_once CPTREV_DIR . '/classes/autoload.php';
