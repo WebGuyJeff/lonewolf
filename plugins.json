@@ -3,7 +3,7 @@
 		"plugins/blocks/hero-punch/hero-punch.php",
 		"plugins/blocks/social-links-gradient-fill/social-links-gradient-fill.php"
 	],
-	"post-meta-blocks": [
-		"plugins/post-meta-blocks/meta-block-reviews/meta-block-reviews.php"
+	"custom-post-types": [
+		"plugins/custom-post-types/review/bigup-cpt-review.php"
 	]
 }

@@ -66,17 +66,6 @@
 			"show_in_rest": "true",
 			"single": "true",
 			"user_capabilities": "edit_posts"
-		},
-		{
-			"suffix": "_profile_image",
-			"label": "Profile Image",
-			"description": "Profile image of the reviewer",
-			"type": "string",
-			"input_type": "text",
-			"required": "",
-			"show_in_rest": "true",
-			"single": "true",
-			"user_capabilities": "edit_posts"
 		}
 	]
 }

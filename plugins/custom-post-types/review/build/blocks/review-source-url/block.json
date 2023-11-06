@@ -1,12 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/block.json",
   "apiVersion": 2,
-  "name": "bigupweb/custom-fields-reviews",
+  "name": "bigupweb/bigup-review-source-url",
   "version": "0.1.0",
-  "title": "Custom Fields for Reviews",
+  "title": "Review Source URL",
   "category": "theme",
   "icon": "smiley",
-  "description": "Custom fields for the 'Review' custom post type",
+  "description": "Source URL custom field for the 'Review' custom post type",
   "usesContext": [
     "postId",
     "postType",
@@ -15,6 +15,6 @@
   "supports": {
     "html": false
   },
-  "textdomain": "bigupweb-custom-fields-reviews",
+  "textdomain": "bigup-review-source-url",
   "editorScript": "file:./index.js"
 }

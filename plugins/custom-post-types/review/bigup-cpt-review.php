@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       meta-block-reviews
+ * Plugin Name:       bigup-cpt-review
  * Description:       A custom 'Reviews' post type with custom fields.
  * Requires at least: 6.0
  * Requires PHP:      7.4
@@ -8,9 +8,9 @@
  * Author:            Jefferson Real
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       meta-block-reviews
+ * Text Domain:       bigup-cpt-review
  *
- * @package           meta-block-reviews
+ * @package           bigup-cpt-review
  * @link              https://kinsta.com/blog/dynamic-blocks/
  * @link              https://kinsta.com/blog/wordpress-add-meta-box-to-post/
  * @link              https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/

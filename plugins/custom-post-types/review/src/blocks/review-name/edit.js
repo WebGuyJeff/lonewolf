@@ -4,22 +4,14 @@ import { useSelect } from '@wordpress/data'
 import { useEntityProp } from '@wordpress/core-data'
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor'
 import metadata from './block.json'
-import './editor.scss'
-import json from '../data/review-definition'
-const { label, prefix, key, slug, customFields } = json
-
-const EditReviewsButton = () => (
-	<Button
-		variant="link"
-		href={ slug }
-	>
-		Edit Your Reviews
-	</Button>
-)
+import json from '../../../data/review-definition'
+const { label, prefix, key, customFields } = json
 
 /**
  * ServerSideRender passes the output task back to the `render_callback` defined in PHP function
  * register_block_type. That will render the content as we want it to appear on the front end.
+ * 
+ * NOTE: I can't get this to pass context to the PHP render_callback and therefore renders nothing.
  */ 
 const ReviewServerSideRender = () => (
     <ServerSideRender
@@ -51,26 +43,15 @@ export default function Edit( {
 		queryId }
 	} ) {
 
-	// DEBUG.
-	console.log( 'CONTEXT' )
-	console.log( 'postId', postId )
-	console.log( 'postType', postType )
-	console.log( 'queryId', queryId )
-
-	console.log( 'SELECT-CORE' )
-	const core = useSelect( select => select( 'core' ).getEntityRecords( 'postType', key ) )
-	console.log( core )
-
-	console.log( 'SELECT-EDITOR' )
-	const [ editor ] = useEntityProp( 'postType', postType, 'meta', postId )
-	console.log( editor )
-
 	const isPostEditorContext = ( key === useSelect( select => select( 'core/editor' ).getCurrentPostType() ) )
 	const isBlockContext = ( key === postType )
 	const isDescendentOfQueryLoop = Number.isFinite( queryId )
 
 	const isEditable = ( isBlockContext && isPostEditorContext && ! isDescendentOfQueryLoop )
-	if ( isEditable ) {
+
+	console.log( 'isEditable' , isEditable )
+
+	if ( true ) {
 		const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta', postId )
 		// Apply values and setters dynamically to the custom field objects.
 		customFields.forEach( field => {
@@ -79,7 +60,6 @@ export default function Edit( {
 			field.updateValue = ( newValue ) => setMeta( { ...meta, [ field.metaKey ]: newValue } )
 		} )
 	}
-
 
 /*
  *
@@ -118,8 +98,6 @@ export default function Edit( {
 						)
 					} ) }
 
-					<EditReviewsButton />
-
 				</PanelBody>
 			</InspectorControls>
 
@@ -127,20 +105,44 @@ export default function Edit( {
 
 				{ isEditable && customFields.map( ( field, index ) => {
 					return (
-						<>
-							<TextControl
-								key={ index }
-								label={ field.label }
-								value={ field.value }
-								onChange={ field.updateValue }
-								maxLength={50}
-								required="required"
-							/>
-						</>
+						<TextControl
+							key={ index }
+							label={ field.label }
+							value={ field.value }
+							onChange={ field.updateValue }
+							maxLength={50}
+							required="required"
+						/>
 					)
 				} ) }
 
-				{ ! isEditable && <ReviewServerSideRender /> }
+				{ ! isEditable && customFields.map( ( field, index ) => {
+					switch( field.input_type ) {
+						case 'text':
+							return (
+								<p>
+									<em>
+										{ '~ ' + field.value }
+									</em>
+								</p>
+							)
+						case 'url':
+							return (
+								<a
+									style={{ borderStyle:'none', borderWidth:'0px' }}
+									href={ field.value }
+								>
+									{ field.label }
+								</a>
+							)
+						default:
+							return (
+								<p key={ index }>
+									{ 'No configuration for field type ' + field.input_type }
+								</p>
+							)
+					}
+				} ) }
 
 			</div>
 		</>

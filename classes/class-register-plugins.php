@@ -40,8 +40,8 @@ class Register_Plugins {
 					$this->require_entry_points( $plugins['blocks'] );
 					break;
 
-				case 'post-meta-blocks':
-					$this->require_entry_points( $plugins['post-meta-blocks'] );
+				case 'custom-post-types':
+					$this->require_entry_points( $plugins['custom-post-types'] );
 					break;
 
 				default:

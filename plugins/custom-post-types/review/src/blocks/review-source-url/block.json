@@ -1,0 +1,16 @@
+{
+	"$schema": "https://json.schemastore.org/block.json",
+	"apiVersion": 2,
+	"name": "bigupweb/bigup-review-source-url",
+	"version": "0.1.0",
+	"title": "Review Source URL",
+	"category": "theme",
+	"icon": "smiley",
+	"description": "Source URL custom field for the 'Review' custom post type",
+	"usesContext": [ "postId", "postType", "queryId" ],
+	"supports": {
+		"html": false
+	},
+	"textdomain": "bigup-review-source-url",
+	"editorScript": "file:./index.js"
+}
