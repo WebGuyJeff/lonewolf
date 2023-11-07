@@ -2,8 +2,5 @@
 	"blocks": [
 		"plugins/blocks/hero-punch/hero-punch.php",
 		"plugins/blocks/social-links-gradient-fill/social-links-gradient-fill.php"
-	],
-	"custom-post-types": [
-		"plugins/custom-post-types/review/bigup-cpt-review.php"
 	]
 }
