@@ -8,27 +8,27 @@
 			"palette": [
 				{
 					"slug": "lw-bg",
-					"color": "#EBE8E6",
+					"color": "#072c50",
 					"name": "Background"
 				},
 				{
 					"slug": "lw-fg",
-					"color": "#1D1F25",
+					"color": "#ffffff",
 					"name": "Foreground"
 				},
 				{
 					"slug": "lw-bg-alt",
-					"color": "rgba(255, 255, 255, 0.6)",
+					"color": "#fff2",
 					"name": "Background Alt"
 				},
 				{
 					"slug": "lw-fg-alt",
-					"color": "#FDFDFD",
+					"color": "#fcfcfc",
 					"name": "Foreground Alt"
 				},
 				{
 					"slug": "lw-accent",
-					"color": "#C26148",
+					"color": "#f89549",
 					"name": "Accent"
 				},
 				{
