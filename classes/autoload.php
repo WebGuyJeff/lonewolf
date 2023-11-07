@@ -15,7 +15,7 @@
 spl_autoload_register(
 	function( $class ) {
 
-		$namespace       = 'BigupWeb\\CPT_Review\\';
+		$namespace       = 'BigupWeb\\Lonewolf\\';
 		$classes_dir     = dirname( __FILE__ );
 		$filename_prefix = 'class-';
 
@@ -35,7 +35,7 @@ spl_autoload_register(
 		if ( file_exists( $class_filepath ) ) {
 			require $class_filepath;
 		} else {
-			echo '<script>console.log("ERROR: lonewolf php autoload | Class not found: ' . $classname . '")</script>';
+			error_log( $namespace . ' autoload error: file not found: ' . $class_filepath );
 		}
 	}
 );

@@ -24,7 +24,6 @@ class Theme_Setup {
 		add_action( 'after_setup_theme', array( $this, 'theme_configuration_and_features' ) );
 		add_action( 'init', array( $this, 'register_taxonomy_for_default_posts' ) );
 		add_filter( 'site_icon_image_sizes', array( $this, 'add_custom_site_icon_sizes' ) );
-		self::define_constants();
 		self::register_menu_locations();
 		self::remove_prefix_from_category_titles();
 		self::customise_sitemap();
@@ -38,16 +37,6 @@ class Theme_Setup {
 		add_action( 'admin_init', array( new Settings_Admin(), '__construct' ) );
 		add_action( 'init', array( new Register_Patterns(), '__construct' ) );
 		add_filter( 'safe_style_css', fn( $styles ) => Escape::get_safe_styles( $styles ) );
-	}
-
-
-	/**
-	 * Define global variables.
-	 */
-	public function define_constants() {
-		define( 'LW_DEBUG', defined( 'WP_DEBUG' ) && WP_DEBUG === true );
-		define( 'LW_DIR', trailingslashit( get_template_directory() ) );
-		define( 'LW_URL', trailingslashit( get_template_directory_uri() ) );
 	}
 
 
