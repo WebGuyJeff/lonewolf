@@ -81,7 +81,6 @@ class Custom_Post_Type {
 		$this->label      = $cpt['label'];
 
 		add_action( 'init', array( &$this, 'register' ), 0, 1 );
-		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_cpt_link' ) );
 
 		/* Classic editor metabox support - soon to be removed in favour of FSE meta blocks */
 		$this->prefix     = $cpt['prefix'];
@@ -108,18 +107,6 @@ class Custom_Post_Type {
 			register_taxonomy_for_object_type( 'post_tag', $this->key );
 		}
 	}
-
-
-	/**
-	 * Echo link on the theme dashboard admin page using the theme's inbuilt static method.
-	 */
-	public function echo_cpt_link() {
-		Settings_Admin::echo_dashboard_page_link(
-			$this->slug,
-			$this->label
-		);
-	}
-
 
 
 	// ========================================================== CLASSIC EDITOR SUPPORT.

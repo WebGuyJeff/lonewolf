@@ -45,11 +45,12 @@ class Settings_Admin {
 				}
 			}
 		);
-		add_action( 'admin_menu', array( $this, 'add_settings_menu' ), 9 );
-		add_action( 'admin_init', array( new Settings_Tab_Identity(), 'init' ) );
-		add_action( 'admin_init', array( new Settings_Tab_Features(), 'init' ) );
-		add_action( 'admin_init', array( new Settings_Tab_Verification(), 'init' ) );
-		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_settings_link_callback' ) );
+		add_action( 'admin_menu', array( $this, 'add_settings_menu' ), 9, 0 );
+		add_action( 'admin_init', array( new Settings_Tab_Identity(), 'init' ), 10, 0 );
+		add_action( 'admin_init', array( new Settings_Tab_Features(), 'init' ), 10, 0 );
+		add_action( 'admin_init', array( new Settings_Tab_Verification(), 'init' ), 10, 0 );
+		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_settings_link_callback' ), 10, 0 );
+		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_post_type_links_callback' ), 10, 0 );
 	}
 
 	public function add_settings_menu() {
@@ -255,22 +256,40 @@ class Settings_Admin {
 	/**
 	 * Echo a link to this theme's dashboard page.
 	 */
-	public static function echo_dashboard_page_link( $link, $text ) {
+	public static function echo_dashboard_page_link( $link, $text, $description = '' ) {
+
+		$tooltip = ( $description ) ? 'title="' . $description . '"' : '';
+
 		?>
-		<a href="<?php echo $link; ?>">
-			<?php echo $text; ?>
+		<a href="<?php echo esc_url( $link ); ?>" <?php echo $tooltip; ?>>
+			<?php echo esc_html( $text ); ?>
 		</a>
 		<?php
 	}
 
 
 	/**
-	 * Echo settings link on the dashboard page callback.
+	 * Echo settings link on the dashboard page.
 	 */
 	public function echo_settings_link_callback() {
 		self::echo_dashboard_page_link(
 			'/wp-admin/admin.php?page=' . self::SETTINGSLUG,
 			'Theme settings'
 		);
+	}
+
+
+	/**
+	 * Echo post type links on the dashboard page.
+	 */
+	public function echo_post_type_links_callback() {
+		$post_types = get_post_types( array( 'public' => true ), 'objects' );
+		foreach ( $post_types as $post_type ) {
+			self::echo_dashboard_page_link(
+				'/wp-admin/edit.php?post_type=' . $post_type->name,
+				$post_type->label,
+				$post_type->description
+			);
+		}
 	}
 }

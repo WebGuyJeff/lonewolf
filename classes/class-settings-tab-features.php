@@ -30,40 +30,9 @@ class Settings_Tab_Features {
 			)
 		);
 
-		// =================================================== Custom Post Types Section
-
-		add_settings_section(
-			'section_cpt',
-			'Custom Post Types',
-			array( $this, 'section_cpt_callback' ),
-			self::PAGE
-		);
-
-			add_settings_field(
-				'cpt_services',
-				'Services custom posts',
-				array( $this, 'cpt_services_callback' ),
-				self::PAGE,
-				'section_cpt'
-			);
-
-			add_settings_field(
-				'cpt_reviews',
-				'Reviews custom posts',
-				array( $this, 'cpt_reviews_callback' ),
-				self::PAGE,
-				'section_cpt'
-			);
-
-			add_settings_field(
-				'cpt_projects',
-				'Projects custom posts',
-				array( $this, 'cpt_projects_callback' ),
-				self::PAGE,
-				'section_cpt'
-			);
 
 		// ================================================================== Google Maps
+
 
 		add_settings_section(
 			'section_gmaps',
@@ -85,18 +54,6 @@ class Settings_Tab_Features {
 	public function sanitize( $input ) {
 		$sanitary_values = array();
 
-		if ( isset( $input['cpt_services'] ) ) {
-			$sanitary_values['cpt_services'] = Sanitize::checkbox( $input['cpt_services'] );
-		}
-
-		if ( isset( $input['cpt_reviews'] ) ) {
-			$sanitary_values['cpt_reviews'] = Sanitize::checkbox( $input['cpt_reviews'] );
-		}
-
-		if ( isset( $input['cpt_projects'] ) ) {
-			$sanitary_values['cpt_projects'] = Sanitize::checkbox( $input['cpt_projects'] );
-		}
-
 		if ( isset( $input['gmaps_api_key'] ) ) {
 			$sanitary_values['gmaps_api_key'] = Sanitize::key( $input['gmaps_api_key'] );
 		}
@@ -108,10 +65,6 @@ class Settings_Tab_Features {
 	// ================================================ Section Description Callbacks
 
 
-	public function section_cpt_callback() {
-		echo '<p>Enable/disable custom post types.</p>';
-	}
-
 	public function section_gmaps_callback() {
 		echo '<p>Configure Google maps integration.</p>';
 	}
@@ -119,36 +72,6 @@ class Settings_Tab_Features {
 
 	// =============================================== Settings Input Field Callbacks
 
-
-	public function cpt_services_callback() {
-		$field = array(
-			'input_type' => 'checkbox',
-			'id'         => 'cpt_services',
-		);
-		$value = isset( $this->settings['cpt_services'] ) ? esc_attr( $this->settings['cpt_services'] ) : '';
-		$name  = self::OPTION . '[cpt_services]';
-		echo Get_Input::markup( $field, $value, $name );
-	}
-
-	public function cpt_reviews_callback() {
-		$field = array(
-			'input_type' => 'checkbox',
-			'id'         => 'cpt_reviews',
-		);
-		$value = isset( $this->settings['cpt_reviews'] ) ? esc_attr( $this->settings['cpt_reviews'] ) : '';
-		$name  = self::OPTION . '[cpt_reviews]';
-		echo Get_Input::markup( $field, $value, $name );
-	}
-
-	public function cpt_projects_callback() {
-		$field = array(
-			'input_type' => 'checkbox',
-			'id'         => 'cpt_projects',
-		);
-		$value = isset( $this->settings['cpt_projects'] ) ? esc_attr( $this->settings['cpt_projects'] ) : '';
-		$name  = self::OPTION . '[cpt_projects]';
-		echo Get_Input::markup( $field, $value, $name );
-	}
 
 	public function gmaps_api_key_callback() {
 		$field = array(
