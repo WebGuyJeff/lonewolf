@@ -80,7 +80,8 @@ module.exports = {
 			port: 3000,
 			logLevel: 'debug',
 			// let Webpack Dev Server take care of reloading the page.
-			reload: false
+			reload: false,
+			browser: "google-chrome-stable"
 		} ),
 	],
 	// enable HMR with live reload.

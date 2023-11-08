@@ -1271,11 +1271,9 @@ header.pageGrid {
 	}
 }
 
-header.jsHideHeader {
-    position: fixed;
-    background: var(--lw_white);
-    border-bottom: solid 0.3em var(--lw_grey-darkest);
-	margin-top: 0;
+.jsHideHeader {
+	transform: translate( 0, -100% );
+	transition: transform 0.25s;
 }
 
 

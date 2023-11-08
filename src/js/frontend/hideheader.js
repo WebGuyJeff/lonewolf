@@ -10,63 +10,57 @@
 
 const hideHeader = () => {
 
-	let body,
-		header,
-		button,
+	const selector = '.jsHideHeader'
+
+	let header,
 		isAnimating = false
 
 	const init = () => {
-		body = document.querySelector( 'body' )
-		header = document.querySelector( '.jsHideHeader' )
-		button = document.querySelector( '.menuToggle' )
-		isAnimating = false
-		if ( button === null ) return
-		button.addEventListener( 'click', toggleState )
+		header = document.querySelector( selector )
+		window.addEventListener( 'scroll', toggleState )
 	}
 
 	const toggleState = () => {
+		const belowFold = window.scrollY > window.innerHeight
+		const isVisible = ( header.style.visibility === 'visible' )
+		if ( belowFold && isVisible ) return
+		if ( ! belowFold && ! isVisible ) return
 		if ( ! isAnimating ) {
 			isAnimating = true
-			body.classList.contains( 'menu_active' ) ? hide() : show()
+			if ( belowFold && ! isVisible ) show()
+			if ( ! belowFold && isVisible ) hide()
 		}
 	}
 
-	const show = async () => {
-		header.setAttribute( 'hidden', false )
-		body.classList.add( 'menu_active' )
-		await transitionToPromise( header, 'transform', 'translate( 0, 0 )' )
-		window.addEventListener( 'scroll', hide, { once: true } )
-		isAnimating = false
+	const show = () => {
+		visibilityToPromise( header, 'visible' )
+			.then( () => transitionToPromise( header, 'transform', 'translate( 0, 0 )' ) )
+			.then( () => isAnimating = false )
 	}
 
-	const hide = async () => {
-		header.setAttribute( 'hidden', true )
-		body.classList.remove( 'menu_active' )
-		await transitionToPromise(
-			header,
-			'transform',
-			'translate( 0, -100% )'
-		)
-		isAnimating = false
+	const hide = () => {
+		transitionToPromise( header, 'transform', 'translate( 0, -100% )' )
+			.then( () => visibilityToPromise( header, 'hidden' ) )
+			.then( () => isAnimating = false )
 	}
 
 	const transitionToPromise = ( element, property, value ) => {
-		new Promise( ( resolve ) => {
-			try {
-				element.style[ property ] = value
-				const transitionEnded = ( event ) => {
-					if ( event.target !== element ) return
-					header.removeEventListener(
-						'transitionend',
-						transitionEnded
-					)
-					resolve( 'Transition complete.' )
+		return new Promise( ( resolve ) => {
+			element.addEventListener( 'transitionend', () => resolve( 'transition ended!' ), { 'once': true } )
+			element.style[ property ] = value
+		} )
+	}
+
+	// Custom listener as visibility doesn't trigger the `transitionend` listener.
+	const visibilityToPromise = ( element, value ) => {
+		return new Promise( ( resolve ) => {
+			element.style.visibility = value
+			const hasChanged = setInterval( () => {
+				if ( element.style.visibility === value ) {
+					clearInterval( hasChanged )
+					resolve( 'visibility changed!' )
 				}
-				header.addEventListener( 'transitionend', transitionEnded )
-			} catch ( error ) {
-				console.error( error.name + ': ' + error.message )
-				reject( error )
-			}
+			}, 50 )
 		} )
 	}
 

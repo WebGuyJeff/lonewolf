@@ -1,16 +1,22 @@
 import { __ } from '@wordpress/i18n'
 import { registerBlockCollection, registerBlockType } from '@wordpress/blocks'
-import { Logo } from '../svg'
 import './style.scss'
 import Edit from './edit'
 import save from './save'
 import metadata from './block.json'
+import {
+	Logo
+} from './svg'
 
-console.log( 'lonewolf/social-links-gradient-fill BLOCK LOADED' )
+console.log( 'lonewolf/camper-animation BLOCK LOADED' )
 // RUN IN CONSOLE TO SEE REGISTERED BLOCKS: wp.blocks.getBlockTypes() 
 
-
-// Register the collection.
+/**
+ * Register the collection.
+ * 
+ * COLLECTIONS ARE NOT CATEGORIES!
+ * @link https://make.wordpress.org/core/2020/02/27/block-collections/
+ */
 registerBlockCollection(
 	'lonewolf',
 	{
@@ -22,12 +28,9 @@ registerBlockCollection(
 /**
  * Register the block.
  */
-registerBlockType( 'lonewolf/social-links-gradient-fill', {
+registerBlockType( 'lonewolf/camper-animation', {
 	...metadata,
 	icon: Logo,
-	example: {
-		innerBlocks: [ { name: 'core/social-links' } ]
-    },
 
 	/**
 	 * @see ./edit.js

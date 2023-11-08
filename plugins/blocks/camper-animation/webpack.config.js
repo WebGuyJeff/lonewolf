@@ -5,5 +5,6 @@
 const WordPressWebpackConfig = require( '@wordpress/scripts/config/webpack.config.js' )
 
 module.exports = {
+	// Include the WP config.
 	...WordPressWebpackConfig,
 }

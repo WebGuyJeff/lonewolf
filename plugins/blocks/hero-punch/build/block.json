@@ -14,8 +14,8 @@
   "textdomain": "lonewolf",
   "editorScript": "file:./index.js",
   "viewScript": "file:./view.js",
-  "editorStyle": "file:./index.scss",
-  "style": "file:./style-index.scss",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
   "attributes": {
     "animate": {
       "type": "boolean"
