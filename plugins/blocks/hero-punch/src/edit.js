@@ -14,7 +14,7 @@ import {
 	Sun,
 	Star
 } from './svg'
-import './editor.scss'
+import './hero-punch-editor.scss'
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -25,11 +25,16 @@ import './editor.scss'
  * @return {WPElement} Element to render.
  */
 export default function Edit() {
-	const blockProps = useBlockProps()
 	const [ animate, setAnimate ] = useState( true )
+
+	// Why isn't this class being added???
+	const blockProps = useBlockProps( {
+        className: 'heroPunch',
+    } )
+	
 	return (
 		<>
-			<section className='heroDesert' {...blockProps}>
+			<section {...blockProps}>
 				<div className='scrollTriggerParent'>
 					<div className='scrollTriggerChild'>
 						<div className='sectionGrid'>

@@ -10,25 +10,42 @@
 
 const hideHeader = () => {
 
-	const selector = '.jsHideHeader'
-
 	let header,
-		isAnimating = false
+		lastScrollY = 0,
+		isAnimating = false,
+		isThrottled = false
 
 	const init = () => {
-		header = document.querySelector( selector )
-		window.addEventListener( 'scroll', toggleState )
+		header = document.querySelector( '.jsHideHeader' )
+		header.style.visibility = 'visible'
+		window.addEventListener( 'scroll', hasScrolledThrottle )
 	}
 
-	const toggleState = () => {
-		const belowFold = window.scrollY > window.innerHeight
+	const hasScrolledThrottle = () => { 
+		if ( isThrottled ) return
+		isThrottled = true
+		hasScrolled()
+		const wait = setTimeout( () => {
+			clearTimeout( wait )
+			isThrottled = false
+		}, 100 )
+	}
+
+	const hasScrolled = () => {
+		const currentScrollY = window.scrollY
+		const isScrollingDown = ( currentScrollY > lastScrollY ) ? true : false
+		lastScrollY = currentScrollY
+		const isBelowFold = window.scrollY > window.innerHeight
 		const isVisible = ( header.style.visibility === 'visible' )
-		if ( belowFold && isVisible ) return
-		if ( ! belowFold && ! isVisible ) return
 		if ( ! isAnimating ) {
 			isAnimating = true
-			if ( belowFold && ! isVisible ) show()
-			if ( ! belowFold && isVisible ) hide()
+			if ( ! isBelowFold && ! isVisible || ! isVisible && ! isScrollingDown ) {
+				show()
+			} else if ( isVisible && isBelowFold && isScrollingDown ) {
+				hide()
+			} else {
+				isAnimating = false
+			}
 		}
 	}
 

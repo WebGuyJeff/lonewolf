@@ -8,7 +8,7 @@
  * @copyright Copyright 2023 Jefferson Real
  */
 
-import { animate } from './css-animator'
+import { animate } from './_css-animator'
 
 const modal = () => {
 	function init() {

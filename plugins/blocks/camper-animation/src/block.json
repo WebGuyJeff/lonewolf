@@ -12,7 +12,7 @@
 		"animation"
 	],
 	"textdomain": "lonewolf",
-	"editorScript": "file:./index.js",
-	"style": "file:./style-index.css",
-	"editorStyle": "file:./index.css"
+	"editorScript": "file:./camper-animation.js",
+	"style": "file:./camper-animation.css",
+	"editorStyle": "file:./camper-animation-editor.css"
 }

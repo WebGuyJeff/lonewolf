@@ -8,37 +8,34 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#view-script
  */
 
-/* eslint-disable no-console */
-console.log( 'Hello World! (from hero-punch block)' )
-/* eslint-enable no-console */
 
 /**
  * Lonewolf Welcome Animation Javascript
  *
  * @package lonewolf
  */
-gsap.registerPlugin( ScrollTrigger )
+const heroPunchAnimation = () => {
 
-const heroDesertAnimation = () => {
-	const scrollParent = '.heroDesert .scrollTriggerParent',
-		content = '.heroDesert .landing_content',
-		fist = '.heroDesert .fist_container',
-		hands = '.heroDesert .sign_pinSignTop',
-		sign = '.heroDesert .sign',
-		me = '.heroDesert .svgMe_container',
-		star1 = '.heroDesert .star-1',
-		star2 = '.heroDesert .star-2',
-		shadows = '.heroDesert .desert_shadow',
-		sun = '.heroDesert .desert_sun',
-		sky = '.heroDesert .landing_backdrop',
+	gsap.registerPlugin( ScrollTrigger )
+
+	const selector = '.heroPunch'
+	const scrollParent = selector + '.scrollTriggerParent',
+		content = selector + '.landing_content',
+		fist = selector + 'fist_container',
+		hands = selector + '.sign_pinSignTop',
+		sign = selector + '.sign',
+		me = selector + '.svgMe_container',
+		star1 = selector + '.star-1',
+		star2 = selector + '.star-2',
+		shadows = selector + '.desert_shadow',
+		sun = selector + '.desert_sun',
+		sky = selector + '.landing_backdrop',
 		anim = []
 
 	if ( ! document.querySelector( shadows ) ) return
 
-	const skyGradAm =
-			'radial-gradient( at 9% 9%, #fffb 0%, #fff0 30% ), linear-gradient( hsl(207, 53%, 60%) 0%, hsl(207, 53%, 88%) 20%, hsl(61, 75%, 60%) 55%, hsl(30, 75%, 60%) 60%, #fff 61% )',
-		skyGradPm =
-			'radial-gradient( at 91% 9%, #fffb 0%, #fff0 30% ), linear-gradient( hsl(207, 53%, 50%) 0%, hsl(0, 76%, 88%) 25%, hsl(61, 75%, 60%) 55%, hsl(30, 76%, 50%) 70%, #fff 71% )'
+	const skyGradAm = 'radial-gradient( at 9% 9%, #fffb 0%, #fff0 30% ), linear-gradient( hsl(207, 53%, 60%) 0%, hsl(207, 53%, 88%) 20%, hsl(61, 75%, 60%) 55%, hsl(30, 75%, 60%) 60%, #fff 61% )',
+		  skyGradPm = 'radial-gradient( at 91% 9%, #fffb 0%, #fff0 30% ), linear-gradient( hsl(207, 53%, 50%) 0%, hsl(0, 76%, 88%) 25%, hsl(61, 75%, 60%) 55%, hsl(30, 76%, 50%) 70%, #fff 71% )'
 
 	const toVw = ( px ) => ( px / window.innerWidth ) * 100 + 'vw'
 
@@ -239,4 +236,4 @@ const heroDesertAnimation = () => {
 	}, 100 )
 }
 
-export { heroDesertAnimation }
+heroPunchAnimation()

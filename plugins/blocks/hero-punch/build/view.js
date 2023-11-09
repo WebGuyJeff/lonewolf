@@ -1,1 +1,0 @@
-!function(){"use strict";console.log("Hello World! (from hero-punch block)"),gsap.registerPlugin(ScrollTrigger)}();

@@ -12,10 +12,10 @@
     "full width"
   ],
   "textdomain": "lonewolf",
-  "editorScript": "file:./index.js",
-  "viewScript": "file:./view.js",
-  "editorStyle": "file:./index.css",
-  "style": "file:./style-index.css",
+  "editorScript": "file:./hero-punch.js",
+  "viewScript": "file:./hero-punch-view.js",
+  "editorStyle": "file:./hero-punch-editor.css",
+  "style": "file:./hero-punch.css",
   "attributes": {
     "animate": {
       "type": "boolean"

@@ -1,5 +1,5 @@
-import './style.scss'
-import './editor.scss'
+import './camper-animation.scss'
+import './camper-animation-editor.scss'
 import {
 	Motorhome
 } from './svg'

@@ -2,6 +2,6 @@
  * Webpack entry point.
  */
 
-@import './frontend/main';
-@import './frontend/wp';
+@import './frontend/old';
+@import './frontend/raft';
 @import './frontend/themes/main';

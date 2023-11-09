@@ -22,8 +22,13 @@ import {
  * @return {WPElement} Element to render.
  */
 export default function save() {
+
+    const blockProps = useBlockProps.save( {
+        className: 'heroPunch',
+    } )
+
 	return (
-		<section className='heroDesert' { ...useBlockProps.save() }>
+		<section { ...blockProps }>
 			<div className='scrollTriggerParent'>
 				<div className='scrollTriggerChild'>
 					<div className='sectionGrid'>

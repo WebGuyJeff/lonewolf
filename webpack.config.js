@@ -49,18 +49,12 @@ module.exports = {
 		new HtmlBundlerPlugin( {
 			entry: {
 				// "name: entry point". The [name] forms the output string and therefore filepath.
-				'assets/css/frontend': path.join( __dirname, '/src/css/frontend.css' ),
-				'assets/css/admin': path.join( __dirname, '/src/css/admin.css' ),
-				'assets/css/editor': path.join( __dirname, '/src/css/editor.css' ),
-				'assets/js/frontend': path.join( __dirname, '/src/js/frontend.js' ),
-				'assets/js/admin': path.join( __dirname, '/src/js/admin.js' ),
-				'assets/js/editor': path.join( __dirname, '/src/js/editor.js' ),
-				/*
-				 *'plugins/blocks/hero-punch/build/style': path.join( __dirname, '/plugins/blocks/hero-punch/src/style.scss' ),
-				 *'plugins/blocks/hero-punch/build/editor': path.join( __dirname, '/plugins/blocks/hero-punch/src/editor.scss' ),
-				 *'plugins/blocks/hero-punch/build/index': path.join( __dirname, '/plugins/blocks/hero-punch/src/index.jsx' ),
-				 *'plugins/blocks/hero-punch/build/components/svg/svg': path.join( __dirname, '/plugins/blocks/hero-punch/src/svg/svg.js' ),
-				 */
+				'assets/css/lonewolf': path.join( __dirname, '/src/css/lonewolf.scss' ),
+				'assets/css/lonewolf-admin': path.join( __dirname, '/src/css/lonewolf-admin.scss' ),
+				'assets/css/lonewolf-editor': path.join( __dirname, '/src/css/lonewolf-editor.scss' ),
+				'assets/js/lonewolf': path.join( __dirname, '/src/js/lonewolf' ),
+				'assets/js/lonewolf-admin': path.join( __dirname, '/src/js/lonewolf-admin' ),
+				'assets/js/lonewolf-editor': path.join( __dirname, '/src/js/lonewolf-editor' ),
 			},
 			js: {
 				// JS output.
