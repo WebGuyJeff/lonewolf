@@ -3,6 +3,5 @@
  */
 
 @import './frontend/main';
-@import './frontend/parts';
 @import './frontend/wp';
 @import './frontend/themes/main';
