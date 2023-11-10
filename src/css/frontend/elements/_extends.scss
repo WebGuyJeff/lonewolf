@@ -24,4 +24,24 @@
 	color: var(--wp--preset--color--raft-fg-alt);
 	background: var(--wp--preset--color--raft-accent);
 	border-color: var(--wp--preset--color--raft-accent);
+
+	&:hover {
+		animation: wobble 0.25s ease-in-out;
+	}
+}
+
+.wp-block-button__link {
+	@include button-base;
+
+	&:hover {
+		animation: wobble 0.25s ease-in-out;
+	}
+}
+
+@keyframes wobble {
+	0% { transform: scale(1);}
+	33% { transform: scale(1.06);}
+	50% {transform: scale(0.94);}
+	66% {transform: scale(1.03);}
+	100% {transform: scale(1);}
 }

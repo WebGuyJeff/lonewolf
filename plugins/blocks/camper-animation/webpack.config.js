@@ -7,7 +7,6 @@ const wordpressConfig = require( '@wordpress/scripts/config/webpack.config' )
 module.exports = {
 	// Include the WP config.
 	...wordpressConfig,
-
 	module: {
 		...wordpressConfig.module,
 		rules: [
@@ -19,14 +18,44 @@ module.exports = {
 					{
 						loader: '@svgr/webpack',
 						options: {
-							svgo: false,
+							svgo: true,
 							svgoConfig: {
 								plugins: [
 									{
-										cleanupIDs: false,
-										prefixIds: false,
-										removeHiddenElems: false,
-										removeEmptyContainers: false
+										name: 'removeViewBox',
+										active: false
+									},
+									{
+										name: 'cleanupIds',
+										active: false
+									},
+									{
+										name: 'prefixIds',
+										active: false
+									},
+									{
+										name: 'removeHiddenElems',
+										active: false
+									},
+									{
+										name: 'removeEmptyContainers',
+										active: false
+									},
+									{
+										name: 'mergePaths',
+										active: false
+									},
+									{
+										name: 'convertPathData',
+										active: false
+									},
+									{
+										name: 'convertTransform',
+										active: false
+									},
+									{
+										name: 'cleanupNumericValues',
+										active: false
 									}
 								]
 							}
@@ -35,7 +64,7 @@ module.exports = {
 					{
 						loader: 'url-loader'
 					}
-				],
+				]
 			}
 		]
 	}

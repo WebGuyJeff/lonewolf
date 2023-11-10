@@ -449,7 +449,6 @@ var hideHeader = function hideHeader() {
     }
   };
   var show = function show() {
-    console.log('show called');
     visibilityToPromise(header, 'visible').then(function () {
       return transitionToPromise(header, 'transform', 'translate( 0, 0 )');
     }).then(function () {
@@ -457,7 +456,6 @@ var hideHeader = function hideHeader() {
     });
   };
   var hide = function hide() {
-    console.log('hide called');
     transitionToPromise(header, 'transform', 'translate( 0, -100% )').then(function () {
       return visibilityToPromise(header, 'hidden');
     }).then(function () {
