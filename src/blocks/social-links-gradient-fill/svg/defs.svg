@@ -1,0 +1,9 @@
+<svg class="social-links-gradient-fill--defs" xmlns="http://www.w3.org/2000/svg">
+	<!-- This SVG contains the gradient fills used to colour the icons -->
+	<defs>
+		<linearGradient id="lw--svg-inline-gradient--sunrise" x1="0%" y1="0%" x2="100%" y2="100%">
+			<stop offset="20%" stop-color="#fbad40" />
+			<stop offset="100%" stop-color="#ef4236" />
+		</linearGradient>
+	</defs>
+</svg>

@@ -12,7 +12,7 @@ class Register_Plugins {
 	/**
 	 * Path to json plugin index.
 	 */
-	private const INDEX = LW_DIR . 'plugins.json';
+	private const INDEX = LW_DIR . 'data/plugins.json';
 
 
 	/**
@@ -37,11 +37,11 @@ class Register_Plugins {
 			switch ( $type ) {
 
 				case 'blocks':
-					$this->require_entry_points( $plugins['blocks'] );
+					$this->register_json_blocks( $plugins['blocks'] );
 					break;
 
-				case 'custom-post-types':
-					$this->require_entry_points( $plugins['custom-post-types'] );
+				case 'php_entrypoint':
+					$this->require_entry_points( $plugins['php_entrypoint'] );
 					break;
 
 				default:
@@ -52,13 +52,29 @@ class Register_Plugins {
 
 
 	/**
-	 * Register blocks.
+	 * Require enytrpoints for self-registering PHP plugins.
 	 *
-	 * @param array $plugin_paths Relative paths to plugin entrypoints.
+	 * @param array $php_entrypoints Relative paths to PHP entrypoints.
 	 */
-	private function require_entry_points( $plugin_paths ) {
-		foreach ( $plugin_paths as $rel_path ) {
-			require_once LW_DIR . $rel_path;
+	private function require_entry_points( $php_entrypoints ) {
+		foreach ( $php_entrypoints as $entrypoint ) {
+			require_once LW_DIR . $entrypoint;
+		}
+	}
+
+
+	/**
+	 * Register `block.json` blocks.
+	 *
+	 * @param array $block_paths Relative paths to block dirs.
+	 */
+	public function register_json_blocks( $block_paths ) {
+		foreach ( $block_paths as $path ) {
+			$block_dir = LW_DIR . $path;
+			$result    = register_block_type( $block_dir );
+			if ( false === $result ) {
+				error_log( "ERROR: Block registration failed for path '{$block_dir}'" );
+			}
 		}
 	}
 }

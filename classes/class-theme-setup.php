@@ -46,8 +46,8 @@ class Theme_Setup {
 	public function register_front_end_scripts_and_styles() {
 		if ( $GLOBALS['pagenow'] !== 'wp-login.php' ) {
 			wp_enqueue_style( 'lonewolf_css', LW_URL . 'assets/css/lonewolf.css', array(), filemtime( LW_DIR . 'assets/css/lonewolf.css' ), 'all' );
-			wp_register_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', array(), '3.12.2', true );
-			wp_register_script( 'gsap_scrolltrigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array( 'gsap' ), '3.12.2', true );
+			wp_enqueue_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', array(), '3.12.2', true );
+			wp_enqueue_script( 'gsap_scrolltrigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array( 'gsap' ), '3.12.2', true );
 			wp_enqueue_script( 'lonewolf_js', LW_URL . 'assets/js/lonewolf.js', array( 'gsap', 'gsap_scrolltrigger' ), filemtime( LW_DIR . 'assets/js/lonewolf.js' ), true );
 		}
 	}
