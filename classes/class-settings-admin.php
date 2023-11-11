@@ -28,7 +28,7 @@ class Settings_Admin {
 	 *
 	 * @link https://developer.wordpress.org/reference/functions/register_post_type/#show_in_menu
 	 */
-	public function __construct() {
+	public function setup() {
 		// Move the default posts menu item from 5 to 9
 		add_action(
 			'admin_menu',

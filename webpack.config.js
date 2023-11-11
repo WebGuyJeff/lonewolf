@@ -1,3 +1,4 @@
+const path = require( 'path' )
 const BrowserSyncPlugin = require( 'browser-sync-webpack-plugin' )
 // @wordpress/scripts config.
 const wordpressConfig = require( '@wordpress/scripts/config/webpack.config' )
@@ -9,8 +10,15 @@ const { getWebpackEntryPoints } = require( '@wordpress/scripts/utils/config' )
 module.exports = {
 	...wordpressConfig,
 	entry: {
+		// Everything outputs to build/.
 		...getWebpackEntryPoints(),
-		// 'exampleOutputFilename': path.resolve( process.cwd(), 'path/to/dir', 'exampleEntrypoint.js' ),
+		// 'example/output': 'path/to/dir/entrypoint.js',
+		'css/lonewolf': path.join( __dirname, '/src/css/lonewolf.scss' ),
+		'css/lonewolf-admin': path.join( __dirname, '/src/css/lonewolf-admin.scss' ),
+		'css/lonewolf-editor': path.join( __dirname, '/src/css/lonewolf-editor.scss' ),
+		'js/lonewolf': path.join( __dirname, '/src/js/lonewolf' ),
+		'js/lonewolf-admin': path.join( __dirname, '/src/js/lonewolf-admin' ),
+		'js/lonewolf-editor': path.join( __dirname, '/src/js/lonewolf-editor' ),
 	},
 	plugins: [
 		...wordpressConfig.plugins,

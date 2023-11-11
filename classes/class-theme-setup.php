@@ -31,11 +31,11 @@ class Theme_Setup {
 		self::disable_wpautop();
 		self::setup_custom_post_types();
 		self::modify_head_content();
-		self::register_plugins();
 
 		// External classes.
-		add_action( 'admin_init', array( new Settings_Admin(), '__construct' ) );
-		add_action( 'init', array( new Register_Patterns(), '__construct' ) );
+		add_action( 'init', array( new Blocks(), 'register_all' ) );
+		add_action( 'admin_init', array( new Settings_Admin(), 'setup' ) );
+		add_action( 'init', array( new Patterns(), 'register_categories' ) );
 		add_filter( 'safe_style_css', fn( $styles ) => Escape::get_safe_styles( $styles ) );
 	}
 
@@ -45,10 +45,10 @@ class Theme_Setup {
 	 */
 	public function register_front_end_scripts_and_styles() {
 		if ( $GLOBALS['pagenow'] !== 'wp-login.php' ) {
-			wp_enqueue_style( 'lonewolf_css', LW_URL . 'assets/css/lonewolf.css', array(), filemtime( LW_DIR . 'assets/css/lonewolf.css' ), 'all' );
-			wp_enqueue_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', array(), '3.12.2', true );
-			wp_enqueue_script( 'gsap_scrolltrigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array( 'gsap' ), '3.12.2', true );
-			wp_enqueue_script( 'lonewolf_js', LW_URL . 'assets/js/lonewolf.js', array( 'gsap', 'gsap_scrolltrigger' ), filemtime( LW_DIR . 'assets/js/lonewolf.js' ), true );
+			wp_enqueue_style( 'lonewolf_css', LW_URL . 'build/css/lonewolf.css', array(), filemtime( LW_DIR . 'build/css/lonewolf.css' ), 'all' );
+			wp_register_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', array(), '3.12.2', true );
+			wp_register_script( 'gsap_scrolltrigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array( 'gsap' ), '3.12.2', true );
+			wp_enqueue_script( 'lonewolf_js', LW_URL . 'build/js/lonewolf.js', array( 'gsap', 'gsap_scrolltrigger' ), filemtime( LW_DIR . 'build/js/lonewolf.js' ), true );
 		}
 	}
 
@@ -59,22 +59,23 @@ class Theme_Setup {
 	public function register_admin_scripts_and_styles() {
 		if ( is_admin() && $GLOBALS['pagenow'] !== 'wp-login.php' ) {
 			wp_enqueue_media(); // Initialise wp.media to handle the admin media upload/select modal.
-			wp_enqueue_style( 'lonewolf_admin_css', LW_URL . 'assets/css/lonewolf-admin.css', array(), filemtime( LW_DIR . 'assets/css/lonewolf-admin.css' ), 'all' );
-			wp_enqueue_script( 'lonewolf_admin_js', LW_URL . 'assets/js/lonewolf-admin.js', array(), filemtime( LW_DIR . 'assets/js/lonewolf-admin.js' ), true );
+			wp_enqueue_style( 'lonewolf_admin_css', LW_URL . 'build/css/lonewolf-admin.css', array(), filemtime( LW_DIR . 'build/css/lonewolf-admin.css' ), 'all' );
+			wp_enqueue_script( 'lonewolf_admin_js', LW_URL . 'build/js/lonewolf-admin.js', array(), filemtime( LW_DIR . 'build/js/lonewolf-admin.js' ), true );
 		}
 	}
 
 
 	/**
 	 * Register editor scripts and styles.
-	 *
-	 * WP is supposed to include frontend styles in the editor apparently, but it doesn't. Loading
-	 * here until I have time to investigate.
 	 */
 	public function register_editor_scripts_and_styles() {
-		wp_enqueue_style( 'lonewolf_css', LW_URL . 'assets/css/lonewolf.css', array(), filemtime( LW_DIR . 'assets/css/lonewolf.css' ), 'all' );
-		wp_enqueue_style( 'lonewolf_editor_css', LW_URL . 'assets/css/lonewolf-editor.css', array(), filemtime( LW_DIR . 'assets/css/lonewolf-editor.css' ), 'all' );
-		wp_enqueue_script( 'lonewolf_editor_js', LW_URL . 'assets/js/lonewolf-editor.js', array(), filemtime( LW_DIR . 'assets/js/lonewolf-editor.js' ), true );
+		/*
+		 * WP is supposed to include frontend styles in the editor apparently, but it doesn't. Loading
+		 * here until I have time to investigate.
+		 */
+		wp_enqueue_style( 'lonewolf_css', LW_URL . 'build/css/lonewolf.css', array(), filemtime( LW_DIR . 'build/css/lonewolf.css' ), 'all' );
+		wp_enqueue_style( 'lonewolf_editor_css', LW_URL . 'build/css/lonewolf-editor.css', array(), filemtime( LW_DIR . 'build/css/lonewolf-editor.css' ), 'all' );
+		wp_enqueue_script( 'lonewolf_editor_js', LW_URL . 'build/js/lonewolf-editor.js', array(), filemtime( LW_DIR . 'build/js/lonewolf-editor.js' ), true );
 	}
 
 
@@ -346,14 +347,6 @@ class Theme_Setup {
 		}
 		// Enable WP custom fields even if ACF is installed.
 		add_filter( 'acf/settings/remove_wp_meta_box', '__return_false' );
-	}
-
-
-	/**
-	 * Register plugins.
-	 */
-	private function register_plugins() {
-		$register = new Register_Plugins();
 	}
 
 

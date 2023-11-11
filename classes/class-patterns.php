@@ -8,7 +8,7 @@ namespace BigupWeb\Lonewolf;
  */
 use WP_Block_Pattern_Categories_Registry;
 
-class Register_Patterns {
+class Patterns {
 
 	/**
 	 * Pattern categories to be registered.
@@ -25,7 +25,6 @@ class Register_Patterns {
 			'lonewolf'  => array( 'label' => __( 'Lonewolf Patterns', 'lonewolf' ) ),
 			'bigupweb' => array( 'label' => __( 'Bigup Web Patterns', 'lonewolf' ) ),
 		);
-		$this->register_categories();
 	}
 
 
@@ -34,7 +33,7 @@ class Register_Patterns {
 	 *
 	 * @return void
 	 */
-	private function register_categories() {
+	public function register_categories() {
 		foreach ( $this->categories as $slug => $args ) {
 			if ( WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( $slug ) ) {
 				continue;
