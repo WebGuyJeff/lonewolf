@@ -8,20 +8,14 @@
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
 
-#camperAnimationWrapper {
+#camperAnimation {
+	--maxDim: 1000px;
+
 	position: absolute;
 	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
-}
-
-
-#camperAnimation {
-	@media ( max-height: 1000px ) { --maxDim: 100vh; }
-	--maxDim: 1000px;
-
-	position: relative;
 	z-index: -1;
 	width: 100%;
 	height: var(--maxDim);
