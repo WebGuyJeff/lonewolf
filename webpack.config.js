@@ -19,6 +19,9 @@ module.exports = {
 		'js/lonewolf': path.join( __dirname, '/src/js/lonewolf' ),
 		'js/lonewolf-admin': path.join( __dirname, '/src/js/lonewolf-admin' ),
 		'js/lonewolf-editor': path.join( __dirname, '/src/js/lonewolf-editor' ),
+		// Legacy support for old page until migration to blocks is complete.
+		'css/old': path.join( __dirname, '/src/css/old.scss' ),
+		'js/old': path.join( __dirname, '/src/js/old' ),
 	},
 	plugins: [
 		...wordpressConfig.plugins,

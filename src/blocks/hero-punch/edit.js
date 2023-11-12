@@ -27,7 +27,6 @@ import './hero-punch-editor.scss'
 export default function Edit() {
 	const [ animate, setAnimate ] = useState( true )
 
-	// Why isn't this class being added???
 	const blockProps = useBlockProps( {
         className: 'heroPunch',
     } )

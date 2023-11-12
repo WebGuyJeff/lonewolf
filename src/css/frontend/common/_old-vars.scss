@@ -1,5 +1,5 @@
 /* Old - will adopt the 'theme.json way' */
-
+/*
 $mobileWidth:  300px;
 $tabletWidth:  768px;
 $laptopWidth:  1280px;
@@ -7,10 +7,6 @@ $desktopWidth: 1600px;
 $xlWidth:      1920px;
 
 :root {
-	--lw_slideTime: 0.25s;
-	--lw_hoverTime: 0.15s;
-
-	/* layout variables */
 	--lw_radius-tiny:  0.15em;
 	--lw_radius-small: 0.6em;
 	--lw_radius:       1.2em;
@@ -22,7 +18,6 @@ $xlWidth:      1920px;
 	--lw_padding:      0.5em;
 	@media ( min-width: $mobileWidth ) { --lw_padding: 1em;   }
 	@media ( min-width: $laptopWidth ) { --lw_padding: 1.5em; }
-
-	/* Scrollbar width updated by screenclass.js */
 	--scrollbar: 0px;
 }
+*/

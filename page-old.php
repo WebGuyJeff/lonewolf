@@ -11,7 +11,10 @@ namespace BigupWeb\Lonewolf;
  * @copyright Copyright 2023 Jefferson Real
  */
 
-wp_enqueue_script( 'lw_hideheader_js' );
+wp_deregister_style( 'lonewolf_css' );
+wp_deregister_script( 'lonewolf_js' );
+wp_enqueue_style( 'old_css', LW_URL . 'build/css/old.css', array(), filemtime( LW_DIR . 'build/css/old.css' ), 'all' );
+wp_enqueue_script( 'old_js', LW_URL . 'build/js/old.js', array( 'gsap', 'gsap_scrolltrigger' ), filemtime( LW_DIR . 'build/js/old.js' ), true );
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +24,10 @@ wp_enqueue_script( 'lw_hideheader_js' );
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?> >
+<body
+	<?php body_class(); ?>
+	style="color: #333; background:#fff;"
+>
 
 	<header 
 		class="pageGrid jsHideHeader"
@@ -75,7 +81,7 @@ wp_enqueue_script( 'lw_hideheader_js' );
 
 	<main>
 
-		<section class="heroDesert">
+		<section class="heroPunch">
 			<div class="scrollTriggerParent">
 				<div class="scrollTriggerChild">
 					<div class="sectionGrid">

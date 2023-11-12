@@ -19,17 +19,17 @@ const heroPunchAnimation = () => {
 	gsap.registerPlugin( ScrollTrigger )
 
 	const selector = '.heroPunch'
-	const scrollParent = selector + '.scrollTriggerParent',
-		content = selector + '.landing_content',
-		fist = selector + 'fist_container',
-		hands = selector + '.sign_pinSignTop',
-		sign = selector + '.sign',
-		me = selector + '.svgMe_container',
-		star1 = selector + '.star-1',
-		star2 = selector + '.star-2',
-		shadows = selector + '.desert_shadow',
-		sun = selector + '.desert_sun',
-		sky = selector + '.landing_backdrop',
+	const scrollParent = selector + ' .scrollTriggerParent',
+		content = selector + ' .landing_content',
+		fist = selector + ' .fist_container',
+		hands = selector + ' .sign_pinSignTop',
+		sign = selector + ' .sign',
+		me = selector + ' .svgMe_container',
+		star1 = selector + ' .star-1',
+		star2 = selector + ' .star-2',
+		shadows = selector + ' .desert_shadow',
+		sun = selector + ' .desert_sun',
+		sky = selector + ' .landing_backdrop',
 		anim = []
 
 	if ( ! document.querySelector( shadows ) ) return

@@ -64,6 +64,13 @@
 
 	.scrollTriggerParent {
 		height: calc( 100vh + 2500px );
+
+		.scrollTriggerChild {
+			width: 100%;
+			height: 100vh;
+			position: sticky;
+			top: 0;
+		}
 	}
 
 	.landing_content {
