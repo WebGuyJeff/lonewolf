@@ -30,12 +30,13 @@
 	}
 }
 
-.wp-block-button__link {
+.wp-block-button {
 	@include button-base;
+	transition: border-radius 0.25s ease-in-out;
 
-	&:hover {
-		animation: wobble 0.25s ease-in-out;
-	}
+	&:hover a {
+		border-radius 0.25s ease-in-out;
+	}	
 }
 
 @keyframes wobble {
