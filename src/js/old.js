@@ -6,13 +6,13 @@
  * @link https://metabox.io/modernizing-javascript-code-in-wordpress/
  */
 
-import { dropdownControlOld } from './old/dropdown-control'
-import { hideHeaderOld } from './old/hideheader'
-import { mobilePopupMenuOld } from './old/mobile-popup-menu'
-import { modalOld } from './old/modal'
-import { heroPunchOld } from './old/hero-punch'
-import { screenClassOld } from './old/screenclass'
-import { uspSectionOld } from './old/usp-section'
+import { dropdownControlOld } from './old/_dropdown-control-old'
+import { hideHeaderOld } from './old/_hideheader-old'
+import { mobilePopupMenuOld } from './old/_mobile-popup-menu-old'
+import { modalOld } from './old/_modal-old'
+import { heroPunchOld } from './old/_hero-punch-old'
+import { screenClassOld } from './old/_screenclass-old'
+import { uspSectionOld } from './old/_usp-section-old'
 
 dropdownControlOld.initialise()
 hideHeaderOld()

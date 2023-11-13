@@ -38,22 +38,18 @@ body {
 	scroll-behavior: smooth;
 }
 
+
 body::-webkit-scrollbar {
 	width: 0.5em;
 }
-	body::-webkit-scrollbar-track {
-		background: var(--lw_grey-darkest);
-	}
-	body::-webkit-scrollbar-thumb {
-		border-radius: 0.25em;
-		background-color: var(--lw_grey);
-	}
-
-
-/* elements */
-a {
-	word-break: break-spaces;
+body::-webkit-scrollbar-track {
+	background: #000;
 }
+body::-webkit-scrollbar-thumb {
+	border-radius: 0.25em;
+	background-color: #666;
+}
+
 
 :focus-visible {
 	outline: -webkit-focus-ring-color auto 1px;

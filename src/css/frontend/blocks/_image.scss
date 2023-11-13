@@ -28,7 +28,7 @@ figure.wp-block-image {
 	figcaption {
 
 		@extend %figcaption;
-		color: var(--wp--preset--color--raft-fg);
+		color: var(--wp--preset--color--lw-fg);
 		opacity: 0.6;
 	}
 }

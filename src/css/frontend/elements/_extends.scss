@@ -1,8 +1,8 @@
 %input-base {
-	border-radius: 5px;
-	color: var(--wp--preset--color--raft-fg);
-	background: var(--wp--preset--color--raft-bg);
-	border: 2px solid var(--wp--preset--color--raft-fg);
+	border-radius: 3px;
+	color: var(--wp--preset--color--lw-fg);
+	background: var(--wp--preset--color--lw-bg);
+	border: 3px solid var(--wp--preset--color--lw-fg);
 }
 
 @mixin button-base {
@@ -14,35 +14,14 @@
 	font-weight: 600;
 	text-transform: uppercase;
 	padding: 16px 32px;
-	border-radius: 3px;
+	border-radius: 500px;
 	font-size: var(--wp--preset--font-size--normal);
+	transition: all 0.25s ease-in-out;
 }
 
 %button {
-
 	@include button-base;
-	color: var(--wp--preset--color--raft-fg-alt);
-	background: var(--wp--preset--color--raft-accent);
-	border-color: var(--wp--preset--color--raft-accent);
-
-	&:hover {
-		animation: wobble 0.25s ease-in-out;
-	}
-}
-
-.wp-block-button {
-	@include button-base;
-	transition: border-radius 0.25s ease-in-out;
-
-	&:hover a {
-		border-radius 0.25s ease-in-out;
-	}	
-}
-
-@keyframes wobble {
-	0% { transform: scale(1);}
-	33% { transform: scale(1.06);}
-	50% {transform: scale(0.94);}
-	66% {transform: scale(1.03);}
-	100% {transform: scale(1);}
+	color: var(--wp--preset--color--lw-fg-alt);
+	background: var(--wp--preset--color--lw-accent);
+	border-color: var(--wp--preset--color--lw-accent);
 }

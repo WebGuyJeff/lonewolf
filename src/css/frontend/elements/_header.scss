@@ -5,3 +5,7 @@
 	transition: transform 0.25s;
 	z-index: 10;
 }
+
+.wp-site-blocks > header {
+	box-shadow: var(--wp--preset--shadow--theme-soft);
+}

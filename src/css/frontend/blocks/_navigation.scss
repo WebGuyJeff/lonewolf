@@ -1,11 +1,28 @@
-// Overwrite the selector...
+
+.wp-block-navigation {
+
+	.wp-block-navigation__responsive-container-close,
+	.wp-block-navigation__responsive-container-open {
+
+		svg {
+			pointer-events: auto !important;
+
+		}
+	}
+}
+
+// Override the selector...
 .wp-block-navigation:not(.has-background) .wp-block-navigation__responsive-container.is-menu-open {
-	background: var(--wp--preset--color--raft-bg);
-	color: var(--wp--preset--color--raft-fg);
+	background: var(--wp--preset--color--lw-bg);
+	color: var(--wp--preset--color--lw-fg);
 }
 
 .wp-block-navigation__responsive-container.is-menu-open {
 	--navigation-layout-justification-setting: center;
+	padding-top: 32px;
+	padding-bottom: 64px;
+	padding-left: var(--wp--custom--spacing--outer);
+	padding-right: var(--wp--custom--spacing--outer);
 
 	> .wp-block-navigation__container {
 		gap: 0;
