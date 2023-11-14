@@ -1,0 +1,18 @@
+/**
+ * Get that pesky wpadminbar out of the way!
+ */
+
+
+// Take higher specificity than html to override wpadminbar styles.
+:root {
+	margin-top: 0 !important;
+	margin-bottom: var(--wp-admin--admin-bar--height) !important;
+	scroll-padding-top: 0 !important;
+	scroll-padding-bottom: var(--wp-admin--admin-bar--height) !important;
+}
+
+html div#wpadminbar {
+	bottom: 0 !important;
+	top: unset !important;
+	position: fixed !important;
+}

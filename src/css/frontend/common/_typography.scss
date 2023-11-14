@@ -1,37 +1,47 @@
 @import 'vars';
 
-@media (--tablet) {
-
+@media ( min-width: $break-mobile ) {
 	body {
-		--wp--preset--font-size--small: 12px;
+		--wp--preset--font-size--small: 13px;
 		--wp--preset--font-size--normal: 16px;
 		--wp--preset--font-size--medium: 20px;
-		--wp--preset--font-size--large: 24px;
-		--wp--preset--font-size--x-large: 28px;
-		--wp--preset--font-size--huge: 36px;
+		--wp--preset--font-size--large: 28px;
+		--wp--preset--font-size--x-large: 32px;
+		--wp--preset--font-size--huge: 42px;
+	}
+}
+
+@media ( min-width: $break-laptop ) {
+	body {
+		--wp--preset--font-size--small: 14px;
+		--wp--preset--font-size--normal: 18px;
+		--wp--preset--font-size--medium: 24px;
+		--wp--preset--font-size--large: 36px;
+		--wp--preset--font-size--x-large: 42px;
+		--wp--preset--font-size--huge: 56px;
 	}
 }
 
 .has-huge-font-size {
-	line-height: $line-height-fs-huge;
+	line-height: $line-height-huge;
 }
 
 .has-x-large-font-size {
-	line-height: $line-height-fs-x-large;
+	line-height: $line-height-x-large;
 }
 
 .has-large-font-size {
-	line-height: $line-height-fs-large;
+	line-height: $line-height-large;
 }
 
 .has-medium-font-size {
-	line-height: $line-height-fs-medium;
+	line-height: $line-height-medium;
 }
 
 .has-normal-font-size {
-	line-height: $line-height-fs-normal;
+	line-height: $line-height-normal;
 }
 
 .has-small-font-size {
-	line-height: $line-height-fs-small;
+	line-height: $line-height-small;
 }

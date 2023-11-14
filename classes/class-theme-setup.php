@@ -14,6 +14,10 @@ class Theme_Setup {
 	 * Setup all actions, filters and call functions.
 	 */
 	public function __construct() {
+
+		// Gut' way to load stylesheet to match editor to frontend... (doesn't seem to override .editor-styles-wrapper).
+		add_editor_style( LW_URL . 'build/css/lonewolf.css' );
+
 		// Methods in this class.
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_front_end_scripts_and_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts_and_styles' ) );
@@ -50,6 +54,9 @@ class Theme_Setup {
 			wp_register_script( 'gsap_scrolltrigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array( 'gsap' ), '3.12.2', true );
 			wp_enqueue_script( 'lonewolf_js', LW_URL . 'build/js/lonewolf.js', array( 'gsap', 'gsap_scrolltrigger' ), filemtime( LW_DIR . 'build/js/lonewolf.js' ), true );
 		}
+		if ( current_user_can( 'manage_options' ) && LW_DEBUG ) {
+			wp_enqueue_style( 'lonewolf_dev_css', LW_URL . 'build/css/lonewolf-dev.css', array(), filemtime( LW_DIR . 'build/css/lonewolf-dev.css' ), 'all' );
+		}
 	}
 
 
@@ -72,8 +79,12 @@ class Theme_Setup {
 		/*
 		 * WP is supposed to include frontend styles in the editor apparently, but it doesn't. Loading
 		 * here until I have time to investigate.
+		 *
+		 * @see https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-support/#enqueuing-the-editor-style
 		 */
-		wp_enqueue_style( 'lonewolf_css', LW_URL . 'build/css/lonewolf.css', array(), filemtime( LW_DIR . 'build/css/lonewolf.css' ), 'all' );
+		// add_editor_style( LW_URL . 'build/css/lonewolf.css' );
+
+		// wp_enqueue_style( 'lonewolf_css', LW_URL . 'build/css/lonewolf.css', array(), filemtime( LW_DIR . 'build/css/lonewolf.css' ), 'all' );
 		wp_enqueue_style( 'lonewolf_editor_css', LW_URL . 'build/css/lonewolf-editor.css', array(), filemtime( LW_DIR . 'build/css/lonewolf-editor.css' ), 'all' );
 		wp_enqueue_script( 'lonewolf_editor_js', LW_URL . 'build/js/lonewolf-editor.js', array(), filemtime( LW_DIR . 'build/js/lonewolf-editor.js' ), true );
 	}
@@ -161,6 +172,7 @@ class Theme_Setup {
 	 */
 	public function theme_configuration_and_features() {
 		load_theme_textdomain( 'lonewolf', get_template_directory() . '/languages' );
+		add_theme_support( 'editor-styles' );
 		add_theme_support( 'block-template-parts' );
 		add_theme_support( 'wp-block-styles' );
 		add_theme_support( 'post-thumbnails' );

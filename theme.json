@@ -308,32 +308,32 @@
 			"fontSizes": [
 				{
 					"slug": "small",
-					"size": "14px",
+					"size": "12px",
 					"name": "Small"
 				},
 				{
 					"slug": "normal",
-					"size": "18px",
+					"size": "16px",
 					"name": "Normal"
 				},
 				{
 					"slug": "medium",
-					"size": "24px",
+					"size": "20px",
 					"name": "Medium"
 				},
 				{
 					"slug": "large",
-					"size": "28px",
+					"size": "24px",
 					"name": "Large"
 				},
 				{
 					"slug": "x-large",
-					"size": "32px",
+					"size": "28px",
 					"name": "Extra Large"
 				},
 				{
 					"slug": "huge",
-					"size": "56px",
+					"size": "36px",
 					"name": "Huge"
 				}
 			]

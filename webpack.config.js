@@ -16,6 +16,7 @@ module.exports = {
 		'css/lonewolf': path.join( __dirname, '/src/css/lonewolf.scss' ),
 		'css/lonewolf-admin': path.join( __dirname, '/src/css/lonewolf-admin.scss' ),
 		'css/lonewolf-editor': path.join( __dirname, '/src/css/lonewolf-editor.scss' ),
+		'css/lonewolf-dev': path.join( __dirname, '/src/css/lonewolf-dev.scss' ),
 		'js/lonewolf': path.join( __dirname, '/src/js/lonewolf' ),
 		'js/lonewolf-admin': path.join( __dirname, '/src/js/lonewolf-admin' ),
 		'js/lonewolf-editor': path.join( __dirname, '/src/js/lonewolf-editor' ),
