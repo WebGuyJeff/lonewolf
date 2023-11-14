@@ -9,17 +9,22 @@
  */
 
 #camperAnimation {
-	--maxDim: 1000px;
-
 	position: absolute;
-	left: 0;
-	right: 0;
 	top: 0;
+	right: 0;
 	bottom: 0;
+	left: 0;
 	z-index: -1;
-	width: 100%;
-	height: var(--maxDim);
+	height: 1000px;
 	overflow: hidden;
+
+	width: 150%;
+	transform: scale(0.75) translate(-25%, 25%);
+
+	@media ( min-width: 600px ) {
+		width: 100%;
+		transform: unset;
+	}
 	
 	#camperAnimation_camperSVG {
 		position: absolute;
@@ -28,8 +33,9 @@
 		bottom: 0;
 		left: 0;
 		margin: 0 auto;
+		padding-left: 5vw;
 		max-width: var(--wp--style--global--wide-size);
-		height: var(--maxDim);
+		height: 1000px;
 
 		svg {
 			height: 100%;
@@ -39,7 +45,7 @@
 		#camperAnimation_camperBodySVG,
 		.camperAnimation_camperBodySVG {
 			
-			@media ( min-width: 600px ) {
+			@media ( min-width: 300px ) {
 				animation: camperAnimation_bounce 8s ease-in-out infinite;
 			}
 		}
@@ -77,16 +83,16 @@
 		bottom: 0;
 		left: 0;
 		background-position: 0 100%;
-		background-size: var(--maxDim) var(--maxDim);
 		background-repeat: repeat-x;
+		background-size: 1000px;
 
-		@media ( min-width: 600px ) {
+		@media ( min-width: 300px ) {
 			animation: camperAnimation_scroll 10s linear infinite;
 		}
 		
 		@keyframes camperAnimation_scroll {
 			from { background-position: 0 100%; }  
-			to   { background-position: calc( var(--maxDim) - 2 * var(--maxDim) ) 100%; }  
+			to   { background-position: -1000px 100%; }  
 		}
 	}
 
