@@ -36,6 +36,17 @@ const hideHeader = () => {
 		const isScrollingDown = ( currentScrollY > lastScrollY ) ? true : false
 		lastScrollY = currentScrollY
 		const isBelowFold = window.scrollY > window.innerHeight
+
+		// Style.
+		if ( isBelowFold ) {
+			header.classList.add( 'has-shadow' )
+			header.classList.add( 'is-squished' )
+		} else {
+			header.classList.remove( 'has-shadow' )
+			header.classList.remove( 'is-squished' )
+		}
+
+		// Animate.
 		const isVisible = ( header.style.visibility === 'visible' )
 		if ( ! isAnimating ) {
 			isAnimating = true

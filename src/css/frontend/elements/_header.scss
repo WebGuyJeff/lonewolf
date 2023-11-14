@@ -2,10 +2,25 @@
 	position: fixed !important;
 	right: 0;
 	left: 0;
-	transition: transform 0.25s;
+	transition: all 0.25s;
 	z-index: 10;
 }
 
 .wp-site-blocks > header {
-	box-shadow: var(--wp--preset--shadow--theme-soft);
+	box-shadow: 0 0 #0000;
+
+	.wp-block-site-logo img {
+		max-height: 85px;
+		transition: max-height 0.25s;
+	}
+
+	&.has-shadow {
+		box-shadow: var(--wp--preset--shadow--theme-soft);
+	}
+
+	&.is-squished {
+		.wp-block-site-logo img {
+			max-height: 50px;
+		}
+	}
 }

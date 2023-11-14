@@ -1,3 +1,20 @@
-:root{margin-top:0 !important;margin-bottom:var(--wp-admin--admin-bar--height) !important;scroll-padding-top:0 !important;scroll-padding-bottom:var(--wp-admin--admin-bar--height) !important}html div#wpadminbar{bottom:0 !important;top:unset !important;position:fixed !important}
+/*!**********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/css/lonewolf-dev.scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************/
+/**
+ * Get that pesky wpadminbar out of the way!
+ */
+:root {
+  margin-top: 0 !important;
+  margin-bottom: var(--wp-admin--admin-bar--height) !important;
+  scroll-padding-top: 0 !important;
+  scroll-padding-bottom: var(--wp-admin--admin-bar--height) !important;
+}
+
+html div#wpadminbar {
+  bottom: 0 !important;
+  top: unset !important;
+  position: fixed !important;
+}
 
 /*# sourceMappingURL=lonewolf-dev.css.map*/
