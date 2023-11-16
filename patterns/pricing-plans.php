@@ -34,7 +34,7 @@ $strings = array(
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"huge"} -->
-<p class="has-huge-font-size">19.99$</p>
+<p class="has-xxx-large-font-size">19.99$</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"small"} -->
@@ -78,7 +78,7 @@ $strings = array(
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"huge"} -->
-<p class="has-huge-font-size">39.99$</p>
+<p class="has-xxx-large-font-size">39.99$</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"small"} -->
@@ -122,7 +122,7 @@ $strings = array(
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"huge"} -->
-<p class="has-huge-font-size">99.99$</p>
+<p class="has-xxx-large-font-size">99.99$</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"small"} -->

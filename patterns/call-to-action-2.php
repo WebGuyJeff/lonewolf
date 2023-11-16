@@ -14,7 +14,7 @@
 <div class="wp-block-group alignwide"><!-- wp:columns -->
 <div class="wp-block-columns"><!-- wp:column {"width":"50%"} -->
 <div class="wp-block-column" style="flex-basis:50%"><!-- wp:heading {"fontSize":"huge"} -->
-<h2 class="has-huge-font-size">Lorem ipsum sit dolor</h2>
+<h2 class="has-xxx-large-font-size">Lorem ipsum sit dolor</h2>
 <!-- /wp:heading --></div>
 <!-- /wp:column -->
 

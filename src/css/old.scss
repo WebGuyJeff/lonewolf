@@ -112,7 +112,7 @@ $xlWidth:      1920px;
 	margin-block-end: 1.688em;
     margin-block-start: 2.75em;
     letter-spacing: -0.03em;
-    font-size: clamp( var(--wp--preset--font-size--x-large), 1vw, var(--wp--preset--font-size--huge) );
+    font-size: clamp( var(--wp--preset--font-size--xx-large), 1vw, var(--wp--preset--font-size--xxx-large) );
 }
 
 .display {
@@ -214,7 +214,7 @@ blockquote {
 		vertical-align: -0.4em;
 		line-height: 0.1em;
 		color: var(--lw_grey-light);
-		font-size: var(--wp--preset--font-size--huge);
+		font-size: var(--wp--preset--font-size--xxx-large);
 		content: open-quote;
 	}
 	blockquote-left {
@@ -581,7 +581,7 @@ a img.aligncenter {
 		.masonFlop_content-right {
             h3 {
 				margin-bottom: 0;
-                font-size: var(--wp--preset--font-size--large);
+                font-size: var(--wp--preset--font-size--x-large);
             }
 
 			span.masonFlop_moustache {
@@ -798,7 +798,7 @@ a img.aligncenter {
 
 
 .widget .button {
-	font-size: var(--wp--preset--font-size--normal);
+	font-size: var(--wp--preset--font-size--medium);
 }
 
 
@@ -815,7 +815,7 @@ a img.aligncenter {
 	padding: 0.2em;
 	width: 4em;
 	height: 4em;
-	font-size: var(--wp--preset--font-size--normal);
+	font-size: var(--wp--preset--font-size--medium);
     z-index: 10;
     transition: top 0.2s ease, right 0.2s ease;
 	color: inherit;
@@ -1033,10 +1033,10 @@ footer.pageGrid {
 		.siteTitle_sitename {
 			margin: 0;
 			letter-spacing: -0.06em;
-			font-size: var(--wp--preset--font-size--normal);
+			font-size: var(--wp--preset--font-size--medium);
 			font-weight: 600;
 
-			@media ( min-width: $laptopWidth ) { font-size: var(--wp--preset--font-size--medium); }
+			@media ( min-width: $laptopWidth ) { font-size: var(--wp--preset--font-size--large); }
 		}
 
 		.siteTitle_tagline {
@@ -1045,7 +1045,7 @@ footer.pageGrid {
 			font-size: var(--wp--preset--font-size--small);
 			font-weight: 200;
 
-			@media ( min-width: $laptopWidth ) { font-size: var(--wp--preset--font-size--normal); }
+			@media ( min-width: $laptopWidth ) { font-size: var(--wp--preset--font-size--medium); }
 		}
 	}
 }

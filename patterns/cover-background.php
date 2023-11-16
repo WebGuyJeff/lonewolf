@@ -27,7 +27,7 @@ $strings = array(
 <div class="wp-block-group has-lonewolf-fg-alt-color has-text-color">
 
 <!-- wp:heading {"fontSize":"huge"} -->
-<h2 class="has-huge-font-size"><?php echo esc_html( $strings['title'] ); ?></h2>
+<h2 class="has-xxx-large-font-size"><?php echo esc_html( $strings['title'] ); ?></h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"medium"} -->

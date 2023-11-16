@@ -12,7 +12,7 @@
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"64px","bottom":"64px"},"margin":{"top":"0px","bottom":"0px"}}},"backgroundColor":"lonewolf-bg-alt","layout":{"inherit":true,"type":"constrained"}} -->
 <div class="wp-block-group alignfull has-lonewolf-bg-alt-background-color has-background" style="margin-top:0px;margin-bottom:0px;padding-top:64px;padding-bottom:64px"><!-- wp:group {"layout":{"inherit":false}} -->
 <div class="wp-block-group"><!-- wp:heading {"textAlign":"center","fontSize":"huge"} -->
-<h2 class="has-text-align-center has-huge-font-size">Lorem ipsum sit dolor</h2>
+<h2 class="has-text-align-center has-xxx-large-font-size">Lorem ipsum sit dolor</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"align":"center","fontSize":"large"} -->

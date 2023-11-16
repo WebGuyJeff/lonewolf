@@ -1,0 +1,4 @@
+:root {
+	--lw--fluid-root: calc(0.9375rem + ((1vw - 4px) * 0.3289));
+	font-size: var( --lw--fluid-root );
+}

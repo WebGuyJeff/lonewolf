@@ -1,0 +1,16 @@
+
+.wp-site-blocks > header {
+
+	.wp-block-site-logo img {
+		object-position: left;
+		object-fit: contain;
+		max-height: 5.3125rem;
+		transition: max-height 0.25s;
+	}
+
+	&.is-squished {
+		.wp-block-site-logo img {
+			max-height: 3.125rem;
+		}
+	}
+}

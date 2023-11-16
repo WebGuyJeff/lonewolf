@@ -21,7 +21,7 @@ $strings = array(
 <div class="wp-block-group has-lonewolf-bg-alt-background-color has-background" style="margin-top:0px;margin-bottom:0px;padding-top:64px;padding-bottom:64px">
 
 <!-- wp:heading {"textAlign":"center","level":1,"fontSize":"huge"} -->
-<h1 class="has-text-align-center has-huge-font-size"><?php echo esc_html( $strings['title'] ); ?></h1>
+<h1 class="has-text-align-center has-xxx-large-font-size"><?php echo esc_html( $strings['title'] ); ?></h1>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"align":"center","fontSize":"medium"} -->
