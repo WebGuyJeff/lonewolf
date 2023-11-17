@@ -4,243 +4,57 @@
 	"settings": {
 		"appearanceTools": true,
 		"color": {
+			"defaultDuotone": false,
 			"defaultPalette": false,
+			"defaultGradients": false,
 			"palette": [
-				{
-					"slug": "lw-bg",
-					"color": "#072c50",
-					"name": "Background"
-				},
-				{
-					"slug": "lw-fg",
-					"color": "#ffffff",
-					"name": "Foreground"
-				},
-				{
-					"slug": "lw-bg-alt",
-					"color": "#fff2",
-					"name": "Background Alt"
-				},
-				{
-					"slug": "lw-fg-alt",
-					"color": "#fcfcfc",
-					"name": "Foreground Alt"
-				},
-				{
-					"slug": "lw-accent",
-					"color": "#f89549",
-					"name": "Accent"
-				},
-				{
-					"slug": "pink-lightest",
-					"color": "hsl(303, 53%, 88%)",
-					"name": "Pink Lightest"
-				},
-				{
-					"slug": "pink-light",
-					"color": "hsl(303, 53%, 60%)",
-					"name": "Pink Light"
-				},
-				{
-					"slug": "pink",
-					"color": "hsl(303, 53%, 50%)",
-					"name": "Pink"
-				},
-				{
-					"slug": "pink-dark",
-					"color": "hsl(303, 53%, 40%)",
-					"name": "Pink Dark"
-				},
-				{
-					"slug": "pink-darkest",
-					"color": "hsl(302, 53%, 20%)",
-					"name": "Pink Darkest"
-				},
-				{
-					"slug": "purple-lightest",
-					"color": "hsl(263, 53%, 88%)",
-					"name": "Purple Lightest"
-				},
-				{
-					"slug": "purple-light",
-					"color": "hsl(264, 53%, 60%)",
-					"name": "Purple Light"
-				},
-				{
-					"slug": "purple",
-					"color": "hsl(264, 53%, 50%)",
-					"name": "Purple"
-				},
-				{
-					"slug": "purple-dark",
-					"color": "hsl(264, 53%, 40%)",
-					"name": "Purple Dark"
-				},
-				{
-					"slug": "purple-darkest",
-					"color": "hsl(263, 53%, 20%)",
-					"name": "Purple Darkest"
-				},
-				{
-					"slug": "blue-lightest",
-					"color": "hsl(207, 53%, 88%)",
-					"name": "Blue Lightest"
-				},
-				{
-					"slug": "blue-light",
-					"color": "hsl(207, 53%, 60%)",
-					"name": "Blue Light"
-				},
-				{
-					"slug": "blue",
-					"color": "hsl(207, 53%, 50%)",
-					"name": "Blue"
-				},
-				{
-					"slug": "blue-dark",
-					"color": "hsl(207, 53%, 40%)",
-					"name": "Blue Dark"
-				},
-				{
-					"slug": "blue-darkest",
-					"color": "hsl(207, 53%, 20%)",
-					"name": "Blue Darkest"
-				},
-				{
-					"slug": "green-lightest",
-					"color": "hsl(136, 53%, 88%)",
-					"name": "Green Lightest"
-				},
-				{
-					"slug": "green-light",
-					"color": "hsl(136, 53%, 60%)",
-					"name": "Green Light"
-				},
-				{
-					"slug": "green",
-					"color": "hsl(136, 53%, 50%)",
-					"name": "Green"
-				},
-				{
-					"slug": "green-dark",
-					"color": "hsl(136, 53%, 40%)",
-					"name": "Green Dark"
-				},
-				{
-					"slug": "green-darkest",
-					"color": "hsl(136, 53%, 20%)",
-					"name": "Green Darkest"
-				},
-				{
-					"slug": "yellow-lightest",
-					"color": "hsl(62, 76%, 88%)",
-					"name": "Yellow Lightest"
-				},
-				{
-					"slug": "yellow-light",
-					"color": "hsl(61, 75%, 60%)",
-					"name": "Yellow Light"
-				},
-				{
-					"slug": "yellow",
-					"color": "hsl(61, 76%, 50%)",
-					"name": "Yellow"
-				},
-				{
-					"slug": "yellow-dark",
-					"color": "hsl(61, 75%, 40%)",
-					"name": "Yellow Dark"
-				},
-				{
-					"slug": "yellow-darkest",
-					"color": "hsl(62, 76%, 20%)",
-					"name": "Yellow Darkest"
-				},
-				{
-					"slug": "orange-lightest",
-					"color": "hsl(30, 76%, 88%)",
-					"name": "Orange Lightest"
-				},
-				{
-					"slug": "orange-light",
-					"color": "hsl(30, 75%, 60%)",
-					"name": "Orange Light"
-				},
-				{
-					"slug": "orange",
-					"color": "hsl(30, 76%, 50%)",
-					"name": "Orange"
-				},
-				{
-					"slug": "orange-dark",
-					"color": "hsl(30, 75%, 40%)",
-					"name": "Orange Dark"
-				},
-				{
-					"slug": "orange-darkest",
-					"color": "hsl(30, 76%, 20%)",
-					"name": "Orange Darkest"
-				},
-				{
-					"slug": "red-lightest",
-					"color": "hsl(0, 76%, 88%)",
-					"name": "Red Lightest"
-				},
-				{
-					"slug": "red-light",
-					"color": "hsl(0, 75%, 60%)",
-					"name": "Red Light"
-				},
-				{
-					"slug": "red",
-					"color": "hsl(0, 76%, 50%)",
-					"name": "Red"
-				},
-				{
-					"slug": "red-dark",
-					"color": "hsl(0, 75%, 40%)",
-					"name": "Red Dark"
-				},
-				{
-					"slug": "red-darkest",
-					"color": "hsl(0, 76%, 20%)",
-					"name": "Red Darkest"
-				},
-				{
-					"slug": "white",
-					"color": "hsl(0, 0%, 100%)",
-					"name": "White"
-				},
-				{
-					"slug": "grey-lightest",
-					"color": "hsl(0, 0%, 93%)",
-					"name": "Grey Lightest"
-				},
-				{
-					"slug": "grey-light",
-					"color": "hsl(0, 0%, 73%)",
-					"name": "Grey Light"
-				},
-				{
-					"slug": "grey",
-					"color": "hsl(0, 0%, 50%)",
-					"name": "Grey"
-				},
-				{
-					"slug": "grey-dark",
-					"color": "hsl(0, 0%, 30%)",
-					"name": "Grey Dark"
-				},
-				{
-					"slug": "grey-darkest",
-					"color": "hsl(0, 0%, 20%)",
-					"name": "Grey Darkest"
-				},
-				{
-					"slug": "black",
-					"color": "hsl(0, 0%, 0%)",
-					"name": "Black"
-				}
+				{ "slug": "lw-bg", "color": "#072c50", "name": "Background" },
+				{ "slug": "lw-fg", "color": "#ffffff", "name": "Foreground" },
+				{ "slug": "lw-bg-alt", "color": "#fff2", "name": "Background Alt" },
+				{ "slug": "lw-fg-alt", "color": "#fcfcfc", "name": "Foreground Alt" },
+				{ "slug": "lw-accent", "color": "#f89549", "name": "Accent" },
+				{ "slug": "pink-lightest", "color": "hsl(303, 53%, 88%)", "name": "Pink Lightest" },
+				{ "slug": "pink-light", "color": "hsl(303, 53%, 60%)", "name": "Pink Light" },
+				{ "slug": "pink", "color": "hsl(303, 53%, 50%)", "name": "Pink" },
+				{ "slug": "pink-dark", "color": "hsl(303, 53%, 40%)", "name": "Pink Dark" },
+				{ "slug": "pink-darkest", "color": "hsl(302, 53%, 20%)", "name": "Pink Darkest" },
+				{ "slug": "purple-lightest", "color": "hsl(263, 53%, 88%)", "name": "Purple Lightest" },
+				{ "slug": "purple-light", "color": "hsl(264, 53%, 60%)", "name": "Purple Light" },
+				{ "slug": "purple", "color": "hsl(264, 53%, 50%)", "name": "Purple" },
+				{ "slug": "purple-dark", "color": "hsl(264, 53%, 40%)", "name": "Purple Dark" },
+				{ "slug": "purple-darkest", "color": "hsl(263, 53%, 20%)", "name": "Purple Darkest" },
+				{ "slug": "blue-lightest", "color": "hsl(207, 53%, 88%)", "name": "Blue Lightest" },
+				{ "slug": "blue-light", "color": "hsl(207, 53%, 60%)", "name": "Blue Light" },
+				{ "slug": "blue", "color": "hsl(207, 53%, 50%)", "name": "Blue" },
+				{ "slug": "blue-dark", "color": "hsl(207, 53%, 40%)", "name": "Blue Dark" },
+				{ "slug": "blue-darkest", "color": "hsl(207, 53%, 20%)", "name": "Blue Darkest" },
+				{ "slug": "green-lightest", "color": "hsl(136, 53%, 88%)", "name": "Green Lightest" },
+				{ "slug": "green-light", "color": "hsl(136, 53%, 60%)", "name": "Green Light" },
+				{ "slug": "green", "color": "hsl(136, 53%, 50%)", "name": "Green" },
+				{ "slug": "green-dark", "color": "hsl(136, 53%, 40%)", "name": "Green Dark" },
+				{ "slug": "green-darkest", "color": "hsl(136, 53%, 20%)", "name": "Green Darkest" },
+				{ "slug": "yellow-lightest", "color": "hsl(62, 76%, 88%)", "name": "Yellow Lightest" },
+				{ "slug": "yellow-light", "color": "hsl(61, 75%, 60%)", "name": "Yellow Light" },
+				{ "slug": "yellow", "color": "hsl(61, 76%, 50%)", "name": "Yellow" },
+				{ "slug": "yellow-dark", "color": "hsl(61, 75%, 40%)", "name": "Yellow Dark" },
+				{ "slug": "yellow-darkest", "color": "hsl(62, 76%, 20%)", "name": "Yellow Darkest" },
+				{ "slug": "orange-lightest", "color": "hsl(30, 76%, 88%)", "name": "Orange Lightest" },
+				{ "slug": "orange-light", "color": "hsl(30, 75%, 60%)", "name": "Orange Light" },
+				{ "slug": "orange", "color": "hsl(30, 76%, 50%)", "name": "Orange" },
+				{ "slug": "orange-dark", "color": "hsl(30, 75%, 40%)", "name": "Orange Dark" },
+				{ "slug": "orange-darkest", "color": "hsl(30, 76%, 20%)", "name": "Orange Darkest" },
+				{ "slug": "red-lightest", "color": "hsl(0, 76%, 88%)", "name": "Red Lightest" },
+				{ "slug": "red-light", "color": "hsl(0, 75%, 60%)", "name": "Red Light" },
+				{ "slug": "red", "color": "hsl(0, 76%, 50%)", "name": "Red" },
+				{ "slug": "red-dark", "color": "hsl(0, 75%, 40%)", "name": "Red Dark" },
+				{ "slug": "red-darkest", "color": "hsl(0, 76%, 20%)", "name": "Red Darkest" },
+				{ "slug": "white", "color": "hsl(0, 0%, 100%)", "name": "White" },
+				{ "slug": "grey-lightest", "color": "hsl(0, 0%, 93%)", "name": "Grey Lightest" },
+				{ "slug": "grey-light", "color": "hsl(0, 0%, 73%)", "name": "Grey Light" },
+				{ "slug": "grey", "color": "hsl(0, 0%, 50%)", "name": "Grey" },
+				{ "slug": "grey-dark", "color": "hsl(0, 0%, 30%)", "name": "Grey Dark" },
+				{ "slug": "grey-darkest", "color": "hsl(0, 0%, 20%)", "name": "Grey Darkest" },
+				{ "slug": "black", "color": "hsl(0, 0%, 0%)", "name": "Black" }
 			],
 			"link": true
 		},
@@ -306,56 +120,16 @@
 				}
 			],
 			"fontSizes": [
-				{
-					"name": "Small",
-					"size": "0.8125rem",
-					"slug": "small"
-				},
-				{
-					"name": "Medium",
-					"size": "1rem",
-					"slug": "medium"
-				},
-				{
-					"name": "Large",
-					"size": "1.25rem",
-					"slug": "large"
-				},
-				{
-					"name": "Extra Large",
-					"size": "1.625rem",
-					"slug": "x-large"
-				},
-				{
-					"name": "Extra Extra Large",
-					"size": "2.0625rem",
-					"slug": "xx-large"
-				},
-				{
-					"name": "Extra Extra Extra Large",
-					"size": "2.625rem",
-					"slug": "xxx-large"
-				},
-				{
-					"name": "Display Small",
-					"size": "3.3125rem",
-					"slug": "display-small"
-				},
-				{
-					"name": "Display Medium",
-					"size": "4.25rem",
-					"slug": "display-medium"
-				},
-				{
-					"name": "Display Large",
-					"size": "5.375rem",
-					"slug": "display-large"
-				},
-				{
-					"name": "Display Extra Large",
-					"size": "6.875rem",
-					"slug": "display-x-large"
-				}
+				{ "name": "Small", "size": "0.8125rem", "slug": "small" },
+				{ "name": "Medium", "size": "1rem", "slug": "medium" },
+				{ "name": "Large", "size": "1.25rem", "slug": "large" },
+				{ "name": "Extra Large", "size": "1.625rem", "slug": "x-large" },
+				{ "name": "Extra Extra Large", "size": "2.0625rem", "slug": "xx-large" },
+				{ "name": "Extra Extra Extra Large", "size": "2.625rem", "slug": "xxx-large" },
+				{ "name": "Display Small", "size": "3.3125rem", "slug": "display-small" },
+				{ "name": "Display Medium", "size": "4.25rem", "slug": "display-medium" },
+				{ "name": "Display Large", "size": "5.375rem", "slug": "display-large" },
+				{ "name": "Display Extra Large", "size": "6.875rem", "slug": "display-x-large" }
 			]
 		},
 		"layout": {
@@ -374,7 +148,7 @@
 			],
 			"spacingScale": {
 				"operator": "*",
-				"increment": 1.5,
+				"increment": 2,
 				"steps": 7,
 				"mediumStep": 1.5,
 				"unit": "rem"
@@ -388,21 +162,9 @@
 		},
 		"shadow": {
 			"presets": [
-				{
-					"name": "Default Shadow",
-					"slug": "theme",
-					"shadow": "0 0.25rem 0.5em 0.25rem #0006,0 0.125rem 0.25rem 0.125rem #0006"
-				},
-				{
-					"name": "Default Shadow",
-					"slug": "theme-soft",
-					"shadow": "0 0.25rem 0.5rem 0.25rem #0003,0 0.125rem 0.25rem 0.125rem #0005"
-				},
-				{
-					"name": "Inset Shadow",
-					"slug": "theme-inset",
-					"shadow": "inset -0.1rem 0.2rem 0.5rem 0.2rem #000c"
-				}
+				{ "name": "Small", "slug": "theme", "shadow": "0 0.25rem 0.5em 0.25rem #0006,0 0.125rem 0.25rem 0.125rem #0006" },
+				{ "name": "Small Soft", "slug": "theme-soft", "shadow": "0 0.25rem 0.5rem 0.25rem #0003,0 0.125rem 0.25rem 0.125rem #0005" },
+				{ "name": "Inset", "slug": "theme-inset", "shadow": "inset -0.1rem 0.2rem 0.5rem 0.2rem #000c" }
 			]
 		},
 		"dimensions": {
@@ -428,7 +190,9 @@
 		"blocks": {
 			"core/group": {
 				"spacing": {
-					"padding": true
+					"margin": true,
+					"padding": true,
+					"blockGap": true
 				}
 			}
 		}
@@ -442,42 +206,34 @@
 			"fontSize": "var( --wp--preset--font-size--medium )",
 			"fontFamily": "var(--wp--preset--font-family--body)",
 			"fontWeight": "400",
-			"lineHeight": "1.4375rem"
+			"lineHeight": "1.6"
 		},
 		"spacing": {
 			"blockGap": "var(--wp--custom--spacing--gutter--large)"
 		},
 		"elements": {
 			"button": {
-				":hover": {
-					"border": {
-						"color": "currentColor",
-						"radius": "0.1875rem"
-					},
-					"color": {
-						"background": "transparent",
-						"text": "currentColor"
-					}
-				}
+				"border": { "radius": "50rem", "width": "0" },
+				"css": "transition: all 0.35s ease-in-out;",
+				"typography": { "textTransform": "uppercase", "fontWeight": "600" },
+				":hover": { "border": { "radius": "0.1875rem" } }
 			},
 			"link": {
-				"color": {
-					"text": "var(--wp--preset--color--lw-fg)"
-				},
-				"typography": {
-					"textDecoration": "none"
-				}
+				"color": { "text": "var(--wp--preset--color--lw-fg)" },
+				"typography": { "textDecoration": "none" },
+				":hover": { "typography": { "textDecoration": "underline" } }
 			},
 			"heading": {
 				"typography": {
-					"fontFamily": "var(--wp--preset--font-family--heading)"
-				}
+					"fontFamily": "var(--wp--preset--font-family--heading)",
+					"lineHeight": "1.3"
+				},
+				"spacing": { "margin": { "bottom": "calc( 1.2em + var( --wp--custom--fluid-root ) )" } }
 			},
 			"h1": {
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--xxx-large)",
 					"fontWeight": "900",
-					"lineHeight": "4.0625rem",
 					"letterSpacing": "-0.03rem"
 				}
 			},
@@ -485,7 +241,6 @@
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--xx-large)",
 					"fontWeight": "900",
-					"lineHeight": "3.25rem",
 					"letterSpacing": "-0.03rem"
 				}
 			},
@@ -493,7 +248,6 @@
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--x-large)",
 					"fontWeight": "900",
-					"lineHeight": "2.625rem",
 					"letterSpacing": "-0.02rem"
 				}
 			},
@@ -501,7 +255,6 @@
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--large)",
 					"fontWeight": "900",
-					"lineHeight": "2.0625rem",
 					"letterSpacing": "-0.02rem"
 				}
 			},
@@ -509,7 +262,6 @@
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--medium)",
 					"fontWeight": "900",
-					"lineHeight": "1.6875rem",
 					"letterSpacing": "-0.02rem"
 				}
 			},
@@ -517,50 +269,19 @@
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--small)",
 					"fontWeight": "900",
-					"lineHeight": "1.4375rem",
 					"letterSpacing": "-0.02rem"
 				}
 			}
 		},
 		"blocks": {
 			"core/button": {
-				"border": {
-					"radius": "50rem",
-					"width": "0"
-				},
-				"spacing": {
-					"padding": {
-						"top": "1rem",
-						"bottom": "1rem",
-						"left": "2rem",
-						"right": "2rem"
-					}
-				},
-				"color": {
-					"background": "var(--wp--preset--color--lw-accent)",
-					"text": "var(--wp--preset--color--lw-fg-alt)"
-				},
-				"typography": {
-					"textTransform": "uppercase",
-					"fontWeight": "600"
-				},
+				"spacing": { "padding": { "top": "1rem", "bottom": "1rem", "left": "2rem", "right": "2rem" } },
+				"color": { "background": "var(--wp--preset--color--lw-accent)", "text": "var(--wp--preset--color--lw-fg-alt)" },
 				"variations": {
 					"outline": {
-						"color": {
-							"text": "currentColor"
-						},
-						"border": {
-							"width": "0.1875rem",
-							"color": "currentColor"
-						},
-						"spacing": {
-							"padding": {
-								"top": "0.8125rem",
-								"bottom": "0.8125rem",
-								"left": "1.8125rem",
-								"right": "1.8125rem"
-							}
-						}
+						"color": { "background": "#0000", "text": "currentColor" },
+						"border": { "width": "0.1875rem", "color": "currentColor" },
+						"spacing": { "padding": { "top": "0.8125rem", "bottom": "0.8125rem", "left": "1.8125rem", "right": "1.8125rem" } }
 					}
 				}
 			},
@@ -577,12 +298,7 @@
 					"background": "var(--wp--preset--color--lw-bg-alt)"
 				},
 				"spacing": {
-					"padding": {
-						"bottom": "1.5rem",
-						"left": "1.5rem",
-						"right": "1.5rem",
-						"top": "1.5rem"
-					}
+					"padding": { "bottom": "1.5rem", "left": "1.5rem", "right": "1.5rem", "top": "1.5rem" }
 				}
 			},
 			"core/comment-date": {
@@ -622,59 +338,29 @@
 					"radius": "0.375rem"
 				}
 			},
-			"woocommerce/mini-cart-contents": {
-				"color": {
-					"text": "var(--wp--preset--color--lw-fg)",
-					"background": "var(--wp--preset--color--lw-bg)"
-				},
-				"elements": {
-					"link": {
-						"color": {
-							"text": "var(--wp--preset--color--lw-accent)"
-						}
-					}
-				}
+			"core/code": {
+				"typography": { "fontFamily": "monospace" },
+				"color": { "text": "#8ebff5", "background": "#222" },
+				"spacing": { "padding": { "bottom": "var(--wp--preset--spacing--50)", "left": "var(--wp--preset--spacing--30)", "right": "var(--wp--preset--spacing--30)", "top": "var(--wp--preset--spacing--50)" } },
+				"shadow": "var(--wp--preset--shadow--theme-inset)"
+			},
+
+			"core/table": {
+				"css": "border-color:var(--wp--preset--color--lw-fg); border-bottom: solid 0.25rem; & th{ color:var(--wp--preset--color--lw-bg); background:var(--wp--preset--color--lw-fg); border: 0px; } & td{ border: 0px; } & tr:nth-child(even){ background: #fff1; }",
+				"color": { "text": "var(--wp--preset--color--lw-fg)" }
 			}
 		}
 	},
 	"customTemplates": [
-		{
-			"name": "template-blank",
-			"title": "Blank Page - Only Content"
-		},
-		{
-			"name": "single-product",
-			"title": "WooCommerce Single Product"
-		},
-		{
-			"name": "page-checkout",
-			"title": "WooCommerce Checkout"
-		},
-		{
-			"name": "page-cart",
-			"title": "WooCommerce Cart"
-		}
+		{ "name": "template-blank", "title": "Blank Page - Only Content" },
+		{ "name": "single-product", "title": "WooCommerce Single Product" },
+		{ "name": "page-checkout", "title": "WooCommerce Checkout" },
+		{ "name": "page-cart", "title": "WooCommerce Cart" }
 	],
 	"templateParts": [
-		{
-			"name": "header",
-			"title": "Header",
-			"area": "header"
-		},
-		{
-			"name": "header-centered",
-			"title": "Header Centered",
-			"area": "header"
-		},
-		{
-			"name": "footer",
-			"title": "Footer",
-			"area": "footer"
-		},
-		{
-			"name": "footer-with-columns",
-			"title": "Footer with Columns",
-			"area": "footer"
-		}
+		{ "name": "header", "title": "Header", "area": "header" },
+		{ "name": "header-centered", "title": "Header Centered", "area": "header" },
+		{ "name": "footer", "title": "Footer", "area": "footer" },
+		{ "name": "footer-with-columns", "title": "Footer with Columns", "area": "footer" }
 	]
 }

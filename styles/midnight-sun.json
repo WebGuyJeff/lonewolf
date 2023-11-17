@@ -8,7 +8,12 @@
                 {
                     "slug": "sunrise",
                     "gradient": "linear-gradient(170deg,#fbad40 0%,#ef4236 100%)",
-                    "name": "Sunrise"
+                    "name": "Sunrise (linear)"
+                },
+				{
+                    "slug": "blue-haze",
+                    "gradient": "radial-gradient(closest-corner,#0c4987 0%,#497fb1 100%)",
+                    "name": "Blue Haze (radial)"
                 }
 			],
 			"palette": [
@@ -59,15 +64,11 @@
 				},
 				{
 					"fontFace": [
-						{
-							"fontFamily": "Merriweather",
-							"fontStretch": "normal",
-							"fontStyle": "normal",
-							"fontWeight": "900",
-							"src": [
-								"file:./assets/fonts/Merriweather/Merriweather-Black.ttf"
-							]
-						}
+						{ "fontFamily": "Merriweather", "fontStretch": "normal", "fontStyle": "normal", "fontWeight": "900", "src": [ "file:./assets/fonts/Merriweather/Merriweather-Black.ttf" ] },
+						{ "fontFamily": "Merriweather", "fontStretch": "normal", "fontStyle": "normal", "fontWeight": "700", "src": [ "file:./assets/fonts/Merriweather/Merriweather-Bold.ttf" ] },
+						{ "fontFamily": "Merriweather", "fontStretch": "normal", "fontStyle": "italic", "fontWeight": "700", "src": [ "file:./assets/fonts/Merriweather/Merriweather-BoldItalic.ttf" ] },
+						{ "fontFamily": "Merriweather", "fontStretch": "normal", "fontStyle": "normal", "fontWeight": "400", "src": [ "file:./assets/fonts/Merriweather/Merriweather-Regular.ttf" ] },
+						{ "fontFamily": "Merriweather", "fontStretch": "normal", "fontStyle": "italic", "fontWeight": "400", "src": [ "file:./assets/fonts/Merriweather/Merriweather-Italic.ttf" ] }
 					],
 					"fontFamily": "Merriweather, serif",
 					"name": "Merriweather",
@@ -78,17 +79,43 @@
 	},
 	"styles": {
 		"elements": {
+			"button": {
+				"border": { "radius": "50rem", "width": "0" },
+				"typography": { "textTransform": "uppercase", "fontWeight": "700" },
+				":hover": { "border": { "radius": "0.1875rem" } }
+			},
 			"link": {
 				"color": {
 					"text": "var(--wp--preset--color--lw-fg)"
 				}
 			},
-			"h1": { "typography": { "fontWeight": "900" } },
-			"h2": { "typography": { "fontWeight": "900" } },
-			"h3": { "typography": { "fontWeight": "900" } },
-			"h4": { "typography": { "fontWeight": "900" } },
-			"h5": { "typography": { "fontWeight": "900" } },
-			"h6": { "typography": { "fontWeight": "900" } }
+			"h1": { "typography": { "fontWeight": "700" } },
+			"h2": { "typography": { "fontWeight": "700" } },
+			"h3": { "typography": { "fontWeight": "700" } },
+			"h4": { "typography": { "fontWeight": "700" } },
+			"h5": { "typography": { "fontWeight": "700" } },
+			"h6": { "typography": { "fontWeight": "700" } }
+		},
+		"blocks": {
+			"core/button": {
+				"spacing": { "padding": { "top": "0.95rem", "bottom": "0.75rem", "left": "1.5rem", "right": "1.5rem" } },
+				"css": "transition: all 0.35s ease-in-out; background: var(--wp--preset--gradient--sunrise)",
+				"color": { "text": "var(--wp--preset--color--lw-bg)" },
+				"variations": {
+					"outline": {
+						"css": "background: #0000",
+						"color": { "text": "currentColor", "background": "#0000" },
+						"border": { "width": "0.2rem", "color": "var(--wp--preset--color--lw-accent)" },
+						"spacing": { "padding": { "top": "0.75rem", "bottom": "0.55rem", "left": "1.3rem", "right": "1.3rem" } }
+					},
+					"textonly": {
+						"css": "background: none",
+						"color": { "text": "currentColor", "background": "none" },
+						"border": { "width": "0" },
+						"spacing": { "padding": { "top": "0", "bottom": "0", "left": "0", "right": "0" } }
+					}
+				}
+			}
 		}
 	}
 }

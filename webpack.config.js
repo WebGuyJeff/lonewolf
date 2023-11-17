@@ -27,29 +27,20 @@ module.exports = {
 	plugins: [
 		...wordpressConfig.plugins,
 		new BrowserSyncPlugin( {
-			// Live WordPress site. Using IP breaks it.
-			proxy: 'localhost:8001',
-			// BrowserSync UI.
-			ui: { port: 3001 },
-			// Dev port on localhost.
-			port: 3000,
+			proxy: 'localhost:8001', // Live WordPress site. Using IP breaks it.
+			ui: { port: 3001 }, // BrowserSync UI.
+			port: 3000, // Dev port on localhost.
 			logLevel: 'debug',
-			// Webpack handles reloads.
-			reload: false,
-			browser: "google-chrome-stable"
-		} ),
-	],
-	// HMR with live reload.
-	devServer: {
-		watchFiles: {
-			paths: [
+			reload: false, // false = webpack handles reloads (not sure if this works with files option).
+			browser: "google-chrome-stable",
+			files: [
 				'src/**',
 				'classes/**',
 				'patterns/**',
 				'parts/**',
 				'templates/**',
-				'./theme.json'
+				'**/**.json'
 			]
-		}
-	}
+		} )
+	]
 }
