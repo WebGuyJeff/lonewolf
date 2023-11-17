@@ -530,10 +530,10 @@
 				},
 				"spacing": {
 					"padding": {
-						"bottom": "0.625rem",
-						"left": "1rem",
-						"right": "1rem",
-						"top": "0.625rem"
+						"top": "1rem",
+						"bottom": "1rem",
+						"left": "2rem",
+						"right": "2rem"
 					}
 				},
 				"color": {
@@ -555,10 +555,10 @@
 						},
 						"spacing": {
 							"padding": {
+								"top": "0.8125rem",
 								"bottom": "0.8125rem",
 								"left": "1.8125rem",
-								"right": "1.8125rem",
-								"top": "0.8125rem"
+								"right": "1.8125rem"
 							}
 						}
 					}
