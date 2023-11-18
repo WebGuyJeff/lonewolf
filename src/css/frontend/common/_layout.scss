@@ -17,14 +17,17 @@ footer {
 	margin-block-start: 0 !important;
 }
 
-/* Gutters. */
-
+// Grid/flex gutters.
 :where(body .is-layout-grid),
 :where(body .is-layout-flex) {
 	gap: var(--wp--custom--spacing--gutter--medium) var(--wp--custom--spacing--gutter--small);
 }
 
-// Default page padding for all root blocks.
+/*
+
+Trying "useRootPaddingAwareAlignments": true, in theme.json.
+
+// Default page padding.
 .wp-site-blocks > *,
 .editor-styles-wrapper > *:not( .edit-post-visual-editor__post-title-wrapper ) { // Include the editor.
 	padding-top: 0;
@@ -44,23 +47,26 @@ footer {
 		}
 	}
 }
-
+*/
+/*
 // Remove any default margins from root blocks.
 .wp-site-blocks > * {
 	margin-left: 0;
 	margin-right: 0;
 }
-
+*/
 
 /* Gutenberg overrides */
-
+/*
 :where(.wp-block-group.has-background) {
 	padding: 0;
 }
-
+*/
+/*
 :is( .alignfull ),
 .is-root-container .wp-block[data-align='full'] > .wp-block-group,
 .is-root-container .wp-block[data-align='full'] > .wp-block-cover {
 	margin-left: 0;
 	margin-right: 0;
 }
+*/

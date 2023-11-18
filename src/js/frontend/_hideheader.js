@@ -60,9 +60,14 @@ const hideHeader = () => {
 		}
 	}
 
+	/**
+	 * Header must transform to 'none' and not 'translate( 0, 0 )' otherwise inner fixed position
+	 * modals will not be able to break out of the header element. Issue discovered with the WP
+	 * nav modal getting locked into the header. Note: behaviour is per W3 spec, not a bug.
+	 */
 	const show = () => {
 		visibilityToPromise( header, 'visible' )
-			.then( () => transitionToPromise( header, 'transform', 'translate( 0, 0 )' ) )
+			.then( () => transitionToPromise( header, 'transform', 'none' ) )
 			.then( () => isAnimating = false )
 	}
 
