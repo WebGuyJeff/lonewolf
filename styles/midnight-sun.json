@@ -14,7 +14,12 @@
                     "slug": "blue-haze",
                     "gradient": "radial-gradient(closest-corner,#0c4987 0%,#497fb1 100%)",
                     "name": "Blue Haze (radial)"
-                }
+                },
+				{
+					"slug": "green-haze",
+					"gradient": "radial-gradient(circle at 30% 80%,#157861 15%,#0b4f3f 100%)",
+					"name": "Green Haze (radial)"
+				}
 			],
 			"palette": [
 				{

@@ -1,4 +1,4 @@
-input:read-write,
+:read-write,
 textarea,
 select {
 
@@ -6,7 +6,9 @@ select {
 }
 
 input:read-write:not([type='search']),
+input:disabled,
 textarea,
+textarea:disabled,
 select {
 	width: 100%;
 	padding: 11px;

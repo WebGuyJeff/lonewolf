@@ -1,8 +1,16 @@
 %input-base {
 	border-radius: 3px;
 	color: var(--wp--preset--color--lw-fg);
-	background: var(--wp--preset--color--lw-bg);
+	background-color: var(--wp--preset--color--lw-bg);
 	border: 3px solid var(--wp--preset--color--lw-fg);
+
+	&:disabled {
+		cursor: default;
+		pointer-events: none !important;
+		background-color: var(--wp--preset--color--lw-bg-alt);
+		color: var(--wp--preset--color--lw-fg-alt);
+		border-color: var(--wp--preset--color--lw-fg-alt);
+	}
 }
 
 @mixin button-base {

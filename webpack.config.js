@@ -12,7 +12,7 @@ module.exports = {
 	entry: {
 		// Everything outputs to build/.
 		...getWebpackEntryPoints(),
-		// 'example/output': 'path/to/dir/entrypoint.js',
+		// 'example/output': './path/to/dir/entrypoint.js',
 		'css/lonewolf': path.join( __dirname, '/src/css/lonewolf.scss' ),
 		'css/lonewolf-admin': path.join( __dirname, '/src/css/lonewolf-admin.scss' ),
 		'css/lonewolf-editor': path.join( __dirname, '/src/css/lonewolf-editor.scss' ),

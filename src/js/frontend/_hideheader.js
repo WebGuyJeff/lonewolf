@@ -17,6 +17,9 @@ const hideHeader = () => {
 
 	const init = () => {
 		header = document.querySelector( '.jsHideHeader' )
+
+		if ( ! header ) return
+
 		header.style.visibility = 'visible'
 		window.addEventListener( 'scroll', hasScrolledThrottle )
 	}
