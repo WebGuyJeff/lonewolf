@@ -1,18 +1,18 @@
-:read-write,
+input,
 textarea,
 select {
 
 	@extend %input-base;
 }
 
-input:read-write:not([type='search']),
+input:not([type='search']),
 input:disabled,
 textarea,
 textarea:disabled,
 select {
 	width: 100%;
 	padding: 11px;
-	font-size: var(--wp--preset--font-size--medium);
+	font-size: inherit;
 }
 
 input {
