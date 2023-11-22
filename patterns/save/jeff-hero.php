@@ -17,16 +17,16 @@ $strings = array(
 );
 
 $svg = array(
-	'hand_left'     => Util::get_contents( LW_DIR . 'assets/img/patterns/bigupjeff/grabhand-left.svg' ),
-	'hand_right'    => Util::get_contents( LW_DIR . 'assets/img/patterns/bigupjeff/grabhand-right.svg' ),
-	'hipster'       => Util::get_contents( LW_DIR . 'assets/img/patterns/bigupjeff/meToon_idle.svg' ),
-	'fist'          => Util::get_contents( LW_DIR . 'assets/img/patterns/bigupjeff/fist.svg' ),
-	'star'          => Util::get_contents( LW_DIR . 'assets/img/patterns/bigupjeff/twinkle.svg' ),
-	'desert_fills'  => Util::get_contents( LW_DIR . 'assets/img/patterns/bigupjeff/desert-fills.svg' ),
-	'sun'           => Util::get_contents( LW_DIR . 'assets/img/patterns/bigupjeff/sun.svg' ),
-	'clouds'        => Util::get_contents( LW_DIR . 'assets/img/patterns/bigupjeff/clouds.svg' ),
-	'sand'          => Util::get_contents( LW_DIR . 'assets/img/patterns/bigupjeff/desert-sand.svg' ),
-	'desert_assets' => Util::get_contents( LW_DIR . 'assets/img/patterns/bigupjeff/desert-furniture.svg' ),
+	'hand_left'     => Util::get_contents( LONEWOLF_PATH . 'assets/img/patterns/bigupjeff/grabhand-left.svg' ),
+	'hand_right'    => Util::get_contents( LONEWOLF_PATH . 'assets/img/patterns/bigupjeff/grabhand-right.svg' ),
+	'hipster'       => Util::get_contents( LONEWOLF_PATH . 'assets/img/patterns/bigupjeff/meToon_idle.svg' ),
+	'fist'          => Util::get_contents( LONEWOLF_PATH . 'assets/img/patterns/bigupjeff/fist.svg' ),
+	'star'          => Util::get_contents( LONEWOLF_PATH . 'assets/img/patterns/bigupjeff/twinkle.svg' ),
+	'desert_fills'  => Util::get_contents( LONEWOLF_PATH . 'assets/img/patterns/bigupjeff/desert-fills.svg' ),
+	'sun'           => Util::get_contents( LONEWOLF_PATH . 'assets/img/patterns/bigupjeff/sun.svg' ),
+	'clouds'        => Util::get_contents( LONEWOLF_PATH . 'assets/img/patterns/bigupjeff/clouds.svg' ),
+	'sand'          => Util::get_contents( LONEWOLF_PATH . 'assets/img/patterns/bigupjeff/desert-sand.svg' ),
+	'desert_assets' => Util::get_contents( LONEWOLF_PATH . 'assets/img/patterns/bigupjeff/desert-furniture.svg' ),
 );
 
 ?>

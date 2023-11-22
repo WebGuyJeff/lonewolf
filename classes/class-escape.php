@@ -13,10 +13,10 @@ class Escape {
 	 * Paths to json data.
 	 */
 	private const PATHS = array(
-		'html_global' => LW_DIR . 'data/htmlGlobalAttributes.json',
-		'html_head'   => LW_DIR . 'data/htmlHeadAttributes.json',
-		'html_svg'    => LW_DIR . 'data/htmlSVGAttributes.json',
-		'css_props'   => LW_DIR . 'data/cssProperties.json',
+		'html_global' => LONEWOLF_PATH . 'data/htmlGlobalAttributes.json',
+		'html_head'   => LONEWOLF_PATH . 'data/htmlHeadAttributes.json',
+		'html_svg'    => LONEWOLF_PATH . 'data/htmlSVGAttributes.json',
+		'css_props'   => LONEWOLF_PATH . 'data/cssProperties.json',
 	);
 
 

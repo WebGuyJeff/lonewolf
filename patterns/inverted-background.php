@@ -45,7 +45,7 @@ $strings = array(
 
 <!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->
 <figure class="wp-block-image size-full">
-<img src="<?php echo esc_url( LW_URL . 'assets/img/patterns/raft/' . $images[0] ); ?>" alt="Illustration"/>
+<img src="<?php echo esc_url( LONEWOLF_URL . 'assets/img/patterns/raft/' . $images[0] ); ?>" alt="Illustration"/>
 </figure>
 <!-- /wp:image -->
 
@@ -73,7 +73,7 @@ $strings = array(
 
 <!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->
 <figure class="wp-block-image size-full">
-<img src="<?php echo esc_url( LW_URL . 'assets/img/patterns/raft/' . $images[1] ); ?>" alt="Illustration"/>
+<img src="<?php echo esc_url( LONEWOLF_URL . 'assets/img/patterns/raft/' . $images[1] ); ?>" alt="Illustration"/>
 </figure>
 <!-- /wp:image -->
 

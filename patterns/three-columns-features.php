@@ -35,7 +35,7 @@ foreach ( $columns as $column ) {
 
 	$columns_markup .= '<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->';
 	$columns_markup .= '<figure class="wp-block-image size-full">';
-	$columns_markup .= '<img src="' . esc_url( LW_URL . 'assets/img/patterns/raft/' . $column['image'] ) . '" alt="Illustration"/>';
+	$columns_markup .= '<img src="' . esc_url( LONEWOLF_URL . 'assets/img/patterns/raft/' . $column['image'] ) . '" alt="Illustration"/>';
 	$columns_markup .= '</figure>';
 	$columns_markup .= '<!-- /wp:image -->';
 

@@ -10,36 +10,32 @@ namespace BigupWeb\Lonewolf;
  */
 class Theme_Setup {
 
+
 	/**
 	 * Setup all actions, filters and call functions.
 	 */
-	public function __construct() {
-
+	public function all() {
 		// Gut' way to load stylesheet to match editor to frontend... (doesn't seem to override .editor-styles-wrapper).
-		add_editor_style( LW_URL . 'build/css/lonewolf.css' );
+		add_editor_style( LONEWOLF_URL . 'build/css/lonewolf.css' );
 
 		// Methods in this class.
-		add_action( 'wp_enqueue_scripts', array( $this, 'register_front_end_scripts_and_styles' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts_and_styles' ) );
-		add_action( 'enqueue_block_editor_assets', array( $this, 'register_editor_scripts_and_styles' ) );
-		add_filter( 'body_class', array( $this, 'add_body_classes' ) );
-		add_action( 'wp_head', array( $this, 'add_pingback_header' ) );
-		add_action( 'after_setup_theme', array( $this, 'theme_configuration_and_features' ) );
-		add_action( 'init', array( $this, 'register_taxonomy_for_default_posts' ) );
-		add_filter( 'site_icon_image_sizes', array( $this, 'add_custom_site_icon_sizes' ) );
-		self::register_menu_locations();
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_front_end_scripts_and_styles' ), 10, 0 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts_and_styles' ), 10, 0 );
+		add_action( 'wp_head', array( $this, 'add_pingback_header' ), 10, 0 );
+		add_action( 'wp_head', array( new Head_Inject(), 'print_head_markup' ), 2, 0 );
+		add_action( 'after_setup_theme', array( $this, 'theme_supports_and_features' ), 10, 0 );
+		add_action( 'init', array( $this, 'register_taxonomy_for_default_posts' ), 10, 0 );
 		self::remove_prefix_from_category_titles();
 		self::customise_sitemap();
 		self::set_auto_update_state();
 		self::disable_wpautop();
-		self::setup_custom_post_types();
-		self::modify_head_content();
+		self::remove_head_bloat();
 
 		// External classes.
-		add_action( 'init', array( new Blocks(), 'register_all' ) );
-		add_action( 'admin_init', array( new Settings_Admin(), 'setup' ) );
-		add_action( 'init', array( new Patterns(), 'register_categories' ) );
-		add_filter( 'safe_style_css', fn( $styles ) => Escape::get_safe_styles( $styles ) );
+		$Settings_Admin = new Settings_Admin();
+		$Settings_Admin->setup();
+		add_action( 'init', array( new Patterns(), 'register_categories' ), 10, 0 );
+		add_filter( 'safe_style_css', fn( $styles ) => Escape::get_safe_styles( $styles ), 10, 1 );
 	}
 
 
@@ -48,13 +44,13 @@ class Theme_Setup {
 	 */
 	public function register_front_end_scripts_and_styles() {
 		if ( $GLOBALS['pagenow'] !== 'wp-login.php' ) {
-			wp_enqueue_style( 'lonewolf_css', LW_URL . 'build/css/lonewolf.css', array(), filemtime( LW_DIR . 'build/css/lonewolf.css' ), 'all' );
+			wp_enqueue_style( 'lonewolf_css', LONEWOLF_URL . 'build/css/lonewolf.css', array(), filemtime( LONEWOLF_PATH . 'build/css/lonewolf.css' ), 'all' );
 			wp_register_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', array(), '3.12.2', true );
 			wp_register_script( 'gsap_scrolltrigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array( 'gsap' ), '3.12.2', true );
-			wp_enqueue_script( 'lonewolf_js', LW_URL . 'build/js/lonewolf.js', array( 'gsap', 'gsap_scrolltrigger' ), filemtime( LW_DIR . 'build/js/lonewolf.js' ), true );
+			wp_enqueue_script( 'lonewolf_js', LONEWOLF_URL . 'build/js/lonewolf.js', array( 'gsap', 'gsap_scrolltrigger' ), filemtime( LONEWOLF_PATH . 'build/js/lonewolf.js' ), true );
 		}
-		if ( current_user_can( 'manage_options' ) && LW_DEBUG ) {
-			wp_enqueue_style( 'lonewolf_dev_css', LW_URL . 'build/css/lonewolf-dev.css', array(), filemtime( LW_DIR . 'build/css/lonewolf-dev.css' ), 'all' );
+		if ( current_user_can( 'manage_options' ) && LONEWOLF_DEBUG ) {
+			wp_enqueue_style( 'lonewolf_dev_css', LONEWOLF_URL . 'build/css/lonewolf-dev.css', array(), filemtime( LONEWOLF_PATH . 'build/css/lonewolf-dev.css' ), 'all' );
 		}
 	}
 
@@ -64,66 +60,8 @@ class Theme_Setup {
 	 */
 	public function register_admin_scripts_and_styles() {
 		if ( is_admin() && $GLOBALS['pagenow'] !== 'wp-login.php' ) {
-			wp_enqueue_media(); // Initialise wp.media to handle the admin media upload/select modal.
-			wp_enqueue_style( 'lonewolf_admin_css', LW_URL . 'build/css/lonewolf-admin.css', array(), filemtime( LW_DIR . 'build/css/lonewolf-admin.css' ), 'all' );
-			wp_enqueue_script( 'lonewolf_admin_js', LW_URL . 'build/js/lonewolf-admin.js', array(), filemtime( LW_DIR . 'build/js/lonewolf-admin.js' ), true );
+			wp_enqueue_style( 'lonewolf_admin_css', LONEWOLF_URL . 'build/css/lonewolf-admin.css', array(), filemtime( LONEWOLF_PATH . 'build/css/lonewolf-admin.css' ), 'all' );
 		}
-	}
-
-
-	/**
-	 * Register editor scripts and styles.
-	 */
-	public function register_editor_scripts_and_styles() {
-		/*
-		 * WP is supposed to include frontend styles in the editor apparently, but it doesn't. Loading
-		 * here until I have time to investigate.
-		 *
-		 * @see https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-support/#enqueuing-the-editor-style
-		 */
-		// add_editor_style( LW_URL . 'build/css/lonewolf.css' );
-
-		// wp_enqueue_style( 'lonewolf_css', LW_URL . 'build/css/lonewolf.css', array(), filemtime( LW_DIR . 'build/css/lonewolf.css' ), 'all' );
-		wp_enqueue_style( 'lonewolf_editor_css', LW_URL . 'build/css/lonewolf-editor.css', array(), filemtime( LW_DIR . 'build/css/lonewolf-editor.css' ), 'all' );
-		wp_enqueue_script( 'lonewolf_editor_js', LW_URL . 'build/js/lonewolf-editor.js', array(), filemtime( LW_DIR . 'build/js/lonewolf-editor.js' ), true );
-	}
-
-
-	/**
-	 * Add custom classes to the HTML body element.
-	 */
-	public function add_body_classes( $classes ) {
-		// Home.
-		if ( is_front_page() ) {
-			$classes[] = 'lw__home';
-		}
-		// Page type.
-		if ( is_page_template( 'page-templates/landing-page.php' ) ) {
-			$classes[] = 'lw__pag-landing';
-		} elseif ( is_home() ) {
-			$classes[] = 'lw__pag-posts';
-		} elseif ( is_category() ) {
-			$classes[] = 'lw__pag-category';
-		} elseif ( is_archive() ) {
-			$classes[] = 'lw__pag-archive';
-		} elseif ( is_singular() ) {
-			$classes[] = 'lw__pag-singular';
-		} else {
-			$classes[] = 'lw__pag-typeunknown';
-		}
-		// Template.
-		if ( is_page_template( 'column-sidebar' ) ) {
-			$classes[] = 'lw__tmp-sidesright';
-		} elseif ( is_page_template( 'sidebar-column' ) ) {
-			$classes[] = 'lw__tmp-sidesleft';
-		} elseif ( is_page_template( 'sidebar-column-sidebar' ) ) {
-			$classes[] = 'lw__tmp-sidesboth';
-		} elseif ( is_page_template( 'landing-page' ) ) {
-			$classes[] = 'lw__tmp-landingpage';
-		} elseif ( is_page_template( 'full-width-page' ) ) {
-			$classes[] = 'lw__tmp-fullwidthpage';
-		}
-		return $classes;
 	}
 
 
@@ -140,7 +78,7 @@ class Theme_Setup {
 	/**
 	 * Setup theme defaults and register support for WordPress features.
 	 */
-	public function theme_configuration_and_features() {
+	public function theme_supports_and_features() {
 		load_theme_textdomain( 'lonewolf', get_template_directory() . '/languages' );
 		add_theme_support( 'editor-styles' );
 		add_theme_support( 'block-template-parts' );
@@ -181,23 +119,6 @@ class Theme_Setup {
 	public function register_taxonomy_for_default_posts() {
 		register_taxonomy_for_object_type( 'post_tag', 'page' );
 		register_taxonomy_for_object_type( 'category', 'page' );
-	}
-
-
-	/**
-	 * Register menu locations.
-	 */
-	public static function register_menu_locations() {
-		register_nav_menus(
-			array(
-				'mobile-popup-menu'           => esc_html__( 'Mobile Popup Menu', 'lonewolf' ),
-				'global-primary-menu'         => esc_html__( 'Global Header Menu', 'lonewolf' ),
-				'global-secondary-menu'       => esc_html__( 'Global Footer Menu', 'lonewolf' ),
-				'global-legal-links'          => esc_html__( 'Global Legal Links', 'lonewolf' ),
-				'landing-page-primary-menu'   => esc_html__( 'Landing Page Header Menu', 'lonewolf' ),
-				'landing-page-secondary-menu' => esc_html__( 'Landing Page Footer Menu', 'lonewolf' ),
-			)
-		);
 	}
 
 
@@ -256,7 +177,7 @@ class Theme_Setup {
 	/**
 	 * Remove unwanted content from the wp_head hook.
 	 */
-	public static function modify_head_content() {
+	public static function remove_head_bloat() {
 		remove_action( 'wp_head', 'rsd_link' );
 		remove_action( 'wp_head', 'wlwmanifest_link' );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -269,10 +190,6 @@ class Theme_Setup {
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 		remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );
-
-		// Hook theme SEO and other meta.
-		$head_meta = new Head_Meta();
-		$head_meta->hook();
 	}
 
 
@@ -310,39 +227,4 @@ class Theme_Setup {
 		// Stop WP adding p tags on blank lines!
 		remove_filter( 'the_content', 'wpautop' );
 	}
-
-
-	/**
-	 * Register custom post types.
-	 */
-	private function setup_custom_post_types() {
-		$data   = Util::get_contents( LW_DIR . 'data/customPostTypes.json' );
-		$cpts   = json_decode( $data, true );
-		$option = get_option( 'lw_settings_features' );
-		if ( ! is_array( $option ) ) {
-			return;
-		}
-		$enabled = array(
-			$option['cpt_services'] ? 'service' : false,
-			$option['cpt_reviews'] ? 'review' : false,
-			$option['cpt_projects'] ? 'project' : false,
-		);
-		foreach ( $cpts as $cpt ) {
-			if ( in_array( $cpt['key'], $enabled, true ) ) {
-				new Custom_Post_Type( $cpt );
-			}
-		}
-		// Enable WP custom fields even if ACF is installed.
-		add_filter( 'acf/settings/remove_wp_meta_box', '__return_false' );
-	}
-
-
-	/**
-	 * Add site icon (favicon) sizes.
-	 */
-	public function add_custom_site_icon_sizes( $sizes ) {
-		$sizes[] = 96;
-		return $sizes;
-	}
-
 }

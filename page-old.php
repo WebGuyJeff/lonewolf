@@ -13,8 +13,8 @@ namespace BigupWeb\Lonewolf;
 
 wp_deregister_style( 'lonewolf_css' );
 wp_deregister_script( 'lonewolf_js' );
-wp_enqueue_style( 'old_css', LW_URL . 'build/css/old.css', array(), filemtime( LW_DIR . 'build/css/old.css' ), 'all' );
-wp_enqueue_script( 'old_js', LW_URL . 'build/js/old.js', array( 'gsap', 'gsap_scrolltrigger' ), filemtime( LW_DIR . 'build/js/old.js' ), true );
+wp_enqueue_style( 'old_css', LONEWOLF_URL . 'build/css/old.css', array(), filemtime( LONEWOLF_PATH . 'build/css/old.css' ), 'all' );
+wp_enqueue_script( 'old_js', LONEWOLF_URL . 'build/js/old.js', array( 'gsap', 'gsap_scrolltrigger' ), filemtime( LONEWOLF_PATH . 'build/js/old.js' ), true );
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +74,7 @@ wp_enqueue_script( 'old_js', LW_URL . 'build/js/old.js', array( 'gsap', 'gsap_sc
 
 	<button aria-label="Main Menu" title="Main Menu" type="button" class="menuToggle">
 		<?php
-			$burger = Util::get_contents( LW_DIR . 'assets/svg/icons/burger.svg' );
+			$burger = Util::get_contents( LONEWOLF_PATH . 'assets/svg/icons/burger.svg' );
 			Escape::svg( $burger );
 		?>
 	</button>

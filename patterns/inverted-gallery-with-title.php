@@ -13,11 +13,11 @@ $strings = array(
 );
 
 $images = array(
-	LW_URL . 'assets/img/patterns/raft/shape-01.svg',
-	LW_URL . 'assets/img/patterns/raft/shape-07.svg',
-	LW_URL . 'assets/img/patterns/raft/shape-06.svg',
-	LW_URL . 'assets/img/patterns/raft/shape-05.svg',
-	LW_URL . 'assets/img/patterns/raft/shape-08.svg',
+	LONEWOLF_URL . 'assets/img/patterns/raft/shape-01.svg',
+	LONEWOLF_URL . 'assets/img/patterns/raft/shape-07.svg',
+	LONEWOLF_URL . 'assets/img/patterns/raft/shape-06.svg',
+	LONEWOLF_URL . 'assets/img/patterns/raft/shape-05.svg',
+	LONEWOLF_URL . 'assets/img/patterns/raft/shape-08.svg',
 );
 
 ?>
