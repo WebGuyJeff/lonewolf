@@ -22,7 +22,6 @@ class Theme_Setup {
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_front_end_scripts_and_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts_and_styles' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'register_editor_scripts_and_styles' ) );
-		add_action( 'widgets_init', array( $this, 'register_widget_areas' ) );
 		add_filter( 'body_class', array( $this, 'add_body_classes' ) );
 		add_action( 'wp_head', array( $this, 'add_pingback_header' ) );
 		add_action( 'after_setup_theme', array( $this, 'theme_configuration_and_features' ) );
@@ -87,35 +86,6 @@ class Theme_Setup {
 		// wp_enqueue_style( 'lonewolf_css', LW_URL . 'build/css/lonewolf.css', array(), filemtime( LW_DIR . 'build/css/lonewolf.css' ), 'all' );
 		wp_enqueue_style( 'lonewolf_editor_css', LW_URL . 'build/css/lonewolf-editor.css', array(), filemtime( LW_DIR . 'build/css/lonewolf-editor.css' ), 'all' );
 		wp_enqueue_script( 'lonewolf_editor_js', LW_URL . 'build/js/lonewolf-editor.js', array(), filemtime( LW_DIR . 'build/js/lonewolf-editor.js' ), true );
-	}
-
-
-	/**
-	 * Register widget areas.
-	 */
-	public function register_widget_areas() {
-		register_sidebar(
-			array(
-				'name'          => esc_html__( 'Left Sidebar', 'lonewolf' ),
-				'id'            => 'sidebar-left',
-				'description'   => esc_html__( 'Used for article contents and includes right sidebar content at mid-width.', 'lonewolf' ),
-				'before_widget' => '<section id="%1$s" class="sauce widget %2$s">',
-				'after_widget'  => '</section>',
-				'before_title'  => '<span class="widget_title">',
-				'after_title'   => '</span>',
-			)
-		);
-		register_sidebar(
-			array(
-				'name'          => esc_html__( 'Right Sidebar', 'lonewolf' ),
-				'id'            => 'sidebar-right',
-				'description'   => esc_html__( 'Used for related content and unimportant stuff.', 'lonewolf' ),
-				'before_widget' => '<section id="%1$s" class="sauce widget %2$s">',
-				'after_widget'  => '</section>',
-				'before_title'  => '<span class="widget_title">',
-				'after_title'   => '</span>',
-			)
-		);
 	}
 
 
