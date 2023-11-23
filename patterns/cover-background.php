@@ -8,7 +8,7 @@
  * @package lonewolf
  */
 
-$image = LONEWOLF_URL . 'assets/img/patterns/raft/lonewolf-cover-bg.svg';
+$image = LONEWOLF_URL . 'assets/svg/pattern-images/lonewolf-cover-bg.svg';
 
 $strings = array(
 	'title'  => __( 'This is a cover with a background image', 'lonewolf' ),

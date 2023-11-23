@@ -13,7 +13,7 @@ $strings = array(
 	'learn_more' => __( 'Learn More', 'lonewolf' ),
 );
 
-$image = LONEWOLF_URL . 'assets/img/patterns/raft/shape-05.svg';
+$image = LONEWOLF_URL . 'assets/svg/pattern-images/shape-05.svg';
 
 ?>
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"64px","bottom":"64px"},"blockGap":"32px","margin":{"top":"0px","bottom":"0px"}}},"layout":{"inherit":true,"type":"constrained"}} -->

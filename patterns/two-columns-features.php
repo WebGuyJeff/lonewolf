@@ -28,7 +28,7 @@ foreach ( $images as $image ) {
 
 	$columns_markup .= '<!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->';
 	$columns_markup .= '<figure class="wp-block-image size-full">';
-	$columns_markup .= '<img src="' . esc_url( LONEWOLF_URL . 'assets/img/patterns/raft/' . $image ) . '" alt="Illustration"/>';
+	$columns_markup .= '<img src="' . esc_url( LONEWOLF_URL . 'assets/svg/pattern-images/' . $image ) . '" alt="Illustration"/>';
 	$columns_markup .= '</figure>';
 	$columns_markup .= '<!-- /wp:image -->';
 

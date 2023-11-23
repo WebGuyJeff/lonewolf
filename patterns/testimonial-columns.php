@@ -8,7 +8,7 @@
  * @package lonewolf
  */
 
-$image = LONEWOLF_URL . 'assets/img/patterns/raft/shape-07.svg';
+$image = LONEWOLF_URL . 'assets/svg/pattern-images/shape-07.svg';
 
 ?>
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"64px","bottom":"64px"},"margin":{"top":"0px","bottom":"0px"}}},"backgroundColor":"lonewolf-bg-alt","layout":{"inherit":true,"type":"constrained"}} -->
