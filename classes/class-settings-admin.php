@@ -49,8 +49,8 @@ class Settings_Admin {
 		add_action( 'admin_init', array( new Settings_Tab_Identity(), 'init' ), 10, 0 );
 		add_action( 'admin_init', array( new Settings_Tab_Features(), 'init' ), 10, 0 );
 		add_action( 'admin_init', array( new Settings_Tab_Verification(), 'init' ), 10, 0 );
-		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_settings_link_callback' ), 10, 0 );
-		add_action( 'below_parent_settings_page_heading', array( &$this, 'echo_post_type_links_callback' ), 10, 0 );
+		add_action( 'bigup_theme_settings_dashboard_entry', array( &$this, 'echo_settings_link_callback' ), 10, 0 );
+		add_action( 'bigup_theme_settings_dashboard_entry', array( &$this, 'echo_post_type_links_callback' ), 10, 0 );
 	}
 
 	public function add_settings_menu() {
@@ -89,8 +89,8 @@ class Settings_Admin {
 	/**
 	 * Do Action Hook
 	 */
-	public function below_parent_settings_page_heading() {
-		do_action( 'below_parent_settings_page_heading' );
+	public function bigup_theme_settings_dashboard_entry() {
+		do_action( 'bigup_theme_settings_dashboard_entry' );
 	}
 
 
@@ -154,7 +154,7 @@ class Settings_Admin {
 					Management
 				</h2>
 				<div class="dashTiles">
-					<?php $this->below_parent_settings_page_heading(); ?>
+					<?php $this->bigup_theme_settings_dashboard_entry(); ?>
 				</div>
 			</section>
 		</div>
