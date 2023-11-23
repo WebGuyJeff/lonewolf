@@ -172,9 +172,9 @@ class Settings_Admin {
 
 		<div class="wrap">
 			<h1>
-				<span>
+			<span>
 					<img
-						style="max-height: 1em;margin-right: 0.5em;vertical-align: middle;"
+						style="max-height: 2em; margin-right: 0.5em; vertical-align: baseline;"
 						src="<?php echo self::ICON; ?>"
 					/>
 				</span>

@@ -22,7 +22,7 @@ class Theme_Setup {
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_front_end_scripts_and_styles' ), 10, 0 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts_and_styles' ), 10, 0 );
 		add_action( 'wp_head', array( $this, 'add_pingback_header' ), 10, 0 );
-		add_action( 'wp_head', array( new Head_Inject(), 'print_head_markup' ), 2, 0 );
+		add_action( 'wp_head', array( new Head_Inject(), 'print_head_markup' ), 5, 0 );
 		add_action( 'after_setup_theme', array( $this, 'theme_supports_and_features' ), 10, 0 );
 		add_action( 'init', array( $this, 'register_taxonomy_for_default_posts' ), 10, 0 );
 		self::remove_prefix_from_category_titles();
@@ -61,6 +61,9 @@ class Theme_Setup {
 	public function register_admin_scripts_and_styles() {
 		if ( is_admin() && $GLOBALS['pagenow'] !== 'wp-login.php' ) {
 			wp_enqueue_style( 'lonewolf_admin_css', LONEWOLF_URL . 'build/css/lonewolf-admin.css', array(), filemtime( LONEWOLF_PATH . 'build/css/lonewolf-admin.css' ), 'all' );
+		}
+		if ( current_user_can( 'manage_options' ) && LONEWOLF_DEBUG ) {
+			wp_enqueue_style( 'lonewolf_dev_css', LONEWOLF_URL . 'build/css/lonewolf-dev.css', array(), filemtime( LONEWOLF_PATH . 'build/css/lonewolf-dev.css' ), 'all' );
 		}
 	}
 

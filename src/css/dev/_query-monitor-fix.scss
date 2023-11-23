@@ -1,0 +1,9 @@
+/**
+ * Hide the output that Query Monitor dumps wherever I put a table in admin pages.
+ */
+
+
+#wpbody *[class^='qm-'],
+#wpbody *[id^='qm-'] {
+	display: none;
+}

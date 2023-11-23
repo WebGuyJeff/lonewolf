@@ -32,9 +32,9 @@ class Head_Inject {
 	 * Print head markup.
 	 */
 	public function print_head_markup() {
-		$output  = "<!-- Lonewolf head inject START -->\n";
+		$output  = "<!-- Lonewolf theme: START -->\n";
 		$output .= $this->verification_markup;
-		$output .= "<!-- Lonewolf head inject END -->\n";
+		$output .= "<!-- Lonewolf theme: END -->\n";
 
 		Escape::head( $output );
 	}
