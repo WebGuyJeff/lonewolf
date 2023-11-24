@@ -56,11 +56,11 @@
                 }
 			],
 			"palette": [
-				{ "slug": "lw-bg", "color": "#072c50", "name": "Background" },
-				{ "slug": "lw-fg", "color": "#ffffff", "name": "Foreground" },
-				{ "slug": "lw-bg-alt", "color": "#fff2", "name": "Background Alt" },
-				{ "slug": "lw-fg-alt", "color": "#fcfcfc", "name": "Foreground Alt" },
-				{ "slug": "lw-accent", "color": "#f89549", "name": "Accent" },
+				{ "slug": "lw-bg", "color": "#072c50", "name": "Theme Background" },
+				{ "slug": "lw-fg", "color": "#ffffff", "name": "Theme Foreground" },
+				{ "slug": "lw-bg-alt", "color": "#fff2", "name": "Theme Background Alt" },
+				{ "slug": "lw-fg-alt", "color": "#fcfcfc", "name": "Theme Foreground Alt" },
+				{ "slug": "lw-accent", "color": "#f89549", "name": "Theme Accent" },
 				{ "slug": "pink-lightest", "color": "hsl(303, 53%, 88%)", "name": "Pink Lightest" },
 				{ "slug": "pink-light", "color": "hsl(303, 53%, 60%)", "name": "Pink Light" },
 				{ "slug": "pink", "color": "hsl(303, 53%, 50%)", "name": "Pink" },
@@ -225,8 +225,8 @@
 			"spacing": {
 				"gutter": {
 					"small": "clamp( calc( 1.5 * var( --wp--custom--fluid-root ) ), 2.222vw, calc( 2 * var( --wp--custom--fluid-root ) ) )",
-					"medium": "clamp( calc( 1.5 * var( --wp--custom--fluid-root ) ), 3.333vw, calc( 3 * var( --wp--custom--fluid-root ) ) )",
-					"large": "clamp( calc( 1.5 * var( --wp--custom--fluid-root ) ), 6.666vw, calc( 3 * var( --wp--custom--fluid-root ) ) )"
+					"medium": "clamp( calc( 2 * var( --wp--custom--fluid-root ) ), 3.333vw, calc( 3 * var( --wp--custom--fluid-root ) ) )",
+					"large": "clamp( calc( 5 * var( --wp--custom--fluid-root ) ), 6.666vw, calc( 3 * var( --wp--custom--fluid-root ) ) )"
 				}
 			},
 			"typography": {

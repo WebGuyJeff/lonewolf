@@ -8,27 +8,27 @@
 				{
 					"slug": "lw-bg",
 					"color": "#232323",
-					"name": "Background"
+					"name": "Theme Background"
 				},
 				{
 					"slug": "lw-fg",
 					"color": "#FFFFFF",
-					"name": "Foreground"
+					"name": "Theme Foreground"
 				},
 				{
 					"slug": "lw-bg-alt",
 					"color": "rgba(0, 0, 0, 0.3)",
-					"name": "Background Alt"
+					"name": "Theme Background Alt"
 				},
 				{
 					"slug": "lw-fg-alt",
 					"color": "#FFFFFF",
-					"name": "Foreground Alt"
+					"name": "Theme Foreground Alt"
 				},
 				{
 					"slug": "lw-accent",
 					"color": "#5C40CA",
-					"name": "Accent"
+					"name": "Theme Accent"
 				}
 			]
 		}

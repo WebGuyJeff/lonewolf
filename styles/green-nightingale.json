@@ -8,47 +8,47 @@
 				{
 					"slug": "lw-bg",
 					"color": "#f7ebd6",
-					"name": "Background"
+					"name": "Theme Background"
 				},
 				{
 					"slug": "lw-fg",
 					"color": "#181818",
-					"name": "Foreground"
+					"name": "Theme Foreground"
 				},
 				{
 					"slug": "lw-bg-alt",
 					"color": "#04724f",
-					"name": "Background Alt"
+					"name": "Theme Background Alt"
 				},
 				{
 					"slug": "lw-fg-alt",
 					"color": "#fff",
-					"name": "Foreground Alt"
+					"name": "Theme Foreground Alt"
 				},
 				{
 					"slug": "lw-accent",
 					"color": "#044171",
-					"name": "Accent"
+					"name": "Theme Accent"
 				},
 				{
 					"slug": "lw-theme-green-lighter",
-					"color": "#ffb129",
-					"name": "Accent"
+					"color": "#0d9066",
+					"name": "Theme Green Lighter"
 				},
 				{
 					"slug": "lw-theme-green-lightest",
-					"color": "#ffb129",
-					"name": "Accent"
+					"color": "#7ee2a2",
+					"name": "Theme Green Lightest"
 				},
 				{
 					"slug": "lw-theme-red",
-					"color": "#ffb129",
-					"name": "Accent"
+					"color": "#fe6150",
+					"name": "Theme Red"
 				},
 				{
 					"slug": "lw-theme-yellow",
 					"color": "#ffb129",
-					"name": "Accent"
+					"name": "Theme Yellow"
 				}
 			]
 		},
