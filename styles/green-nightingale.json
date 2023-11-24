@@ -1,0 +1,86 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"title": "Green Nightingale",
+	"version": 2,
+	"settings": {
+		"color": {
+			"palette": [
+				{
+					"slug": "lw-bg",
+					"color": "#f7ebd6",
+					"name": "Background"
+				},
+				{
+					"slug": "lw-fg",
+					"color": "#181818",
+					"name": "Foreground"
+				},
+				{
+					"slug": "lw-bg-alt",
+					"color": "#04724f",
+					"name": "Background Alt"
+				},
+				{
+					"slug": "lw-fg-alt",
+					"color": "#fff",
+					"name": "Foreground Alt"
+				},
+				{
+					"slug": "lw-accent",
+					"color": "#044171",
+					"name": "Accent"
+				},
+				{
+					"slug": "lw-theme-green-lighter",
+					"color": "#ffb129",
+					"name": "Accent"
+				},
+				{
+					"slug": "lw-theme-green-lightest",
+					"color": "#ffb129",
+					"name": "Accent"
+				},
+				{
+					"slug": "lw-theme-red",
+					"color": "#ffb129",
+					"name": "Accent"
+				},
+				{
+					"slug": "lw-theme-yellow",
+					"color": "#ffb129",
+					"name": "Accent"
+				}
+			]
+		},
+		"typography": {
+			"fontFamilies": [
+				{
+					"fontFace": [
+						{ "fontFamily": "Sura", "fontStretch": "normal", "fontStyle": "normal", "fontWeight": "700", "src": [ "file:./assets/fonts/Sura/Sura-Bold.ttf" ] },
+						{ "fontFamily": "Sura", "fontStretch": "normal", "fontStyle": "normal", "fontWeight": "400", "src": [ "file:./assets/fonts/Sura/Sura-Regular.ttf" ] }
+					],
+					"fontFamily": "Sura, serif",
+					"name": "Sura",
+					"slug": "heading"
+				},
+				{
+					"fontFace": [
+						{ "fontFamily": "Lato", "fontStretch": "normal", "fontStyle": "normal", "fontWeight": "900", "src": [ "file:./assets/fonts/Lato/Lato-Black.ttf" ] },
+						{ "fontFamily": "Lato", "fontStretch": "normal", "fontStyle": "normal", "fontWeight": "900", "src": [ "file:./assets/fonts/Lato/Lato-BlackItalic.ttf" ] },
+						{ "fontFamily": "Lato", "fontStretch": "normal", "fontStyle": "normal", "fontWeight": "700", "src": [ "file:./assets/fonts/Lato/Lato-Bold.ttf" ] },
+						{ "fontFamily": "Lato", "fontStretch": "normal", "fontStyle": "italic", "fontWeight": "700", "src": [ "file:./assets/fonts/Lato/Lato-BoldItalic.ttf" ] },
+						{ "fontFamily": "Lato", "fontStretch": "normal", "fontStyle": "normal", "fontWeight": "400", "src": [ "file:./assets/fonts/Lato/Lato-Regular.ttf" ] },
+						{ "fontFamily": "Lato", "fontStretch": "normal", "fontStyle": "italic", "fontWeight": "400", "src": [ "file:./assets/fonts/Lato/Lato-Italic.ttf" ] },
+						{ "fontFamily": "Lato", "fontStretch": "normal", "fontStyle": "normal", "fontWeight": "300", "src": [ "file:./assets/fonts/Lato/Lato-Light.ttf" ] },
+						{ "fontFamily": "Lato", "fontStretch": "normal", "fontStyle": "italic", "fontWeight": "300", "src": [ "file:./assets/fonts/Lato/Lato-LightItalic.ttf" ] },
+						{ "fontFamily": "Lato", "fontStretch": "normal", "fontStyle": "normal", "fontWeight": "100", "src": [ "file:./assets/fonts/Lato/Lato-Thin.ttf" ] },
+						{ "fontFamily": "Lato", "fontStretch": "normal", "fontStyle": "italic", "fontWeight": "100", "src": [ "file:./assets/fonts/Lato/Lato-ThinItalic.ttf" ] }
+					],
+					"fontFamily": "Lato, sans-serif",
+					"name": "Lato",
+					"slug": "body"
+				}
+			]
+		}
+	}
+}

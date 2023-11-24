@@ -47,7 +47,10 @@ class Head_Inject {
 	 */
 	private function get_verification_keys() {
 		$option = get_option( 'lw_settings_verification' );
-		$keys   = array(
+		if ( ! $option ) {
+			return false;
+		}
+		$keys = array(
 			'google-site-verification' => $option['google_verification_key'],
 			'msvalidate.01'            => $option['microsoft_verification_key'],
 		);
