@@ -3,14 +3,17 @@
 	"version": 2,
 	"customTemplates": [
 		{ "name": "template-blank", "title": "Blank Page - Only Content" },
-		{ "name": "services", "title": "Services Archive Page" }
+		{ "name": "services", "title": "Services Archive" },
+		{ "name": "full-width", "title": "Full Width" },
+		{ "name": "sidebar-right", "title": "Sidebar on the Right" }
 	],
 	"templateParts": [
 		{ "name": "header", "title": "Header", "area": "header" },
 		{ "name": "header-centered", "title": "Header Centered", "area": "header" },
 		{ "name": "footer", "title": "Footer", "area": "footer" },
 		{ "name": "footer-with-columns", "title": "Footer with Columns", "area": "footer" },
-		{ "name": "footer-4-columns", "title": "Footer 4 Columns", "area": "footer" }
+		{ "name": "footer-4-columns", "title": "Footer 4 Columns", "area": "footer" },
+		{ "name": "sidebar", "title": "Sidebar", "area": "uncategorized" }
 	],
 	"settings": {
 		"appearanceTools": true,
