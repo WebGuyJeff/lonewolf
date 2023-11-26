@@ -6,6 +6,8 @@
 	1.1 Text Gradients
 2. [BLOCKS]
 	2.1 camperAnimation
+3. [PATTERNS]
+	3.1 queryLoopCards-coloured
 
 */
 /*========================================================= 1. TYPOGRAPHY ====*/
@@ -36,5 +38,30 @@
 	@media( max-width: 500px ) {
 		background: linear-gradient( transparent 30%, #0007 80%);
 		min-height: 100%;
+	}
+}
+
+
+/*=========================================================== 3. PATTERNS ====*/
+/*------------------------------------------- 3.1 queryLoopCards-coloured ----*/
+
+.queryLoopCards-coloured {
+
+	&>* { // Post Temlpate (card parent).
+
+		&> * { // Stack block (card inner wrapper).
+			overflow: hidden;
+			background-color: var(--background);
+			color: var(--text);
+
+			a {
+				color: var(--background) !important;
+			}
+		}
+
+		// Editor adds hidden items, so we have to filter them by not selecting [style="display: none;"].
+		&:nth-child( 3n+1 of :not( *[style="display: none;"] ) )>* { --background:var(--wp--preset--color--lw-accent); --text:var(--wp--preset--color--lw-fg); }
+		&:nth-child( 3n+2 of :not( *[style="display: none;"] ) )>* { --background:var(--wp--preset--color--lw-teal-dark); --text:var(--wp--preset--color--lw-fg); }
+		&:nth-child( 3n+3 of :not( *[style="display: none;"] ) )>* { --background:var(--wp--preset--color--lw-blue-darkest); --text:var(--wp--preset--color--lw-fg); }
 	}
 }

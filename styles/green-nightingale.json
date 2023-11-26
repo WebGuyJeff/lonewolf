@@ -7,7 +7,7 @@
 			"palette": [
 				{
 					"slug": "lw-bg",
-					"color": "#f7ebd6",
+					"color": "#f3e3c3",
 					"name": "Theme Background"
 				},
 				{
@@ -31,22 +31,22 @@
 					"name": "Theme Accent"
 				},
 				{
-					"slug": "lw-theme-green-lighter",
+					"slug": "lw-green-light",
 					"color": "#0d9066",
-					"name": "Theme Green Lighter"
+					"name": "Theme Green Light"
 				},
 				{
-					"slug": "lw-theme-green-lightest",
+					"slug": "lw-green-lightest",
 					"color": "#7ee2a2",
 					"name": "Theme Green Lightest"
 				},
 				{
-					"slug": "lw-theme-red",
+					"slug": "lw-red",
 					"color": "#fe6150",
 					"name": "Theme Red"
 				},
 				{
-					"slug": "lw-theme-yellow",
+					"slug": "lw-yellow",
 					"color": "#ffb129",
 					"name": "Theme Yellow"
 				}

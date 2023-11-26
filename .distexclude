@@ -1,8 +1,9 @@
-./src
+./bin
 ./dist
 ./node_modules
-./vendor
 ./package*
+./src
+./vendor
 ./webpack*
 ./.*
 **.code-workspace*
