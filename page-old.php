@@ -30,7 +30,7 @@ wp_enqueue_script( 'old_js', LONEWOLF_URL . 'build/js/old.js', array( 'gsap', 'g
 >
 
 	<header 
-		class="pageGrid jsHideHeader"
+		class="pageGrid jsSlideHeader"
 		style="transform: translate( 0, -100% );
 				position: fixed;"
 		hidden="true"

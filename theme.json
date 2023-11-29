@@ -10,6 +10,7 @@
 	"templateParts": [
 		{ "name": "header", "title": "Header", "area": "header" },
 		{ "name": "header-centered", "title": "Header Centered", "area": "header" },
+		{ "name": "header-sticky-sliding", "title": "Header Sticky Sliding", "area": "header" },
 		{ "name": "footer", "title": "Footer", "area": "footer" },
 		{ "name": "footer-with-columns", "title": "Footer with Columns", "area": "footer" },
 		{ "name": "footer-4-columns", "title": "Footer 4 Columns", "area": "footer" },

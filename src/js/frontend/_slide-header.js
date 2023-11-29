@@ -1,14 +1,14 @@
 /**
- * Lonewolf Hide-Header
+ * Lonewolf Slide-Header
  *
- * Handle header hide and reveal animation on button click and scroll events.
+ * Handle header slide animation on button click and scroll events.
  *
  * @package lonewolf
  * @author Jefferson Real <me@jeffersonreal.uk>
  * @copyright Copyright 2023 Jefferson Real
  */
 
-const hideHeader = () => {
+const slideHeader = () => {
 
 	let header,
 		lastScrollY = 0,
@@ -16,10 +16,12 @@ const hideHeader = () => {
 		isThrottled = false
 
 	const init = () => {
-		header = document.querySelector( '.jsHideHeader' )
-
-		if ( ! header ) return
-
+		const target = document.querySelector( '.jsSlideHeader' )
+		if ( ! target ) {
+			return
+		} else {
+			header = target.closest( 'header' )
+		}
 		header.style.visibility = 'visible'
 		window.addEventListener( 'scroll', hasScrolledThrottle )
 	}
@@ -108,4 +110,4 @@ const hideHeader = () => {
 	}, 100 )
 }
 
-export { hideHeader }
+export { slideHeader }
