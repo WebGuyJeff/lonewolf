@@ -1,0 +1,136 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"title": "Bigup Web",
+	"version": 2,
+	"settings": {
+		"color": {
+			"palette": [
+				{
+					"slug": "lw-bg",
+					"color": "#feff00",
+					"name": "Theme Background"
+				},
+				{
+					"slug": "lw-fg",
+					"color": "#000",
+					"name": "Theme Foreground"
+				},
+				{
+					"slug": "lw-bg-alt",
+					"color": "#ff1e5f",
+					"name": "Theme Background Alt"
+				},
+				{
+					"slug": "lw-fg-alt",
+					"color": "#fff",
+					"name": "Theme Foreground Alt"
+				},
+				{
+					"slug": "lw-accent",
+					"color": "#d814d4",
+					"name": "Theme Accent"
+				},
+				{
+					"slug": "lw-green-light",
+					"color": "#02ddbb",
+					"name": "Theme Green Light"
+				},
+				{
+					"slug": "lw-blue-light",
+					"color": "#00c1fd",
+					"name": "Theme Blue Light"
+				},
+				{
+					"slug": "lw-pink",
+					"color": "#d814d4",
+					"name": "Theme Pink"
+				},
+				{
+					"slug": "lw-purple",
+					"color": "#7109aa",
+					"name": "Theme Purple"
+				},
+				{
+					"slug": "lw-blue-darkest",
+					"color": "#00215e",
+					"name": "Theme Blue Darkest"
+				},
+				{
+					"slug": "lw-green-dark",
+					"color": "#03475e",
+					"name": "Theme Green Dark"
+				}
+			]
+		},
+		"typography": {
+			"fontFamilies": [
+				{
+					"fontFace": [
+						{
+							"fontFamily": "Open Sans",
+							"fontStretch": "normal",
+							"fontStyle": "normal",
+							"fontWeight": "300 800",
+							"src": [
+								"file:./assets/fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf"
+							]
+						},
+						{
+							"fontFamily": "Open Sans",
+							"fontStretch": "normal",
+							"fontStyle": "italic",
+							"fontWeight": "300 800",
+							"src": [
+								"file:./assets/fonts/Open_Sans/OpenSans-Italic-VariableFont_wdth,wght.ttf"
+							]
+						}
+					],
+					"fontFamily": "'Open Sans', Arial, sans-serif",
+					"name": "Open Sans",
+					"slug": "body"
+				},
+				{
+					"fontFace": [
+						{
+							"fontFamily": "Montserrat",
+							"fontStretch": "normal",
+							"fontStyle": "normal",
+							"fontWeight": "100 900",
+							"src": [
+								"file:./assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf"
+							]
+						},
+						{
+							"fontFamily": "Montserrat",
+							"fontStretch": "normal",
+							"fontStyle": "italic",
+							"fontWeight": "100 900",
+							"src": [
+								"file:./assets/fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf"
+							]
+						}
+					],
+					"fontFamily": "Montserrat, Arial, sans-serif",
+					"name": "Montserrat",
+					"slug": "heading"
+				},
+				{
+					"fontFace": [
+						{
+							"fontFamily": "Sedgwick_Ave",
+							"fontStretch": "normal",
+							"fontStyle": "normal",
+							"fontWeight": "400",
+							"src": [
+								"file:./assets/fonts/Sedgwick_Ave/SedgwickAve-Regular.ttf"
+							]
+						}
+					],
+					"fontFamily": "'Sedgwick Ave', cursive",
+					"name": "Sedgwick Ave",
+					"slug": "sedgwick-ave"
+				}
+			]
+		}
+	}
+}
