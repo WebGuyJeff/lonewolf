@@ -23,50 +23,9 @@ footer {
 	gap: var(--wp--custom--spacing--gutter--medium) var(--wp--custom--spacing--gutter--small);
 }
 
-/*
-
-Trying "useRootPaddingAwareAlignments": true, in theme.json.
-
-// Default page padding.
-.wp-site-blocks > *,
-.editor-styles-wrapper > *:not( .edit-post-visual-editor__post-title-wrapper ) { // Include the editor.
-	padding-top: 0;
-	padding-bottom: 0;
-	padding-left: var(--wp--custom--spacing--gutter--medium);
-	padding-right: var(--wp--custom--spacing--gutter--medium);
-
-	// If the block has alignment children, don't apply l/r padding...
-	&:has( .alignfull, .alignwide ) {
-		padding-left: 0;
-		padding-right: 0;
-
-		// ..because it will be handled by the child.
-		:is( .alignfull, .alignwide ):not( :has( .alignfull, .alignwide ) ) {
-			padding-left: var(--wp--custom--spacing--gutter--medium);
-			padding-right: var(--wp--custom--spacing--gutter--medium);
-		}
-	}
+// Override global blockGap size for inner blocks.
+:where(body .is-layout-constrained) > * + *,
+:where(body .is-layout-flow) > * + * {
+	margin-block-start: var(--wp--preset--spacing--40);
+	margin-block-end: 0;
 }
-*/
-/*
-// Remove any default margins from root blocks.
-.wp-site-blocks > * {
-	margin-left: 0;
-	margin-right: 0;
-}
-*/
-
-/* Gutenberg overrides */
-/*
-:where(.wp-block-group.has-background) {
-	padding: 0;
-}
-*/
-/*
-:is( .alignfull ),
-.is-root-container .wp-block[data-align='full'] > .wp-block-group,
-.is-root-container .wp-block[data-align='full'] > .wp-block-cover {
-	margin-left: 0;
-	margin-right: 0;
-}
-*/
