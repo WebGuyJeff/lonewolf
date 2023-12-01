@@ -114,7 +114,7 @@
 		"blocks": {
 			"core/button": {
 				"spacing": { "padding": { "top": "0.95rem", "bottom": "0.75rem", "left": "1.5rem", "right": "1.5rem" } },
-				"css": "transition: all 0.35s ease-in-out; background: var(--wp--preset--gradient--sunrise);",
+				"css": "transition: all var(--wp--custom--transition--hover-time) ease-in-out; background: var(--wp--preset--gradient--sunrise);",
 				"color": { "text": "var(--wp--preset--color--lw-bg)" },
 				"variations": {
 					"outline": {

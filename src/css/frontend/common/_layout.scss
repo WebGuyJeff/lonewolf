@@ -26,6 +26,6 @@ footer {
 // Override global blockGap size for inner blocks.
 :where(body .is-layout-constrained) > * + *,
 :where(body .is-layout-flow) > * + * {
-	margin-block-start: var(--wp--preset--spacing--40);
+	margin-block-start: var(--wp--preset--spacing--50);
 	margin-block-end: 0;
 }
