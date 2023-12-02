@@ -1,3 +1,30 @@
 a {
-	transition: text-decoration var(--wp--custom--transition--hover-time) ease-in-out;
+	text-decoration: none;
+	color: inherit;
+
+	background-image: 
+		linear-gradient(to right, #8888, #8888),
+		linear-gradient(to right, var(--wp--preset--color--lw-accent), var(--wp--preset--color--lw-accent));
+	transition: background-size var(--wp--custom--transition--hover-time);
+	background-position: 100% 100%, 0 100%;
+	background-repeat: no-repeat;
+	background-size: 100% var(--wp--custom--border-size), 0 var(--wp--custom--border-size);
+
+	&:hover {
+		background-size: 0 var(--wp--custom--border-size), 100% var(--wp--custom--border-size);
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li {
+	a {
+		background-image: 
+		linear-gradient(to right, #0000, #0000),
+		linear-gradient(to right, var(--wp--preset--color--lw-accent), var(--wp--preset--color--lw-accent));
+	}
 }

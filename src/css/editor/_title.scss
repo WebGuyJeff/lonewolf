@@ -1,0 +1,53 @@
+// Make editor title look like UI, as it's not part of the webpage.
+.editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper {
+	gap: 1em;
+	display: flex;
+	align-items: center;
+	margin-top: 0 !important;
+	border-bottom: 1px solid #ddd;
+	background: #fff;
+	padding: 16px 48px 16px 16px;
+	height: 60px;
+	min-height: fit-content;
+	color: #1e1e1e;
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+	font-size: 13px;
+
+	&:before {
+		display: inline-block;
+		font-family: inherit;
+		font-size: 11px;
+		font-weight: 500;
+		content: "TITLE";
+	}
+
+	h1 {
+		-webkit-box-align: center;
+		-webkit-box-pack: start;
+		gap: calc(4px);
+		box-sizing: border-box;
+		display: flex;
+		flex-flow: wrap;
+		align-items: center;
+		justify-content: flex-start;
+		transition: box-shadow .1s linear;
+		margin: 0 !important;
+		border: 1px solid #949494;
+		border-radius: 2px;
+		box-shadow: 0 0 0 transparent;
+		cursor: text;
+		padding: 7px;
+		width: 100%;
+		max-width: 100%;
+		line-height: normal;
+		font-family: inherit;
+		font-size: inherit;
+		font-weight: 400;
+
+		&:focus {
+			outline: 2px solid transparent;
+			border-color: var(--wp-admin-theme-color);
+			box-shadow: 0 0 0 0.5px var(--wp-admin-theme-color);
+		}
+	}
+}

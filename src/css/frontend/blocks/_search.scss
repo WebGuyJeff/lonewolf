@@ -9,6 +9,6 @@
 		background: var(--wp--preset--color--lw-accent);
 		color: var(--wp--preset--color--lw-fg-alt);
 		border-color: var(--wp--preset--color--lw-accent);
-		border-radius: 5px;
+		border-radius: var(--wp--custom--border-radius--small);
 	}
 }

@@ -21,6 +21,7 @@ class Theme_Setup {
 		// Methods in this class.
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_front_end_scripts_and_styles' ), 10, 0 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts_and_styles' ), 10, 0 );
+		add_action( 'enqueue_block_editor_assets', array( $this, 'register_editor_scripts_and_styles' ), 10, 0 );
 		add_action( 'wp_head', array( $this, 'add_pingback_header' ), 10, 0 );
 		add_action( 'wp_head', array( new Head_Inject(), 'print_head_markup' ), 5, 0 );
 		add_action( 'after_setup_theme', array( $this, 'theme_supports_and_features' ), 10, 0 );
@@ -65,6 +66,14 @@ class Theme_Setup {
 		if ( current_user_can( 'manage_options' ) && LONEWOLF_DEBUG ) {
 			wp_enqueue_style( 'lonewolf_dev_css', LONEWOLF_URL . 'build/css/lonewolf-dev.css', array(), filemtime( LONEWOLF_PATH . 'build/css/lonewolf-dev.css' ), 'all' );
 		}
+	}
+
+
+	/**
+	 * Register editor scripts and styles.
+	 */
+	public function register_editor_scripts_and_styles() {
+		wp_enqueue_style( 'lonewolf_editor_css', LONEWOLF_URL . 'build/css/lonewolf-editor.css', array(), filemtime( LONEWOLF_PATH . 'build/css/lonewolf-editor.css' ), 'all' );
 	}
 
 

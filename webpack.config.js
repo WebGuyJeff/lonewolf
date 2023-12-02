@@ -15,6 +15,7 @@ module.exports = {
 		// 'example/output': './path/to/dir/entrypoint.js',
 		'css/lonewolf': path.join( __dirname, '/src/css/lonewolf.scss' ),
 		'css/lonewolf-admin': path.join( __dirname, '/src/css/lonewolf-admin.scss' ),
+		'css/lonewolf-editor': path.join( __dirname, '/src/css/lonewolf-editor.scss' ),
 		'css/lonewolf-dev': path.join( __dirname, '/src/css/lonewolf-dev.scss' ),
 		'js/lonewolf': path.join( __dirname, '/src/js/lonewolf' ),
 		// Legacy support for old page until migration to blocks is complete.

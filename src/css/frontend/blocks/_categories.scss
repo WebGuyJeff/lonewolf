@@ -11,8 +11,8 @@
 		li {
 			margin: 5px;
 			background-color: var(--wp--preset--color--lw-bg-alt);
-			border-radius: 25px;
-			padding: 8px 24px;
+			border-radius: var(--wp--custom--border-radius--medium);
+			padding: var(--wp--preset--spacing--20) var(--wp--preset--spacing--30);
 		}
 	}
 }

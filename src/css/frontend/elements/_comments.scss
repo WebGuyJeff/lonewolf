@@ -1,7 +1,7 @@
 .comment-form {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	grid-column-gap: 15px;
+	grid-column-gap: var(--wp--preset--spacing--40);
 
 	> * {
 		grid-column: 1 / span 3;

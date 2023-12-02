@@ -5,10 +5,10 @@
 	&.taxonomy-category {
 
 		a {
-			padding: 8px 24px;
-			margin: 5px;
+			padding: var(--wp--preset--spacing--30) var(--wp--preset--spacing--50);
+			margin: var(--wp--preset--spacing--20);
 			background-color: var(--wp--preset--color--lw-bg-alt);
-			border-radius: 25px;
+			border-radius: var(--wp--custom--border-radius--large);
 		}
 
 		.wp-block-post-terms__separator {

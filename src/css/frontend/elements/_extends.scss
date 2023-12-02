@@ -1,8 +1,8 @@
 %input-base {
-	border-radius: 3px;
+	border-radius: var(--wp--custom--border-radius--small);
 	color: var(--wp--preset--color--lw-fg);
 	background-color: var(--wp--preset--color--lw-bg);
-	border: 3px solid var(--wp--preset--color--lw-fg);
+	border: var(--wp--custom--border-size) solid var(--wp--preset--color--lw-fg);
 
 	&:disabled {
 		cursor: default;
@@ -21,10 +21,10 @@
 	font-family: inherit;
 	font-weight: 600;
 	text-transform: uppercase;
-	padding: 16px 32px;
-	border-radius: 500px;
+	padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--50);
+	border-radius: 100rem;
 	font-size: var(--wp--preset--font-size--medium);
-	transition: all 0.25s ease-in-out;
+	transition: all 0.35s ease-in-out;
 }
 
 %button {

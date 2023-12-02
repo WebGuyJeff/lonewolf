@@ -5,11 +5,11 @@
 	}
 
 	thead {
-		border-bottom: 2px solid;
+		border-bottom: var(--wp--custom--border-size) solid;
 	}
 
 	tfoot {
-		border-top: 2px solid;
+		border-top: var(--wp--custom--border-size) solid;
 	}
 
 	figcaption {
