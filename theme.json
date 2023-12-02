@@ -335,8 +335,15 @@
 			}
 		},
 		"blocks": {
+			"core/buttons": {
+				"spacing": {
+					"blockGap": "var(--wp--preset--spacing--40)"
+				}
+			},
 			"core/button": {
-				"spacing": { "padding": { "top": "1rem", "bottom": "1rem", "left": "2rem", "right": "2rem" } },
+				"spacing": {
+					"padding": { "top": "1rem", "bottom": "1rem", "left": "2rem", "right": "2rem" }
+				},
 				"color": { "background": "var(--wp--preset--color--lw-accent)", "text": "var(--wp--preset--color--lw-fg-alt)" },
 				"variations": {
 					"outline": {
