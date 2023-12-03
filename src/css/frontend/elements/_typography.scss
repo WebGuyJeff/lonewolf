@@ -1,5 +1,5 @@
 a {
-	text-decoration: none;
+	text-decoration: none !important;
 	color: inherit;
 
 	background-image: 
@@ -21,10 +21,12 @@ h3,
 h4,
 h5,
 h6,
-li {
+li,
+nav,
+.wp-block-site-title {
 	a {
 		background-image: 
-		linear-gradient(to right, #0000, #0000),
-		linear-gradient(to right, var(--wp--preset--color--lw-accent), var(--wp--preset--color--lw-accent));
+			linear-gradient(to right, #0000, #0000),
+			linear-gradient(to right, var(--wp--preset--color--lw-accent), var(--wp--preset--color--lw-accent));
 	}
 }

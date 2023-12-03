@@ -12,7 +12,6 @@
 		{ "name": "header-centered", "title": "Header Centered", "area": "header" },
 		{ "name": "header-sticky-sliding", "title": "Header Sticky Sliding", "area": "header" },
 		{ "name": "footer", "title": "Footer", "area": "footer" },
-		{ "name": "footer-with-columns", "title": "Footer with Columns", "area": "footer" },
 		{ "name": "footer-4-columns", "title": "Footer 4 Columns", "area": "footer" },
 		{ "name": "sidebar", "title": "Sidebar", "area": "uncategorized" }
 	],
@@ -232,10 +231,6 @@
 				"large": "2rem"
 			},
 			"padding-page": "clamp( var( --wp--preset--spacing--40 ), 6vw, var( --wp--preset--spacing--70 ) )",
-			"underline": {
-				"thin": "0.125rem",
-				"thick": "0.25rem"
-			},
 			"transition": { "hover-time": "0.35s" }
 		},
 		"blocks": {
