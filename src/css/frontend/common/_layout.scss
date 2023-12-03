@@ -16,8 +16,7 @@ footer {
 body > .is-root-container,
 body > .is-root-container > main,
 .wp-site-blocks,
-.wp-site-blocks > main,
-.entry-content {
+.wp-site-blocks > main {
 	gap: var(--wp--custom--gutter--x-large); // This should be the sole controller of root block spacing.
 	display: flex;
 	flex-direction: column;
