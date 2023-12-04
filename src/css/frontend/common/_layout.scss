@@ -17,18 +17,17 @@ body > .is-root-container,
 body > .is-root-container > main,
 .wp-site-blocks,
 .wp-site-blocks > main {
+
+	/*
+	// Gap doesn't work as it creates gap between header and hero. Leaving for reference.
 	gap: var(--wp--custom--gutter--x-large); // This should be the sole controller of root block spacing.
 	display: flex;
 	flex-direction: column;
+	*/
 
-	// Remove block spacing and let gap handle it.
-	&>* {
-		margin-block-start: 0; // Override global blockGap in theme.json which gets applied as margin.
+	// Global 'root-level' block margin.
+	&>*:not( header, header + *, main ) {
+		margin-block-start: var(--wp--custom--gutter--large);
 		margin-block-end: 0;
 	}
-}
-
-// Prevent unwanted padding in header/footer and other elements.
-:where(.wp-block-group.has-background) {
-	padding: unset;
 }

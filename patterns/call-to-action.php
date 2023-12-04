@@ -9,8 +9,8 @@
  */
 
 ?>
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"64px","bottom":"64px"},"blockGap":"40px","margin":{"top":"0px","bottom":"0px"}}},"backgroundColor":"lonewolf-accent","textColor":"lonewolf-fg-alt","layout":{"inherit":true}} -->
-<div class="wp-block-group alignfull has-lonewolf-fg-alt-color has-lonewolf-accent-background-color has-text-color has-background" style="margin-top:0px;margin-bottom:0px;padding-top:64px;padding-bottom:64px">
+<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"backgroundColor":"lonewolf-accent","textColor":"lonewolf-fg-alt","layout":{"inherit":true}} -->
+<div class="wp-block-group alignfull has-lonewolf-fg-alt-color has-lonewolf-accent-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60);">
 <!-- wp:heading {"textAlign":"center","textColor":"lonewolf-fg-alt"} -->
 <h2 class="has-text-align-center has-lonewolf-fg-alt-color has-text-color">Lorem ipsum sit dolor!</h2>
 <!-- /wp:heading -->

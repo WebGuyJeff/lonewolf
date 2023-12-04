@@ -17,8 +17,8 @@ $strings = array(
 );
 
 ?>
-<!-- wp:group {"style":{"spacing":{"padding":{"top":"64px","bottom":"64px"},"blockGap":"24px","margin":{"top":"0px","bottom":"0px"}}},"backgroundColor":"lonewolf-bg-alt","layout":{"inherit":true}} -->
-<div class="wp-block-group has-lonewolf-bg-alt-background-color has-background" style="margin-top:0px;margin-bottom:0px;padding-top:64px;padding-bottom:64px">
+<!-- wp:group {"backgroundColor":"lonewolf-bg-alt"} -->
+<div class="wp-block-group has-lonewolf-bg-alt-background-color has-background" >
 
 <!-- wp:heading {"textAlign":"center","level":1,"fontSize":"huge"} -->
 <h1 class="has-text-align-center has-xxx-large-font-size"><?php echo esc_html( $strings['title'] ); ?></h1>

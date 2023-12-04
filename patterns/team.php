@@ -15,8 +15,8 @@ $strings = array(
 $image = LONEWOLF_URL . 'assets/svg/pattern-images/shape-02.svg';
 
 ?>
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"64px","bottom":"64px"},"margin":{"top":"0px","bottom":"0px"}}},"backgroundColor":"lonewolf-bg-alt","layout":{"inherit":true,"type":"constrained"}} -->
-<div class="wp-block-group alignfull has-lonewolf-bg-alt-background-color has-background" style="margin-top:0px;margin-bottom:0px;padding-top:64px;padding-bottom:64px"><!-- wp:group {"align":"wide"} -->
+<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"backgroundColor":"lonewolf-bg-alt","layout":{"inherit":true,"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-lonewolf-bg-alt-background-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60);"><!-- wp:group {"align":"wide"} -->
 <div class="wp-block-group alignwide"><!-- wp:heading {"fontSize":"x-large"} -->
 <h2 class="has-x-large-font-size"><?php echo esc_html( $strings['title'] ); ?></h2>
 <!-- /wp:heading -->
@@ -26,7 +26,7 @@ $image = LONEWOLF_URL . 'assets/svg/pattern-images/shape-02.svg';
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"align":"wide","layout":{"inherit":false}} -->
+<!-- wp:group {"align":"wide"} -->
 <div class="wp-block-group alignwide"><!-- wp:columns -->
 <div class="wp-block-columns"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"is-style-default"} -->
@@ -41,7 +41,7 @@ $image = LONEWOLF_URL . 'assets/svg/pattern-images/shape-02.svg';
 <p class="has-small-font-size" style="text-transform:uppercase">CEO / Co-founder</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:social-links {"iconColor":"lonewolf-accent","iconColorValue":"#C26148","openInNewTab":true,"style":{"spacing":{"blockGap":{"top":"8px","left":"8px"}}},"className":"is-style-logos-only"} -->
+<!-- wp:social-links {"iconColor":"lonewolf-accent","iconColorValue":"#C26148","openInNewTab":true,"className":"is-style-logos-only"} -->
 <ul class="wp-block-social-links has-icon-color is-style-logos-only"><!-- wp:social-link {"url":"#","service":"twitter"} /-->
 
 <!-- wp:social-link {"url":"#","service":"linkedin"} /--></ul>
@@ -61,7 +61,7 @@ $image = LONEWOLF_URL . 'assets/svg/pattern-images/shape-02.svg';
 <p class="has-small-font-size" style="text-transform:uppercase">CFO / Co-founder</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:social-links {"iconColor":"lonewolf-accent","iconColorValue":"#C26148","openInNewTab":true,"style":{"spacing":{"blockGap":{"top":"8px","left":"8px"}}},"className":"is-style-logos-only"} -->
+<!-- wp:social-links {"iconColor":"lonewolf-accent","iconColorValue":"#C26148","openInNewTab":true,"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|30","left":"var:preset|spacing|50"}}},"className":"is-style-logos-only"} -->
 <ul class="wp-block-social-links has-icon-color is-style-logos-only"><!-- wp:social-link {"url":"#","service":"twitter"} /-->
 
 <!-- wp:social-link {"url":"#","service":"linkedin"} /--></ul>
@@ -81,7 +81,7 @@ $image = LONEWOLF_URL . 'assets/svg/pattern-images/shape-02.svg';
 <p class="has-small-font-size" style="text-transform:uppercase">CTO / Co-founder</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:social-links {"iconColor":"lonewolf-accent","iconColorValue":"#C26148","openInNewTab":true,"style":{"spacing":{"blockGap":{"top":"8px","left":"8px"}}},"className":"is-style-logos-only"} -->
+<!-- wp:social-links {"iconColor":"lonewolf-accent","iconColorValue":"#C26148","openInNewTab":true,"className":"is-style-logos-only"} -->
 <ul class="wp-block-social-links has-icon-color is-style-logos-only"><!-- wp:social-link {"url":"#","service":"twitter"} /-->
 
 <!-- wp:social-link {"url":"#","service":"linkedin"} /--></ul>

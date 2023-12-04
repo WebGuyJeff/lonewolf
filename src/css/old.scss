@@ -616,7 +616,7 @@ a img.aligncenter {
 	}
 
 	/* masonry */
-	@media (min-width: 1024px) {
+	@media (min-width: 10var(--wp--preset--spacing--50)) {
 		columns: 28em;
 		column-gap: 1em;
 

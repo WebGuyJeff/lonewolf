@@ -21,8 +21,8 @@ $images = array(
 );
 
 ?>
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"64px","bottom":"64px"},"margin":{"top":"0px","bottom":"0px"}}},"backgroundColor":"lonewolf-fg","textColor":"lonewolf-bg","layout":{"inherit":true,"type":"constrained"}} -->
-<div class="wp-block-group alignfull has-lonewolf-bg-color has-lonewolf-fg-background-color has-text-color has-background" style="margin-top:0px;margin-bottom:0px;padding-top:64px;padding-bottom:64px"><!-- wp:group {"align":"wide","layout":{"inherit":false}} -->
+<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"backgroundColor":"lonewolf-fg","textColor":"lonewolf-bg","layout":{"inherit":true,"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-lonewolf-bg-color has-lonewolf-fg-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60);"><!-- wp:group {"align":"wide"} -->
 <div class="wp-block-group alignwide"><!-- wp:columns -->
 <div class="wp-block-columns"><!-- wp:column {"width":"30%"} -->
 <div class="wp-block-column" style="flex-basis:30%"><!-- wp:heading -->

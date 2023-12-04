@@ -86,7 +86,7 @@ class Util {
 
 		self::enqueue_assets( 'jetbrains' );
 
-		echo '<div style="font:1rem\'JetBrains Mono\',monospace;position:fixed;top:0;left:0;width:480px;max-width:100vw;max-height:calc(100vh - 16px);border:2px solid;resize:both;overflow:auto;white-space:pre;background:#fff;color:#000;filter: drop-shadow(2px 4px 6px #3339);">';
+		echo '<div style="font:1rem\'JetBrains Mono\',monospace;position:fixed;top:0;left:0;width:480px;max-width:100vw;max-height:calc(100vh - var(--wp--preset--spacing--40));border:2px solid;resize:both;overflow:auto;white-space:pre;background:#fff;color:#000;filter: drop-shadow(2px 4px 6px #3339);">';
 		echo '<pre style="font:inherit;">';
 		echo '<b style="background:#333;color:#fff;"># Your output is served  👨‍🍳</b>';
 		echo '<br><br><br>';

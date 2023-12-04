@@ -1,16 +1,15 @@
 <!-- wp:template-part {"slug":"header","theme":"lonewolf","tagName":"header"} /-->
 
-<!-- wp:group {"style":{"spacing":{"padding":{"top":"64px","bottom":"64px"},"margin":{"top":"0px","bottom":"0px"}}},"backgroundColor":"lonewolf-bg-alt","layout":{"inherit":true}} -->
-<div class="wp-block-group has-lonewolf-bg-alt-background-color has-background"
-     style="margin-top:0px;margin-bottom:0px;padding-top:64px;padding-bottom:64px">
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"backgroundColor":"lonewolf-bg-alt","layout":{"inherit":true}} -->
+<div class="wp-block-group has-lonewolf-bg-alt-background-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60);">
     <!-- wp:heading {"textAlign":"center","level":1,"fontSize":"xxl"} -->
     <h1 class="has-text-align-center has-xxl-font-size">Our awesome blog</h1>
     <!-- /wp:heading -->
 </div>
 <!-- /wp:group -->
 
-<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"64px","bottom":"64px"}}},"layout":{"inherit":true}} -->
-<main class="wp-block-group" style="padding-top:64px;padding-bottom:64px">
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"layout":{"inherit":true}} -->
+<main class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60);">
     <!-- wp:query {"queryId":4,"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"layout":{"inherit":true}} -->
     <div class="wp-block-query">
         <!-- wp:post-template -->
@@ -23,14 +22,14 @@
         </div>
         <!-- /wp:group -->
 
-        <!-- wp:spacer {"height":"64px"} -->
-        <div style="height:64px" aria-hidden="true" class="wp-block-spacer"></div>
+        <!-- wp:spacer {"height":"var:preset|spacing|60"} -->
+        <div style="height:var(--wp--preset--spacing--60)" aria-hidden="true" class="wp-block-spacer"></div>
         <!-- /wp:spacer -->
 
         <!-- /wp:post-template -->
 
-        <!-- wp:group {"style":{"spacing":{"margin":{"top":"24px"}}}} -->
-        <div class="wp-block-group" style="margin-top:24px">
+        <!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->
+        <div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--50)">
             <!-- wp:query-pagination {"textColor":"lonewolf-fg","layout":{"type":"flex","justifyContent":"space-between"}} -->
             <!-- wp:query-pagination-previous /-->
 

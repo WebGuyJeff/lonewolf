@@ -6,7 +6,7 @@
 	margin-top: 0 !important;
 	border-bottom: 1px solid #ddd;
 	background: #fff;
-	padding: 16px 48px 16px 16px;
+	padding: var(--wp--preset--spacing--40) 48px var(--wp--preset--spacing--40) var(--wp--preset--spacing--40);
 	height: 60px;
 	min-height: fit-content;
 	color: #1e1e1e;
