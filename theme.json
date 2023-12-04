@@ -266,7 +266,6 @@
 		"elements": {
 			"button": {
 				"border": { "radius": "100rem", "width": "0" },
-				"css": "transition: all var(--wp--custom--transition--hover-time) ease-in-out;",
 				"typography": { "textTransform": "uppercase", "fontWeight": "600" },
 				":hover": { "border": { "radius": "var(--wp--custom--border-radius--small)" } }
 			},
@@ -288,6 +287,7 @@
 		"blocks": {
 			"core/buttons": { "spacing": { "blockGap": "var(--wp--custom--gutter--small)" } },
 			"core/button": {
+				"css": "transition: border-radius var(--wp--custom--transition--hover-time) ease-in-out; transition-delay: 0ms !important;",
 				"spacing": {
 					"padding": {
 						"top": "var(--wp--preset--spacing--40)",

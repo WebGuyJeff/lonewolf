@@ -24,8 +24,19 @@ textarea {
 	font-family: inherit;
 }
 
+
+input[type='submit'],
+button,
+.wp-block-button a {
+	// Also set in theme.json, trying to get rid of hover delay???
+	transition: border-radius var(--wp--custom--transition--hover-time) ease-in-out;
+	transition-delay: 0ms !important;
+}
+
+/*
 input[type='submit'],
 button[type='submit'] {
 
 	@extend %button;
 }
+*/
