@@ -217,6 +217,7 @@
 		"dimensions": { "minHeight": true },
 		"position": { "sticky": true },
 		"custom": {
+			"body-class": "lw-theme-default",
 			"fluid-root": "var(--lw--fluid-root)",
 			"gutter": {
 				"small": "var( --wp--preset--spacing--40 )",
@@ -265,7 +266,7 @@
 		},
 		"elements": {
 			"button": {
-				"border": { "radius": "100rem", "width": "0" },
+				"border": { "width": "0", "style": "solid" },
 				"typography": { "textTransform": "uppercase", "fontWeight": "600" },
 				":hover": { "border": { "radius": "var(--wp--custom--border-radius--small)" } }
 			},

@@ -6,50 +6,57 @@
 	1.1 Text Gradients
 2. [ SHADOWS] 
 	2.1 Pseudo Shadow
-
 */
-/*========================================================= 1. TYPOGRAPHY ====*/
-/*---------------------------------------------------- 1.1 Text Gradients ----*/
 
 
-@mixin textGradient {
-    background-size: 100%;
-	background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-	color: transparent;
-    -webkit-text-fill-color: transparent; 
-    -moz-text-fill-color: transparent;
-}
+/**
+ * This body class is defined in the variation json.
+ */
+ .lw-theme-bigup-web {
 
-.textGradient-pinkPurple {
-	@include textGradient;
-    background-color: var( --wp--preset--color--lw-pink );
-    background-image: linear-gradient(45deg, var( --wp--preset--color--lw-pink ), var( --wp--preset--color--lw-purple ) );
-}
+	/*========================================================= 1. TYPOGRAPHY ====*/
+	/*---------------------------------------------------- 1.1 Text Gradients ----*/
 
 
-/*============================================================ 2. SHADOWS ====*/
-/*----------------------------------------------------- 2.1 Pseudo Shadow ----*/
-
-
-.pseudoShadow {
-	position: relative;
-	
-	&:before {
-		content: "";
-		display: block;
-		position: absolute;
-		z-index: -1;
-		left: 0;
-		right: 0;
-		top: 0;
-		bottom: 0;
-		border-radius: inherit;
+	@mixin textGradient {
+		background-size: 100%;
+		background-clip: text;
+		-webkit-background-clip: text;
+		-moz-background-clip: text;
+		color: transparent;
+		-webkit-text-fill-color: transparent; 
+		-moz-text-fill-color: transparent;
 	}
-	
-	&-tealPurpleOpaque:before {
-		transform: scale( 1.02 ) translate( 0.8em, -0.4em );
-		background: linear-gradient( 110deg, var( --wp--preset--color--lw-green-light ) 20%, var( --wp--preset--color--lw-blue-light ) 40%, var( --wp--preset--color--lw-purple ) 70% );
+
+	.textGradient-pinkPurple {
+		@include textGradient;
+		background-color: var( --wp--preset--color--lw-pink );
+		background-image: linear-gradient(45deg, var( --wp--preset--color--lw-pink ), var( --wp--preset--color--lw-purple ) );
+	}
+
+
+	/*============================================================ 2. SHADOWS ====*/
+	/*----------------------------------------------------- 2.1 Pseudo Shadow ----*/
+
+
+	.pseudoShadow {
+		position: relative;
+		
+		&:before {
+			content: "";
+			display: block;
+			position: absolute;
+			z-index: -1;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			border-radius: inherit;
+		}
+		
+		&-tealPurpleOpaque:before {
+			transform: scale( 1.02 ) translate( 0.8em, -0.4em );
+			background: linear-gradient( 110deg, var( --wp--preset--color--lw-green-light ) 20%, var( --wp--preset--color--lw-blue-light ) 40%, var( --wp--preset--color--lw-purple ) 70% );
+		}
 	}
 }

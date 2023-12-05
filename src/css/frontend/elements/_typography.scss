@@ -1,4 +1,4 @@
-a {
+a:not(.wp-block-button__link) {
 	text-decoration: none !important;
 	color: inherit;
 
@@ -24,7 +24,7 @@ h6,
 li,
 nav,
 .wp-block-site-title {
-	a {
+	a:not(.wp-block-button__link) {
 		background-image: 
 			linear-gradient(to right, #0000, #0000),
 			linear-gradient(to right, var(--wp--preset--color--lw-accent), var(--wp--preset--color--lw-accent));

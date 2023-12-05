@@ -4,24 +4,31 @@
 
 1. [TYPOGRAPHY]
 	1.1 Text Gradients
-
 */
-/*========================================================= 1. TYPOGRAPHY ====*/
-/*---------------------------------------------------- 1.1 Text Gradients ----*/
 
 
-@mixin textGradient {
-    background-size: 100%;
-	background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-	color: transparent;
-    -webkit-text-fill-color: transparent; 
-    -moz-text-fill-color: transparent;
-}
+/**
+ * This body class is defined in the variation json.
+ */
+ .lw-theme-rhubarb-and-custard {
 
-.textGradient-rhubarbAndCustard {
-	@include textGradient;
-    background-color: #f3ec78;
-    background-image: linear-gradient(45deg, #f3ec78, #af4261);
+	/*========================================================= 1. TYPOGRAPHY ====*/
+	/*---------------------------------------------------- 1.1 Text Gradients ----*/
+
+
+	@mixin textGradient {
+		background-size: 100%;
+		background-clip: text;
+		-webkit-background-clip: text;
+		-moz-background-clip: text;
+		color: transparent;
+		-webkit-text-fill-color: transparent; 
+		-moz-text-fill-color: transparent;
+	}
+
+	.textGradient-rhubarbAndCustard {
+		@include textGradient;
+		background-color: #f3ec78;
+		background-image: linear-gradient(45deg, #f3ec78, #af4261);
+	}
 }

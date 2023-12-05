@@ -131,6 +131,9 @@
 					"slug": "sedgwick-ave"
 				}
 			]
+		},
+		"custom": {
+			"body-class": "lw-theme-bigup-web"
 		}
 	}
 }

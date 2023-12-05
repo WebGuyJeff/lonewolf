@@ -90,6 +90,9 @@
 					"slug": "heading"
 				}
 			]
+		},
+		"custom": {
+			"body-class": "lw-theme-midnight-sun"
 		}
 	},
 	"styles": {

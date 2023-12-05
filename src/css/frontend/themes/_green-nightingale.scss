@@ -14,7 +14,7 @@
 /**
  * This body class is defined in the variation json.
  */
- .lw-theme-midnight-sun {
+.lw-theme-green-nightingale {
 
 	/*========================================================= 1. TYPOGRAPHY ====*/
 	/*---------------------------------------------------- 1.1 Text Gradients ----*/
@@ -53,22 +53,28 @@
 
 	.queryLoopCards-coloured {
 
-		&>* { // Post Temlpate (card parent).
+		&>* { // Post Temlpate (<li> card parent).
 
 			&> * { // Stack block (card inner wrapper).
 				overflow: hidden;
 				background-color: var(--cardColour);
-				color: var(--cardColour);
 
-				a {
-					color: var(--cardColour) !important;
+
+				@media (max-width: 600px) {
+					// Turn off the right-borders on mobile.
+					border-right: none;
+					border-bottom: solid var(--wp--custom--border-size);
 				}
 			}
 
 			// Editor adds hidden items, so we have to filter them by not selecting [style="display: none;"].
-			&:nth-child( 3n+1 of :not( *[style="display: none;"] ) )>* { --cardColour:var(--wp--preset--color--lw-accent); }
-			&:nth-child( 3n+2 of :not( *[style="display: none;"] ) )>* { --cardColour:var(--wp--preset--color--lw-teal-dark); }
-			&:nth-child( 3n+3 of :not( *[style="display: none;"] ) )>* { --cardColour:var(--wp--preset--color--lw-blue-darkest); }
+			&:nth-child( 3n+1 of :not( *[style="display: none;"] ) )>* { --cardColour:var(--wp--preset--color--lw-yellow); }
+			&:nth-child( 3n+2 of :not( *[style="display: none;"] ) )>* { --cardColour:var(--wp--preset--color--lw-green-light); }
+			&:nth-child( 3n+3 of :not( *[style="display: none;"] ) )>* {
+				--cardColour:var(--wp--preset--color--lw-bg-alt);
+				// Turn off the right-border on the last card when in landscape layout.
+				border-right: none;
+			}
 		}
 	}
 }

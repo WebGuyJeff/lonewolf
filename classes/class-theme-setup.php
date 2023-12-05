@@ -31,6 +31,7 @@ class Theme_Setup {
 		self::set_auto_update_state();
 		self::disable_wpautop();
 		self::remove_head_bloat();
+		add_filter( 'body_class', array( $this, 'add_style_variation_body_class' ) );
 
 		// External classes.
 		$Settings_Admin = new Settings_Admin();
@@ -238,5 +239,17 @@ class Theme_Setup {
 	public static function disable_wpautop() {
 		// Stop WP adding p tags on blank lines!
 		remove_filter( 'the_content', 'wpautop' );
+	}
+
+
+	/**
+	 * Add a body class to identify the style variation in use.
+	 * 
+	 * Classes are defined in the json files: `custom.body-class`.
+	 */
+	function add_style_variation_body_class( $classes ) {
+		$variation_class = wp_get_global_settings( array( 'custom', 'body-class' ) );
+		$classes[] = $variation_class;
+		return $classes;
 	}
 }
