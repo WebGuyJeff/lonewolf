@@ -118,13 +118,13 @@ $xlWidth:      1920px;
 .display {
 	margin-block-end: 4vw;
 	line-height: 1.1;
-	font-size: clamp(7vw, 9vw ,10vw);
+	font-size: clamp(7vw, 9vw,10vw);
 	font-weight: 100;
 }
 @media ( min-width: $tabletWidth ) {
 	.display {
 		margin-block-end: 4vw;
-		font-size: clamp( 3.5vw, 4.5vw , 5vw );
+		font-size: clamp( 3.5vw, 4.5vw, 5vw );
 		font-weight: 100;
 	}
 }
