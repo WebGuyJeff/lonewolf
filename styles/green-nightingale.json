@@ -88,6 +88,11 @@
 	},
 	"styles": {
 		"elements": {
+			"heading": {
+				"typography": {
+					"fontWeight": "400"
+				}
+			},
 			"button": {
 				"border": { "radius": "100rem", "width": "var(--wp--custom--border-size)", "style": "solid", "color": "var(--wp--preset--color--lw-fg)" },
 				"typography": { "textTransform": "uppercase", "fontWeight": "600" },
