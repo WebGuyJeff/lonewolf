@@ -1,0 +1,9 @@
+.wp-block-button__link,
+.wp-element-button,
+button,
+.button,
+input[type="submit"] {
+	:hover {
+		border-radius: var(--wp--custom--border-radius--small)
+	}
+}

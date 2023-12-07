@@ -5,6 +5,7 @@
 1. [TYPOGRAPHY]
 	1.1 Text Gradients
 2. [BLOCKS]
+	2.1 camperAnimation
 3. [PATTERNS]
 	3.1 queryLoopCards-coloured
 */
@@ -29,34 +30,22 @@
 		-moz-text-fill-color: transparent;
 	}
 
-	.gn__textGradient_yellow-red {
+	.textGradient-sunrise {
 		@include textGradient;
-		background-color: #fe6150;
-		background-image: linear-gradient(170deg, #ffb129 0%, #fe6150 100%);
+		background-color: #fbad40;
+		background-image: linear-gradient(170deg, #fbad40 0%, #ef4236 100%);
 	}
-
-	.gn__textGradient_blue-red {
-		@include textGradient;
-		background-color: #044171;
-		background-image: linear-gradient(170deg, #044171 0%, #fe6150 100%);
-	}
-
-	.gn__textGradient_blue-green {
-		@include textGradient;
-		background-color: #044171;
-		background-image: linear-gradient(170deg, #044171 0%, #0d9066 100%);
-	}
-
-	.gn__textGradient_mint-yellow {
-		@include textGradient;
-		background-color: #044171;
-		background-image: linear-gradient(170deg, #7ee2a2 0%, #ffb129 100%);
-	}
-
 
 
 	/*============================================================= 2. BLOCKS ====*/
+	/*--------------------------------------------------- 2.1 camperAnimation ----*/
 
+	.camperAnimation_wrapper > .wp-block-group {
+		@media( max-width: 500px ) {
+			background: linear-gradient( transparent 30%, #0007 80%);
+			min-height: 100%;
+		}
+	}
 
 
 	/*=========================================================== 3. PATTERNS ====*/
@@ -69,12 +58,23 @@
 			&> * { // Stack block (card inner wrapper).
 				overflow: hidden;
 				background-color: var(--cardColour);
+
+
+				@media (max-width: 600px) {
+					// Turn off the right-borders on mobile.
+					border-right: none;
+					border-bottom: solid var(--wp--custom--border-size);
+				}
 			}
 
 			// Editor adds hidden items, so we have to filter them by not selecting [style="display: none;"].
 			&:nth-child( 3n+1 of :not( *[style="display: none;"] ) )>* { --cardColour:var(--wp--preset--color--lw-yellow); }
 			&:nth-child( 3n+2 of :not( *[style="display: none;"] ) )>* { --cardColour:var(--wp--preset--color--lw-green-light); }
-			&:nth-child( 3n+3 of :not( *[style="display: none;"] ) )>* { --cardColour:var(--wp--preset--color--lw-green-dark); }
+			&:nth-child( 3n+3 of :not( *[style="display: none;"] ) )>* {
+				--cardColour:var(--wp--preset--color--lw-bg-alt);
+				// Turn off the right-border on the last card when in landscape layout.
+				border-right: none;
+			}
 		}
 	}
 }
