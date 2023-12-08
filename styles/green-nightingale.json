@@ -105,8 +105,8 @@
 				"css": "transition: border-radius var(--wp--custom--transition--hover-time) ease-in-out; transition-delay: 0ms !important;",
 				"spacing": {
 					"padding": {
-						"top": "var(--wp--preset--spacing--20)",
-						"bottom": "var(--wp--preset--spacing--20)",
+						"top": "var(--wp--preset--spacing--30)",
+						"bottom": "var(--wp--preset--spacing--30)",
 						"left": "var(--wp--preset--spacing--40)",
 						"right": "var(--wp--preset--spacing--40)"
 					}
@@ -117,10 +117,10 @@
 						"border": { "radius": "100rem", "width": "var(--wp--custom--border-size)", "style": "solid", "color": "currentColor" },
 						"spacing": {
 							"padding": {
-								"top": "var(--wp--preset--spacing--20)",
-								"bottom": "var(--wp--preset--spacing--20)",
-								"left": "var(--wp--preset--spacing--40)",
-								"right": "var(--wp--preset--spacing--40)"
+								"top": "calc( var(--wp--preset--spacing--30) - var(--wp--custom--border-size) )",
+								"bottom": "calc( var(--wp--preset--spacing--30) - var(--wp--custom--border-size) )",
+								"left": "calc( var(--wp--preset--spacing--40) - var(--wp--custom--border-size) )",
+								"right": "calc( var(--wp--preset--spacing--40) - var(--wp--custom--border-size) )"
 							}
 						}
 					}
