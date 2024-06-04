@@ -2,10 +2,7 @@
 namespace BigupWeb\Lonewolf;
 
 /**
- * Lonewolf Theme Template - Front Page
- *
- * This template overrides the home page.
- *
+ * Lonewolf Theme Template - OLD HOME FOR REFERENCE PURPOSES ONLY
  * @package lonewolf
  * @author Jefferson Real <me@jeffersonreal.uk>
  * @copyright Copyright 2023 Jefferson Real

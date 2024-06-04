@@ -9,14 +9,19 @@ namespace BigupWeb\Lonewolf;
  * @copyright Copyright 2023 Jefferson Real
  */
 
-// Set global constants.
-define( 'LONEWOLF_DEBUG', defined( 'WP_DEBUG' ) && WP_DEBUG === true );
+// Development debugging.
+$enable_debug = true;
+
+ // Set global constants.
+define( 'LONEWOLF_DEBUG', $enable_debug );
 define( 'LONEWOLF_PATH', trailingslashit( __DIR__ ) );
 define( 'LONEWOLF_URL', trailingslashit( get_site_url( null, strstr( __DIR__, '/wp-content/' ) ) ) );
 
-// Setup PHP namespace.
-require_once LONEWOLF_PATH . 'classes/autoload.php';
+// Register namespaced autoloader.
+$namespace = 'BigupWeb\\Lonewolf\\';
+$root      = LONEWOLF_PATH . 'classes/';
+require_once $root . 'autoload.php';
 
-// Setup the plugin.
+// Setup the theme.
 $Theme_Setup = new Theme_Setup();
 $Theme_Setup->all();
