@@ -2,10 +2,10 @@
 	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"version": 2,
 	"customTemplates": [
-		{ "name": "template-blank", "title": "Blank Page - Only Content" },
-		{ "name": "services", "title": "Services Archive" },
-		{ "name": "full-width", "title": "Full Width" },
-		{ "name": "sidebar-right", "title": "Sidebar on the Right" }
+		{ "name": "template-blank", "title": "Blank Page - Only Content", "postTypes": [ "page" ] },
+		{ "name": "full-width", "title": "Full Width", "postTypes": [ "page" ] },
+		{ "name": "sidebar-right", "title": "Sidebar on the Right", "postTypes": [ "page" ] },
+		{ "name": "services", "title": "Services Archive" }
 	],
 	"templateParts": [
 		{ "name": "header", "title": "Header", "area": "header" },
