@@ -1,4 +1,6 @@
-# Lonewolf
+# Lonewolf (deprecated)
+
+Note: This package is deprecated and will receive no further updates.
 
 ## A WordPress theme for freelancers.
 
